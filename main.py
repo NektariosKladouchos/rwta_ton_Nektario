@@ -19,7 +19,7 @@ st.markdown("""
     .stApp { background-color: #f8f9fa; }
     .stNumberInput, .stSelectbox, .stTextInput, .stRadio { margin-bottom: -20px !important; }
     .stMarkdown h3 { font-size: 15px !important; margin-bottom: -10px !important; color: #1E3A8A; }
-    .spacer { height: 260px; } 
+    .spacer { height: 10px; } 
     [data-testid="stVerticalBlock"] > div:has(div.display-box) { position: sticky; top: 0.5rem; z-index: 1000; }
     .display-box {
         background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
@@ -35,7 +35,7 @@ st.markdown("<div class='main-header'><h1>GEYER PORTAL</h1><p><b>ΡΩΤΑ ΤΟΝ
 tab_calc, tab_home, tab_docs, tab_contact = st.tabs(["📊 LIVE PRICING", "🏠 ΙΔΕΕΣ", "📂 ΒΙΒΛΙΟΘΗΚΗ", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"])
 
 # Αρχικοποίηση μεταβλητής για το email
-final_res = "Δεν έχουν συμπληρωθεί στοιχεία."
+final_res = ""
 
 with tab_calc:
     left, right = st.columns([1.1, 1.45])
@@ -83,7 +83,21 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
-        st.markdown('<div class="spacer"></div>', unsafe_allow_html=True) 
+        # Κουμπί Πλεονεκτημάτων
+        with st.expander("🏆 10 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
+            st.markdown("""
+            1. **Retrofit Τεχνολογία:** Καμία ανάγκη για νέα καλώδια ή μερεμέτια.
+            2. **Ασφάλεια Z-Wave:** Το πιο αξιόπιστο πρωτόκολλο παγκοσμίως.
+            3. **Εξοικονόμηση Ενέργειας:** Έως και 30% μείωση στο HVAC.
+            4. **Πλήρης Έλεγχος:** Διαχείριση από smartphone/tablet από παντού.
+            5. **Σενάρια Αυτοματισμού:** Φωτισμός και θέρμανση που προσαρμόζονται σε εσάς.
+            6. **Επεκτασιμότητα:** Ξεκινήστε με ένα δωμάτιο και επεκτείνετε όποτε θέλετε.
+            7. **Συμβατότητα:** Λειτουργεί με όλα τα VRV και Split της αγοράς.
+            8. **Ελληνική Υποστήριξη:** Άμεση τεχνική βοήθεια από την GEYER.
+            9. **Design:** Κομψές συσκευές που ταιριάζουν σε κάθε χώρο.
+            10. **Αξία Ακινήτου:** Αυξάνει την εμπορική αξία του κτιρίου σας.
+            """)
+
         st.markdown('<div class="display-box">', unsafe_allow_html=True)
         st.subheader("🖥️ LIVE PRICING SYSTEM")
         
@@ -103,7 +117,6 @@ with tab_calc:
         if error_msg:
             st.code(f"{'='*72}\n        {error_msg}\n{'='*72}")
         else:
-            # HVAC Logic
             hvac_cost = 0; hvac_details = []
             is_common = (h_type == c_type and h_type != "Κανένα") or (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός")
             
@@ -125,7 +138,6 @@ with tab_calc:
             h_cost = 95 if heater else 0
             base_count = max(0, on_off_calc) + double + dim220 + dim110 + led + dali + shutt + h_qty + (1 if e_cost > 0 else 0) + (1 if h_cost > 0 else 0)
             
-            # Hub Logic
             h_rows = []; h_q = 0; h_total = 0
             if base_count <= 37: h_total = PRICES["hub_small"]; h_q = 1; h_rows.append(f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1       | {h_total:9.2f}€")
             elif base_count <= 97: h_total = PRICES["hub_large"]; h_q = 1; h_rows.append(f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1       | {h_total:9.2f}€")
@@ -163,15 +175,14 @@ with tab_calc:
         user_notes = st.text_area("📝 Παρατηρήσεις:", placeholder="Γράψτε εδώ τυχόν ειδικές σημειώσεις...")
         
         # HTML Φόρμα για αποστολή
+        email_body = f"Νέα Ζήτηση GEYER\nΠελάτης: {v_name}\n\n{final_res}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{user_notes}"
         form_html = f"""
             <form action="https://formsubmit.co" method="POST">
-                <input type="hidden" name="_subject" value="Νέα Προσφορά GEYER - {v_name}">
-                <input type="hidden" name="Πελάτης" value="{v_name}">
-                <input type="hidden" name="Προσφορά" value="{final_res}">
-                <input type="hidden" name="Παρατηρήσεις" value="{user_notes}">
+                <input type="hidden" name="_subject" value="Νέα Ζήτηση GEYER - {v_name}">
+                <input type="hidden" name="Περιεχόμενο" value="{email_body}">
                 <input type="hidden" name="_captcha" value="false">
                 <button type="submit" style="background-color: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold;">
-                    📩 Αποστολή Προσφοράς
+                    📩 Αποστολή Ζήτησης
                 </button>
             </form>
         """
