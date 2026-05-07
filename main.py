@@ -34,9 +34,6 @@ st.markdown("<div class='main-header'><h1>GEYER PORTAL</h1><p><b>ΡΩΤΑ ΤΟΝ
 
 tab_calc, tab_home, tab_docs, tab_contact = st.tabs(["📊 LIVE PRICING", "🏠 ΙΔΕΕΣ", "📂 ΒΙΒΛΙΟΘΗΚΗ", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"])
 
-# Αρχικοποίηση μεταβλητής για το email
-final_res = ""
-
 with tab_calc:
     left, right = st.columns([1.1, 1.45])
     with left:
@@ -63,7 +60,7 @@ with tab_calc:
         h_type = st.selectbox("Επιλογή Θ", h_list, key="ht")
         h_qty_val = 0 if h_type == "Κανένα" else st.session_state.get('h_qty_in', 0)
         h_qty = st.number_input(h_labels[h_list.index(h_type)], min_value=0, value=h_qty_val, key='h_qty_in')
-        hb = ""
+        hb = "Daikin"
         if h_type == "VRV/VRF": hb = st.selectbox("Brand (Θ)", BRANDS, key="hb")
 
         st.markdown("### ❄️ 4. ΨΥΞΗ")
@@ -72,7 +69,7 @@ with tab_calc:
         c_type = st.selectbox("Επιλογή Ψ", c_list, key="ct")
         c_qty_val = 0 if c_type == "Κανένα" else st.session_state.get('c_qty_in', 0)
         c_qty = st.number_input(c_labels[c_list.index(c_type)], min_value=0, value=c_qty_val, key='c_qty_in')
-        cb = ""
+        cb = "Daikin"
         if c_type == "VRV/VRF": cb = st.selectbox("Brand (Ψ)", BRANDS, key="cb")
 
         st.markdown("### 🪟 5. ΡΟΛΑ")
@@ -83,27 +80,15 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
-        # Κουμπί Πλεονεκτημάτων
         with st.expander("🏆 10 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
-            st.markdown("""
-            1. **Retrofit Τεχνολογία:** Καμία ανάγκη για νέα καλώδια ή μερεμέτια.
-            2. **Ασφάλεια Z-Wave:** Το πιο αξιόπιστο πρωτόκολλο παγκοσμίως.
-            3. **Εξοικονόμηση Ενέργειας:** Έως και 30% μείωση στο HVAC.
-            4. **Πλήρης Έλεγχος:** Διαχείριση από smartphone/tablet από παντού.
-            5. **Σενάρια Αυτοματισμού:** Φωτισμός και θέρμανση που προσαρμόζονται σε εσάς.
-            6. **Επεκτασιμότητα:** Ξεκινήστε με ένα δωμάτιο και επεκτείνετε όποτε θέλετε.
-            7. **Συμβατότητα:** Λειτουργεί με όλα τα VRV και Split της αγοράς.
-            8. **Ελληνική Υποστήριξη:** Άμεση τεχνική βοήθεια από την GEYER.
-            9. **Design:** Κομψές συσκευές που ταιριάζουν σε κάθε χώρο.
-            10. **Αξία Ακινήτου:** Αυξάνει την εμπορική αξία του κτιρίου σας.
-            """)
+            st.write("1. Retrofit τεχνολογία | 2. Z-Wave Αξιοπιστία | 3. Εξοικονόμηση 30% | 4. Smartphone App | 5. Σενάρια Αυτοματισμού | 6. Επεκτασιμότητα | 7. Συμβατότητα HVAC | 8. Ελληνική Υποστήριξη | 9. Design | 10. Αξία Ακινήτου")
 
         st.markdown('<div class="display-box">', unsafe_allow_html=True)
         st.subheader("🖥️ LIVE PRICING SYSTEM")
         
+        # --- LOGIC ΔΙΚΛΙΔΕΣ ---
         on_off_calc = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
         
-        # --- LOGIC ΥΠΟΛΟΓΙΣΜΟΥ ---
         error_msg = None
         if not v_name or not v_job or not v_addr:
             error_msg = "⚠️ ΠΑΡΑΚΑΛΩ ΣΥΜΠΛΗΡΩΣΤΕ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ"
@@ -113,69 +98,78 @@ with tab_calc:
             error_msg = "❌ ΛΑΘΟΣ: ΔΙΑΦΟΡΕΤΙΚΕΣ ΜΑΡΚΕΣ VRV ΣΕ Θ/Ψ"
         elif (h_type == "VRV/VRF" and hb == "Άλλη") or (c_type == "VRV/VRF" and cb == "Άλλη"):
             error_msg = "❌ ΜΗ ΣΥΜΒΑΤΟ ΣΥΣΤΗΜΑ VRV"
+        
+        is_common_hvac = (h_type == "Split Κλιματιστικά" and c_type == "Split Κλιματιστικά") or \
+                         (h_type == "VRV/VRF" and c_type == "VRV/VRF") or \
+                         (h_type == "Fancoil οροφής" and c_type == "Fancoil οροφής") or \
+                         (h_type == "Fancoil δαπέδου" and c_type == "Fancoil δαπέδου") or \
+                         (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός")
+        
+        if not error_msg and is_common_hvac and h_qty != c_qty:
+            error_msg = f"❌ ΛΑΘΟΣ: Η ΠΟΣΟΤΗΤΑ {h_type} ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΙΔΙΑ ΣΕ Θ/Ψ"
 
+        final_res_text = ""
         if error_msg:
             st.code(f"{'='*72}\n        {error_msg}\n{'='*72}")
         else:
+            # HVAC Logic
             hvac_cost = 0; hvac_details = []
-            is_common = (h_type == c_type and h_type != "Κανένα") or (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός")
-            
-            if is_common:
+            if is_common_hvac:
                 p_key = "fancoil_ctrl" if "Fancoil" in h_type or "Δροσισμός" in c_type else "vrv_interface" if "VRV" in h_type else "split_ac" if "Split" in h_type else "heat_thermostat"
                 hvac_cost = h_qty * PRICES[p_key]
-                hvac_details.append({"n": f"{h_type} {hb if h_type=='VRV/VRF' else ''} (Κοινό)", "q": h_qty, "p": hvac_cost})
+                hvac_details.append({"n": f"{h_type} {hb if 'VRV' in h_type else ''} (Κοινό)", "q": h_qty, "p": hvac_cost})
             else:
                 if h_qty > 0 and h_type != "Κανένα":
                     h_keys = ["", "", "heat_thermostat", "fancoil_ctrl", "fancoil_ctrl", "electric_heat", "vrv_interface", "split_ac"]
                     p = h_qty * PRICES[h_keys[h_list.index(h_type)]]; hvac_cost += p
-                    hvac_details.append({"n": f"Θ: {h_type} {hb if h_type=='VRV/VRF' else ''}", "q": h_qty, "p": p})
+                    hvac_details.append({"n": f"Θ: {h_type} {hb if 'VRV' in h_type else ''}", "q": h_qty, "p": p})
                 if c_qty > 0 and c_type != "Κανένα":
                     c_keys = ["", "fancoil_ctrl", "fancoil_ctrl", "fancoil_ctrl", "vrv_interface", "split_ac"]
                     p = c_qty * PRICES[c_keys[c_list.index(c_type)]]; hvac_cost += p
-                    hvac_details.append({"n": f"Ψ: {c_type} {cb if c_type=='VRV/VRF' else ''}", "q": c_qty, "p": p})
+                    hvac_details.append({"n": f"Ψ: {c_type} {cb if 'VRV' in c_type else ''}", "q": c_qty, "p": p})
 
             e_cost = 110 if "Μονοφασικός" in energy else 160 if "Τριφασικός" in energy else 0
             h_cost = 95 if heater else 0
-            base_count = max(0, on_off_calc) + double + dim220 + dim110 + led + dali + shutt + h_qty + (1 if e_cost > 0 else 0) + (1 if h_cost > 0 else 0)
+            base_count = max(0, on_off_calc) + double + dim220 + dim110 + led + dali + shutt + max(h_qty, c_qty) + (1 if e_cost > 0 else 0) + (1 if h_cost > 0 else 0)
             
-            h_rows = []; h_q = 0; h_total = 0
-            if base_count <= 37: h_total = PRICES["hub_small"]; h_q = 1; h_rows.append(f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1       | {h_total:9.2f}€")
-            elif base_count <= 97: h_total = PRICES["hub_large"]; h_q = 1; h_rows.append(f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1       | {h_total:9.2f}€")
-            elif base_count <= 130: h_total = PRICES["hub_large"]+PRICES["hub_small"]; h_q = 2; h_rows.append(f"{'Κεντρική μονάδα (100)':<40} | 1       | {PRICES['hub_large']:9.2f}€"); h_rows.append(f"{'Κεντρική μονάδα (40)':<40} | 1       | {PRICES['hub_small']:9.2f}€")
-            else: h_total = PRICES["hub_large"]*2; h_q = 2; h_rows.append(f"{'Κεντρική μονάδα (100)':<40} | 2       | {h_total:9.2f}€")
+            hub_rows = []; h_q = 0; h_total = 0
+            if base_count <= 37: h_total = PRICES["hub_small"]; h_q = 1; hub_rows.append(f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1       | {h_total:9.2f}€")
+            elif base_count <= 97: h_total = PRICES["hub_large"]; h_q = 1; hub_rows.append(f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1       | {h_total:9.2f}€")
+            elif base_count <= 130: h_total = PRICES["hub_large"]+PRICES["hub_small"]; h_q = 2; hub_rows.append(f"{'Κεντρική μονάδα (100)':<40} | 1       | {PRICES['hub_large']:9.2f}€"); hub_rows.append(f"{'Κεντρική μονάδα (40)':<40} | 1       | {PRICES['hub_small']:9.2f}€")
+            else: h_total = PRICES["hub_large"] * 2; h_q = 2; hub_rows.append(f"{'Κεντρική μονάδα (100)':<40} | 2       | {h_total:9.2f}€")
             
             total_dev = base_count + h_q
             if total_dev > 230: st.error(f"❌ ΟΡΙΟ 230 ΣΥΣΚΕΥΩΝ")
             else:
                 mat_sum = (max(0,on_off_calc)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52) + (led*63.92) + (dali*160) + (shutt*63.92) + hvac_cost + h_total + e_cost + h_cost
-                final_res = f"{'='*72}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*72}\n"
-                final_res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*72}\n"
-                final_res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<7} | {'ΤΙΜΗ':<10}\n{'-'*72}\n"
-                for row in h_rows: final_res += row + "\n"
-                if on_off_calc > 0: final_res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off_calc:<7} | {on_off_calc*63.92:9.2f}€\n"
-                if double > 0: final_res += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<7} | {double*63.92:9.2f}€\n"
-                if dim220 > 0: final_res += f"{'Dimming 220V':<40} | {dim220:<7} | {dim220*63.92:9.2f}€\n"
-                if dim110 > 0: final_res += f"{'Dimming 1-10V':<40} | {dim110:<7} | {dim110*52.00:9.2f}€\n"
-                if led > 0:    final_res += f"{'Ταινίες LED Dimming':<40} | {led:<7} | {led*63.92:9.2f}€\n"
-                if dali > 0:   final_res += f"{'Γραμμές DALI':<40} | {dali:<7} | {dali*160.00:9.2f}€\n"
-                for d in hvac_details: final_res += f"{d['n'][:40]:<40} | {d['q']:<7} | {d['p']:9.2f}€\n"
-                if shutt > 0:  final_res += f"{'Ρολά / Τέντες':<40} | {shutt:<7} | {shutt*63.92:9.2f}€\n"
-                if e_cost > 0: final_res += f"{'Μετρητής Ενέργειας':<40} | 1       | {e_cost:9.2f}€\n"
-                if h_cost > 0: final_res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1       | {h_cost:9.2f}€\n"
-                final_res += f"{'-'*72}\nΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ: {total_dev}\n"
-                final_res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<51} {mat_sum:10.2f}€\n"
-                final_res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (20%):':<51} {mat_sum*0.20:10.2f}€\n"
-                final_res += f"{'ΦΠΑ 24%:':<51} {(mat_sum*1.20)*0.24:10.2f}€\n"
-                final_res += f"{'='*72}\n{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<51} {(mat_sum*1.20)*1.24:10.2f}€\n{'='*72}"
-                st.code(final_res, language="text")
+                final_res_text = f"{'='*72}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*72}\n"
+                final_res_text += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*72}\n"
+                final_res_text += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<7} | {'ΤΙΜΗ':<10}\n{'-'*72}\n"
+                for row in hub_rows: final_res_text += row + "\n"
+                if on_off_calc > 0: final_res_text += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off_calc:<7} | {on_off_calc*63.92:9.2f}€\n"
+                if double > 0: final_res_text += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<7} | {double*63.92:9.2f}€\n"
+                if dim220 > 0: final_res_text += f"{'Dimming 220V':<40} | {dim220:<7} | {dim220*63.92:9.2f}€\n"
+                if dim110 > 0: final_res_text += f"{'Dimming 1-10V':<40} | {dim110:<7} | {dim110*52.00:9.2f}€\n"
+                if led > 0:    final_res_text += f"{'Ταινίες LED Dimming':<40} | {led:<7} | {led*63.92:9.2f}€\n"
+                if dali > 0:   final_res_text += f"{'Γραμμές DALI':<40} | {dali:<7} | {dali*160.00:9.2f}€\n"
+                for d in hvac_details: final_res_text += f"{d['n'][:40]:<40} | {d['q']:<7} | {d['p']:9.2f}€\n"
+                if shutt > 0:  final_res_text += f"{'Ρολά / Τέντες':<40} | {shutt:<7} | {shutt*63.92:9.2f}€\n"
+                if e_cost > 0: final_res_text += f"{'Μετρητής Ενέργειας':<40} | 1       | {e_cost:9.2f}€\n"
+                if h_cost > 0: final_res_text += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1       | {h_cost:9.2f}€\n"
+                final_res_text += f"{'-'*72}\nΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ: {total_dev}\n"
+                final_res_text += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<51} {mat_sum:10.2f}€\n"
+                final_res_text += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (20%):':<51} {mat_sum*0.20:10.2f}€\n"
+                final_res_text += f"{'ΦΠΑ 24%:':<51} {(mat_sum*1.20)*0.24:10.2f}€\n"
+                final_res_text += f"{'='*72}\n{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<51} {(mat_sum*1.20)*1.24:10.2f}€\n{'='*72}"
+                st.code(final_res_text, language="text")
 
         st.markdown('</div>', unsafe_allow_html=True)
         
         st.write("---")
-        user_notes = st.text_area("📝 Παρατηρήσεις:", placeholder="Γράψτε εδώ τυχόν ειδικές σημειώσεις...")
+        user_notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", placeholder="Γράψτε εδώ τυχόν ειδικές σημειώσεις για το έργο...")
         
-        # HTML Φόρμα για αποστολή
-        email_body = f"Νέα Ζήτηση GEYER\nΠελάτης: {v_name}\n\n{final_res}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{user_notes}"
+        # Φόρμα αποστολής
+        email_body = f"Νέα Ζήτηση GEYER\nΠελάτης: {v_name}\n\n{final_res_text}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{user_notes}"
         form_html = f"""
             <form action="https://formsubmit.co" method="POST">
                 <input type="hidden" name="_subject" value="Νέα Ζήτηση GEYER - {v_name}">
