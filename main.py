@@ -9,157 +9,160 @@ PRICES = {
     "split_ac": 100.0, "vrv_interface": 260.0, "hub_small": 139.0, "hub_large": 609.0
 }
 BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Midea", "Άλλη"]
-JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
+JOBS = ["", "Κατασκευαστής", "Μηχανικός", "Αρχιτέκτονας", "Ηλεκτρολόγος", "Κατάστημα", "Ιδιώτης"]
 
 st.set_page_config(page_title="GEYER Portal", layout="wide")
 
-# --- CSS ΓΙΑ ZERO-SCROLL DASHBOARD ---
+# --- CSS ΓΙΑ FULL WIDE & STICKY DISPLAY ---
 st.markdown("""
     <style>
-    /* Εξαφάνιση περιθωρίων σελίδας */
-    .block-container { padding-top: 1rem !important; padding-bottom: 0rem !important; }
     .stApp { background-color: #f8f9fa; }
-    
-    /* Compact Widgets */
-    .stNumberInput, .stSelectbox, .stTextInput { margin-bottom: -15px !important; }
-    div[data-testid="stMarkdownContainer"] p { font-size: 13px !important; font-weight: bold; margin-bottom: -5px; }
-    
-    /* Display Box - Σταθερό ύψος για να χωράει στην οθόνη */
+    /* Sticky Right Column - Κλειδώνει το Display δεξιά */
+    [data-testid="stVerticalBlock"] > div:has(div.display-box) {
+        position: sticky; top: 0.5rem; z-index: 1000;
+    }
     .display-box {
-        background-color: #ffffff; padding: 10px; border: 2px solid #27ae60;
-        border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-        height: auto;
+        background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
+        border-radius: 8px; box-shadow: 2px 2px 15px rgba(0,0,0,0.1);
+        width: 100%;
     }
     pre {
-        font-family: 'Consolas', monospace !important;
+        font-family: 'Consolas', 'Lucida Console', monospace !important;
         font-size: 11px !important; line-height: 1.1 !important; color: #000 !important;
-        background-color: #fff !important; border: none !important;
     }
-    /* Σμίκρυνση Tabs */
-    .stTabs [data-baseweb="tab"] { height: 35px; font-size: 14px !important; }
+    .compact-label { font-size: 14px !important; font-weight: bold; color: #1E3A8A; margin-top: 10px; }
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h3 style='text-align: center; color: #1E3A8A; margin-top: -20px;'>GEYER PORTAL - ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ</h3>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #1E3A8A;'>GEYER PORTAL</h1>", unsafe_allow_html=True)
 
-tab_calc, tab_home, tab_docs, tab_contact = st.tabs(["📊 LIVE PRICING", "🏠 ΙΔΕΕΣ", "📂 ΒΙΒΛΙΟΘΗΚΗ", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"])
+tab_home, tab_calc, tab_docs, tab_contact = st.tabs(["🏠 ΑΡΧΙΚΗ & ΙΔΕΕΣ", "📊 LIVE PRICING", "📂 ΒΙΒΛΙΟΘΗΚΗ", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"])
 
 with tab_calc:
-    # 45% Ερωτήσεις - 55% Πίνακας
-    left, right = st.columns([1, 1.2]) 
+    # Χωρισμός 40% ερωτήσεις - 60% Display για μέγιστη ορατότητα
+    left, right = st.columns([1, 1.5]) 
     
     with left:
-        # 1. ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ (Σε μία σειρά)
-        st.write("👤 **1. ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ**")
-        c_p1, c_p2 = st.columns(2)
-        v_name = c_p1.text_input("Ονοματεπώνυμο", key="name")
-        v_job = c_p2.selectbox("Ιδιότητα", JOBS, key="job")
+        st.markdown("<p class='compact-label'>👤 1. ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ</p>", unsafe_allow_html=True)
+        v_name = st.text_input("Ονοματεπώνυμο", key="name")
+        v_job = st.selectbox("Ιδιότητα", JOBS, key="job")
         v_addr = st.text_input("Διεύθυνση έργου", key="addr")
 
-        # 2. ΦΩΤΙΣΜΟΣ (Πολύ compact)
-        st.write("💡 **2. ΦΩΤΙΣΜΟΣ & DIMMING**")
-        c1, c2, c3 = st.columns(3)
+        st.markdown("<p class='compact-label'>💡 2. ΦΩΤΙΣΜΟΣ</p>", unsafe_allow_html=True)
+        c1, c2 = st.columns(2)
         int_l = c1.number_input("Εσωτερικές", min_value=0, value=0)
         ext_l = c2.number_input("Εξωτερικές", min_value=0, value=0)
-        double = c3.number_input("Διπλές", min_value=0, value=0)
         
-        c4, c5, c6, c7 = st.columns(4)
-        dim220 = c4.number_input("Dim 220V", min_value=0)
-        dim110 = c5.number_input("Dim 1-10V", min_value=0)
-        led = c6.number_input("LED Dim", min_value=0)
-        dali = c7.number_input("DALI", min_value=0)
+        st.markdown("<p class='compact-label'>🌓 2α. ΕΙΔΟΣ ΓΡΑΜΜΩΝ ΦΩΤΙΣΜΟΥ</p>", unsafe_allow_html=True)
+        dim220 = st.number_input("Dimming 220V", min_value=0, value=0)
+        dim110 = st.number_input("Dimming 1-10V", min_value=0, value=0)
+        led = st.number_input("Ταινίες LED Dim", min_value=0, value=0)
+        dali = st.number_input("DALI", min_value=0, value=0)
+        double = st.number_input("Κομιτατέρ (Διπλές)", min_value=0, value=0)
 
-        # 3 & 4 HVAC (Δίπλα δίπλα)
-        st.write("🔥❄️ **3 & 4. ΘΕΡΜΑΝΣΗ & ΨΥΞΗ**")
-        ch1, ch2 = st.columns(2)
+        st.markdown("<p class='compact-label'>🔥 3. ΘΕΡΜΑΝΣΗ</p>", unsafe_allow_html=True)
         h_list = ["Κανένα", "Καλοριφέρ", "Ενδοδαπέδια", "Fancoil οροφής", "Fancoil δαπέδου", "Θερμαντικά σώματα", "VRV/VRF", "Split"]
-        h_type = ch1.selectbox("Θέρμανση", h_list, key="h_type")
-        h_qty = ch2.number_input("Ποσότητα (Θ)", min_value=0, key="h_qty")
-        
-        cc1, cc2 = st.columns(2)
-        c_list = ["Κανένα", "Ενδοδαπέδια Δροσισμός", "Fancoil οροφής", "Fancoil δαπέδου", "VRV/VRF", "Split"]
-        c_type = cc1.selectbox("Ψύξη", c_list, key="c_type")
-        c_qty = cc2.number_input("Ποσότητα (Ψ)", min_value=0, key="c_qty")
-        
-        if h_type == "VRV/VRF" or c_type == "VRV/VRF":
-            st.write("**Μάρκα VRV:**")
-            v_brand = st.selectbox("Επιλογή Brand", BRANDS, key="v_brand")
-        else: v_brand = "Daikin"
+        h_labels = ["Ποσότητα:", "Αρ. θερμοστατών:", "Αρ. θερμοστατών:", "Αρ. εσωτ. μονάδων:", "Αρ. εσωτ. μονάδων:", "Αρ. σωμάτων:", "Αρ. εσωτ. μονάδων:", "Αρ. κλιματιστικών:"]
+        h_type = st.selectbox("Επιλογή Θέρμανσης", h_list, key="h_type")
+        h_val = 0 if h_type == "Κανένα" else st.session_state.get('h_qty', 0)
+        h_qty = st.number_input(h_labels[h_list.index(h_type)], min_value=0, value=h_val, key="h_qty")
+        h_brand = "Daikin"
+        if h_type == "VRV/VRF": h_brand = st.selectbox("Μάρκα VRV (Θ)", BRANDS)
 
-        # 5 & 6 ΛΟΙΠΑ
-        st.write("🪟🔌 **5 & 6. ΡΟΛΑ & ΠΙΝΑΚΑΣ**")
-        cl1, cl2, cl3 = st.columns([1, 1.5, 1])
-        shutt = cl1.number_input("Ρολά", min_value=0)
-        energy = cl2.radio("Μετρητής", ["Όχι", "Μονοφ.", "Τριφ."], horizontal=True)
-        heater = cl3.checkbox("Θερμοσίφ.")
+        st.markdown("<p class='compact-label'>❄️ 4. ΨΥΞΗ</p>", unsafe_allow_html=True)
+        c_list = ["Κανένα", "Ενδοδαπέδια Δροσισμός", "Fancoil οροφής", "Fancoil δαπέδου", "VRV/VRF", "Split"]
+        c_labels = ["Ποσότητα:", "Αρ. θερμοστατών:", "Αρ. εσωτ. μονάδων:", "Αρ. εσωτ. μονάδων:", "Αρ. εσωτ. μονάδων:", "Αρ. κλιματιστικών:"]
+        c_type = st.selectbox("Επιλογή Ψύξης", c_list, key="c_type")
+        c_val = 0 if c_type == "Κανένα" else st.session_state.get('c_qty', 0)
+        c_qty = st.number_input(c_labels[c_list.index(c_type)], min_value=0, value=c_val, key="c_qty")
+        c_brand = "Daikin"
+        if c_type == "VRV/VRF": c_brand = st.selectbox("Μάρκα VRV (Ψ)", BRANDS)
+
+        st.markdown("<p class='compact-label'>🪟 5. ΡΟΛΑ & 🔌 ΠΙΝΑΚΑΣ</p>", unsafe_allow_html=True)
+        shutt = st.number_input("Ρολά / Τέντες", min_value=0, value=0)
+        energy = st.radio("Μετρητής", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
+        heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
         st.markdown('<div class="display-box">', unsafe_allow_html=True)
+        st.subheader("🖥️ LIVE PRICING SYSTEM")
+        
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
         
+        # Επικύρωση (Validation)
         error_msg = None
         if not v_name or not v_job or not v_addr:
-            error_msg = "⚠️ ΣΥΜΠΛΗΡΩΣΤΕ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ"
+            error_msg = "⚠️ ΠΑΡΑΚΑΛΩ ΣΥΜΠΛΗΡΩΣΤΕ ΤΑ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ"
         elif on_off < 0:
-            error_msg = "❌ ΣΦΑΛΜΑ: DIMMING > ΣΥΝΟΛΟ"
-        elif h_type == "VRV/VRF" and c_type == "VRV/VRF" and v_brand == "Άλλη":
-            error_msg = "❌ ΜΗ ΣΥΜΒΑΤΟ VRV"
+            error_msg = "❌ ΣΦΑΛΜΑ ΣΤΟ ΦΩΤΙΣΜΟ: DIMMING > ΣΥΝΟΛΟ"
+        elif h_type == "VRV/VRF" and c_type == "VRV/VRF" and h_brand != c_brand:
+            error_msg = "❌ ΛΑΘΟΣ: ΔΙΑΦΟΡΕΤΙΚΕΣ ΜΑΡΚΕΣ VRV ΣΕ Θ/Ψ"
 
         if error_msg:
-            st.code(f"{'='*68}\n          {error_msg}\n{'='*68}")
+            st.code(f"{'='*70}\n          {error_msg}\n{'='*70}")
         else:
-            # Logic HVAC - Αποφυγή διπλοχρέωσης
+            # HVAC Logic: Αποφυγή διπλοχρέωσης θερμοστατών
             hvac_cost = 0; hvac_details = []
-            is_common = (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός") or (h_type == c_type and h_type != "Κανένα")
+            is_common = (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός") or \
+                        (h_type == c_type and h_type != "Κανένα")
             
             if is_common:
                 p_key = "fancoil_ctrl" if "Fancoil" in h_type or "Δροσισμός" in c_type else "vrv_interface" if "VRV" in h_type else "split_ac" if "Split" in h_type else "heat_thermostat"
                 hvac_cost = max(h_qty, c_qty) * PRICES[p_key]
-                hvac_details.append({"n": f"{h_type} (Κοινό)", "q": max(h_qty, c_qty), "p": hvac_cost})
+                hvac_details.append({"n": f"{h_type} (Κοινό Σύστημα)", "q": max(h_qty, c_qty), "p": hvac_cost})
             else:
                 if h_qty > 0:
                     h_keys = ["", "heat_thermostat", "heat_thermostat", "fancoil_ctrl", "fancoil_ctrl", "electric_heat", "vrv_interface", "split_ac"]
                     p = h_qty * PRICES[h_keys[h_list.index(h_type)]]; hvac_cost += p
-                    hvac_details.append({"n": f"Θ:{h_type}", "q": h_qty, "p": p})
+                    hvac_details.append({"n": f"Θ: {h_type} {h_brand if 'VRV' in h_type else ''}", "q": h_qty, "p": p})
                 if c_qty > 0:
                     c_keys = ["", "heat_thermostat", "fancoil_ctrl", "fancoil_ctrl", "vrv_interface", "split_ac"]
                     p = c_qty * PRICES[c_keys[c_list.index(c_type)]]; hvac_cost += p
-                    hvac_details.append({"n": f"Ψ:{c_type}", "q": c_qty, "p": p})
+                    hvac_details.append({"n": f"Ψ: {c_type} {c_brand if 'VRV' in c_type else ''}", "q": c_qty, "p": p})
 
-            e_cost = 110 if "Μονοφ." in energy else 160 if "Τριφ." in energy else 0
+            e_cost = 110 if "Μονοφασικός" in energy else 160 if "Τριφασικός" in energy else 0
             h_cost = 95 if heater else 0
             base_count = max(0, on_off) + double + dim220 + dim110 + led + dali + shutt + max(h_qty, c_qty) + (1 if e_cost > 0 else 0) + (1 if h_cost > 0 else 0)
             
             # Hub Logic
-            h_cost_tot = 0; h_rows = []; h_q = 0
+            hubs_cost = 0; hub_rows = []; h_qty_tot = 0
             if base_count <= 37:
-                h_cost_tot = PRICES["hub_small"]; h_q = 1; h_rows.append(f"{'Κεντρική μονάδα (40)':<35} | 1       | {h_cost_tot:9.2f}€")
+                hubs_cost = PRICES["hub_small"]; h_qty_tot = 1
+                hub_rows.append(f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1       | {PRICES['hub_small']:10.2f}€")
             elif base_count <= 97:
-                h_cost_tot = PRICES["hub_large"]; h_q = 1; h_rows.append(f"{'Κεντρική μονάδα (100)':<35} | 1       | {h_cost_tot:9.2f}€")
-            elif base_count <= 130:
-                h_cost_tot = PRICES["hub_large"] + PRICES["hub_small"]; h_q = 2
-                h_rows.append(f"{'Κεντρική μονάδα (100)':<35} | 1       | {PRICES['hub_large']:9.2f}€")
-                h_rows.append(f"{'Κεντρική μονάδα (40)':<35} | 1       | {PRICES['hub_small']:9.2f}€")
+                hubs_cost = PRICES["hub_large"]; h_qty_tot = 1
+                hub_rows.append(f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1       | {PRICES['hub_large']:10.2f}€")
+            elif 97 < base_count <= 130:
+                hubs_cost = PRICES["hub_large"] + PRICES["hub_small"]; h_qty_tot = 2
+                hub_rows.append(f"{'Κεντρική μονάδα (100)':<40} | 1       | {PRICES['hub_large']:10.2f}€")
+                hub_rows.append(f"{'Κεντρική μονάδα (40)':<40} | 1       | {PRICES['hub_small']:10.2f}€")
             else:
-                h_cost_tot = PRICES["hub_large"] * 2; h_q = 2; h_rows.append(f"{'Κεντρική μονάδα (100)':<35} | 2       | {h_cost_tot:9.2f}€")
+                hubs_cost = PRICES["hub_large"] * 2; h_qty_tot = 2
+                hub_rows.append(f"{'Κεντρική μονάδα (100)':<40} | 2       | {PRICES['hub_large']*2:10.2f}€")
             
-            total_dev = base_count + h_q
-            mat_sum = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52) + (led*63.92) + (dali*160) + (shutt*63.92) + hvac_cost + h_cost_tot + e_cost + h_cost
+            total_dev = base_count + h_qty_tot
 
-            res = f"{'='*65}\n GEYER SMART HOME - LIVE PRICING\n{'='*65}\n"
-            res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*65}\n"
-            res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<35} | {'TEM':<7} | {'TIMH':<10}\n{'-'*65}\n"
-            for hr in h_rows: res += f"{hr}\n"
-            if on_off > 0: res += f"{'Φωτισμός On/Off':<35} | {on_off:<7} | {on_off*63.92:9.2f}€\n"
-            if double > 0: res += f"{'Κομιτατέρ (Διπλές)':<35} | {double:<7} | {double*63.92:9.2f}€\n"
-            for d in hvac_details: res += f"{d['n'][:35]:<35} | {d['q']:<7} | {d['p']:9.2f}€\n"
-            if shutt > 0: res += f"{'Ρολά / Τέντες':<35} | {shutt:<7} | {shutt*63.92:9.2f}€\n"
-            if heater:    res += f"{'Έλεγχος Θερμοσίφωνα':<35} | 1       | {95.00:9.2f}€\n"
-            res += f"{'-'*65}\nΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ: {total_dev} / 230\n"
-            res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<46} {mat_sum:10.2f}€\n"
-            res += f"{'ΦΠΑ 24%:':<46} {mat_sum*0.24:10.2f}€\n"
-            res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<46} {mat_sum*1.24:10.2f}€\n"
-            res += f"{'='*65}"
-            st.code(res, language="text")
-            st.button("📩 Αποστολή")
+            if total_dev > 230:
+                st.error(f"❌ ΣΦΑΛΜΑ: {total_dev} ΣΥΣΚΕΥΕΣ. ΤΟ ΟΡΙΟ ΕΙΝΑΙ 230.")
+            else:
+                mat_sum = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52) + (led*63.92) + (dali*160) + (shutt*63.92) + hvac_cost + hubs_cost + e_cost + h_cost
+                
+                res = f"{'='*75}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*75}\n"
+                res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} ({v_job})\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*75}\n"
+                res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'ΤΕΜΑΧΙΑ':<7} | {'ΤΙΜΗ':<11}\n{'-'*75}\n"
+                for hr in hub_rows: res += f"{hr}\n"
+                if on_off > 0: res += f"{'Φωτισμός On/Off':<40} | {on_off:<7} | {on_off*63.92:11.2f}€\n"
+                if double > 0: res += f"{'Κομιτατέρ (Διπλές)':<40} | {double:<7} | {double*63.92:11.2f}€\n"
+                if dim220 > 0: res += f"{'Dimming 220V':<40} | {dim220:<7} | {dim220*63.92:11.2f}€\n"
+                for d in hvac_details: res += f"{d['n'][:40]:<40} | {d['q']:<7} | {d['p']:11.2f}€\n"
+                if shutt > 0:  res += f"{'Ρολά / Τέντες':<40} | {shutt:<7} | {shutt*63.92:11.2f}€\n"
+                if e_cost > 0: res += f"{'Μετρητής Ενέργειας':<40} | 1       | {e_cost:11.2f}€\n"
+                if h_cost > 0: res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1       | {95.00:11.2f}€\n"
+                res += f"{'-'*75}\nΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ: {total_dev}\n"
+                res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<51} {mat_sum:11.2f}€\n"
+                res += f"{'ΦΠΑ 24%:':<51} {mat_sum*0.24:11.2f}€\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<51} {mat_sum*1.24:11.2f}€\n"
+                res += f"{'='*75}"
+                st.code(res, language="text")
+                st.button("📩 Αποστολή στον Νεκτάριο")
         st.markdown('</div>', unsafe_allow_html=True)
