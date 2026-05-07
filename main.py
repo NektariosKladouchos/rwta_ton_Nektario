@@ -30,7 +30,7 @@ if choice == "🏠 Αρχική & Ιδέες":
     
     st.info("💡 **Tip:** Το Smart Home Geyer μπορεί να ελέγξει από τον φωτισμό μέχρι την ασφάλεια του κτιρίου χωρίς νέα καλώδια.")
 
-# --- ΕΝΟΤΗΤΑ 2: LIVE PRICING (Με αποστολή email) ---
+# --- ΕΝΟΤΗΤΑ 2: LIVE PRICING SYSTEM SMART HOME (Με αποστολή email) ---
 elif choice == "📊 Live Pricing System for Smart House":
     st.header("🧮 Live Pricing & Παραγγελία")
     st.write("Συμπληρώστε τα στοιχεία του έργου και θα λάβετε την εκτίμηση στο email σας.")
