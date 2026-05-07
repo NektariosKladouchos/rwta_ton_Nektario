@@ -13,8 +13,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<div class='main-title'>⚡ GEYER & Fibaro Technical Portal</div>", unsafe_allow_html=True)
-st.write("---")
+st.markdown("<div class='main-title'>⚡ GEYER &  Technical Portal</div>", unsafe_allow_html=True)
+st.write("---Ρώτα τον Νεκτάριο---")
 
 # --- MENU ΠΛΟΗΓΗΣΗΣ ---
 choice = st.sidebar.radio("Μενού Επιλογών", ["🏠 Αρχική & Ιδέες", "📊 Live Pricing System", "📂 Τεχνική Βιβλιοθήκη", "📨 Ερώτηση προς Τεχνικό"])
@@ -28,10 +28,10 @@ if choice == "🏠 Αρχική & Ιδέες":
     with col2:
         st.image("https://unsplash.com", caption="HVAC Control με Fibaro")
     
-    st.info("💡 **Tip:** Το Fibaro μπορεί να ελέγξει από τον φωτισμό μέχρι την ασφάλεια του κτιρίου χωρίς νέα καλώδια.")
+    st.info("💡 **Tip:** Το Smart Home Geyer μπορεί να ελέγξει από τον φωτισμό μέχρι την ασφάλεια του κτιρίου χωρίς νέα καλώδια.")
 
 # --- ΕΝΟΤΗΤΑ 2: LIVE PRICING (Με αποστολή email) ---
-elif choice == "📊 Live Pricing System":
+elif choice == "📊 Live Pricing System for Smart House":
     st.header("🧮 Live Pricing & Παραγγελία")
     st.write("Συμπληρώστε τα στοιχεία του έργου και θα λάβετε την εκτίμηση στο email σας.")
     
