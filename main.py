@@ -13,7 +13,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<div class='main-title'>⚡ GEYER &  Technical Portal</div>", unsafe_allow_html=True)
+st.markdown("<div class='main-title'>⚡ GEYER  Technical Portal</div>", unsafe_allow_html=True)
 st.write("---Ρώτα τον Νεκτάριο---")
 
 # --- MENU ΠΛΟΗΓΗΣΗΣ ---
