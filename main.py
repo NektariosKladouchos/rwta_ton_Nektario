@@ -17,10 +17,10 @@ st.set_page_config(page_title="GEYER Portal", layout="wide")
 st.markdown("""
     <style>
     .stApp { background-color: #f8f9fa; }
-    /* Μετακίνηση του Display πιο κάτω για να ξεκινά με τον Φωτισμό */
-    .spacer { height: 180px; } 
+    /* Spacer για να ξεκινά το Display στην ίδια σειρά με τις Γραμμές Φωτισμού */
+    .spacer { height: 250px; } 
     [data-testid="stVerticalBlock"] > div:has(div.display-box) {
-        position: sticky; top: 1rem; z-index: 1000;
+        position: sticky; top: 0.5rem; z-index: 1000;
     }
     .display-box {
         background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
@@ -82,16 +82,15 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
-        st.markdown('<div class="spacer"></div>', unsafe_allow_html=True) # Spacer για ευθυγράμμιση
+        st.markdown('<div class="spacer"></div>', unsafe_allow_html=True) 
         st.markdown('<div class="display-box">', unsafe_allow_html=True)
         st.subheader("🖥️ LIVE PRICING SYSTEM")
         
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
         
-        # --- EXE LOGIC VALIDATIONS ---
         error_msg = None
         if not v_name or not v_job or not v_addr:
-            error_msg = "⚠️ ΣΥΜΠΛΗΡΩΣΤΕ ΟΝΟΜΑ, ΙΔΙΟΤΗΤΑ & ΔΙΕΥΘΥΝΣΗ"
+            error_msg = "⚠️ ΣΥΜΠΛΗΡΩΣΤΕ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ ΓΙΑ ΤΙΜΟΛΟΓΗΣΗ"
         elif on_off < 0:
             error_msg = "❌ ΣΦΑΛΜΑ: DIMMING > ΣΥΝΟΛΟ ΓΡΑΜΜΩΝ"
         elif (h_type == "VRV/VRF" and h_brand == "Άλλη") or (c_type == "VRV/VRF" and c_brand == "Άλλη"):
@@ -99,26 +98,31 @@ with tab_calc:
         elif h_type == "VRV/VRF" and c_type == "VRV/VRF" and h_brand != c_brand:
             error_msg = "❌ ΛΑΘΟΣ: ΔΙΑΦΟΡΕΤΙΚΕΣ ΜΑΡΚΕΣ VRV ΣΕ Θ/Ψ"
         
-        # Έλεγχος κοινών συσκευών (Split/VRV/Fancoils)
-        is_common = (h_type == "Split" and c_type == "Split") or \
-                    (h_type == "VRV/VRF" and c_type == "VRV/VRF") or \
-                    ("Fancoil" in h_type and "Fancoil" in c_type)
-        if is_common and h_qty != c_qty:
-            error_msg = "❌ ΛΑΘΟΣ: Ο ΑΡΙΘΜΟΣ ΜΟΝΑΔΩΝ ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΙΔΙΟΣ ΣΕ Θ/Ψ"
+        # Ειδικός έλεγχος για Ενδοδαπέδια - Δροσισμό (Υποχρεωτικά ίδια ποσότητα)
+        if h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός" and h_qty != c_qty:
+            error_msg = "❌ ΛΑΘΟΣ: Η ΕΝΔΟΔΑΠΕΔΙΑ ΘΕΡΜΑΝΣΗ & Ο ΔΡΟΣΙΣΜΟΣ ΠΡΕΠΕΙ ΝΑ ΕΧΟΥΝ ΙΔΙΑ ΠΟΣΟΤΗΤΑ"
+        
+        # Έλεγχος για απόλυτα ίδια είδη (π.χ. Split με Split, VRV με VRV, Fancoil Οροφής με Οροφής)
+        is_exact_same = (h_type == c_type) or (h_type == "Split" and c_type == "Split")
+        if is_exact_same and h_type != "Κανένα" and h_qty != c_qty:
+            error_msg = f"❌ ΛΑΘΟΣ: Ο ΑΡΙΘΜΟΣ ΜΟΝΑΔΩΝ {h_type.upper()} ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΙΔΙΟΣ ΣΕ Θ/Ψ"
 
         if error_msg:
             st.code(f"{'='*68}\n        {error_msg}\n{'='*68}")
         else:
-            # HVAC Cost Calculation
             hvac_cost = 0; hvac_details = []
+            
+            # Logic Ενδοδαπέδια με Δροσισμό (Κοινό κόστος)
             if h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός":
                 hvac_cost = h_qty * PRICES["fancoil_ctrl"]
                 hvac_details.append({"n": "Ενδοδαπέδια με Δροσισμό", "q": h_qty, "p": hvac_cost})
-            elif is_common:
-                p_key = "fancoil_ctrl" if "Fancoil" in h_type else "vrv_interface" if "VRV" in h_type else "split_ac"
+            # Logic για απόλυτα ίδιο σύστημα (π.χ. VRV με VRV)
+            elif h_type == c_type and h_type != "Κανένα":
+                p_key = "vrv_interface" if "VRV" in h_type else "fancoil_ctrl" if "Fancoil" in h_type else "split_ac" if "Split" in h_type else "heat_thermostat"
                 hvac_cost = h_qty * PRICES[p_key]
-                hvac_details.append({"n": f"{h_type} {h_brand if 'VRV' in h_type else ''}", "q": h_qty, "p": hvac_cost})
+                hvac_details.append({"n": f"{h_type} {h_brand if 'VRV' in h_type else ''} (Κοινό)", "q": h_qty, "p": hvac_cost})
             else:
+                # Ξεχωριστά είδη (π.χ. Fancoil Οροφής με Fancoil Δαπέδου -> Επιτρέπονται διαφορετικές ποσότητες)
                 if h_qty > 0:
                     h_keys = ["", "heat_thermostat", "heat_thermostat", "fancoil_ctrl", "fancoil_ctrl", "electric_heat", "vrv_interface", "split_ac"]
                     p = h_qty * PRICES[h_keys[h_list.index(h_type)]]; hvac_cost += p
@@ -132,7 +136,6 @@ with tab_calc:
             h_cost = 95 if heater else 0
             base_count = max(0, on_off) + double + dim220 + dim110 + led + dali + shutt + h_qty + (1 if e_cost > 0 else 0) + (1 if h_cost > 0 else 0)
             
-            # --- HUB LOGIC (EXE ACCURATE) ---
             hubs_cost = 0; hub_rows = []; hub_qty_total = 0
             if base_count <= 37:
                 hubs_cost = PRICES["hub_small"]; hub_qty_total = 1
