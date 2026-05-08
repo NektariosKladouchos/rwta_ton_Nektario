@@ -185,6 +185,4 @@ with tab_calc:
                 st.success("Έτοιμο! Πατήστε το παρακάτω κουμπί:")
                 st.markdown(f'<a href="{mailto_link}" style="background-color: #27ae60; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">📩 2. ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΟΡΙΣΤΙΚΗ ΑΠΟΣΤΟΛΗ</a>', unsafe_allow_html=True)
 
-with tab_home: st.markdown("### 🏠 Digital Showroom")
-with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
 
