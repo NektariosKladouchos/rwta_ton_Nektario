@@ -1,6 +1,6 @@
 import streamlit as st
 
-# --- CONFIG ---
+# --- CONFIG GEYER ---
 PRICES = {
     "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 52.0, 
     "led_strip": 63.92, "dali": 160.0, "shutter": 63.92, 
@@ -18,7 +18,6 @@ st.markdown("""
     <style>
     .stApp { background-color: #f8f9fa; }
     .stNumberInput, .stSelectbox, .stTextInput, .stRadio { margin-bottom: -20px !important; }
-    .stMarkdown h3 { font-size: 15px !important; margin-bottom: -10px !important; color: #1E3A8A; }
     .spacer { height: 280px; } 
     .display-box {
         background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
@@ -33,107 +32,63 @@ st.markdown("<div class='main-header'><h1>GEYER PORTAL</h1><p><b>ΡΩΤΑ ΤΟΝ
 
 tab_calc, tab_home, tab_docs, tab_contact = st.tabs(["📊 LIVE PRICING", "🏠 ΙΔΕΕΣ", "📂 ΒΙΒΛΙΟΘΗΚΗ", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"])
 
+# --- TAB 1: PRICING (Logic Only) ---
 with tab_calc:
     left, right = st.columns([1.1, 1.45])
-    
     with left:
-        st.markdown("### 👤 1. ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ")
-        v_name = st.text_input("Ονοματεπώνυμο", key="n")
-        v_job = st.selectbox("Ιδιότητα", JOBS, key="j")
-        v_addr = st.text_input("Διεύθυνση έργου", key="a")
-        st.markdown("### 💡 2. ΦΩΤΙΣΜΟΣ")
+        st.markdown("### 👤 ΣΤΟΙΧΕΙΑ")
+        v_name = st.text_input("Ονοματεπώνυμο", key="n_p")
+        v_addr = st.text_input("Διεύθυνση έργου", key="a_p")
+        st.markdown("### 💡 ΦΩΤΙΣΜΟΣ")
         c1, c2 = st.columns(2); int_l = c1.number_input("Εσωτερικές", min_value=0); ext_l = c2.number_input("Εξωτερικές", min_value=0)
-        st.markdown("### 🌓 2α. ΕΙΔΟΣ ΓΡΑΜΜΩΝ ΦΩΤΙΣΜΟΥ")
-        dim220 = st.number_input("Dimming 220V", min_value=0); dim110 = st.number_input("Dimming 1-10V", min_value=0)
-        led = st.number_input("LED Dimming", min_value=0); dali = st.number_input("DALI", min_value=0)
-        double = st.number_input("Κομιτατέρ (Διπλές)", min_value=0)
-        st.markdown("### 🔥 3. ΘΕΡΜΑΝΣΗ")
-        h_list = ["Κανένα", "Καλοριφέρ", "Ενδοδαπέδια", "Fancoil οροφής", "Fancoil δαπέδου", "Θερμαντικά σώματα", "VRV/VRF", "Split Κλιματιστικά"]
-        h_type = st.selectbox("Επιλογή Θ", h_list, key="ht"); h_qty = st.number_input("Ποσότητα (Θ)", min_value=0, key='hq_val')
-        hb = st.selectbox("Brand (Θ)", BRANDS, key="hb") if h_type == "VRV/VRF" else ""
-        st.markdown("### ❄️ 4. ΨΥΞΗ")
-        c_list = ["Κανένα", "Ενδοδαπέδια Δροσισμός", "Fancoil οροφής", "Fancoil δαπέδου", "VRV/VRF", "Split Κλιματιστικά"]
-        c_type = st.selectbox("Επιλογή Ψ", c_list, key="ct"); c_qty = st.number_input("Ποσότητα (Ψ)", min_value=0, key='cq_val')
-        cb = st.selectbox("Brand (Ψ)", BRANDS, key="cb") if c_type == "VRV/VRF" else ""
-        st.markdown("### 🪟 5. ΡΟΛΑ & 🔌 6. ΠΙΝΑΚΑΣ")
-        shutt = st.number_input("Τεμάχια Ρολών", min_value=0)
+        st.markdown("### 🔥 ΘΕΡΜΑΝΣΗ & ❄️ ΨΥΞΗ")
+        h_type = st.selectbox("Είδος", ["Κανένα", "VRV/VRF", "Split", "Fancoils"], key="h_p")
+        h_qty = st.number_input("Ποσότητα", min_value=0, key="q_p")
         energy = st.radio("Μετρητής", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
-        heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
         st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
-        on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
-        
-        error = None
-        if not v_name or not v_job or not v_addr: error = "⚠️ ΣΥΜΠΛΗΡΩΣΤΕ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ"
-        elif on_off < 0: error = "❌ ΣΦΑΛΜΑ: ΕΙΔΗ ΦΩΤΙΣΜΟΥ > ΣΥΝΟΛΟ"
-        elif h_type == "VRV/VRF" and c_type == "VRV/VRF" and hb != cb: error = "❌ ΛΑΘΟΣ: ΔΙΑΦΟΡΕΤΙΚΕΣ ΜΑΡΚΕΣ VRV"
-        elif hb == "Άλλη" or cb == "Άλλη": error = "❌ ΜΗ ΣΥΜΒΑΤΟ VRV"
-        
-        is_exact = (h_type == c_type and h_type != "Κανένα") or (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός") or (h_type == "Split Κλιματιστικά" and c_type == "Split Κλιματιστικά")
-        if not error and is_exact and h_qty != c_qty: error = "❌ ΛΑΘΟΣ ΠΟΣΟΤΗΤΑ ΣΕ Θ/Ψ"
-
-        disp_text = ""; t_sum = 0; t_dev = 0
-
-        if error:
-            disp_text = f"{'='*72}\n        {error}\n{'='*72}"
-        else:
-            h_c = 0; h_det = []
-            if is_exact:
-                pk = "fancoil_ctrl" if "Fancoil" in h_type or "Δροσισμός" in h_type else "vrv_interface" if "VRV" in h_type else "split_ac" if "Split" in h_type else "heat_thermostat"
-                h_c = h_qty * PRICES[pk]
-                h_det.append({"n": f"{h_type} ({hb if 'VRV' in h_type else ''}) [Κοινό]", "q": h_qty, "p": h_c})
-            else:
-                h_m = {"Καλοριφέρ":"heat_thermostat","Ενδοδαπέδια":"heat_thermostat","Fancoil οροφής":"fancoil_ctrl","Fancoil δαπέδου":"fancoil_ctrl","Θερμαντικά σώματα":"electric_heat","VRV/VRF":"vrv_interface","Split Κλιματιστικά":"split_ac"}
-                if h_qty > 0: p = h_qty * PRICES[h_m.get(h_type, "heat_thermostat")]; h_c += p; h_det.append({"n": f"Θ: {h_type} {hb}", "q": h_qty, "p": p})
-                if c_qty > 0: p = c_qty * PRICES[h_m.get(c_type, "fancoil_ctrl")]; h_c += p; h_det.append({"n": f"Ψ: {c_type} {cb}", "q": c_qty, "p": p})
-
-            e_c = 110 if "Μονοφασικός" in energy else 160 if "Τριφασικός" in energy else 0
-            base = max(0, on_off) + double + dim220 + dim110 + led + dali + shutt + max(h_qty, c_qty) + (1 if e_c > 0 else 0) + (1 if heater else 0)
-            h_q = 1 if base <= 97 else 2
-            h_t = PRICES["hub_small"] if base <= 37 else PRICES["hub_large"] if base <= 97 else (PRICES["hub_large"] + PRICES["hub_small"]) if base <= 130 else PRICES["hub_large"]*2
-            t_dev = base + h_q
-            t_sum = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52) + (led*63.92) + (dali*160) + (shutt*63.92) + h_c + h_t + e_c + (95 if heater else 0)
-            
-            res = f"{'='*72}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*72}\n"
-            res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*72}\n"
-            if on_off > 0: res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<7} | {on_off*63.92:9.2f}€\n"
-            if double > 0: res += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<7} | {double*63.92:9.2f}€\n"
-            if dim220 > 0: res += f"{'Dimming 220V':<40} | {dim220:<7} | {dim220*63.92:9.2f}€\n"
-            if dim110 > 0: res += f"{'Dimming 1-10V':<40} | {dim110:<7} | {dim110*52.00:9.2f}€\n"
-            if led > 0:    res += f"{'Ταινίες LED Dimming':<40} | {led:<7} | {led*63.92:9.2f}€\n"
-            if dali > 0:   res += f"{'Γραμμές DALI':<40} | {dali:<7} | {dali*160.00:9.2f}€\n"
-            for d in h_det: res += f"{d['n'][:40]:<40} | {d['q']:<7} | {d['p']:9.2f}€\n"
-            if e_c > 0:    res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1       | {e_c:9.2f}€\n"
-            if heater:     res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1       | {95.00:9.2f}€\n"
-            res += f"{'-'*72}\nΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ: {t_dev}\n"
-            res += f"ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ: {t_sum:10.2f}€\n"
-            res += f"ΓΕΝΙΚΟ ΣΥΝΟΛΟ (ΜΕ ΦΠΑ 24%): {(t_sum*1.20)*1.24:10.2f}€\n{'='*72}"
-            disp_text = res
-
         st.markdown('<div class="display-box">', unsafe_allow_html=True)
         st.subheader("🖥️ LIVE PRICING SYSTEM")
-        st.code(disp_text, language="text")
+        # Απλός υπολογισμός για το display
+        temp_sum = (int_l + ext_l) * 63.92 + (h_qty * 100)
+        res = f"ΠΕΛΑΤΗΣ: {v_name.upper()}\n"
+        res += f"ΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ: {int_l + ext_l + h_qty}\n"
+        res += f"ΑΞΙΑ ΥΛΙΚΩΝ: {temp_sum:.2f}€\n"
+        st.code(res, language="text")
         st.markdown('</div>', unsafe_allow_html=True)
-        
-        st.write("---")
-        notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", key="usr_notes")
-        
-        # ΚΑΘΑΡΟ EMAIL BODY ΧΩΡΙΣ ΣΥΜΒΟΛΑ ΠΟΥ ΣΠΑΝΕ ΤΗ ΦΟΡΜΑ
-        safe_email_content = disp_text.replace('=', '-').replace('€', 'EUR')
-        
-        form_html = f"""
-            <form action="https://formsubmit.co" method="POST">
-                <input type="hidden" name="_subject" value="Νέα Ζήτηση: {v_name}">
-                <input type="hidden" name="Πελάτης" value="{v_name} | {v_job}">
-                <input type="hidden" name="Προσφορά" value="{safe_email_content}">
-                <input type="hidden" name="Παρατηρήσεις" value="{notes}">
-                <input type="hidden" name="_captcha" value="false">
-                <button type="submit" style="background-color: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 5px; width: 100%; font-weight: bold; cursor: pointer;">
-                    📩 Αποστολή Ζήτησης
-                </button>
-            </form>
-        """
-        st.markdown(form_html, unsafe_allow_html=True)
+        st.info("Για αποστολή ζήτησης, χρησιμοποιήστε το Tab 'ΕΠΙΚΟΙΝΩΝΙΑ'")
 
+# --- TAB 2 & 3 ---
 with tab_home: st.markdown("### 🏠 Digital Showroom")
+with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
+
+# --- TAB 4: ΕΠΙΚΟΙΝΩΝΙΑ (ΕΔΩ Η ΔΟΚΙΜΗ) ---
+with tab_contact:
+    st.markdown("### 📨 Φόρμα Επικοινωνίας & Ζήτησης")
+    st.write("Συμπληρώστε το κείμενό σας παρακάτω για να δοκιμάσουμε την αποστολή.")
+    
+    # Χρησιμοποιούμε μια πολύ απλή φόρμα
+    contact_form = f"""
+    <form action="https://formsubmit.co" method="POST" style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #ccc;">
+        <input type="hidden" name="_subject" value="Μήνυμα από Portal">
+        
+        <label style="font-weight:bold;">Το όνομά σας:</label><br>
+        <input type="text" name="name" placeholder="π.χ. Νεκτάριος" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc;"><br>
+        
+        <label style="font-weight:bold;">Το email σας:</label><br>
+        <input type="email" name="email" placeholder="email@example.com" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc;"><br>
+        
+        <label style="font-weight:bold;">Παρατηρήσεις / Ζήτηση:</label><br>
+        <textarea name="message" placeholder="Γράψτε εδώ τις λεπτομέρειες..." style="width:100%; height:150px; padding:10px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc;"></textarea>
+        
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://streamlit.app">
+        
+        <button type="submit" style="background-color: #27ae60; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%;">
+            🚀 ΔΟΚΙΜΗ ΑΠΟΣΤΟΛΗΣ
+        </button>
+    </form>
+    """
+    st.markdown(contact_form, unsafe_allow_html=True)
+
