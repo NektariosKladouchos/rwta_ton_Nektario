@@ -1,11 +1,8 @@
 import streamlit as st
 
 # ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ Η ΠΡΩΤΗ ΓΡΑΜΜΗ
-st.set_page_config(
-    page_title="GEYER Technical Portal", 
-    layout="wide", 
-    initial_sidebar_state="expanded"
-)
+st.image("https://wikimedia.org", width=200)
+
 
 # 1. Sidebar - Εδώ θα εμφανιστούν αυτόματα οι σελίδες αν δεν έχουν σφάλμα
 with st.sidebar:
