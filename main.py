@@ -25,8 +25,9 @@ st.markdown("""
         background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
         border-radius: 8px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
     }
-    pre { font-family: 'Consolas', monospace !important; font-size: 12px !important; line-height: 1.2 !important; color: #000 !important; }
+    pre { font-family: 'Consolas', monospace !important; font-size: 11px !important; line-height: 1.2 !important; color: #000 !important; }
     .main-header { text-align: center; color: #1E3A8A; margin-top: -30px; }
+    .info-text { background-color: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 5px solid #1E3A8A; margin-bottom: 20px; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -65,6 +66,29 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
+        # --- ΝΕΟ ΚΕΙΜΕΝΟ ΚΑΙ ΚΟΥΜΠΙ 10 ΛΟΓΩΝ ---
+        st.markdown("""
+        <div class='info-text'>
+            <h4 style='margin-top:0;'>🏠 Υπολογισμός Smart Home από την GEYER</h4>
+            Φτιάξτε τα υλικά της ζήτησης με βάση το κόστος και τις ανάγκες σας και στείλτε μου email. 
+            Εμείς θα αναλάβουμε όλα τα επόμενα βήματα για την υλοποίηση του έργου σας.
+        </div>
+        """, unsafe_allow_html=True)
+        
+        with st.expander("🏆 10 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
+            st.write("""
+            1. **Retrofit Τεχνολογία:** Τοποθετείται σε υφιστάμενες εγκαταστάσεις χωρίς μερεμέτια.
+            2. **Z-Wave Αξιοπιστία:** Διεθνές πρωτόκολλο ασύρματης επικοινωνίας.
+            3. **Εξοικονόμηση Ενέργειας:** Έως και 30% μείωση στους λογαριασμούς.
+            4. **Smartphone Έλεγχος:** Διαχείριση των πάντων από το κινητό σας.
+            5. **Σενάρια Αυτοματισμού:** Δημιουργήστε σενάρια "Αναχώρησης", "Ύπνου" κτλ.
+            6. **Επεκτασιμότητα:** Προσθέστε συσκευές σταδιακά όποτε το θελήσετε.
+            7. **Συμβατότητα HVAC:** Έλεγχος VRV, Split και θέρμανσης από μία εφαρμογή.
+            8. **Ελληνική Υποστήριξη:** Άμεση τεχνική βοήθεια από την ομάδα της GEYER.
+            9. **Design:** Κομψές λύσεις που ταιριάζουν σε κάθε αρχιτεκτονική.
+            10. **Αξία Ακινήτου:** Αυξάνει την εμπορική αξία του σπιτιού σας.
+            """)
+
         st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
         
@@ -97,14 +121,12 @@ with tab_calc:
             
             total_dev = base_c + h_q
             
-            # ΔΙΚΛΙΔΑ 230 ΣΥΣΚΕΥΩΝ
             if total_dev > 230:
-                disp_text = f"{'='*70}\n❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ ΣΥΣΚΕΥΩΝ\nΤΟ ΣΥΣΤΗΜΑ ΥΠΟΣΤΗΡΙΖΕΙ ΕΩΣ 230 ΣΥΣΚΕΥΕΣ (ΕΧΕΤΕ {total_dev}).\n{'='*70}"
+                disp_text = f"{'='*70}\n❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ ΣΥΣΚΕΥΩΝ\n{'='*70}"
             else:
                 total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
                 prog_cost = total_mat * 0.20
-                vat = total_mat * 0.24
-                gen_total = total_mat + vat
+                vat = (total_mat + prog_cost) * 0.24
                 
                 res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
@@ -126,11 +148,11 @@ with tab_calc:
                 if e_val > 0:  res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
                 if heater:     res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
                 res += f"{'-'*70}\n"
-                res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ:':<40} | {total_dev:<4} | \n" # ΣΤΟΙΧΙΣΗ ΚΑΤΩ ΑΠΟ TEM
+                res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ:':<40} | {total_dev:<4} | \n"
                 res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
                 res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
                 res += f"{'='*70}\n"
-                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {total_mat + prog_cost + vat:10.2f}€\n"
                 res += f"{'='*70}\n"
                 res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
                 disp_text = res
@@ -141,7 +163,7 @@ with tab_calc:
         st.markdown('</div>', unsafe_allow_html=True)
         
         st.write("---")
-        notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", key="notes")
+        notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", placeholder="Γράψτε εδώ τις ανάγκες σας ή τα στοιχεία επικοινωνίας σας...")
         
         if st.button("🚀 1. ΠΡΟΕΤΟΙΜΑΣΙΑ ΑΠΟΣΤΟΛΗΣ"):
             if v_name and disp_text:
