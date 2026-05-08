@@ -57,7 +57,6 @@ with tab_calc:
         h_list = ["Κανένα", "Καλοριφέρ", "Ενδοδαπέδια", "Fancoil οροφής", "Fancoil δαπέδου", "Θερμαντικά σώματα", "VRV/VRF", "Split Κλιματιστικά"]
         h_type = st.selectbox("Επιλογή Θ", h_list, key="ht")
         
-        # Δυναμική περιγραφή ποσότητας Θέρμανσης
         label_h = "Ποσότητα"
         if h_type in ["Καλοριφέρ", "Ενδοδαπέδια"]: label_h = "Αριθμός Θερμοστατών"
         elif "Fancoil" in h_type or h_type == "VRV/VRF": label_h = "Αριθμός Εσωτερικών Μονάδων"
@@ -71,7 +70,6 @@ with tab_calc:
         c_list = ["Κανένα", "Ενδοδαπέδια Δροσισμός", "Fancoil οροφής", "Fancoil δαπέδου", "VRV/VRF", "Split Κλιματιστικά"]
         c_type = st.selectbox("Επιλογή Ψ", c_list, key="ct")
         
-        # Δυναμική περιγραφή ποσότητας Ψύξης
         label_c = "Ποσότητα"
         if c_type == "Ενδοδαπέδια Δροσισμός": label_c = "Αριθμός Θερμοστατών"
         elif "Fancoil" in c_type or c_type == "VRV/VRF": label_c = "Αριθμός Εσωτερικών Μονάδων"
@@ -88,7 +86,13 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
-        st.markdown("""<div class='info-text'>🏠 <b>Υπολογισμός Smart Home από την GEYER</b></div>""", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='info-text'>
+            <h4 style='margin-top:0;'>🏠 Υπολογισμός Smart Home από την GEYER</h4>
+            Φτιάξτε τα υλικά της ζήτησης με βάση το κόστος και τις ανάγκες σας και στείλτε μου email. 
+            Εμείς θα αναλάβουμε όλα τα επόμενα βήματα. Βάλτε τα στοιχεία επικοινωνίας σας στις παρατηρήσεις.
+        </div>
+        """, unsafe_allow_html=True)
         
         with st.expander("🏆 20 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
             st.markdown("1. **Internet-free** | 2. **DALI/1-10V/RGB** | 3. **Retrofit** | 4. **Z-Wave** | 5. **Alexa/Google** | 6. **Home Assistant** | 7. **Εύκολα Σενάρια** | 8. **Lua Scripting** | 9. **Local Backup** | 10. **Mesh** | 11. **Μεγάλη Γκάμα** | 12. **Installer App** | 13. **Energy Monitoring** | 14. **Θερμικές Ζώνες** | 15. **Πότισμα** | 16. **Notifications** | 17. **-30% Ενέργεια** | 18. **Ελληνική Υποστήριξη** | 19. **Design** | 20. **Αξία Ακινήτου**")
@@ -125,49 +129,53 @@ with tab_calc:
             h_t = PRICES["hub_small"] if base_c <= 37 else PRICES["hub_large"] if base_c <= 97 else (PRICES["hub_large"] + PRICES["hub_small"]) if base_c <= 130 else PRICES["hub_large"]*2
             
             total_dev = base_c + h_q
-            total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
-            prog_cost, vat = total_mat * 0.20, total_mat * 0.24
-            gen_total = total_mat + vat
-            
-            res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
-            res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
-            res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
-            if base_c <= 37: res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
-            elif base_c <= 97: res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n"
-            elif base_c <= 130: res += f"{'Κεντρική μονάδα (100)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n{'Κεντρική μονάδα (40)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
-            else: res += f"{'Κεντρική μονάδα (100)':<40} | 2    | {PRICES['hub_large']*2:10.2f}€\n"
-            if on_off > 0: res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
-            if double > 0: res += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<4} | {double*63.92:10.2f}€\n"
-            if dim220 > 0: res += f"{'Dimming 220V':<40} | {dim220:<4} | {dim220*63.92:10.2f}€\n"
-            if dim110 > 0: res += f"{'Dimming 1-10V':<40} | {dim110:<4} | {dim110*52.00:10.2f}€\n"
-            if led > 0:    res += f"{'Ταινίες LED Dimming':<40} | {led:<4} | {led*63.92:10.2f}€\n"
-            if dali > 0:   res += f"{'Γραμμές DALI':<40} | {dali:<4} | {dali*160.00:10.2f}€\n"
-            for d in h_det: res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:10.2f}€\n"
-            if shutt > 0:  res += f"{'Ρολά / Τέντες / Κουρτίνες':<40} | {shutt:<4} | {shutt*63.92:10.2f}€\n"
-            if e_val > 0:  res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
-            if heater:     res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
-            res += f"{'-'*70}\n"
-            res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΩΝ:':<40} | {total_dev:<4} | \n"
-            res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
-            res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
-            res += f"{'='*70}\n"
-            res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
-            res += f"{'='*70}\n"
-            res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
-            disp_text = res
+            if total_dev > 230:
+                st.markdown(f'<div class="display-box"><pre style="color:red; text-align:center;">❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ 230 ΣΥΣΚΕΥΩΝ</pre></div>', unsafe_allow_html=True)
+                disp_text = "ΣΦΑΛΜΑ ΟΡΙΟΥ ΣΥΣΚΕΩΝ"
+            else:
+                total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
+                prog_cost, vat = total_mat * 0.20, total_mat * 0.24
+                gen_total = total_mat + vat
+                
+                res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
+                res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
+                res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
+                if base_c <= 37: res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
+                elif base_c <= 97: res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n"
+                elif base_c <= 130: res += f"{'Κεντρική μονάδα (100)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n{'Κεντρική μονάδα (40)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
+                else: res += f"{'Κεντρική μονάδα (100)':<40} | 2    | {PRICES['hub_large']*2:10.2f}€\n"
+                if on_off > 0: res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
+                if double > 0: res += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<4} | {double*63.92:10.2f}€\n"
+                if dim220 > 0: res += f"{'Dimming 220V':<40} | {dim220:<4} | {dim220*63.92:10.2f}€\n"
+                if dim110 > 0: res += f"{'Dimming 1-10V':<40} | {dim110:<4} | {dim110*52.00:10.2f}€\n"
+                if led > 0:    res += f"{'Ταινίες LED Dimming':<40} | {led:<4} | {led*63.92:10.2f}€\n"
+                if dali > 0:   res += f"{'Γραμμές DALI':<40} | {dali:<4} | {dali*160.00:10.2f}€\n"
+                for d in h_det: res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:10.2f}€\n"
+                if shutt > 0:  res += f"{'Ρολά / Τέντες / Κουρτίνες':<40} | {shutt:<4} | {shutt*63.92:10.2f}€\n"
+                if e_val > 0:  res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
+                if heater:     res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
+                res += f"{'-'*70}\n"
+                res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΩΝ:':<40} | {total_dev:<4} | \n"
+                res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
+                res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
+                res += f"{'='*70}\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
+                res += f"{'='*70}\n"
+                res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
+                disp_text = res
 
-            st.markdown('<div class="display-box">', unsafe_allow_html=True)
-            st.subheader("🖥️ LIVE PRICING SYSTEM")
-            st.code(disp_text, language="text")
-            st.markdown('</div>', unsafe_allow_html=True)
-            
-            st.write("---")
-            notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
-            
-            if st.button("🚀 1. ΠΡΟΕΤΟΙΜΑΣΙΑ ΑΠΟΣΤΟΛΗΣ"):
-                subject = f"Ζήτηση Portal - {v_name}"; body = f"Προσφορά:\n\n{disp_text}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{notes}"
-                mailto_link = f"mailto:kladouxos@geyer.gr?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
-                st.success("Έτοιμο!"); st.markdown(f'<a href="{mailto_link}" style="background-color: #27ae60; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">📩 2. ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΟΡΙΣΤΙΚΗ ΑΠΟΣΤΟΛΗ</a>', unsafe_allow_html=True)
+                st.markdown('<div class="display-box">', unsafe_allow_html=True)
+                st.subheader("🖥️ LIVE PRICING SYSTEM")
+                st.code(disp_text, language="text")
+                st.markdown('</div>', unsafe_allow_html=True)
+                
+                st.write("---")
+                notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
+                
+                if st.button("🚀 1. ΠΡΟΕΤΟΙΜΑΣΙΑ ΑΠΟΣΤΟΛΗΣ"):
+                    subject = f"Ζήτηση Portal - {v_name}"; body = f"Προσφορά:\n\n{disp_text}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{notes}"
+                    mailto_link = f"mailto:kladouxos@geyer.gr?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+                    st.success("Έτοιμο!"); st.markdown(f'<a href="{mailto_link}" style="background-color: #27ae60; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">📩 2. ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΟΡΙΣΤΙΚΗ ΑΠΟΣΤΟΛΗ</a>', unsafe_allow_html=True)
 
 with tab_home: st.markdown("### 🏠 Digital Showroom")
 with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
