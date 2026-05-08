@@ -25,7 +25,7 @@ st.markdown("""
         background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
         border-radius: 8px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
     }
-    pre { font-family: 'Consolas', monospace !important; font-size: 11px !important; line-height: 1.2 !important; color: #000 !important; }
+    pre { font-family: 'Consolas', monospace !important; font-size: 12px !important; line-height: 1.2 !important; color: #000 !important; }
     .main-header { text-align: center; color: #1E3A8A; margin-top: -30px; }
     .info-text { background-color: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 5px solid #1E3A8A; margin-bottom: 20px; }
     </style>
@@ -66,27 +66,36 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
     with right:
-        # --- ΝΕΟ ΚΕΙΜΕΝΟ ΚΑΙ ΚΟΥΜΠΙ 10 ΛΟΓΩΝ ---
         st.markdown("""
         <div class='info-text'>
             <h4 style='margin-top:0;'>🏠 Υπολογισμός Smart Home από την GEYER</h4>
             Φτιάξτε τα υλικά της ζήτησης με βάση το κόστος και τις ανάγκες σας και στείλτε μου email. 
-            Εμείς θα αναλάβουμε όλα τα επόμενα βήματα για την υλοποίηση του έργου σας.
+            Εμείς θα αναλάβουμε όλα τα επόμενα βήματα. Βάλτε τα στοιχεία επικοινωνίας σας στις παρατηρήσεις.
         </div>
         """, unsafe_allow_html=True)
         
-        with st.expander("🏆 10 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
-            st.write("""
-            1. **Retrofit Τεχνολογία:** Τοποθετείται σε υφιστάμενες εγκαταστάσεις χωρίς μερεμέτια.
-            2. **Z-Wave Αξιοπιστία:** Διεθνές πρωτόκολλο ασύρματης επικοινωνίας.
-            3. **Εξοικονόμηση Ενέργειας:** Έως και 30% μείωση στους λογαριασμούς.
-            4. **Smartphone Έλεγχος:** Διαχείριση των πάντων από το κινητό σας.
-            5. **Σενάρια Αυτοματισμού:** Δημιουργήστε σενάρια "Αναχώρησης", "Ύπνου" κτλ.
-            6. **Επεκτασιμότητα:** Προσθέστε συσκευές σταδιακά όποτε το θελήσετε.
-            7. **Συμβατότητα HVAC:** Έλεγχος VRV, Split και θέρμανσης από μία εφαρμογή.
-            8. **Ελληνική Υποστήριξη:** Άμεση τεχνική βοήθεια από την ομάδα της GEYER.
-            9. **Design:** Κομψές λύσεις που ταιριάζουν σε κάθε αρχιτεκτονική.
-            10. **Αξία Ακινήτου:** Αυξάνει την εμπορική αξία του σπιτιού σας.
+        with st.expander("🏆 20 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
+            st.markdown("""
+            1. **Λειτουργία χωρίς Internet:** Το σύστημα παραμένει πλήρως λειτουργικό τοπικά.
+            2. **Οποιοσδήποτε Φωτισμός:** Πλήρης διαχείριση DALI, 1-10V, Phase Cut και RGB.
+            3. **Retrofit Τεχνολογία:** Τοποθέτηση σε υφιστάμενες εγκαταστάσεις χωρίς μερεμέτια.
+            4. **Ανοιχτό Πρωτόκολλο:** Επικοινωνία μέσω Z-Wave για μέγιστη συμβατότητα.
+            5. **Δωρεάν Ενσωματώσεις:** Alexa, Google Assistant, Philips HUE, Sonos κ.α.
+            6. **Σύνδεση με Home Assistant:** Για τους λάτρεις του απόλυτου ελέγχου.
+            7. **Εύκολα Σενάρια:** Δημιουργία σκηνών (π.χ. Αναχώρηση) με ελάχιστα κλικ.
+            8. **Lua Scripting:** Δυνατότητα για εξειδικευμένο προγραμματισμό από επαγγελματίες.
+            9. **Cloud & Local Backup:** Μην ξανασετάρετε ποτέ τις συσκευές σας.
+            10. **Mesh Επικοινωνία:** Κάθε συσκευή λειτουργεί ως επαναλήπτης για τέλειο σήμα.
+            11. **Τεράστια Γκάμα Υλικών:** Καλύπτουμε κάθε ανάγκη αυτοματισμού.
+            12. **Απομακρυσμένη Υποστήριξη:** Μέσω της εφαρμογής Installer App.
+            13. **Ενεργειακή Παρακολούθηση:** Δείτε την κατανάλωση σε πραγματικό χρόνο.
+            14. **Θερμικές Ζώνες:** Ανεξάρτητος έλεγχος θερμοκρασίας ανά δωμάτιο.
+            15. **Αυτόματο Πότισμα:** Έξυπνη διαχείριση του κήπου σας.
+            16. **Push Notifications:** Διαδραστική επικοινωνία για κάθε συμβάν στο σπίτι.
+            17. **Εξοικονόμηση 30%:** Σημαντική μείωση στο κόστος ρεύματος και θέρμανσης.
+            18. **Ελληνική Υποστήριξη:** Άμεση βοήθεια από την τεχνική ομάδα της GEYER.
+            19. **Design:** Συσκευές που "κρύβονται" ή αναδεικνύουν τον χώρο σας.
+            20. **Αξία Ακινήτου:** Άμεση αναβάθμιση της εμπορικής αξίας του έργου.
             """)
 
         st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
@@ -120,23 +129,20 @@ with tab_calc:
             h_t = PRICES["hub_small"] if base_c <= 37 else PRICES["hub_large"] if base_c <= 97 else (PRICES["hub_large"] + PRICES["hub_small"]) if base_c <= 130 else PRICES["hub_large"]*2
             
             total_dev = base_c + h_q
-            
             if total_dev > 230:
                 disp_text = f"{'='*70}\n❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ ΣΥΣΚΕΥΩΝ\n{'='*70}"
             else:
                 total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
                 prog_cost = total_mat * 0.20
-                vat = (total_mat + prog_cost) * 0.24
+                vat = total_mat * 0.24
                 
                 res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
                 res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
-                
                 if base_c <= 37: res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
                 elif base_c <= 97: res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n"
                 elif base_c <= 130: res += f"{'Κεντρική μονάδα (100)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n{'Κεντρική μονάδα (40)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
                 else: res += f"{'Κεντρική μονάδα (100)':<40} | 2    | {PRICES['hub_large']*2:10.2f}€\n"
-
                 if on_off > 0: res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
                 if double > 0: res += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<4} | {double*63.92:10.2f}€\n"
                 if dim220 > 0: res += f"{'Dimming 220V':<40} | {dim220:<4} | {dim220*63.92:10.2f}€\n"
@@ -152,7 +158,7 @@ with tab_calc:
                 res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
                 res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
                 res += f"{'='*70}\n"
-                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {total_mat + prog_cost + vat:10.2f}€\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {total_mat + vat:10.2f}€\n"
                 res += f"{'='*70}\n"
                 res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
                 disp_text = res
@@ -163,13 +169,13 @@ with tab_calc:
         st.markdown('</div>', unsafe_allow_html=True)
         
         st.write("---")
-        notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", placeholder="Γράψτε εδώ τις ανάγκες σας ή τα στοιχεία επικοινωνίας σας...")
+        notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", placeholder="Συμπληρώστε τα στοιχεία επικοινωνίας σας και τυχόν ειδικές ανάγκες...")
         
         if st.button("🚀 1. ΠΡΟΕΤΟΙΜΑΣΙΑ ΑΠΟΣΤΟΛΗΣ"):
             if v_name and disp_text:
                 subject = f"Ζήτηση Portal - {v_name}"
                 body = f"Στοιχεία Προσφοράς:\n\n{disp_text}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{notes}"
-                mailto_link = f"mailto:nnerinos@yahoo.gr?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+                mailto_link = f"mailto:kladouxos@geyer.gr?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
                 
                 st.success("Έτοιμο! Πατήστε το παρακάτω κουμπί:")
                 st.markdown(f'<a href="{mailto_link}" style="background-color: #27ae60; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">📩 2. ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΟΡΙΣΤΙΚΗ ΑΠΟΣΤΟΛΗ</a>', unsafe_allow_html=True)
