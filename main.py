@@ -1,6 +1,11 @@
 import streamlit as st
 
-st.set_page_config(page_title="GEYER Technical Portal", layout="wide")
+# Ρύθμιση σελίδας: Το initial_sidebar_state="expanded" κρατάει το μενού ανοιχτό
+st.set_page_config(
+    page_title="GEYER Technical Portal", 
+    layout="wide", 
+    initial_sidebar_state="expanded"
+)
 
 # CSS για την Αρχική Σελίδα
 st.markdown("""
@@ -11,13 +16,17 @@ st.markdown("""
         background-color: #ffffff; padding: 30px; border-radius: 15px; 
         box-shadow: 0px 4px 20px rgba(0,0,0,0.05); border-top: 5px solid #1E3A8A;
     }
+    /* Διόρθωση για να φαίνεται καλύτερα το sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #f0f2f6;
+    }
     </style>
     """, unsafe_allow_html=True)
 
 st.markdown("<h1 class='main-title'>GEYER TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
 st.write("---")
 
-col1, col2 = st.columns([2, 1])
+col1, col2 = st.columns([2, 1]) # Δίνουμε περισσότερο χώρο στο κείμενο
 
 with col1:
     st.markdown("""
@@ -36,10 +45,11 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
-    st.image("https://geyer.gr")
+    # Χρήση σωστού URL για το λογότυπο
+    st.image("https://geyer.gr", use_container_width=True)
     st.info("""
     **Υπεύθυνος Portal:**
-    Νεκτάριος Κλαδούχος
+    Νεκτάριος Παπαδόπουλος
     *Technical Support Specialist*
     """)
 
