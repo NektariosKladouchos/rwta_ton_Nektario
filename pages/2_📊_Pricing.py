@@ -12,9 +12,11 @@ PRICES = {
 BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Midea", "Άλλη"]
 JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
 
-# --- CSS ---
+# --- CSS ΓΙΑ ΜΙΚΡΟ SIDEBAR ΚΑΙ ΣΤΟΙΧΙΣΗ ---
 st.markdown("""
     <style>
+    [data-testid="stSidebar"] { min-width: 180px !important; max-width: 180px !important; }
+    .stApp { background-color: #f8f9fa; }
     .stNumberInput, .stSelectbox, .stTextInput, .stRadio { margin-bottom: -20px !important; }
     .stMarkdown h3 { font-size: 15px !important; margin-bottom: -10px !important; color: #1E3A8A; }
     .display-box {
@@ -54,19 +56,42 @@ with left:
     c_type = st.selectbox("Επιλογή Ψ", c_list, key="ct"); c_qty = st.number_input("Ποσότητα (Ψ)", min_value=0, key='cq_val')
     cb = st.selectbox("Brand (Ψ)", BRANDS, key="cb") if c_type == "VRV/VRF" else ""
     
-    st.markdown("### 🪟 5. ΡΟΛΑ & ΤΕΝΤΕΣ")
+    st.markdown("### 🪟 5. ΡΟΛΑ & 🔌 6. ΠΙΝΑΚΑΣ")
     shutt = st.number_input("Τεμάχια Ρολών", min_value=0)
-    
-    st.markdown("### 🔌 6. ΠΙΝΑΚΑΣ")
-    energy = st.radio("Μετρητής Ενέργειας", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
+    energy = st.radio("Μετρητής", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
     heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
 with right:
-    st.markdown("""<div class='info-text'>🏠 <b>Υπολογισμός Smart Home GEYER</b></div>""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='info-text'>
+        <h4 style='margin-top:0;'>🏠 Υπολογισμός Smart Home από την GEYER</h4>
+        Φτιάξτε τα υλικά της ζήτησης με βάση το κόστος και τις ανάγκες σας και στείλτε μου email. 
+        Εμείς θα αναλάβουμε όλα τα επόμενα βήματα. Βάλτε τα στοιχεία επικοινωνίας σας στις παρατηρήσεις.
+    </div>
+    """, unsafe_allow_html=True)
     
     with st.expander("🏆 20 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
         st.markdown("""
-        1. **Λειτουργία χωρίς Internet** | 2. **DALI, 1-10V, RGB** | 3. **Retrofit** | 4. **Z-Wave** | 5. **Alexa/Google** | 6. **Home Assistant** | 7. **Εύκολα Σενάρια** | 8. **Lua Scripting** | 9. **Local Backup** | 10. **Mesh** | 11. **Μεγάλη Γκάμα** | 12. **Installer App** | 13. **Energy Monitoring** | 14. **Ζώνες Θέρμανσης** | 15. **Πότισμα** | 16. **Notifications** | 17. **30% Εξοικονόμηση** | 18. **Ελληνική Υποστήριξη** | 19. **Design** | 20. **Αξία Ακινήτου**
+        1. **Λειτουργία χωρίς Internet:** Το σύστημα παραμένει πλήρως λειτουργικό τοπικά.
+        2. **Οποιοσδήποτε Φωτισμός:** Πλήρης διαχείριση DALI, 1-10V, Phase Cut και RGB.
+        3. **Retrofit Τεχνολογία:** Τοποθέτηση σε υφιστάμενες εγκαταστάσεις χωρίς μερεμέτια.
+        4. **Ανοιχτό Πρωτόκολλο:** Επικοινωνία μέσω Z-Wave για μέγιστη συμβατότητα.
+        5. **Δωρεάν Ενσωματώσεις:** Alexa, Google Assistant, Philips HUE, Sonos κ.α.
+        6. **Σύνδεση με Home Assistant:** Για τους λάτρεις του απόλυτου ελέγχου.
+        7. **Εύκολα Σενάρια:** Δημιουργία σκηνών (π.χ. Αναχώρηση) με ελάχιστα κλικ.
+        8. **Lua Scripting:** Δυνατότητα για εξειδικευμένο προγραμματισμό από επαγγελματίες.
+        9. **Cloud & Local Backup:** Μην ξανασετάρετε ποτέ τις συσκευές σας.
+        10. **Mesh Επικοινωνία:** Κάθε συσκευή λειτουργεί ως επαναλήπτης για τέλειο σήμα.
+        11. **Τεράστια Γκάμα Υλικών:** Καλύπτουμε κάθε ανάγκη αυτοματισμού.
+        12. **Απομακρυσμένη Υποστήριξη:** Μέσω της εφαρμογής Installer App.
+        13. **Ενεργειακή Παρακολούθηση:** Δείτε την κατανάλωση σε πραγματικό χρόνο.
+        14. **Θερμικές Ζώνες:** Ανεξάρτητος έλεγχος θερμοκρασίας ανά δωμάτιο.
+        15. **Αυτόματο Πότισμα:** Έξυπνη διαχείριση του κήπου σας.
+        16. **Push Notifications:** Διαδραστική επικοινωνία για κάθε συμβάν στο σπίτι.
+        17. **Εξοικονόμηση 30%:** Σημαντική μείωση στο κόστος ρεύματος και θέρμανσης.
+        18. **Ελληνική Υποστήριξη:** Άμεση βοήθεια από την τεχνική ομάδα της GEYER.
+        19. **Design:** Συσκευές που "κρύβονται" ή αναδεικνύουν τον χώρο σας.
+        20. **Αξία Ακινήτου:** Άμεση αναβάθμιση της εμπορικής αξίας του έργου.
         """)
 
     on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
@@ -74,6 +99,7 @@ with right:
     error = None
     if not v_name or not v_job or not v_addr: error = "⚠️ ΣΥΜΠΛΗΡΩΣΤΕ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ"
     elif on_off < 0: error = "❌ ΣΦΑΛΜΑ ΣΤΟ ΦΩΤΙΣΜΟ"
+    # Η ΜΟΝΑΔΙΚΗ ΑΛΛΑΓΗ: ΔΙΚΛΙΔΑ "ΑΛΛΗ"
     elif (h_type == "VRV/VRF" and hb == "Άλλη") or (c_type == "VRV/VRF" and cb == "Άλλη"):
         error = "❌ ΜΗ ΣΥΜΒΑΤΟ: Η επιλογή 'Άλλη' στο VRV δεν υποστηρίζεται απευθείας."
     elif h_type == "VRV/VRF" and c_type == "VRV/VRF" and hb != cb: error = "❌ ΛΑΘΟΣ: ΔΙΑΦΟΡΕΤΙΚΕΣ ΜΑΡΚΕΣ VRV"
@@ -102,7 +128,7 @@ with right:
         
         total_dev = base_c + h_q
         if total_dev > 230:
-            disp_text = f"{'='*70}\n❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ ΣΥΣΚΕΩΝ\n{'='*70}"
+            disp_text = f"{'='*70}\n❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ ΣΥΣΚΕΥΩΝ\n{'='*70}"
         else:
             total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
             prog_cost = total_mat * 0.20
@@ -114,8 +140,8 @@ with right:
             res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
             if base_c <= 37: res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
             elif base_c <= 97: res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n"
-            elif base_c <= 130: res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n{'Κεντρική μονάδα (40 συσκευές)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
-            else: res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 2    | {PRICES['hub_large']*2:10.2f}€\n"
+            elif base_c <= 130: res += f"{'Κεντρική μονάδα (100)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n{'Κεντρική μονάδα (40)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
+            else: res += f"{'Κεντρική μονάδα (100)':<40} | 2    | {PRICES['hub_large']*2:10.2f}€\n"
             if on_off > 0: res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
             if double > 0: res += f"{'Διπλές Γραμμές (Κομιτατέρ)':<40} | {double:<4} | {double*63.92:10.2f}€\n"
             if dim220 > 0: res += f"{'Dimming 220V':<40} | {dim220:<4} | {dim220*63.92:10.2f}€\n"
@@ -127,7 +153,7 @@ with right:
             if e_val > 0:  res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
             if heater:     res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
             res += f"{'-'*70}\n"
-            res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ:':<40} | {total_dev:<4} | \n"
+            res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΩΝ:':<40} | {total_dev:<4} | \n"
             res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
             res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
             res += f"{'='*70}\n"
@@ -142,7 +168,7 @@ with right:
     st.markdown('</div>', unsafe_allow_html=True)
     
     st.write("---")
-    notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", placeholder="Στοιχεία επικοινωνίας...")
+    notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:", placeholder="Συμπληρώστε τα στοιχεία επικοινωνίας σας και τυχόν ειδικές ανάγκες...")
     
     if st.button("🚀 1. ΠΡΟΕΤΟΙΜΑΣΙΑ ΑΠΟΣΤΟΛΗΣ"):
         if not error:
