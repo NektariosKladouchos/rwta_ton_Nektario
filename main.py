@@ -1,36 +1,24 @@
 import streamlit as st
 
-st.image("https://wikimedia.org", width=200)
+st.set_page_config(page_title="GEYER Portal", layout="wide", initial_sidebar_state="collapsed")
 
-# 1. Sidebar - Εδώ θα εμφανιστούν αυτόματα οι σελίδες αν δεν έχουν σφάλμα
-with st.sidebar:
-    st.image("https://wikimedia.org", width=150)
-    st.write("---")
-    st.markdown("### 🛠️ Πλοήγηση")
+# CSS για να κρύψουμε το sidebar στην αρχική
+st.markdown("<style>#MainMenu {visibility: hidden;} [data-testid='stSidebar'] {display: none;}</style>", unsafe_allow_html=True)
 
-# 2. Κεντρικό Περιεχόμενο
 st.markdown("<h1 style='text-align: center; color: #1E3A8A;'>GEYER TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
 st.write("---")
 
-col1, col2 = st.columns([2, 1])
-
+col1, col2 = st.columns(2)
 with col1:
-    st.markdown("""
-    <div style='background-color: #ffffff; padding: 25px; border-radius: 15px; border-top: 5px solid #1E3A8A; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);'>
-        <h3>👋 Καλώς ήρθατε</h3>
-        <p>Αυτή είναι η κεντρική πύλη τεχνικής υποστήριξης για τους συνεργάτες της <b>GEYER Hellas</b>.</p>
-        <p>Επιλέξτε μια ενότητα από το μενού στα αριστερά:</p>
-        <ul>
-            <li><b>📊 Pricing:</b> Για άμεση κοστολόγηση Smart Home.</li>
-            <li><b>💡 Ιδέες:</b> Για τεχνικές λύσεις και παρουσιάσεις.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("### 👋 Καλώς ήρθατε")
+    st.write("Αυτό είναι το επίσημο portal τεχνικής υποστήριξης της GEYER Hellas.")
+    st.write("Χρησιμοποιήστε τον live υπολογιστή για άμεση κοστολόγηση υλικών Smart Home.")
+    
+    # ΚΟΥΜΠΙ ΠΟΥ ΣΤΕΛΝΕΙ ΣΤΟ PRICING
+    st.page_link("pages/2_📊_Pricing.py", label="🚀 ΕΝΑΡΞΗ ΚΟΣΤΟΛΟΓΗΣΗΣ (LIVE PRICING)", icon="📊")
 
 with col2:
-    # Σίγουρο Logo
-    st.image("https://wikimedia.org", use_container_width=True)
-    st.info("**Υπεύθυνος Portal:**\nΝεκτάριος Παπαδόπουλος")
+    st.image("https://wikimedia.org", width=250)
 
 st.write("---")
-st.caption("© 2024 Geyer Hellas - Smart Solutions Portal")
+st.info("💡 Για τεχνικές λύσεις και ιδέες, χρησιμοποιήστε το μενού πλοήγησης.")
