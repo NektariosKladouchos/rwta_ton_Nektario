@@ -63,7 +63,8 @@ with tab_calc:
         elif h_type == "Split Κλιματιστικά": label_h = "Αριθμός Κλιματιστικών"
         elif h_type == "Θερμαντικά σώματα": label_h = "Αριθμός Σωμάτων"
         
-        h_qty = st.number_input(label_h, min_value=0, key='hq_val')
+        h_qty_input = st.number_input(label_h, min_value=0, key='hq_val')
+        h_qty = 0 if h_type == "Κανένα" else h_qty_input
         hb = st.selectbox("Brand (Θ)", BRANDS, key="hb") if h_type == "VRV/VRF" else ""
         
         st.markdown("### ❄️ 4. ΨΥΞΗ")
@@ -75,7 +76,8 @@ with tab_calc:
         elif "Fancoil" in c_type or c_type == "VRV/VRF": label_c = "Αριθμός Εσωτερικών Μονάδων"
         elif c_type == "Split Κλιματιστικά": label_c = "Αριθμός Κλιματιστικών"
         
-        c_qty = st.number_input(label_c, min_value=0, key='cq_val')
+        c_qty_input = st.number_input(label_c, min_value=0, key='cq_val')
+        c_qty = 0 if c_type == "Κανένα" else c_qty_input
         cb = st.selectbox("Brand (Ψ)", BRANDS, key="cb") if c_type == "VRV/VRF" else ""
         
         st.markdown("### 🪟 5. ΡΟΛΑ / ΤΕΝΤΕΣ / ΚΟΥΡΤΙΝΕΣ")
@@ -115,7 +117,7 @@ with tab_calc:
             17. **Εξοικονόμηση 30%:** Σημαντική μείωση στο κόστος ρεύματος και θέρμανσης.
             18. **Ελληνική Υποστήριξη:** Άμεση βοήθεια από την τεχνική ομάδα της GEYER.
             19. **Design:** Συσκευές που "κρύβονται" ή αναδεικνύουν τον χώρο σας.
-            20. **Αξία Ακινήτου:** Άμεση αναβάθμιση της εμπορικής αξίας του έργου.
+            20. **Αξία Ακινήτου:** Άμεση αναβάθριση της εμπορικής αξίας του έργου.
             """)
 
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
