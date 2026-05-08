@@ -68,11 +68,10 @@ with tab_calc:
 
     with right:
         with st.expander("🏆 10 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
-            st.write("1. Retrofit | 2. Z-Wave Αξιοπιστία | 3. Εξοικονόμηση 30% | 4. Smartphone App | 5. Σενάρια Αυτοματισμού | 6. Επεκτασιμότητα | 7. Συμβατότητα HVAC | 8. Ελληνική Υποστήριξη | 9. Design | 10. Αξία Ακινήτου")
+            st.write("1. Retrofit | 2. Z-Wave Αξιοπιστία | 3. Εξοικονόμηση 30% | 4. Smartphone App | 5. Σενάρια | 6. Επεκτασιμότητα | 7. Συμβατότητα | 8. Ελληνική Υποστήριξη | 9. Design | 10. Αξία Ακινήτου")
 
         st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
         
-        # --- LOGIC ΥΠΟΛΟΓΙΣΜΟΥ ---
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
         error = None
         if not v_name or not v_job or not v_addr: error = "⚠️ ΣΥΜΠΛΗΡΩΣΤΕ ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ"
@@ -83,26 +82,25 @@ with tab_calc:
         is_exact = (h_type == c_type and h_type != "Κανένα") or (h_type == "Ενδοδαπέδια" and c_type == "Ενδοδαπέδια Δροσισμός") or (h_type == "Split Κλιματιστικά" and c_type == "Split Κλιματιστικά")
         if not error and is_exact and h_qty != c_qty: error = f"❌ ΛΑΘΟΣ: Η ΠΟΣΟΤΗΤΑ ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΙΔΙΑ ΣΕ {h_type}"
 
-        final_offer = ""
-        total_dev = 0
-        total_sum = 0
+        final_offer = ""; total_dev = 0; total_sum = 0
 
         if error:
             final_offer = f"{'='*72}\n        {error}\n{'='*72}"
         else:
-            hvac_cost = 0; h_details = []
+            # HVAC Logic
+            h_cost_hvac = 0; h_details = []
             if is_exact:
                 p_k = "fancoil_ctrl" if "Fancoil" in h_type or "Δροσισμός" in h_type else "vrv_interface" if "VRV" in h_type else "split_ac" if "Split" in h_type else "heat_thermostat"
-                hvac_cost = h_qty * PRICES[p_k]
-                h_details.append({"n": f"{h_type} ({hb if 'VRV' in h_type else ''}) [Κοινό]", "q": h_qty, "p": hvac_cost})
+                h_cost_hvac = h_qty * PRICES[p_k]
+                h_details.append({"n": f"{h_type} ({hb if 'VRV' in h_type else ''}) [Κοινό]", "q": h_qty, "p": h_cost_hvac})
             else:
                 h_m = {"Καλοριφέρ":"heat_thermostat","Ενδοδαπέδια":"heat_thermostat","Fancoil οροφής":"fancoil_ctrl","Fancoil δαπέδου":"fancoil_ctrl","Θερμαντικά σώματα":"electric_heat","VRV/VRF":"vrv_interface","Split Κλιματιστικά":"split_ac"}
                 if h_qty > 0 and h_type in h_m:
-                    p = h_qty * PRICES[h_m[h_type]]; hvac_cost += p
+                    p = h_qty * PRICES[h_m[h_type]]; h_cost_hvac += p
                     h_details.append({"n": f"Θ: {h_type} {hb}", "q": h_qty, "p": p})
                 c_m = {"Ενδοδαπέδια Δροσισμός":"fancoil_ctrl","Fancoil οροφής":"fancoil_ctrl","Fancoil δαπέδου":"fancoil_ctrl","VRV/VRF":"vrv_interface","Split Κλιματιστικά":"split_ac"}
                 if c_qty > 0 and c_type in c_m:
-                    p = c_qty * PRICES[c_m[c_type]]; hvac_cost += p
+                    p = c_qty * PRICES[c_m[c_type]]; h_cost_hvac += p
                     h_details.append({"n": f"Ψ: {c_type} {cb}", "q": c_qty, "p": p})
 
             e_cost = 110 if "Μονοφασικός" in energy else 160 if "Τριφασικός" in energy else 0
@@ -116,7 +114,7 @@ with tab_calc:
             total_dev = base + h_q
             if total_dev > 230: final_offer = "❌ ΟΡΙΟ 230 ΣΥΣΚΕΥΩΝ"
             else:
-                total_sum = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + hvac_cost + h_t + e_cost + (95 if heater else 0)
+                total_sum = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_cost_hvac + h_t + e_cost + (95 if heater else 0)
                 res = f"{'='*72}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*72}\n"
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*72}\n"
                 res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<7} | {'ΤΙΜΗ':<10}\n{'-'*72}\n"
@@ -143,26 +141,29 @@ with tab_calc:
         st.markdown('</div>', unsafe_allow_html=True)
         
         st.write("---")
-        # --- ΤΕΛΙΚΗ ΛΥΣΗ ΓΙΑ EMAIL ΜΕΣΩ COMPONENTS (IFRAME) ---
+        
+        # --- HTML FORM ΜΕ REDIRECT ---
         contact_email = "kladouxos@geyer.gr"
+        app_url = "https://streamlit.app"
         clean_offer_email = final_offer.replace('=', '-').replace('"', "'")
         
         iframe_html = f"""
         <div style="font-family: sans-serif;">
-            <form action="https://formsubmit.co{contact_email}" method="POST" target="_blank">
+            <form action="https://formsubmit.co{contact_email}" method="POST">
                 <p style="font-weight:bold; font-size:14px; margin-bottom:5px;">📝 Παρατηρήσεις Ζήτησης:</p>
                 <textarea name="Παρατηρήσεις" style="width:100%; height:80px; border:1px solid #ccc; border-radius:5px; padding:10px;"></textarea>
                 <input type="hidden" name="Πελάτης" value="{v_name}">
                 <input type="hidden" name="Συσκευές" value="{total_dev}">
                 <input type="hidden" name="Προσφορά" value="{clean_offer_email}">
                 <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="{app_url}">
                 <button type="submit" style="width:100%; background-color:#27ae60; color:white; border:none; padding:12px; border-radius:5px; cursor:pointer; font-weight:bold; font-size:16px; margin-top:10px;">
                     📩 Αποστολή Ζήτησης Τώρα
                 </button>
             </form>
         </div>
         """
-        st.components.v1.html(iframe_html, height=200)
+        st.components.v1.html(iframe_html, height=220)
 
 with tab_home: st.markdown("### 🏠 Digital Showroom")
 with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
