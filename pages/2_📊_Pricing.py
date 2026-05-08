@@ -1,6 +1,9 @@
 import streamlit as st
 import urllib.parse
 
+# ΠΡΟΣΟΧΗ: ΟΧΙ st.set_page_config εδώ!
+
+
 # --- ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER ---
 PRICES = {
     "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 52.0, 
