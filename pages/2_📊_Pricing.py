@@ -184,7 +184,7 @@ with tab_calc:
                 res += f"{'='*70}\n"
                 res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
                 res += f"{'='*70}\n"
-                res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
+                res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ προαιρετικό  (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
                 disp_text = res
 
                 st.markdown('<div class="display-box">', unsafe_allow_html=True)
@@ -202,4 +202,4 @@ with tab_calc:
 
 with tab_home: st.markdown("### 🏠 Digital Showroom")
 with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
-with tab_contact: st.markdown("### 📨 Επικοινωνία")
+#---with tab_contact: st.markdown("### 📨 Επικοινωνία")
