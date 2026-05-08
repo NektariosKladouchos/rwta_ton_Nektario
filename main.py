@@ -1,29 +1,33 @@
 import streamlit as st
 
-# Ρύθμιση σελίδας: Το initial_sidebar_state="expanded" κρατάει το μενού ανοιχτό
+# 1. Ρύθμιση σελίδας (sidebar_state="expanded" για να είναι πάντα ανοιχτό)
 st.set_page_config(
     page_title="GEYER Technical Portal", 
     layout="wide", 
     initial_sidebar_state="expanded"
 )
 
-# CSS για την Αρχική Σελίδα
+# 2. Χειροκίνητο sidebar για να "αναγκάσουμε" την εμφάνιση
+with st.sidebar:
+    st.markdown("### 🛠️ GEYER PORTAL")
+    st.write("Επιλέξτε ενότητα:")
+    # Αν το Streamlit βλέπει το φάκελο pages, θα βάλει τις σελίδες εδώ αυτόματα.
+    # Αν όχι, θα εμφανιστεί τουλάχιστον αυτό το πλαίσιο.
+
+# 3. CSS και το υπόλοιπο περιεχόμενο (όπως το είχαμε)
 st.markdown("""
     <style>
-    .stApp { background-color: #f8f9fa; }
     .main-title { text-align: center; color: #1E3A8A; font-weight: bold; }
     .welcome-card { 
         background-color: #ffffff; padding: 30px; border-radius: 15px; 
         box-shadow: 0px 4px 20px rgba(0,0,0,0.05); border-top: 5px solid #1E3A8A;
     }
-    /* Διόρθωση για να φαίνεται καλύτερα το sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #f0f2f6;
-    }
     </style>
     """, unsafe_allow_html=True)
 
 st.markdown("<h1 class='main-title'>GEYER TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
+# ... (το υπόλοιπο main.py σου)
+
 st.write("---")
 
 col1, col2 = st.columns([2, 1]) # Δίνουμε περισσότερο χώρο στο κείμενο
