@@ -25,7 +25,7 @@ st.markdown("""
         background-color: #ffffff; padding: 15px; border: 2px solid #27ae60;
         border-radius: 8px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
     }
-    pre { font-family: 'Consolas', monospace !important; font-size: 12px !important; line-height: 1.2 !important; color: #000 !important; }
+    pre { font-family: 'Consolas', monospace !important; font-size: 11px !important; line-height: 1.2 !important; color: #000 !important; }
     .main-header { text-align: center; color: #1E3A8A; margin-top: -30px; }
     .info-text { background-color: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 5px solid #1E3A8A; margin-bottom: 20px; }
     </style>
@@ -46,9 +46,13 @@ with tab_calc:
         
         st.markdown("### 💡 2. ΦΩΤΙΣΜΟΣ")
         c1, c2 = st.columns(2); int_l = c1.number_input("Εσωτερικές", min_value=0); ext_l = c2.number_input("Εξωτερικές", min_value=0)
-        dim220 = st.number_input("Dimming 220V", min_value=0); dim110 = st.number_input("Dimming 1-10V", min_value=0)
-        led = st.number_input("LED Dimming", min_value=0); dali = st.number_input("DALI", min_value=0)
-        double = st.number_input("Κομιτατέρ (Διπλές)", min_value=0)
+        
+        st.markdown("### 🌓 2α. ΕΙΔΟΣ ΓΡΑΜΜΩΝ ΦΩΤΙΣΜΟΥ")
+        dim220 = st.number_input("Dimming 220V", min_value=0)
+        dim110 = st.number_input("Dimming 1-10V", min_value=0)
+        led = st.number_input("Ταινίες LED με dimming", min_value=0) # ΑΛΛΑΓΗ ΠΕΡΙΓΡΑΦΗΣ
+        dali = st.number_input("DALI", min_value=0)
+        double = st.number_input("Κομιτατέρ (Διπλή γραμμή φωτισμού)", min_value=0) # ΑΛΛΑΓΗ ΠΕΡΙΓΡΑΦΗΣ
         
         st.markdown("### 🔥 3. ΘΕΡΜΑΝΣΗ")
         h_list = ["Κανένα", "Καλοριφέρ", "Ενδοδαπέδια", "Fancoil οροφής", "Fancoil δαπέδου", "Θερμαντικά σώματα", "VRV/VRF", "Split Κλιματιστικά"]
@@ -135,6 +139,7 @@ with tab_calc:
                 total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
                 prog_cost = total_mat * 0.20
                 vat = total_mat * 0.24
+                gen_total = total_mat + vat
                 
                 res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
@@ -158,7 +163,7 @@ with tab_calc:
                 res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
                 res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
                 res += f"{'='*70}\n"
-                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {total_mat + vat:10.2f}€\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
                 res += f"{'='*70}\n"
                 res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
                 disp_text = res
