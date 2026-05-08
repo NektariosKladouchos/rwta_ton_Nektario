@@ -39,7 +39,7 @@ with col2:
     st.image("https://geyer.gr")
     st.info("""
     **Υπεύθυνος Portal:**
-    Νεκτάριος Παπαδόπουλος
+    Νεκτάριος Κλαδούχος
     *Technical Support Specialist*
     """)
 
