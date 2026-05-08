@@ -1,5 +1,4 @@
 import streamlit as st
-import urllib.parse
 
 st.set_page_config(page_title="GEYER Portal", layout="wide")
 
@@ -8,32 +7,42 @@ st.markdown("<h1 style='text-align: center; color: #1E3A8A;'>GEYER PORTAL</h1>",
 tab_calc, tab_contact = st.tabs(["📊 LIVE PRICING", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"])
 
 with tab_calc:
-    st.info("Δοκιμή αποστολής στο προσωπικό email (Yahoo). Πηγαίνετε στο Tab 'ΕΠΙΚΟΙΝΩΝΙΑ'.")
+    st.info("Εδώ θα είναι ο τιμοκατάλογος. Πηγαίνετε στο Tab 'ΕΠΙΚΟΙΝΩΝΙΑ' για τη δοκιμή.")
 
 with tab_contact:
-    st.markdown("### 📨 Φόρμα Επικοινωνίας (Προς Yahoo)")
-    
-    # Είσοδος στοιχείων από τον χρήστη
-    c_name = st.text_input("Το όνομά σας:", placeholder="π.χ. Νεκτάριος")
-    c_msg = st.text_area("Το μήνυμά σας:", placeholder="Γράψτε εδώ το κείμενο της δοκιμής...")
-    
-    if st.button("🚀 ΔΗΜΙΟΥΡΓΙΑ EMAIL"):
-        if c_name and c_msg:
-            # Το email παραλήπτη είναι το προσωπικό σου Yahoo
-            recipient = "nnerinos@yahoo.gr"
-            subject = f"GEYER Portal Message - {c_name}"
-            body = f"Αποστολέας: {c_name}\n\nΜήνυμα:\n{c_msg}"
+    st.markdown("### 📨 Φόρμα Επικοινωνίας")
+    st.write("Συμπληρώστε τα στοιχεία σας παρακάτω:")
+
+    # Χρησιμοποιούμε st.form για να "δένει" τα πεδία μαζί
+    with st.form("my_contact_form"):
+        c_name = st.text_input("Το όνομά σας:")
+        c_email = st.text_input("Το email σας:")
+        c_msg = st.text_area("Το μήνυμά σας:")
+        
+        submit_button = st.form_submit_button("🚀 ΑΠΟΣΤΟΛΗ ΖΗΤΗΣΗΣ")
+
+    if submit_button:
+        if c_name and c_email and c_msg:
+            # Εδώ φτιάχνουμε την κρυφή φόρμα που θα στείλει τα δεδομένα στο FormSubmit
+            # Μόλις πατηθεί το κουμπί, θα γίνει η αποστολή
+            import streamlit.components.v1 as components
             
-            # Δημιουργία του Mailto Link
-            mailto_link = f"mailto:{recipient}?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+            # Καθαρισμός κειμένου
+            clean_msg = c_msg.replace("\n", " ")
             
-            st.success("Το email δημιουργήθηκε με επιτυχία!")
-            st.markdown(f"""
-                <div style="text-align:center; margin-top:20px;">
-                    <a href="{mailto_link}" style="background-color: #27ae60; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 18px; display: inline-block;">
-                        📩 ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΑΠΟΣΤΟΛΗ ΣΤΟ YAHOO
-                    </a>
-                </div>
-            """, unsafe_allow_html=True)
+            # Αυτό το κομμάτι κώδικα θα εκτελεστεί ΜΟΝΟ όταν πατηθεί το submit
+            js_submit = f"""
+                <form id="hidden_form" action="https://formsubmit.co" method="POST" style="display:none;">
+                    <input type="hidden" name="name" value="{c_name}">
+                    <input type="hidden" name="email" value="{c_email}">
+                    <input type="hidden" name="message" value="{clean_msg}">
+                    <input type="hidden" name="_captcha" value="false">
+                </form>
+                <script>
+                    document.getElementById("hidden_form").submit();
+                </script>
+            """
+            components.html(js_submit, height=0)
+            st.success("Η αποστολή ξεκίνησε! Παρακαλώ περιμένετε...")
         else:
             st.warning("Παρακαλώ συμπληρώστε όλα τα πεδία.")
