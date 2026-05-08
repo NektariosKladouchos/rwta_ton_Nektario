@@ -97,8 +97,10 @@ with tab_calc:
             
             total_dev = base_c + h_q
             total_mat = (max(0,on_off)*63.92) + (double*63.92) + (dim220*63.92) + (dim110*52.0) + (led*63.92) + (dali*160.0) + (shutt*63.92) + h_c_hvac + h_t + e_val + (95 if heater else 0)
+            
             prog_cost = total_mat * 0.20
-            vat = (total_mat + prog_cost) * 0.24
+            vat = total_mat * 0.24
+            gen_total = total_mat + vat
             
             res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
             res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
@@ -122,11 +124,11 @@ with tab_calc:
             res += f"{'-'*70}\n"
             res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ:':<48} {total_dev}\n"
             res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
-            res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€\n"
             res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
             res += f"{'='*70}\n"
-            res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {total_mat + prog_cost + vat:10.2f}€\n"
-            res += f"{'='*70}"
+            res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
+            res += f"{'='*70}\n"
+            res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
             disp_text = res
 
         st.markdown('<div class="display-box">', unsafe_allow_html=True)
