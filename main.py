@@ -1,8 +1,6 @@
 import streamlit as st
 
-# ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ Η ΠΡΩΤΗ ΓΡΑΜΜΗ
-st.image("https://cloudinary.com", width=250)
-
+st.image("https://wikimedia.org", width=200)
 
 # 1. Sidebar - Εδώ θα εμφανιστούν αυτόματα οι σελίδες αν δεν έχουν σφάλμα
 with st.sidebar:
