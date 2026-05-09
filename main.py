@@ -1,71 +1,51 @@
 import streamlit as st
 
-# 1. Ρύθμιση Σελίδας
-st.set_page_config(
-    page_title="GEYER Technical Portal",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# 2. CSS με το Πράσινο της GEYER (#27ae60)
+# CSS για την εμφάνιση της επικοινωνίας
 st.markdown("""
     <style>
-    .main-title { text-align: center; color: #27ae60; font-size: 40px; font-weight: bold; }
-    .stButton>button { 
-        background-color: #27ae60; color: white; border-radius: 8px; border: none; height: 3em; width: 100%;
-    }
-    .stButton>button:hover { background-color: #219150; color: white; border: 1px solid white; }
-    .feature-card {
+    .contact-card {
         background-color: #ffffff; padding: 25px; border-radius: 15px; 
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #27ae60;
-        text-align: center; height: 100%;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.05); border-left: 8px solid #27ae60;
+        margin-bottom: 20px;
+        height: 250px;
     }
-    .contact-info { background-color: #f1f9f4; padding: 20px; border-radius: 10px; border-left: 5px solid #27ae60; }
+    .video-title {
+        text-align: center; color: #27ae60; font-weight: bold; font-size: 24px; margin-bottom: 10px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Header & Logo
-col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
-with col_logo2:
-    st.image("https://wikimedia.org", use_container_width=True)
+st.markdown("<h1 style='color: #27ae60;'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
+st.write("---")
 
-st.markdown("<div class='main-title'>TECHNICAL PORTAL</div>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #555;'>Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης της GEYER HELLAS</p>", unsafe_allow_html=True)
+# ΕΝΟΤΗΤΑ VIDEO: ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ
+st.markdown("<div class='video-title'>🎥 Ρώτα τον Νεκτάριο</div>", unsafe_allow_html=True)
+# Αντικατάστησε το URL με το βίντεο που θέλεις να προβάλλεται
+st.video("https://youtube.com") 
 
 st.write("---")
 
-# 4. Πλέγμα Ενοτήτων (Εδώ προσθέτεις εύκολα νέα κουτιά)
-c1, c2 = st.columns(2)
+col1, col2 = st.columns(2)
 
-with c1:
-    st.markdown("<div class='feature-card'><h3>📊 Live Pricing</h3><p>Διαδραστικός υπολογισμός για Smart Home της GEYER.</p></div>", unsafe_allow_html=True)
-    if st.button("ΕΙΣΟΔΟΣ ΣΤΟ LIVE PRICING"):
-        st.switch_page("pages/2_📊_Pricing.py")
+with col1:
+    st.markdown("""
+    <div class='contact-card'>
+        <h3>👤 Τεχνική Υποστήριξη Smart Home</h3>
+        <p><b>Υπεύθυνος:</b> Νεκτάριος Παπαδόπουλος</p>
+        <p><b>Email:</b> <a href='mailto:kladouxos@geyer.gr'>kladouxos@geyer.gr</a></p>
+        <p><b>Εξειδίκευση:</b> FIBARO, DALI, Z-Wave, KNX & Συστήματα GEYER</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-with c2:
-    st.markdown("<div class='feature-card'><h3>💡 Ιδέες & Λύσεις</h3><p>Video tutorials και προτάσεις αυτοματισμού.</p></div>", unsafe_allow_html=True)
-    if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ"):
-        st.switch_page("pages/1_Idees.py")
-
-st.write("") # Κενό
-
-c3, c4 = st.columns(2)
-
-with c3:
-    st.markdown("<div class='feature-card'><h3>📐 Τεχνικά Σχέδια</h3><p>Διαγράμματα σύνδεσης DALI, LED και HVAC.</p></div>", unsafe_allow_html=True)
-    if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ"):
-        # Θα φτιάξεις το αρχείο pages/3_📐_Sxedia.py
-        st.info("Η ενότητα 'Σχέδια' ετοιμάζεται.")
-        
-with c4:
-    st.markdown("<div class='feature-card'><h3>📞 Ρώτα τον Νεκτάριο </h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
-    if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ"):
-        # Θα φτιάξεις το αρχείο pages/4_📞_Epikoinonia.py
-       # st.info("Η ενότητα 'Επικοινωνία' ετοιμάζεται.")
-         st.switch_page("pages/4_📞_Epikoinonia.py")
-
+with col2:
+    st.markdown("""
+    <div class='contact-card'>
+        <h3>🏢 GEYER HELLAS Α.Ε.</h3>
+        <p><b>Διεύθυνση:</b> 2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας</p>
+        <p><b>Τηλεφωνικό Κέντρο:</b> 22620 31257</p>
+        <p><b>Ωράριο:</b> Δευτέρα - Παρασκευή 08:00 - 16:00</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.write("---")
-
-# 5. Footer Στοιχεία
-st.markdown("<div class='contact-info'><b>Υπεύθυνος:</b> Νεκτάριος Κλαδούχος | <b>Email:</b> kladouxos@geyer.gr</div>", unsafe_allow_html=True)
+st.page_link("main.py", label="⬅️ Επιστροφή στην Αρχική", icon="🏠")
