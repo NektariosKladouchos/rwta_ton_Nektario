@@ -30,7 +30,7 @@ with col_logo2:
     st.image("https://wikimedia.org", use_container_width=True)
 
 st.markdown("<div class='main-title'>TECHNICAL PORTAL</div>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #555;'>Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης Smart Home</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #555;'>Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης της GEYER HELLAS</p>", unsafe_allow_html=True)
 
 st.write("---")
 
@@ -38,8 +38,8 @@ st.write("---")
 c1, c2 = st.columns(2)
 
 with c1:
-    st.markdown("<div class='feature-card'><h3>📊 Live Pricing</h3><p>Υπολογισμός υλικών και άμεση προσφορά.</p></div>", unsafe_allow_html=True)
-    if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING"):
+    st.markdown("<div class='feature-card'><h3>📊 Live Pricing</h3><p>Διαδραστικός υπολογισμός για Smart Home της GEYER.</p></div>", unsafe_allow_html=True)
+    if st.button("ΕΙΣΟΔΟΣ ΣΤΟ LIVE PRICING"):
         st.switch_page("pages/2_📊_Pricing.py")
 
 with c2:
@@ -58,7 +58,7 @@ with c3:
         st.info("Η ενότητα 'Σχέδια' ετοιμάζεται.")
 
 with c4:
-    st.markdown("<div class='feature-card'><h3>📞 Επικοινωνία</h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='feature-card'><h3>📞 Ρώτα τον Νεκτάριο </h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
     if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ"):
         # Θα φτιάξεις το αρχείο pages/4_📞_Epikoinonia.py
         st.info("Η ενότητα 'Επικοινωνία' ετοιμάζεται.")
