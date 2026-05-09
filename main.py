@@ -1,39 +1,49 @@
 import streamlit as st
 
-# CSS για την εμφάνιση της επικοινωνίας
+# CSS για αναβαθμισμένες κάρτες και στυλ
 st.markdown("""
     <style>
+    .main-title { color: #27ae60; font-weight: bold; margin-bottom: 20px; }
+    .video-container { 
+        background-color: #ffffff; padding: 20px; border-radius: 15px; 
+        box-shadow: 0px 4px 20px rgba(0,0,0,0.1); border-top: 5px solid #27ae60;
+        margin-bottom: 30px; text-align: center;
+    }
     .contact-card {
         background-color: #ffffff; padding: 25px; border-radius: 15px; 
-        box-shadow: 0px 4px 10px rgba(0,0,0,0.05); border-left: 8px solid #27ae60;
-        margin-bottom: 20px;
-        height: 250px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.05); border-left: 8px solid #27ae60;
+        min-height: 220px; transition: transform 0.3s;
     }
-    .video-title {
-        text-align: center; color: #27ae60; font-weight: bold; font-size: 24px; margin-bottom: 10px;
+    .contact-card:hover { transform: translateY(-5px); }
+    .info-label { color: #27ae60; font-weight: bold; }
+    .video-header {
+        color: #27ae60; font-size: 26px; font-weight: bold; margin-bottom: 15px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='color: #27ae60;'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
-st.write("---")
+st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
+st.write("Είμαστε εδώ για να προσθέσουμε ψηφιακή εμπειρία στην έξυπνη εγκατάστασή σας.")
 
-# ΕΝΟΤΗΤΑ VIDEO: ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ
-st.markdown("<div class='video-title'>🎥 Ρώτα τον Νεκτάριο</div>", unsafe_allow_html=True)
-# Αντικατάστησε το URL με το βίντεο που θέλεις να προβάλλεται
+# --- ΕΝΟΤΗΤΑ VIDEO: ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ ---
+st.markdown("<div class='video-container'>", unsafe_allow_html=True)
+st.markdown("<div class='video-header'>🎥 Ρώτα τον Νεκτάριο</div>", unsafe_allow_html=True)
+# Ενσωμάτωση του YouTube Short
 st.video("https://youtube.com") 
+st.markdown("</div>", unsafe_allow_html=True)
 
 st.write("---")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("""
+    st.markdown(f"""
     <div class='contact-card'>
-        <h3>👤 Τεχνική Υποστήριξη Smart Home</h3>
-        <p><b>Υπεύθυνος:</b> Νεκτάριος Παπαδόπουλος</p>
-        <p><b>Email:</b> <a href='mailto:kladouxos@geyer.gr'>kladouxos@geyer.gr</a></p>
-        <p><b>Εξειδίκευση:</b> FIBARO, DALI, Z-Wave, KNX & Συστήματα GEYER</p>
+        <h3>👤 Τεχνική Υποστήριξη</h3>
+        <p><span class='info-label'>Υπεύθυνος:</span> Νεκτάριος Κλαδούχος</p>
+        <p><span class='info-label'>Τηλέφωνο:</span> 6936803610</p>
+        <p><span class='info-label'>Email:</span> <a href='mailto:kladouxos@geyer.gr' style='color:inherit; text-decoration:none;'>kladouxos@geyer.gr</a></p>
+        <p><span class='info-label'>Ειδίκευση:</span> Smart Home Specialist & Technical Trainer</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -41,9 +51,10 @@ with col2:
     st.markdown("""
     <div class='contact-card'>
         <h3>🏢 GEYER HELLAS Α.Ε.</h3>
-        <p><b>Διεύθυνση:</b> 2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας</p>
-        <p><b>Τηλεφωνικό Κέντρο:</b> 22620 31257</p>
-        <p><b>Ωράριο:</b> Δευτέρα - Παρασκευή 08:00 - 16:00</p>
+        <p><span class='info-label'>📍 Διεύθυνση:</span> 2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας</p>
+        <p><span class='info-label'>☎️ Τηλ. Κέντρο:</span> 22620 31257</p>
+        <p><span class='info-label'>🕒 Ωράριο:</span> Δευτέρα - Παρασκευή 08:00 - 16:00</p>
+        <p><span class='info-label'>🌐 Web:</span> <a href='https://geyer.gr' target='_blank' style='color:inherit; text-decoration:none;'>www.geyer.gr</a></p>
     </div>
     """, unsafe_allow_html=True)
 
