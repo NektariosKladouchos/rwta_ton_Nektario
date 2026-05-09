@@ -66,4 +66,4 @@ with c4:
 st.write("---")
 
 # 5. Footer Στοιχεία
-st.markdown("<div class='contact-info'><b>Υπεύθυνος:</b> Νεκτάριος Παπαδόπουλος | <b>Email:</b> kladouxos@geyer.gr</div>", unsafe_allow_html=True)
+st.markdown("<div class='contact-info'><b>Υπεύθυνος:</b> Νεκτάριος Κλαδούχος | <b>Email:</b> kladouxos@geyer.gr</div>", unsafe_allow_html=True)
