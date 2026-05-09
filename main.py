@@ -55,14 +55,15 @@ with c3:
     st.markdown("<div class='feature-card'><h3>📐 Τεχνικά Σχέδια</h3><p>Διαγράμματα σύνδεσης DALI, LED και HVAC.</p></div>", unsafe_allow_html=True)
     if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ"):
         # Θα φτιάξεις το αρχείο pages/3_📐_Sxedia.py
-      # ---  st.info("Η ενότητα 'Σχέδια' ετοιμάζεται.")
-         st.switch_page("pages/4_📞_Epikoinonia.py")
-
+        st.info("Η ενότητα 'Σχέδια' ετοιμάζεται.")
+        
 with c4:
     st.markdown("<div class='feature-card'><h3>📞 Ρώτα τον Νεκτάριο </h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
     if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ"):
         # Θα φτιάξεις το αρχείο pages/4_📞_Epikoinonia.py
-        st.info("Η ενότητα 'Επικοινωνία' ετοιμάζεται.")
+       # st.info("Η ενότητα 'Επικοινωνία' ετοιμάζεται.")
+         st.switch_page("pages/4_📞_Epikoinonia.py")
+
 
 st.write("---")
 
