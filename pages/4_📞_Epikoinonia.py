@@ -31,9 +31,9 @@ with col1:
     st.markdown("""
     <div class='contact-card'>
         <h3>👤 Τεχνική Υποστήριξη Smart Home</h3>
-        <p><b>Υπεύθυνος:</b> Νεκτάριος Παπαδόπουλος</p>
+        <p><b>Υπεύθυνος:</b> Νεκτάριος Κλαδούχος</p>
         <p><b>Email:</b> <a href='mailto:kladouxos@geyer.gr'>kladouxos@geyer.gr</a></p>
-        <p><b>Εξειδίκευση:</b> FIBARO, DALI, Z-Wave, KNX & Συστήματα GEYER</p>
+        <p><b>Εξειδίκευση:</b> FIBARO, DALI, Z-Wave, Θυροτηλεόραση & Συστήματα Smart Solutions </p>
     </div>
     """, unsafe_allow_html=True)
     
