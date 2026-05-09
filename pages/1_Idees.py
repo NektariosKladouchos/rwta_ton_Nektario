@@ -49,4 +49,28 @@ with col6:
 
 # --- FOOTER ---
 st.write("---")
+st.markdown("### 📊 Παρουσίαση: Λύσεις Αυτοματισμού Φωτισμού")
+st.info("Φυλλομετρήστε την παρουσίαση για οικιακό και επαγγελματικό φωτισμό παρακάτω.")
+
+# Ανάγνωση του αρχείου PDF (βεβαιώσου ότι το όνομα αρχείου είναι σωστό)
+try:
+    with open("lighting_solutions.pdf", "rb") as f:
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+    
+    # Ενσωμάτωση του PDF μέσα σε iframe για προβολή
+    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600" type="application/pdf"></iframe>'
+    st.markdown(pdf_display, unsafe_allow_html=True)
+    
+    # Κουμπί για λήψη του αρχείου
+    st.download_button(
+        label="📥 Λήψη Παρουσίασης (PDF)",
+        data=base64_pdf,
+        file_name="GEYER_Lighting_Solutions.pdf",
+        mime="application/pdf"
+    )
+except FileNotFoundError:
+    st.warning("⚠️ Παρακαλώ ανεβάστε το αρχείο 'lighting_solutions.pdf' στο GitHub για να εμφανιστεί η παρουσίαση.")
+
+
+st.write("---")
 st.page_link("main.py", label="Επιστροφή στο Live Pricing", icon="📊")
