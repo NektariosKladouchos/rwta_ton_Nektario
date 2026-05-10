@@ -1,5 +1,4 @@
-
-  import streamlit as st
+import streamlit as st
 
 # 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
