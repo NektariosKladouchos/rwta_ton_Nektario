@@ -3,61 +3,69 @@ import streamlit as st
 # 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
 
-# 2. CSS για Πράσινο Μενού
+# 2. CSS για εμφάνιση (Πράσινο Sidebar & Στυλ)
 st.markdown("""
-<style>
-    [data-testid="stSidebar"] {
-        background-color: #1a4a2e !important;
-    }
-    [data-testid="stSidebar"] * {
-        color: white !important;
-    }
-</style>
-""", unsafe_allow_html=True)
+    <style>
+        /* Πράσινο φόντο στο Sidebar */
+        [data-testid="stSidebar"] {
+            background-color: #1a4a2e !important;
+        }
+        /* Λευκά γράμματα στο Sidebar */
+        [data-testid="stSidebar"] * {
+            color: white !important;
+        }
+        /* Κρύβουμε το 'main' πάνω αριστερά */
+        [data-testid="stSidebarNav"] li:first-child {
+            display: none;
+        }
+        /* Στυλ για τους τίτλους των καρτών */
+        .main-title {
+            color: #28a745;
+            text-align: center;
+            font-family: sans-serif;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
-# 3. Περιεχόμενο Μενού
-st.sidebar.markdown("<h2 style='text-align: center; color: #28a745;'>GEYER</h2>", unsafe_allow_html=True)
+# 3. ΠΛΕΥΡΙΚΟ ΜΕΝΟΥ (Sidebar)
+# Φωτογραφία Smart Home
+st.sidebar.image("https://unsplash.com", caption="Smart Home Solutions")
+st.sidebar.markdown("<h2 style='text-align: center;'>GEYER</h2>", unsafe_allow_html=True)
 st.sidebar.write("---")
+st.sidebar.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
 
-# Εδώ συνεχίζει ο υπόλοιπος κώδικας σου (κουμπιά κλπ)
-
-
-# 3. Header & Logo
-col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
-with col_logo2:
-    st.image("https://wikimedia.org", use_container_width=True)
-
-st.markdown("<div class='main-title'>TECHNICAL PORTAL</div>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #555;'>Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης Smart Home</p>", unsafe_allow_html=True)
-
+# 4. ΚΥΡΙΩΣ ΣΕΛΙΔΑ
+st.markdown("<h1 class='main-title'>TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: gray;'>Πλατφόρμα τεχνικής υποστήριξης Smart Home - Υπεύθυνος: Νεκτάριος Κλαδούχος</p>", unsafe_allow_html=True)
 st.write("---")
 
-# 4. Πλέγμα Ενοτήτων με τα 4 Κουμπιά
-c1, c2 = st.columns(2)
+# Δημιουργία στηλών για τις κάρτες
+col1, col2 = st.columns(2)
 
-with c1:
-    st.markdown("<div class='feature-card'><h3>📊 Live Pricing</h3><p>Υπολογισμός υλικών και άμεση προσφορά Smart Home.</p></div>", unsafe_allow_html=True)
-    if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING"):
+with col1:
+    st.markdown("### 📊 Live Pricing")
+    st.write("Υπολογισμός υλικών και άμεση προσφορά Smart Home.")
+    if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING", use_container_width=True):
         st.switch_page("pages/03_📊_Pricing.py")
 
+    st.write("") # Κενό
+    st.markdown("### 📐 Τεχνικά Σχέδια")
+    st.write("Διαγράμματα σύνδεσης DALI, LED και HVAC.")
+    if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ", use_container_width=True):
+        # Εδώ βάλε το σωστό όνομα αρχείου αν έχεις σελίδα σχεδίων
+        st.info("Η σελίδα σχεδίων ετοιμάζεται.")
 
-with c2:
-    st.markdown("<div class='feature-card'><h3>💡 Ιδέες & Λύσεις</h3><p>Video tutorials και προτάσεις αυτοματισμού.</p></div>", unsafe_allow_html=True)
-    if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ"):
+with col2:
+    st.markdown("### 💡 Ιδέες & Λύσεις")
+    st.write("Video tutorials και προτάσεις αυτοματισμού.")
+    if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ", use_container_width=True):
         st.switch_page("pages/02_💡_Idees.py")
-st.write("") # Κενό ανάμεσα στις σειρές
 
-c3, c4 = st.columns(2)
-
-with c3:
-    st.markdown("<div class='feature-card'><h3>📐 Τεχνικά Σχέδια</h3><p>Διαγράμματα σύνδεσης DALI, LED και HVAC.</p></div>", unsafe_allow_html=True)
-    if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ"):
-        # Εδώ θα βάλουμε το αρχείο pages/3_📐_Sxedia.py όταν το φτιάξεις
-        st.info("Η ενότητα 'Σχέδια' ετοιμάζεται.")
-
-with c4:
-    st.markdown("<div class='feature-card'><h3>📞 Επικοινωνία</h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
-    if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ"):
+    st.write("") # Κενό
+    st.markdown("### 📞 Επικοινωνία")
+    st.write("Άμεση υποστήριξη και στοιχεία επικοινωνίας.")
+    if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ", use_container_width=True):
         st.switch_page("pages/05_📞_Epikoinonia.py")
+
 st.write("---")
 st.caption("© 2024 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
