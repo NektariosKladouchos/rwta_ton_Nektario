@@ -1,41 +1,42 @@
 import streamlit as st
 
-
-
-# 1. Ρύθμιση σελίδας (Τίτλος στον browser και εικονίδιο)
+# 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
 
-# 2. Ομορφιά στο Πλευρικό Μενού (Sidebar)
-# Προσθήκη Λογοτύπου Geyer
-st.sidebar.image("https://geyer.gr", use_container_width=True)
+# 2. CSS για Πράσινο Μενού και Ομορφιά
+st.markdown("""
+    <style>
+        /* Χρώμα στο πλευρικό μενού (Sidebar) */
+        [data-testid="stSidebar"] {
+            background-color: #1a4a2e; /* Σκούρο επαγγελματικό πράσινο */
+        }
+        /* Χρώμα κειμένων στο μενού */
+        [data-testid="stSidebar"] * {
+            color: white !important;
+        }
+        /* Γραμμή διαχωρισμού */
+        hr {
+            border: 1px solid #28a745;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+# 3. Εικόνα Σχετική με Τεχνικό Portal (Smart Home / Technology)
+# Χρησιμοποιούμε μια όμορφη εικόνα από το Unsplash που φορτώνει πάντα
+st.sidebar.image("https://unsplash.com", use_container_width=True)
 
 st.sidebar.markdown("""
     <div style='text-align: center; padding: 10px;'>
-        <h2 style='color: #28a745;'>Technical Portal</h2>
-        <p style='font-size: 0.9em; color: gray;'>Υπεύθυνος: Νεκτάριος Κλαδούχος</p>
+        <h2 style='color: #28a745; margin-bottom: 0;'>GEYER</h2>
+        <p style='font-size: 1em; color: #e0e0e0;'>Technical Portal</p>
     </div>
-    <hr style='margin-top: 0; border: 1px solid #28a745;'>
+    <hr>
     """, unsafe_allow_html=True)
 
-# (Προαιρετικά) Αν θέλεις να αλλάξεις το χρώμα του φόντου στο μενού, πες μου να σου δώσω CSS!
+st.sidebar.info("Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης.")
 
 
-# 2. CSS για Επαγγελματική Εμφάνιση (Geyer Green)
-st.markdown("""
-    <style>
-    .main-title { text-align: center; color: #27ae60; font-size: 40px; font-weight: bold; }
-    .stButton>button { 
-        background-color: #27ae60; color: white; border-radius: 8px; border: none; height: 3em; width: 100%;
-        font-weight: bold;
-    }
-    .stButton>button:hover { background-color: #219150; color: white; border: 1px solid white; }
-    .feature-card {
-        background-color: #ffffff; padding: 25px; border-radius: 15px; 
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #27ae60;
-        text-align: center; height: 180px; margin-bottom: 10px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+
 
 # 3. Header & Logo
 col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
