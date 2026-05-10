@@ -1,11 +1,24 @@
 import streamlit as st
 
-# 1. Ρύθμιση Σελίδας
-st.set_page_config(
-    page_title="GEYER Technical Portal",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+
+
+# 1. Ρύθμιση σελίδας (Τίτλος στον browser και εικονίδιο)
+st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
+
+# 2. Ομορφιά στο Πλευρικό Μενού (Sidebar)
+# Προσθήκη Λογοτύπου Geyer
+st.sidebar.image("https://geyer.gr", use_container_width=True)
+
+st.sidebar.markdown("""
+    <div style='text-align: center; padding: 10px;'>
+        <h2 style='color: #28a745;'>Technical Portal</h2>
+        <p style='font-size: 0.9em; color: gray;'>Υπεύθυνος: Νεκτάριος Κλαδούχος</p>
+    </div>
+    <hr style='margin-top: 0; border: 1px solid #28a745;'>
+    """, unsafe_allow_html=True)
+
+# (Προαιρετικά) Αν θέλεις να αλλάξεις το χρώμα του φόντου στο μενού, πες μου να σου δώσω CSS!
+
 
 # 2. CSS για Επαγγελματική Εμφάνιση (Geyer Green)
 st.markdown("""
