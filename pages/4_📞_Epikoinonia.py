@@ -27,18 +27,18 @@ st.markdown("""
 
 st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
 
-# --- ΕΝΟΤΗΤΑ VIDEO: Η ΛΥΣΗ "VIDEO CARD" ---
-# --- ΕΝΟΤΗΤΑ VIDEO: ΔΙΟΡΘΩΜΕΝΟ LINK ---
-st.markdown("""
+# --- ΕΝΟΤΗΤΑ VIDEO ---
+st.markdown(f"""
     <div class='video-card'>
         <h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</h3>
-        <p>Δείτε την εισαγωγή στη νέα σειρά τεχνικών λύσεων της GEYER.</p>
-        <img src="https://youtube.com" style="width:100%; max-value:500px; border-radius:10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2);">
+        <p>Πατήστε το κουμπί για να δείτε το βίντεο.</p>
+        <div style="position: relative; display: inline-block;">
+            <img src="https://youtube.com" style="width:100%; max-width:500px; border-radius:10px; opacity: 0.8;">
+        </div>
         <br>
-        <a href="https://youtube.com" target="_blank" class="play-button">▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ ΣΤΟ YOUTUBE</a>
+        <a href="https://youtube.com" target="_blank" class="play-button">▶ ΑΝΟΙΓΜΑ ΒΙΝΤΕΟ (SHORT)</a>
     </div>
     """, unsafe_allow_html=True)
-
 
 st.write("---")
 
@@ -52,17 +52,16 @@ with col1:
         <p><span class='info-label'>Υπεύθυνος:</span> Νεκτάριος Κλαδούχος</p>
         <p><span class='info-label'>Τηλέφωνο:</span> 6936803610</p>
         <p><span class='info-label'>Email:</span> <a href='mailto:kladouxos@geyer.gr' style='color:inherit; text-decoration:none;'>kladouxos@geyer.gr</a></p>
-        <p><span class='info-label'>Ειδίκευση:</span> Smart Home Specialist & Technical Trainer</p>
+        <p><span class='info-label'>Ειδίκευση:</span> Smart Home Specialist</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
     <div class='contact-card'>
-        <h3 style='color: #1E3A8A;'>🏢 GEYER HELLAS Α.Ε.</h3>
+        <h3>🏢 GEYER HELLAS Α.Ε.</h3>
         <p><span class='info-label'>📍 Διεύθυνση:</span> 2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας</p>
         <p><span class='info-label'>☎️ Τηλ. Κέντρο:</span> 22620 31257</p>
-        <p><span class='info-label'>🕒 Ωράριο:</span> Δευτέρα - Παρασκευή 08:00 - 16:00</p>
     </div>
     """, unsafe_allow_html=True)
 
