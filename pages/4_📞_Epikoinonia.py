@@ -1,6 +1,9 @@
 import streamlit as st
 
-# CSS για επαγγελματική εμφάνιση
+# Ρύθμιση σελίδας
+st.set_page_config(page_title="Επικοινωνία - GEYER", layout="wide")
+
+# CSS για την εμφάνιση
 st.markdown("""
     <style>
     .main-title { color: #27ae60; font-weight: bold; text-align: center; margin-bottom: 20px; }
@@ -9,25 +12,37 @@ st.markdown("""
         box-shadow: 0px 4px 10px rgba(0,0,0,0.05); border-left: 6px solid #27ae60;
         margin-bottom: 20px;
     }
+    .video-wrapper {
+        position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+        max-width: 100%; border-radius: 12px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+    .video-wrapper iframe {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
     </style>
     """, unsafe_allow_html=True)
 
 st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
 
-# --- ΤΕΣΤ 1: ΚΛΑΣΙΚΟ ΒΙΝΤΕΟ (Για να δούμε αν φταίει ο κώδικας) ---
-st.subheader("🧪 Τέστ Λειτουργίας (Standard Video)")
-st.video("https://youtube.com") 
+st.markdown("### 🎥 Ρώτα τον Νεκτάριο")
+
+# Χρήση καθαρού HTML για το Video (Embed Method)
+# Αυτός ο τρόπος "ξεγελάει" τους περιορισμούς του Streamlit
+st.components.v1.html("""
+    <div style="display: flex; justify-content: center;">
+        <iframe width="560" height="315" 
+            src="https://youtube.com" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    """, height=350)
 
 st.write("---")
 
-# --- ΤΕΣΤ 2: ΤΟ ΔΙΚΟ ΣΟΥ ΒΙΝΤΕΟ (Με Embed Link) ---
-st.subheader("🎥 Ρώτα τον Νεκτάριο (Το δικό σου)")
-# Δοκιμάζουμε την πιο "δυνατή" μορφή link
-st.video("https://youtube.com")
-
-st.write("---")
-
-# --- ΚΑΡΤΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ ---
+# ΚΑΡΤΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ
 col1, col2 = st.columns(2)
 with col1:
     st.markdown(f"""
