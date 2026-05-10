@@ -29,7 +29,7 @@ st.markdown("<h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</
 st.write("Πατήστε το παρακάτω κουμπί για να δείτε το βίντεο στο YouTube:")
 
 # Χρησιμοποιούμε το st.link_button που είναι το πιο ασφαλές εργαλείο του Streamlit
-st.link_button("▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ (YouTube Shorts)", "https://youtube.com")
+st.link_button("▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ (YouTube Shorts)", https://www.youtube.com/shorts/Q2dzj4YCIy4"")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
