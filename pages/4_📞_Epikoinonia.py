@@ -28,15 +28,17 @@ st.markdown("""
 st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
 
 # --- ΕΝΟΤΗΤΑ VIDEO: Η ΛΥΣΗ "VIDEO CARD" ---
+# --- ΕΝΟΤΗΤΑ VIDEO: ΔΙΟΡΘΩΜΕΝΟ LINK ---
 st.markdown("""
     <div class='video-card'>
         <h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</h3>
-        <p>Δείτε το βίντεο για την ψηφιακή εμπειρία στις έξυπνες εγκαταστάσεις.</p>
-        <img src="https://youtube.com" style="width:100%; max-width:500px; border-radius:10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2);">
+        <p>Δείτε την εισαγωγή στη νέα σειρά τεχνικών λύσεων της GEYER.</p>
+        <img src="https://youtube.com" style="width:100%; max-value:500px; border-radius:10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2);">
         <br>
-        <a href="https://youtube.com" target="_blank" class="play-button">▶ ΠΑΡΑΚΟΛΟΥΘΗΣΗ ΒΙΝΤΕΟ</a>
+        <a href="https://youtube.com" target="_blank" class="play-button">▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ ΣΤΟ YOUTUBE</a>
     </div>
     """, unsafe_allow_html=True)
+
 
 st.write("---")
 
