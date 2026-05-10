@@ -40,7 +40,8 @@ c1, c2 = st.columns(2)
 with c1:
     st.markdown("<div class='feature-card'><h3>📊 Live Pricing</h3><p>Υπολογισμός υλικών και άμεση προσφορά Smart Home.</p></div>", unsafe_allow_html=True)
     if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING"):
-        st.switch_page("pages/2_📊_Pricing.py")
+        st.switch_page("pages/03_📊_Pricing.py")
+
 
 with c2:
     st.markdown("<div class='feature-card'><h3>💡 Ιδέες & Λύσεις</h3><p>Video tutorials και προτάσεις αυτοματισμού.</p></div>", unsafe_allow_html=True)
