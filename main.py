@@ -1,39 +1,30 @@
-import streamlit as st
 
-# 1. Ρύθμιση Σελίδας
+   import streamlit as st
+
+# 1. Ρύθμιση Σελίδας - ΑΥΤΟ ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ Η ΠΡΩΤΗ ΕΝΤΟΛΗ
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
 
-# 2. CSS για Πράσινο Μενού και Ομορφιά
+# 2. CSS για Πράσινο Μενού και εξαφάνιση του "main"
 st.markdown("""
     <style>
-        /* Χρώμα στο πλευρικό μενού (Sidebar) */
         [data-testid="stSidebar"] {
-            background-color: #1a4a2e; /* Σκούρο επαγγελματικό πράσινο */
+            background-color: #1a4a2e;
         }
-        /* Χρώμα κειμένων στο μενού */
         [data-testid="stSidebar"] * {
             color: white !important;
         }
-        /* Γραμμή διαχωρισμού */
-        hr {
-            border: 1px solid #28a745;
+        /* Κρύβει το αυτόματο όνομα του αρχείου (main) */
+        [data-testid="stSidebarNav"] > ul {
+            padding-top: 20px;
         }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Εικόνα Σχετική με Τεχνικό Portal (Smart Home / Technology)
-# Χρησιμοποιούμε μια όμορφη εικόνα από το Unsplash που φορτώνει πάντα
-st.sidebar.image("https://unsplash.com", use_container_width=True)
+# 3. Εικόνα στο πλάι - Χρησιμοποιούμε μια πιο σίγουρη διεύθυνση
+st.sidebar.image("https://geyer.gr") # Δοκιμάζουμε πάλι το logo ή μια άλλη
 
-st.sidebar.markdown("""
-    <div style='text-align: center; padding: 10px;'>
-        <h2 style='color: #28a745; margin-bottom: 0;'>GEYER</h2>
-        <p style='font-size: 1em; color: #e0e0e0;'>Technical Portal</p>
-    </div>
-    <hr>
-    """, unsafe_allow_html=True)
-
-st.sidebar.info("Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης.")
+st.sidebar.markdown("<h2 style='text-align: center; color: #28a745;'>GEYER Portal</h2>", unsafe_allow_html=True)
+st.sidebar.write("---")
 
 
 
