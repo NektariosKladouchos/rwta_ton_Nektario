@@ -31,8 +31,14 @@ st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήρ
 st.markdown("<p style='text-align: center;'>Είμαστε εδώ για να προσθέσουμε ψηφιακή εμπειρία στην έξυπνη εγκατάστασή σας.</p>", unsafe_allow_html=True)
 
 # --- ΕΝΟΤΗΤΑ VIDEO: ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ ---
+# --- ΕΝΟΤΗΤΑ VIDEO: ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ ---
 st.markdown("<div class='video-container'>", unsafe_allow_html=True)
 st.markdown("<div class='video-header'>🎥 Ρώτα τον Νεκτάριο</div>", unsafe_allow_html=True)
+
+# Η πιο "καθαρή" λύση για το Streamlit
+st.video("https://youtube.com")
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Χρήση iframe για εγγυημένη αναπαραγωγή του YouTube Short
 st.markdown("""
