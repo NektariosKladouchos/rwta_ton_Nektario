@@ -29,7 +29,8 @@ st.markdown("""
 
 # 3. ΠΛΕΥΡΙΚΟ ΜΕΝΟΥ (Sidebar)
 # Φωτογραφία Smart Home
-st.sidebar.image("https://unsplash.com", caption="Smart Home Solutions")
+st.sidebar.image("https://gstatic.com", caption="Geyer Technical Portal", use_container_width=True)
+
 st.sidebar.markdown("<h2 style='text-align: center;'>GEYER</h2>", unsafe_allow_html=True)
 st.sidebar.write("---")
 st.sidebar.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
