@@ -1,32 +1,26 @@
 
-   import streamlit as st
+  import streamlit as st
 
-# 1. Ρύθμιση Σελίδας - ΑΥΤΟ ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ Η ΠΡΩΤΗ ΕΝΤΟΛΗ
+# 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
 
-# 2. CSS για Πράσινο Μενού και εξαφάνιση του "main"
+# 2. CSS για Πράσινο Μενού
 st.markdown("""
-    <style>
-        [data-testid="stSidebar"] {
-            background-color: #1a4a2e;
-        }
-        [data-testid="stSidebar"] * {
-            color: white !important;
-        }
-        /* Κρύβει το αυτόματο όνομα του αρχείου (main) */
-        [data-testid="stSidebarNav"] > ul {
-            padding-top: 20px;
-        }
-    </style>
-    """, unsafe_allow_html=True)
+<style>
+    [data-testid="stSidebar"] {
+        background-color: #1a4a2e !important;
+    }
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-# 3. Εικόνα στο πλάι - Χρησιμοποιούμε μια πιο σίγουρη διεύθυνση
-st.sidebar.image("https://geyer.gr") # Δοκιμάζουμε πάλι το logo ή μια άλλη
-
-st.sidebar.markdown("<h2 style='text-align: center; color: #28a745;'>GEYER Portal</h2>", unsafe_allow_html=True)
+# 3. Περιεχόμενο Μενού
+st.sidebar.markdown("<h2 style='text-align: center; color: #28a745;'>GEYER</h2>", unsafe_allow_html=True)
 st.sidebar.write("---")
 
-
+# Εδώ συνεχίζει ο υπόλοιπος κώδικας σου (κουμπιά κλπ)
 
 
 # 3. Header & Logo
