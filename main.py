@@ -47,7 +47,6 @@ with c2:
     st.markdown("<div class='feature-card'><h3>💡 Ιδέες & Λύσεις</h3><p>Video tutorials και προτάσεις αυτοματισμού.</p></div>", unsafe_allow_html=True)
     if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ"):
         st.switch_page("pages/02_💡_Idees.py")
-
 st.write("") # Κενό ανάμεσα στις σειρές
 
 c3, c4 = st.columns(2)
@@ -61,7 +60,6 @@ with c3:
 with c4:
     st.markdown("<div class='feature-card'><h3>📞 Επικοινωνία</h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
     if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ"):
-        st.switch_page("pages/4_📞_Epikoinonia.py")
-
+        st.switch_page("pages/05_📞_Epikoinonia.py")
 st.write("---")
 st.caption("© 2024 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
