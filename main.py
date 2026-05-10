@@ -1,62 +1,66 @@
 import streamlit as st
 
-# CSS για αναβαθμισμένες κάρτες και στυλ
+# 1. Ρύθμιση Σελίδας
+st.set_page_config(
+    page_title="GEYER Technical Portal",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# 2. CSS για Επαγγελματική Εμφάνιση (Geyer Green)
 st.markdown("""
     <style>
-    .main-title { color: #27ae60; font-weight: bold; margin-bottom: 20px; }
-    .video-container { 
-        background-color: #ffffff; padding: 20px; border-radius: 15px; 
-        box-shadow: 0px 4px 20px rgba(0,0,0,0.1); border-top: 5px solid #27ae60;
-        margin-bottom: 30px; text-align: center;
+    .main-title { text-align: center; color: #27ae60; font-size: 40px; font-weight: bold; }
+    .stButton>button { 
+        background-color: #27ae60; color: white; border-radius: 8px; border: none; height: 3em; width: 100%;
+        font-weight: bold;
     }
-    .contact-card {
+    .stButton>button:hover { background-color: #219150; color: white; border: 1px solid white; }
+    .feature-card {
         background-color: #ffffff; padding: 25px; border-radius: 15px; 
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.05); border-left: 8px solid #27ae60;
-        min-height: 220px; transition: transform 0.3s;
-    }
-    .contact-card:hover { transform: translateY(-5px); }
-    .info-label { color: #27ae60; font-weight: bold; }
-    .video-header {
-        color: #27ae60; font-size: 26px; font-weight: bold; margin-bottom: 15px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #27ae60;
+        text-align: center; height: 180px; margin-bottom: 10px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
-st.write("Είμαστε εδώ για να προσθέσουμε ψηφιακή εμπειρία στην έξυπνη εγκατάστασή σας.")
+# 3. Header & Logo
+col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
+with col_logo2:
+    st.image("https://wikimedia.org", use_container_width=True)
 
-# --- ΕΝΟΤΗΤΑ VIDEO: ΡΩΤΑ ΤΟΝ ΝΕΚΤΑΡΙΟ ---
-st.markdown("<div class='video-container'>", unsafe_allow_html=True)
-st.markdown("<div class='video-header'>🎥 Ρώτα τον Νεκτάριο</div>", unsafe_allow_html=True)
-# Ενσωμάτωση του YouTube Short
-st.video("https://youtube.com") 
-st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("<div class='main-title'>TECHNICAL PORTAL</div>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #555;'>Καλώς ήρθατε στην πλατφόρμα τεχνικής υποστήριξης Smart Home</p>", unsafe_allow_html=True)
 
 st.write("---")
 
-col1, col2 = st.columns(2)
+# 4. Πλέγμα Ενοτήτων με τα 4 Κουμπιά
+c1, c2 = st.columns(2)
 
-with col1:
-    st.markdown(f"""
-    <div class='contact-card'>
-        <h3>👤 Τεχνική Υποστήριξη</h3>
-        <p><span class='info-label'>Υπεύθυνος:</span> Νεκτάριος Κλαδούχος</p>
-        <p><span class='info-label'>Τηλέφωνο:</span> 6936803610</p>
-        <p><span class='info-label'>Email:</span> <a href='mailto:kladouxos@geyer.gr' style='color:inherit; text-decoration:none;'>kladouxos@geyer.gr</a></p>
-        <p><span class='info-label'>Ειδίκευση:</span> Smart Home Specialist & Technical Trainer</p>
-    </div>
-    """, unsafe_allow_html=True)
+with c1:
+    st.markdown("<div class='feature-card'><h3>📊 Live Pricing</h3><p>Υπολογισμός υλικών και άμεση προσφορά Smart Home.</p></div>", unsafe_allow_html=True)
+    if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING"):
+        st.switch_page("pages/2_📊_Pricing.py")
 
-with col2:
-    st.markdown("""
-    <div class='contact-card'>
-        <h3>🏢 GEYER HELLAS Α.Ε.</h3>
-        <p><span class='info-label'>📍 Διεύθυνση:</span> 2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας</p>
-        <p><span class='info-label'>☎️ Τηλ. Κέντρο:</span> 22620 31257</p>
-        <p><span class='info-label'>🕒 Ωράριο:</span> Δευτέρα - Παρασκευή 08:00 - 16:00</p>
-        <p><span class='info-label'>🌐 Web:</span> <a href='https://geyer.gr' target='_blank' style='color:inherit; text-decoration:none;'>www.geyer.gr</a></p>
-    </div>
-    """, unsafe_allow_html=True)
+with c2:
+    st.markdown("<div class='feature-card'><h3>💡 Ιδέες & Λύσεις</h3><p>Video tutorials και προτάσεις αυτοματισμού.</p></div>", unsafe_allow_html=True)
+    if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ"):
+        st.switch_page("pages/1_Idees.py")
+
+st.write("") # Κενό ανάμεσα στις σειρές
+
+c3, c4 = st.columns(2)
+
+with c3:
+    st.markdown("<div class='feature-card'><h3>📐 Τεχνικά Σχέδια</h3><p>Διαγράμματα σύνδεσης DALI, LED και HVAC.</p></div>", unsafe_allow_html=True)
+    if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ"):
+        # Εδώ θα βάλουμε το αρχείο pages/3_📐_Sxedia.py όταν το φτιάξεις
+        st.info("Η ενότητα 'Σχέδια' ετοιμάζεται.")
+
+with c4:
+    st.markdown("<div class='feature-card'><h3>📞 Επικοινωνία</h3><p>Άμεση υποστήριξη και στοιχεία επικοινωνίας.</p></div>", unsafe_allow_html=True)
+    if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ"):
+        st.switch_page("pages/4_📞_Epikoinonia.py")
 
 st.write("---")
-st.page_link("main.py", label="⬅️ Επιστροφή στην Αρχική", icon="🏠")
+st.caption("© 2024 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
