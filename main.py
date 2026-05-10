@@ -46,7 +46,7 @@ with c1:
 with c2:
     st.markdown("<div class='feature-card'><h3>💡 Ιδέες & Λύσεις</h3><p>Video tutorials και προτάσεις αυτοματισμού.</p></div>", unsafe_allow_html=True)
     if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ"):
-        st.switch_page("pages/1_Idees.py")
+        st.switch_page("pages/02_💡_Idees.py")
 
 st.write("") # Κενό ανάμεσα στις σειρές
 
