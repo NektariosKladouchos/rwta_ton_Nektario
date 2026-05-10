@@ -1,33 +1,34 @@
 import streamlit as st
-import base64
 
 st.set_page_config(page_title="Ιδέες & Λύσεις - Geyer", page_icon="💡", layout="wide")
 
 st.markdown("<h1 style='text-align: center; color: #28a745;'>Οικιακός & Επαγγελματικός Φωτισμός</h1>", unsafe_allow_html=True)
 st.write("---")
 
-# Ορισμός του σωστού ονόματος αρχείου
-pdf_filename = "lighting_solutions.pdf"
+st.info("✨ **Ανακαλύψτε τις Λύσεις μας:** Περιηγηθείτε στις κορυφαίες προτάσεις φωτισμού της Geyer.")
 
-try:
-    with open(pdf_filename, "rb") as f:
-        pdf_bytes = f.read()
-    
-    # 1. Κουμπί για άνοιγμα/κατέβασμα (Πάντα δουλεύει!)
+# Εμφάνιση εικόνων (Εδώ μπορείς να βάλεις links από φωτογραφίες των προϊόντων σου)
+# Σου βάζω μερικές ενδεικτικές εικόνες φωτισμού για να δεις πώς φαίνεται
+col1, col2 = st.columns(2)
+
+with col1:
+    st.image("https://pexels.com", caption="Smart Οικιακός Φωτισμός")
+    st.write("Δημιουργήστε ατμόσφαιρα στο σπίτι σας με σενάρια φωτισμού που προσαρμόζονται στις ανάγκες σας.")
+
+with col2:
+    st.image("https://pexels.com", caption="Επαγγελματικές Λύσεις")
+    st.write("Αποδοτικός φωτισμός για γραφεία και καταστήματα με έμφαση στην εξοικονόμηση ενέργειας.")
+
+st.write("---")
+
+# Κουμπί για όποιον θέλει να δει ΟΛΟ τον κατάλογο
+with open("lighting_solutions.pdf", "rb") as f:
     st.download_button(
-        label="📥 Προβολή ή Κατέβασμα του Καταλόγου (PDF)",
-        data=pdf_bytes,
-        file_name=pdf_filename,
+        label="📖 Ανοίξτε τον πλήρη Τεχνικό Κατάλογο (PDF)",
+        data=f,
+        file_name="Geyer_Lighting_Solutions.pdf",
         mime="application/pdf",
         use_container_width=True
     )
 
-    st.write("") # Κενό
-
-    # 2. Προσπάθεια για ενσωματωμένη προβολή (Embed)
-    base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
-    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="100%" height="1000" type="application/pdf">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
-
-except FileNotFoundError:
-    st.error(f"⚠️ Το αρχείο '{pdf_filename}' δεν βρέθηκε. Σιγουρευτείτε ότι το ανεβάσατε στο GitHub (έξω από το φάκελο pages).")
+st.success("💡 **Tip:** Ο σωστός φωτισμός μπορεί να μειώσει την κατανάλωση ενέργειας έως και 70%!")
