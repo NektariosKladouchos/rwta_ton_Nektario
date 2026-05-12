@@ -60,13 +60,15 @@ try:
 except Exception as e:
     st.error(f"Σύνδεση σε αναμονή... (Πατήστε Refresh στο site)")
 
-# 5. ΚΡΥΦΗ ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ (Sidebar)
+# --- ΚΡΥΦΗ ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ ---
 st.sidebar.markdown("---")
 password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="password")
 
 if password == "geyer123":
     st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
-    # Το ΑΠΟΛΥΤΟ link για το αρχείο σου
-    edit_url = f"https://google.com{sheet_id}/edit#gid=0"
+    # ΠΡΟΣΟΧΗ: Αυτό είναι το σωστό και πλήρες link
+    full_edit_url = "https://google.com"
+    st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", full_edit_url)
+
     st.sidebar.markdown(f"[👉 ΑΝΟΙΓΜΑ GOOGLE SHEET]({edit_url})")
     st.sidebar.caption("Σημείωση: Πρέπει να είστε συνδεδεμένος στο Google λογαριασμό σας.")
