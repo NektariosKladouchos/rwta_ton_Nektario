@@ -59,12 +59,13 @@ try:
 except Exception as e:
     st.error(f"Σύνδεση σε αναμονή... (Τεχνικό Σφάλμα: {e})")
 
-# 5. Κρυφή Περιοχή Διαχείρισης (Sidebar)
+# --- ΚΡΥΦΗ ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ ---
 st.sidebar.markdown("---")
 password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="password")
 
 if password == "geyer123":
     st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
-    # Εδώ βάζουμε το link που βλέπεις εσύ όταν ανοίγεις το Excel
-    edit_url = "https://google.com"
-    st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", edit_url)
+    # Το απόλυτο link για το αρχείο σου
+    my_sheet_link = "https://google.com"
+    st.sidebar.link_button("📝 Διαχείριση (Google Sheets)", my_sheet_link)
+    st.sidebar.caption("Σημείωση: Πρέπει να είστε συνδεδεμένος στο Google λογαριασμό σας.")
