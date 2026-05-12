@@ -1,44 +1,52 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-import os
 
-st.set_page_config(page_title="Forum - Geyer", page_icon="💬", layout="wide")
+# Ρύθμιση Σελίδας
+st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 
-st.title("💬 Forum Ερωτήσεων & Απαντήσεων")
-st.write("---")
+# Σύνδεση με το Google Sheet
+# ΑΝΤΙΚΑΤΑΣΤΑΣΗ: Εδώ βάζουμε το link σου σε μορφή εξαγωγής CSV
+sheet_url = "https://google.com"
 
-# Το αρχείο που θα κρατάει τις ερωτήσεις
-DB_FILE = "forum_messages.csv"
+def load_data():
+    return pd.read_csv(sheet_url)
 
-# Αν δεν υπάρχει το αρχείο, το φτιάχνουμε
-if not os.path.exists(DB_FILE):
-    df = pd.DataFrame(columns=["Ημερομηνία", "Όνομα", "Ερώτηση", "Απάντηση"])
-    df.to_csv(DB_FILE, index=False)
+st.title("💬 Forum Τεχνικής Υποστήριξης")
+st.markdown("---")
 
-# Φόρμα για τον πελάτη
+# --- ΠΕΡΙΟΧΗ ΕΠΙΣΚΕΠΤΗ ---
 with st.expander("➕ Κάντε μια ερώτηση στον Νεκτάριο"):
-    with st.form("forum_form"):
-        user_name = st.text_input("Το όνομά σας:")
-        user_question = st.text_area("Η ερώτησή σας:")
-        submit = st.form_submit_button("Υποβολή Ερώτησης")
+    with st.form("public_form"):
+        name = st.text_input("Το όνομά σας:")
+        question = st.text_area("Η ερώτησή σας:")
+        submit = st.form_submit_button("Υποβολή")
         
-        if submit and user_name and user_question:
-            new_row = pd.DataFrame([[datetime.now().strftime("%d/%m/%Y"), user_name, user_question, "Αναμένεται απάντηση"]], 
-                                    columns=["Ημερομηνία", "Όνομα", "Ερώτηση", "Απάντηση"])
-            df_existing = pd.read_csv(DB_FILE)
-            df_final = pd.concat([new_row, df_existing], ignore_index=True)
-            df_final.to_csv(DB_FILE, index=False)
-            st.success("Η ερώτησή σας στάλθηκε! Θα απαντηθεί σύντομα.")
-            st.rerun()
+        if submit and name and question:
+            st.warning("⚠️ Η αυτόματη υποβολή απαιτεί σύνδεση Google. Για τώρα, η ερώτησή σας θα εμφανιστεί μόλις την εγκρίνει ο Νεκτάριος.")
+            # Εδώ αργότερα θα προσθέσουμε την αυτόματη εγγραφή
 
-# Εμφάνιση των ερωτήσεων
-st.subheader("Πρόσφατες Ερωτήσεις")
-df_display = pd.read_csv(DB_FILE)
+# --- ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΕΩΝ ---
+st.subheader("Πρόσφατες Συζητήσεις")
+try:
+    df = load_data()
+    for index, row in df.iterrows():
+        if pd.notna(row['Ερώτηση']):
+            with st.container():
+                st.info(f"👤 **{row['Όνομα']}** | 📅 {row['Ημερομηνία']}")
+                st.write(f"❓ {row['Ερώτηση']}")
+                if pd.notna(row['Απάντηση']):
+                    st.success(f"✅ **Απάντηση Νεκτάριου:** {row['Απάντηση']}")
+                else:
+                    st.write("🕒 *Αναμένεται απάντηση...*")
+                st.write("---")
+except:
+    st.error("Δεν ήταν δυνατή η φόρτωση των δεδομένων.")
 
-for index, row in df_display.iterrows():
-    with st.container():
-        st.info(f"👤 **{row['Όνομα']}** | 📅 {row['Ημερομηνία']}")
-        st.write(f"❓ {row['Ερώτηση']}")
-        st.warning(f"✅ **Απάντηση:** {row['Απάντηση']}")
-        st.write("---")
+# --- ΚΡΥΦΗ ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ ---
+st.sidebar.markdown("---")
+admin_pass = st.sidebar.text_input("Κωδικός Διαχειριστή", type="password")
+
+if admin_pass == "geyer123": # Αυτός είναι ο κωδικός σου
+    st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
+    st.sidebar.markdown(f"[👉 Πάτα εδώ για να Απαντήσεις ή να Σβήσεις]({sheet_url.replace('/export?format=csv', '/edit')})")
