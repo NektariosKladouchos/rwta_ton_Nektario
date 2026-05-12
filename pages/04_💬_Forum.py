@@ -65,6 +65,6 @@ password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="
 
 if password == "geyer123":
     st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
-    # Link που οδηγεί στο αρχείο για επεξεργασία (ΟΧΙ το public link)
+    # Εδώ βάζουμε το link που βλέπεις εσύ όταν ανοίγεις το Excel
     edit_url = "https://google.com"
     st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", edit_url)
