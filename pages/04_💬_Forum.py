@@ -1,50 +1,69 @@
 import streamlit as st
 import pandas as pd
 
-# Ρύθμιση Σελίδας
+# 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 
-# Το Link σου σε ειδική μορφή που η Google ΔΕΝ μπορεί να μπλοκάρει
-# Το link σου σε μορφή που διαβάζεται από παντού
-# Το νέο δημοσιευμένο link σου
+# 2. Σύνδεση με το Δημοσιευμένο Google Sheet (CSV format)
 sheet_url = "https://google.com"
 
-
 st.title("💬 Forum Τεχνικής Υποστήριξης")
-st.write("---")
+st.markdown("---")
 
-# Φόρμα Ερώτησης
-with st.expander("➕ Κάντε μια ερώτηση στον Νεκτάριο"):
-    st.info("Για υποβολή ερώτησης, χρησιμοποιήστε το κουμπί 'Διαχείριση' στο πλάι για να μπείτε στο Sheet, ή περιμένετε την ενεργοποίηση της φόρμας.")
+# 3. Περιοχή Επισκέπτη (Οδηγίες)
+with st.expander("➕ Πώς να κάνετε μια ερώτηση"):
+    st.info("Για να υποβάλετε μια νέα ερώτηση, επικοινωνήστε απευθείας με τον Νεκτάριο ή περιμένετε την έγκριση της ερώτησής σας στο Sheet.")
+    st.write("Οι απαντήσεις εμφανίζονται αυτόματα μόλις καταχωρηθούν από τον διαχειριστή.")
 
 st.subheader("Πρόσφατες Συζητήσεις")
 
-# Διάβασμα δεδομένων με "Force Refresh"
+# 4. Διάβασμα και Εμφάνιση Δεδομένων
 try:
-    # Το κολπάκι με το skiprows=0 διασφαλίζει ότι διαβάζει από την αρχή
-    df = pd.read_csv(sheet_url, on_bad_lines='skip')
+    # Διάβασμα του CSV από το Google Sheets
+    df = pd.read_csv(sheet_url)
+    
+    # Καθαρισμός των ονομάτων των στηλών από κενά διαστήματα
+    df.columns = df.columns.str.strip()
     
     if not df.empty:
-        # Καθαρίζουμε τυχόν κενές γραμμές
-        df = df.dropna(subset=['Ερώτηση'])
+        # Επιλέγουμε τη σωστή στήλη για έλεγχο (Ερώτηση)
+        # Χρησιμοποιούμε δυναμική αναζήτηση αν υπάρχει ο τόνος ή όχι
+        col_q = 'Ερώτηση' if 'Ερώτηση' in df.columns else df.columns[2]
+        
+        # Αφαιρούμε τις τελείως κενές γραμμές
+        df = df.dropna(subset=[col_q])
         
         for index, row in df.iterrows():
             with st.container():
-                st.markdown(f"**👤 {row['Όνομα']}** | 📅 {row['Ημερομηνία']}")
-                st.info(f"❓ {row['Ερώτηση']}")
-                if pd.notna(row['Απάντηση']):
-                    st.success(f"✅ **Απάντηση:** {row['Απάντηση']}")
+                # Λήψη δεδομένων με ασφάλεια (fallback τιμές αν λείπει κάτι)
+                onoma = row.get('Όνομα', 'Επισκέπτης')
+                hmer = row.get('Ημερομηνία', '-')
+                erotisi = row.get(col_q, '')
+                # Αναζήτηση στήλης Απάντηση
+                col_a = 'Απάντηση' if 'Απάντηση' in df.columns else df.columns[3]
+                apantisi = row.get(col_a, None)
+                
+                # Εμφάνιση στην οθόνη
+                st.markdown(f"**👤 {onoma}** | 📅 {hmer}")
+                st.info(f"❓ {erotisi}")
+                
+                if pd.notna(apantisi) and str(apantisi).strip() != "" and str(apantisi).strip().lower() != "nan":
+                    st.success(f"✅ **Απάντηση:** {apantisi}")
                 else:
-                    st.warning("🕒 *Αναμένεται απάντηση...*")
+                    st.warning("🕒 *Αναμένεται απάντηση από τον Νεκτάριο...*")
                 st.write("---")
     else:
-        st.write("Δεν βρέθηκαν ερωτήσεις.")
-except Exception as e:
-    st.error(f"Σύνδεση σε αναμονή... (Τεχνικό: {e})")
+        st.write("Δεν υπάρχουν ακόμα διαθέσιμες συζητήσεις.")
 
-# Διαχείριση (Sidebar)
+except Exception as e:
+    st.error(f"Σύνδεση σε αναμονή... (Τεχνικό Σφάλμα: {e})")
+
+# 5. Κρυφή Περιοχή Διαχείρισης (Sidebar)
 st.sidebar.markdown("---")
 password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="password")
+
 if password == "geyer123":
-    st.sidebar.success("Καλώς ήρθες!")
-    st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", "https://google.com1d0Nr5QNiwq3OUbUN9sgieNy519CXv5Ui9Sqla_niYIU/edit")
+    st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
+    # Link που οδηγεί στο αρχείο για επεξεργασία (ΟΧΙ το public link)
+    edit_url = "https://google.com"
+    st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", edit_url)
