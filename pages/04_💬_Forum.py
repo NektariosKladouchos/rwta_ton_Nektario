@@ -7,6 +7,7 @@ st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 # 2. Σύνδεση με το Δημοσιευμένο Google Sheet (CSV format)
 sheet_url = "https://google.com"
 
+
 st.title("💬 Forum Τεχνικής Υποστήριξης")
 st.markdown("---")
 
