@@ -7,7 +7,8 @@ st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 # Το link σου για απευθείας ανάγνωση (CSV format)
 # ΠΡΟΣΟΧΗ: Αυτό το link δουλεύει μόνο αν το Sheet είναι "Οποιοσδήποτε διαθέτει τον σύνδεσμο"
 sheet_id = "1d0Nr5QNiwq3OUbUN9sgieNy519CXv5Ui9Sqla_niYIU"
-sheet_url = f"https://google.com{sheet_id}/export?format=csv"
+sheet_url = f"https://google.com{sheet_id}/gviz/tq?tqx=out:csv"
+
 
 st.title("💬 Forum Τεχνικής Υποστήριξης")
 st.write("---")
