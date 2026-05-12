@@ -6,7 +6,9 @@ st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 
 # Το Link σου σε ειδική μορφή που η Google ΔΕΝ μπορεί να μπλοκάρει
 # Το link σου σε μορφή που διαβάζεται από παντού
+# Το νέο δημοσιευμένο link σου
 sheet_url = "https://google.com"
+
 
 st.title("💬 Forum Τεχνικής Υποστήριξης")
 st.write("---")
