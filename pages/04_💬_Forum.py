@@ -1,51 +1,41 @@
 import streamlit as st
 import pandas as pd
 
-# 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 
-# 2. Το "μαγικό" link από τη Δημοσίευση στον Ιστό
-# Χρησιμοποιούμε το link που τελειώνει σε pub?output=csv
-sheet_url = "https://google.com"
+# ΑΥΤΟ ΕΙΝΑΙ ΤΟ ΣΩΣΤΟ LINK ΓΙΑ ΤΑ ΔΕΔΟΜΕΝΑ
+sheet_id = "1d0Nr5QNiwq3OUbUN9sgieNy519CXv5Ui9Sqla_niYIU"
+data_url = f"https://google.com{sheet_id}/gviz/tq?tqx=out:csv"
 
 st.title("💬 Forum Τεχνικής Υποστήριξης")
-st.markdown("---")
+st.write("---")
 
-st.subheader("Πρόσφατες Συζητήσεις")
-
-# 3. Διάβασμα Δεδομένων
 try:
-    # Διαβάζουμε το CSV link
-    df = pd.read_csv(sheet_url)
-    
-    # Καθαρίζουμε τα ονόματα των στηλών
+    # Διαβάζουμε τα δεδομένα
+    df = pd.read_csv(data_url)
+    # Καθαρίζουμε τα ονόματα των στηλών από κενά
     df.columns = df.columns.str.strip()
     
     if not df.empty:
         for index, row in df.iterrows():
-            # Σιγουρευόμαστε ότι υπάρχει ερώτηση στη γραμμή
-            if pd.notna(row.iloc[2]): 
+            if pd.notna(row.iloc[2]): # Αν υπάρχει ερώτηση στην 3η στήλη
                 with st.container():
                     st.markdown(f"**👤 {row.iloc[1]}** | 📅 {row.iloc[0]}")
                     st.info(f"❓ {row.iloc[2]}")
-                    
                     apantisi = row.iloc[3]
                     if pd.notna(apantisi) and str(apantisi).strip() != "":
                         st.success(f"✅ **Απάντηση:** {apantisi}")
                     else:
-                        st.warning("🕒 *Αναμένεται απάντηση από τον Νεκτάριο...*")
+                        st.warning("🕒 *Αναμένεται απάντηση...*")
                     st.write("---")
-    else:
-        st.write("Δεν υπάρχουν ακόμα συζητήσεις.")
-
 except Exception as e:
-    st.error("⚠️ Σύνδεση σε αναμονή... Παρακαλώ κάντε Refresh στη σελίδα.")
+    st.error("Σύνδεση σε αναμονή... Παρακαλώ κάντε Refresh.")
 
-# 4. ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ
+# ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ
 st.sidebar.markdown("---")
 password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="password")
 if password == "geyer123":
     st.sidebar.success("Καλώς ήρθες!")
-    # Το link για να ανοίγεις εσύ το Excel και να γράφεις
-    edit_link = "https://google.com"
-    st.sidebar.markdown(f"[👉 ΑΝΟΙΓΜΑ EXCEL]({edit_link})")
+    # ΑΥΤΟ ΤΟ LINK ΘΑ ΣΕ ΠΑΕΙ ΚΑΤΕΥΘΕΙΑΝ ΣΤΟ EXCEL ΣΟΥ
+    edit_link = f"https://google.com{sheet_id}/edit"
+    st.sidebar.link_button("📝 ΑΝΟΙΓΜΑ EXCEL", edit_link)
