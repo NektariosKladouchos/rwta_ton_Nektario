@@ -1,47 +1,44 @@
-
 import streamlit as st
 import pandas as pd
 from datetime import datetime
 import os
 
-st.set_page_config(page_title="Forum - Ρώτα τον Νεκτάριο", layout="wide")
+st.set_page_config(page_title="Forum - Geyer", page_icon="💬", layout="wide")
 
 st.title("💬 Forum Ερωτήσεων & Απαντήσεων")
-st.markdown("---")
+st.write("---")
 
-# Αρχείο για αποθήκευση των δεδομένων
-DB_FILE = "forum_data.csv"
+# Το αρχείο που θα κρατάει τις ερωτήσεις
+DB_FILE = "forum_messages.csv"
 
-# Συνάρτηση για φόρτωση δεδομένων
-def load_data():
-    if os.path.exists(DB_FILE):
-        return pd.read_csv(DB_FILE)
-    else:
-        return pd.DataFrame(columns=["Ημερομηνία", "Όνομα", "Ερώτηση", "Απάντηση"])
+# Αν δεν υπάρχει το αρχείο, το φτιάχνουμε
+if not os.path.exists(DB_FILE):
+    df = pd.DataFrame(columns=["Ημερομηνία", "Όνομα", "Ερώτηση", "Απάντηση"])
+    df.to_csv(DB_FILE, index=False)
 
-# Φόρμα υποβολής ερώτησης
-with st.expander("➕ Κάντε μια νέα ερώτηση"):
-    with st.form("question_form"):
-        name = st.text_input("Το όνομά σας:")
-        question = st.text_area("Η ερώτησή σας:")
-        submitted = st.form_submit_button("Υποβολή")
+# Φόρμα για τον πελάτη
+with st.expander("➕ Κάντε μια ερώτηση στον Νεκτάριο"):
+    with st.form("forum_form"):
+        user_name = st.text_input("Το όνομά σας:")
+        user_question = st.text_area("Η ερώτησή σας:")
+        submit = st.form_submit_button("Υποβολή Ερώτησης")
         
-        if submitted and name and question:
-            new_data = pd.DataFrame([[datetime.now().strftime("%d/%m/%Y %H:%M"), name, question, "Αναμένεται απάντηση..."]], 
+        if submit and user_name and user_question:
+            new_row = pd.DataFrame([[datetime.now().strftime("%d/%m/%Y"), user_name, user_question, "Αναμένεται απάντηση"]], 
                                     columns=["Ημερομηνία", "Όνομα", "Ερώτηση", "Απάντηση"])
-            df = load_data()
-            df = pd.concat([new_data, df], ignore_index=True)
-            df.to_csv(DB_FILE, index=False)
-            st.success("Η ερώτησή σας υποβλήθηκε! Ο Νεκτάριος θα απαντήσει σύντομα.")
+            df_existing = pd.read_csv(DB_FILE)
+            df_final = pd.concat([new_row, df_existing], ignore_index=True)
+            df_final.to_csv(DB_FILE, index=False)
+            st.success("Η ερώτησή σας στάλθηκε! Θα απαντηθεί σύντομα.")
             st.rerun()
 
-# Εμφάνιση ερωτήσεων
-st.subheader("Πρόσφατες Συζητήσεις")
-df = load_data()
+# Εμφάνιση των ερωτήσεων
+st.subheader("Πρόσφατες Ερωτήσεις")
+df_display = pd.read_csv(DB_FILE)
 
-for index, row in df.iterrows():
+for index, row in df_display.iterrows():
     with st.container():
-        st.info(f"**{row['Όνομα']}** ({row['Ημερομηνία']})")
+        st.info(f"👤 **{row['Όνομα']}** | 📅 {row['Ημερομηνία']}")
         st.write(f"❓ {row['Ερώτηση']}")
-        st.warning(f"✅ **Απάντηση Νεκτάριου:** {row['Απάντηση']}")
-        st.markdown("---")
+        st.warning(f"✅ **Απάντηση:** {row['Απάντηση']}")
+        st.write("---")
