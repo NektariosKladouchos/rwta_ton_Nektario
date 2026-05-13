@@ -1,9 +1,7 @@
-# pages/04_💬_Forum.py
-
 import streamlit as st
 import pandas as pd
-import os
 from datetime import datetime
+from streamlit_gsheets import GSheetsConnection
 
 # ==================================================
 # SETTINGS
@@ -15,79 +13,35 @@ st.set_page_config(
     layout="centered"
 )
 
-CSV_FILE = "forum_data.csv"
 ADMIN_PASSWORD = "geyer123"
 
-# ==================================================
-# CREATE CSV IF NOT EXISTS
-# ==================================================
-
-if not os.path.exists(CSV_FILE):
-
-    empty_df = pd.DataFrame(columns=[
-        "id",
-        "date",
-        "name",
-        "question",
-        "answer"
-    ])
-
-    empty_df.to_csv(CSV_FILE, index=False)
+# Σύνδεση με το Google Sheets
+conn = st.connection("gsheets", type=GSheetsConnection)
 
 # ==================================================
 # FUNCTIONS
 # ==================================================
 
 def load_data():
-
     try:
-
-        df = pd.read_csv(
-            CSV_FILE,
-            dtype=str
-        )
-
+        # ttl=0 για να φέρνει πάντα τα πιο πρόσφατα δεδομένα χωρίς cache
+        df = conn.read(ttl=0)
     except Exception:
-
-        df = pd.DataFrame(columns=[
-            "id",
-            "date",
-            "name",
-            "question",
-            "answer"
-        ])
-
-    # Αν είναι άδειο
+        df = pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
+    
     if df.empty:
-
-        df = pd.DataFrame(columns=[
-            "id",
-            "date",
-            "name",
-            "question",
-            "answer"
-        ])
-
-    # Συμπλήρωση κενών
+        df = pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
+        
     df = df.fillna("")
-
-    # Μετατροπή ID σε integer
+    
     if "id" in df.columns:
-
-        df["id"] = pd.to_numeric(
-            df["id"],
-            errors="coerce"
-        ).fillna(0).astype(int)
-
+        df["id"] = pd.to_numeric(df["id"], errors="coerce").fillna(0).astype(int)
+        
     return df
 
-
 def save_data(df):
-
-    df.to_csv(
-        CSV_FILE,
-        index=False
-    )
+    # Ενημέρωση του Google Sheet με τα νέα δεδομένα
+    conn.update(data=df)
 
 # ==================================================
 # LOAD DATA
@@ -125,15 +79,10 @@ with st.expander("➕ Νέα Ερώτηση", expanded=False):
         if submit_question:
 
             if not name.strip():
-
                 st.warning("Συμπλήρωσε όνομα.")
-
             elif not question.strip():
-
                 st.warning("Συμπλήρωσε ερώτηση.")
-
             else:
-
                 # νέο ID
                 if len(df) == 0:
                     new_id = 1
@@ -150,16 +99,12 @@ with st.expander("➕ Νέα Ερώτηση", expanded=False):
                 }])
 
                 # προσθήκη
-                df = pd.concat(
-                    [df, new_row],
-                    ignore_index=True
-                )
+                df = pd.concat([df, new_row], ignore_index=True)
 
                 # αποθήκευση
                 save_data(df)
 
                 st.success("Η ερώτηση καταχωρήθηκε!")
-
                 st.rerun()
 
 # ==================================================
@@ -170,36 +115,23 @@ st.divider()
 
 st.subheader("📋 Ερωτήσεις")
 
+# Ξαναδιαβάζουμε για σιγουριά
 df = load_data()
 
 if len(df) == 0:
-
     st.info("Δεν υπάρχουν ακόμη ερωτήσεις.")
-
 else:
-
     # newest first
-    df = df.sort_values(
-        by="id",
-        ascending=False
-    )
+    df_sorted = df.sort_values(by="id", ascending=False)
 
-    for _, row in df.iterrows():
-
+    for _, row in df_sorted.iterrows():
         with st.container(border=True):
-
             st.markdown(f"### ❓ {row['question']}")
-
-            st.caption(
-                f"👤 {row['name']} | 🕒 {row['date']}"
-            )
+            st.caption(f"👤 {row['name']} | 🕒 {row['date']}")
 
             # απάντηση
             if str(row["answer"]).strip() != "":
-
-                st.success(
-                    f"✅ Απάντηση:\n\n{row['answer']}"
-                )
+                st.success(f"✅ Απάντηση:\n\n{row['answer']}")
 
 # ==================================================
 # ADMIN PANEL
@@ -223,7 +155,6 @@ if admin_password == ADMIN_PASSWORD:
     df = load_data()
 
     if len(df) > 0:
-
         # επιλογή ερώτησης
         selected_id = st.sidebar.selectbox(
             "Επιλογή Question ID",
@@ -231,17 +162,11 @@ if admin_password == ADMIN_PASSWORD:
         )
 
         # επιλεγμένη γραμμή
-        selected_row = df[
-            df["id"] == int(selected_id)
-        ].iloc[0]
+        selected_row = df[df["id"] == int(selected_id)].iloc[0]
 
         st.sidebar.markdown("---")
-
         st.sidebar.write("### Ερώτηση")
-
-        st.sidebar.info(
-            selected_row["question"]
-        )
+        st.sidebar.info(selected_row["question"])
 
         # answer box
         answer_text = st.sidebar.text_area(
@@ -252,45 +177,20 @@ if admin_password == ADMIN_PASSWORD:
 
         # SAVE ANSWER
         if st.sidebar.button("💾 Αποθήκευση Απάντησης"):
-
-            df.loc[
-                df["id"] == int(selected_id),
-                "answer"
-            ] = str(answer_text)
-
+            df.loc[df["id"] == int(selected_id), "answer"] = str(answer_text)
             save_data(df)
-
-            st.sidebar.success(
-                "Η απάντηση αποθηκεύτηκε!"
-            )
-
+            st.sidebar.success("Η απάντηση αποθηκεύτηκε!")
             st.rerun()
 
         st.sidebar.markdown("---")
 
         # DELETE QUESTION
         if st.sidebar.button("🗑️ Διαγραφή Ερώτησης"):
-
-            df = df[
-                df["id"] != int(selected_id)
-            ]
-
+            df = df[df["id"] != int(selected_id)]
             save_data(df)
-
-            st.sidebar.success(
-                "Η ερώτηση διαγράφηκε!"
-            )
-
+            st.sidebar.success("Η ερώτηση διαγράφηκε!")
             st.rerun()
-
     else:
-
-        st.sidebar.info(
-            "Δεν υπάρχουν ερωτήσεις."
-        )
-
+        st.sidebar.info("Δεν υπάρχουν ερωτήσεις.")
 else:
-
-    st.sidebar.caption(
-        "Πρόσβαση μόνο διαχειριστή"
-    )
+    st.sidebar.caption("Πρόσβαση μόνο διαχειριστή")
