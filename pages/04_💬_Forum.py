@@ -15,26 +15,19 @@ st.set_page_config(
 
 ADMIN_PASSWORD = "geyer123"
 
-# Οριστικό CSS για να γίνουν ΛΕΥΚΑ όλα τα κείμενα και στοιχεία στο Sidebar
+# CSS για να είναι όλα τα γράμματα λευκά και ευανάγνωστα στο μενού
 st.markdown(
     """
     <style>
-        /* 1. Φόντο αριστερής μπάρας */
         [data-testid="stSidebar"] {
             background-color: #0b3c26 !important;
         }
-        
-        /* 2. Γράμματα, σύνδεσμοι και τίτλοι μενού πλοήγησης */
         [data-testid="stSidebarNav"] span {
             color: white !important;
         }
-        
-        /* 3. Εικονίδια πλοήγησης */
         [data-testid="stSidebarNav"] svg {
             fill: white !important;
         }
-        
-        /* 4. Γενικό κείμενο, τίτλοι (Admin Panel) και captions μέσα στο sidebar */
         [data-testid="stSidebar"] .stMarkdown p, 
         [data-testid="stSidebar"] h1, 
         [data-testid="stSidebar"] h2, 
@@ -43,8 +36,6 @@ st.markdown(
         [data-testid="stSidebar"] p {
             color: white !important;
         }
-        
-        /* 5. Ετικέτες πάνω από τα πεδία κειμένου (π.χ. Password) */
         [data-testid="stSidebar"] label {
             color: white !important;
         }
@@ -52,7 +43,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 # Σύνδεση με Supabase μέσω Secrets
 @st.cache_resource
@@ -69,7 +59,6 @@ supabase = init_supabase()
 
 def load_data():
     try:
-        # Φέρνουμε όλες τις εγγραφές από τον πίνακα forum_data
         response = supabase.table("forum_data").select("*").execute()
         df = pd.DataFrame(response.data)
     except Exception as e:
@@ -113,14 +102,12 @@ with st.expander("➕ Νέα Ερώτηση", expanded=False):
             elif not question.strip():
                 st.warning("Συμπλήρωσε ερώτηση.")
             else:
-                # Εισαγωγή νέας γραμμής απευθείας στη Supabase (το ID παράγεται αυτόματα)
                 new_row = {
                     "date": datetime.now().strftime("%d/%m/%Y %H:%M"),
                     "name": str(name),
                     "question": str(question),
                     "answer": ""
                 }
-                
                 supabase.table("forum_data").insert(new_row).execute()
                 st.success("Η ερώτηση καταχωρήθηκε!")
                 st.rerun()
@@ -137,14 +124,11 @@ df = load_data()
 if len(df) == 0:
     st.info("Δεν υπάρχουν ακόμη ερωτήσεις.")
 else:
-    # Ταξινόμηση: Νεότερα ID πάνω-πάνω
     df_sorted = df.sort_values(by="id", ascending=False)
-
     for _, row in df_sorted.iterrows():
         with st.container(border=True):
             st.markdown(f"### ❓ {row['question']}")
             st.caption(f"👤 {row['name']} | 🕒 {row['date']}")
-
             if str(row["answer"]).strip() != "":
                 st.success(f"✅ Απάντηση:\n\n{row['answer']}")
 
@@ -161,6 +145,8 @@ if admin_password == ADMIN_PASSWORD:
 
     if len(df) > 0:
         selected_id = st.sidebar.selectbox("Επιλογή Question ID", df["id"].tolist())
+        
+        # Εδώ διορθώθηκε το .iloc[0] για να παίρνει σωστά τη γραμμή
         selected_row = df[df["id"] == int(selected_id)].iloc[0]
 
         st.sidebar.markdown("---")
