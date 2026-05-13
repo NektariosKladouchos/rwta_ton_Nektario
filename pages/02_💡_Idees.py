@@ -8,6 +8,17 @@ st.set_page_config(
     page_icon="💡",
     layout="centered"
 )
+# Κώδικας CSS για να γίνουν λευκά ΜΟΝΟ τα γράμματα του αριστερού μενού
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebarNav"] span {
+            color: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.title("💡 Ιδέες & Έξυπνες Λύσεις")
 st.write("Επιλέξτε μια κατηγορία από το διαδραστικό μενού για να δείτε λύσεις και προτάσεις.")
