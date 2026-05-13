@@ -14,26 +14,45 @@ st.set_page_config(
 )
 
 ADMIN_PASSWORD = "geyer123"
-# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
+
+# Οριστικό CSS για να γίνουν ΛΕΥΚΑ όλα τα κείμενα και στοιχεία στο Sidebar
 st.markdown(
     """
     <style>
-        /* Φόντο αριστερής μπάρας */
+        /* 1. Φόντο αριστερής μπάρας */
         [data-testid="stSidebar"] {
             background-color: #0b3c26 !important;
         }
-        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
+        
+        /* 2. Γράμματα, σύνδεσμοι και τίτλοι μενού πλοήγησης */
         [data-testid="stSidebarNav"] span {
             color: white !important;
         }
-        /* Εικονίδια αριστερής μπάρας */
+        
+        /* 3. Εικονίδια πλοήγησης */
         [data-testid="stSidebarNav"] svg {
             fill: white !important;
+        }
+        
+        /* 4. Γενικό κείμενο, τίτλοι (Admin Panel) και captions μέσα στο sidebar */
+        [data-testid="stSidebar"] .stMarkdown p, 
+        [data-testid="stSidebar"] h1, 
+        [data-testid="stSidebar"] h2, 
+        [data-testid="stSidebar"] h3,
+        [data-testid="stSidebar"] caption,
+        [data-testid="stSidebar"] p {
+            color: white !important;
+        }
+        
+        /* 5. Ετικέτες πάνω από τα πεδία κειμένου (π.χ. Password) */
+        [data-testid="stSidebar"] label {
+            color: white !important;
         }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # Σύνδεση με Supabase μέσω Secrets
 @st.cache_resource
