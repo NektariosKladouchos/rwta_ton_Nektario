@@ -1,36 +1,97 @@
 import streamlit as st
-import os
 
-st.set_page_config(page_title="Ιδέες & Λύσεις - Geyer", page_icon="💡", layout="wide")
+# ==================================================
+# SETTINGS
+# ==================================================
+st.set_page_config(
+    page_title="Ιδέες & Λύσεις",
+    page_icon="💡",
+    layout="centered"
+)
 
-st.markdown("<h1 style='text-align: center; color: #28a745;'>Οικιακός & Επαγγελματικός Φωτισμός</h1>", unsafe_allow_html=True)
-st.write("---")
+st.title("💡 Ιδέες & Έξυπνες Λύσεις")
+st.write("Επιλέξτε μια κατηγορία από το διαδραστικό μενού για να δείτε λύσεις και προτάσεις.")
 
-# Λίστα με τις εικόνες που περιμένουμε να δούμε
-images = {
-    "home": "home_light.jpg",
-    "pro": "pro_light.jpg"
+# ==================================================
+# ΔΙΑΔΡΑΣΤΙΚΟ ΜΕΝΟΥ (DICTIONARY ΓΙΑ ΕΥΚΟΛΗ ΠΡΟΣΘΗΚΗ)
+# ==================================================
+# Αν θέλετε να προσθέσετε νέα υποενότητα στο μέλλον, 
+# απλά προσθέστε μια γραμμή εδώ: "Όνομα": "Περιγραφή/Συναρτήση"
+categories = {
+    "🏠 Ιδέες για Ενοικιαζόμενα": "rentals",
+    "🏢 Ιδέες για Επαγγελματικό Φωτισμό": "prof_lighting",
+    "🖥️ Οπτικοποίηση Συστήματος": "visualization",
+    "🎛️ Πρόγραμμα Κεντρικής Μονάδας": "central_unit",
+    "🌡️ Θερμικές Ζώνες": "thermal_zones",
+    "🌱 Πρόγραμμα Ποτίσματος": "irrigation",
+    "🚨 Σενάρια με Ενσωμάτωση Συναγερμού": "alarm_scenarios",
+    "⚡ Ενεργειακός Πίνακας": "energy_panel",
+    "⏱️ Χρονικά Προγράμματα": "time_programs",
+    "📶 Zwave": "zwave",
+    "🛠️ Tips Εγκατάστασης": "installation_tips"
 }
 
-col1, col2 = st.columns(2)
+# Εμφάνιση του διαδραστικού μενού στην κορυφή
+selected_category_name = st.selectbox(
+    "🔍 Επιλέξτε Υποενότητα:",
+    list(categories.keys())
+)
 
-with col1:
-    if os.path.exists(images["home"]):
-        st.image(images["home"], caption="Smart Οικιακός Φωτισμός", use_container_width=True)
-    elif os.path.exists(os.path.join("..", images["home"])): # Δοκιμή αν είναι στον πάνω φάκελο
-        st.image(os.path.join("..", images["home"]), caption="Smart Οικιακός Φωτισμός", use_container_width=True)
-    else:
-        st.warning(f"⚠️ Η εικόνα {images['home']} δεν βρέθηκε στο GitHub.")
-    st.write("Δημιουργήστε ατμόσφαιρα στο σπίτι σας.")
+# Αντιστοίχιση της επιλογής με το ID της υποενότητας
+selected_id = categories[selected_category_name]
 
-with col2:
-    if os.path.exists(images["pro"]):
-        st.image(images["pro"], caption="Επαγγελματικές Λύσεις", use_container_width=True)
-    elif os.path.exists(os.path.join("..", images["pro"])): # Δοκιμή αν είναι στον πάνω φάκελο
-        st.image(os.path.join("..", images["pro"]), caption="Επαγγελματικές Λύσεις", use_container_width=True)
-    else:
-        st.warning(f"⚠️ Η εικόνα {images['pro']} δεν βρέθηκε στο GitHub.")
-    st.write("Αποδοτικός φωτισμός για επαγγελματικούς χώρους.")
+st.divider()
 
-st.write("---")
-# Κώδικας για το PDF... (όπως πριν)
+# ==================================================
+# ΠΕΡΙΕΧΟΜΕΝΟ ΥΠΟΕΝΟΤΗΤΩΝ
+# ==================================================
+
+if selected_id == "rentals":
+    st.header("🏠 Ιδέες για Ενοικιαζόμενα")
+    st.info("Έξυπνες λύσεις για AirBnB και ενοικιαζόμενα δωμάτια.")
+    # Γράψτε το κείμενό σας εδώ
+    st.write("- Αυτόματο σβήσιμο κλιματιστικού όταν ανοίγουν οι μπαλκονόπορτες.")
+    st.write("- Έξυπνες κλειδαριές με προσωρινούς κωδικούς για τους επισκέπτες.")
+
+elif selected_id == "prof_lighting":
+    st.header("🏢 Ιδέες για Επαγγελματικό Φωτισμό")
+    st.info("Φωτισμός για καταστήματα, γραφεία και επαγγελματικούς χώρους.")
+    st.write("- Δημιουργία ατμόσφαιρας ανάλογα με την ώρα της ημέρας.")
+
+elif selected_id == "visualization":
+    st.header("🖥️ Οπτικοποίηση Συστήματος")
+    st.info("Δείτε πώς αποτυπώνεται η κατάσταση του κτιρίου σε μια οθόνη.")
+    st.write("Εδώ μπορείτε να περιγράψετε το user interface του συστήματος.")
+
+elif selected_id == "central_unit":
+    st.header("🎛️ Πρόγραμμα Κεντρικής Μονάδας")
+    st.info("Η καρδιά του αυτοματισμού και ο τρόπος λειτουργίας της.")
+
+elif selected_id == "thermal_zones":
+    st.header("🌡️ Θερμικές Ζώνες")
+    st.info("Ανεξάρτητος έλεγχος θέρμανσης και ψύξης ανά δωμάτιο για εξοικονόμηση ενέργειας.")
+
+elif selected_id == "irrigation":
+    st.header("🌱 Πρόγραμμα Ποτίσματος")
+    st.info("Έξυπνο πότισμα με βάση τον καιρό και την υγρασία του εδάφους.")
+
+elif selected_id == "alarm_scenarios":
+    st.header("🚨 Σενάρια με Ενσωμάτωση Συναγερμού")
+    st.info("Σύνδεση του συστήματος ασφαλείας με τα φώτα και τα ρολά του σπιτιού.")
+    st.write("- Με την όπλιση του συναγερμού, κλείνουν αυτόματα όλα τα φώτα και τα ρολά.")
+
+elif selected_id == "energy_panel":
+    st.header("⚡ Ενεργειακός Πίνακας")
+    st.info("Καταγραφή και παρακολούθηση της ηλεκτρικής καταλάνωσης σε πραγματικό χρόνο.")
+
+elif selected_id == "time_programs":
+    st.header("⏱️ Χρονικά Προγράμματα")
+    st.info("Αυτοματοποιημένες ενέργειες με βάση την ώρα ή την ανατολή/δύση του ηλίου.")
+
+elif selected_id == "zwave":
+    st.header("📶 Zwave")
+    st.info("Ασύρματο πρωτόκολλο επικοινωνίας για αξιόπιστο smart home χωρίς μερεμέτια.")
+
+elif selected_id == "installation_tips":
+    st.header("🛠️ Tips Εγκατάστασης")
+    st.info("Χρήσιμες συμβουλές και οδηγίες για σωστή καλωδίωση και τοποθέτηση.")
