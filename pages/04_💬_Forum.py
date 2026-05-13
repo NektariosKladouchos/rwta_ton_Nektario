@@ -6,7 +6,8 @@ st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
 
 # Το δικό σου ID αρχείου από το Google Sheet
 SHEET_ID = "1d0Nr5QNiwq3OUbUN9sgieNy519CXv5Ui9Sqla_niYIU"
-# Η σωστή και καθαρή διεύθυνση για τράβηγμα δεδομένων CSV
+
+# Η ΣΩΣΤΗ ΚΑΙ ΠΛΗΡΗΣ ΔΙΕΥΘΥΝΣΗ για τράβηγμα δεδομένων CSV
 DATA_URL = f"google.com{SHEET_ID}/export?format=csv"
 
 st.title("💬 Forum Τεχνικής Υποστήριξης")
@@ -21,14 +22,14 @@ st.subheader("Πρόσφατες Συζητήσεις")
 
 # Διάβασμα και Εμφάνιση Δεδομένων
 try:
-    # Διαβάζουμε το Sheet με εξαναγκασμένο refresh για να μην κρατάει παλιά μνήμη
+    # Διαβάζουμε το Sheet με εξαναγκασμένο refresh
     df = pd.read_csv(DATA_URL)
     
     # Καθαρίζουμε τυχόν κενά από τα ονόματα των στηλών
     df.columns = df.columns.str.strip()
     
     if not df.empty:
-        # Φιλτράρουμε ώστε να δείχνει μόνο τις γραμμές που έχουν γραμμένη ερώτηση
+        # Φιλτράρουμε ώστε να δείχνει μόνο τις γραμμές που έχουν γραμμένη ερώτηση (3η στήλη = index 2)
         df = df.dropna(subset=[df.columns[2]])
         
         for index, row in df.iterrows():
@@ -37,13 +38,13 @@ try:
                 hmerominia = row.iloc[0] if pd.notna(row.iloc[0]) else "-"
                 onoma = row.iloc[1] if pd.notna(row.iloc[1]) else "Επισκέπτης"
                 erotisi = row.iloc[2]
-                apantisi = row.iloc[3] if len(row) > 3 else None
+                apantisi = row.iloc[3] if len(row) > 3 and pd.notna(row.iloc[3]) else None
                 
                 # Εμφάνιση στην οθόνη
                 st.markdown(f"**👤 {onoma}** | 📅 {hmerominia}")
                 st.info(f"❓ {erotisi}")
                 
-                if pd.notna(apantisi) and str(apantisi).strip() != "" and str(apantisi).lower() != "nan":
+                if apantisi and str(apantisi).strip() != "" and str(apantisi).lower() != "nan":
                     st.success(f"✅ **Απάντηση Νεκτάριου:** {apantisi}")
                 else:
                     st.warning("🕒 *Αναμένεται απάντηση από τον Νεκτάριο...*")
@@ -52,7 +53,7 @@ try:
         st.write("Δεν υπάρχουν ακόμα διαθέσιμες συζητήσεις.")
 
 except Exception as e:
-    st.error(f"⚠️ Η σύνδεση με το Google Sheets ανανεώνεται. Παρακαλώ κάντε ένα Refresh στη σελίδα σας.")
+    st.error("⚠️ Η σύνδεση με το Google Sheets ανανεώνεται. Παρακαλώ κάντε ένα Refresh στη σελίδα σας.")
 
 # ΚΡΥΦΗ ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ (Sidebar)
 st.sidebar.markdown("---")
@@ -60,6 +61,6 @@ password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="
 
 if password == "geyer123":
     st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
-    # Το σωστό link για να ανοίγει το Excel σου απευθείας στην εφαρμογή σου
+    # Το σωστό link για να ανοίγει το Excel σου απευθείας
     edit_url = f"google.com{SHEET_ID}/edit#gid=0"
     st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", edit_url)
