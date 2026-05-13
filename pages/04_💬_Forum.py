@@ -1,66 +1,185 @@
+# pages/Forum.py
+
 import streamlit as st
 import pandas as pd
+import os
+from datetime import datetime
 
-# Ρύθμιση Σελίδας
-st.set_page_config(page_title="Geyer Forum", page_icon="💬", layout="wide")
+# =========================
+# CONFIG
+# =========================
 
-# Το δικό σου ID αρχείου από το Google Sheet
-SHEET_ID = "1d0Nr5QNiwq3OUbUN9sgieNy519CXv5Ui9Sqla_niYIU"
+st.set_page_config(page_title="Public Forum", page_icon="💬")
 
-# Η ΣΩΣΤΗ ΚΑΙ ΠΛΗΡΗΣ ΔΙΕΥΘΥΝΣΗ για τράβηγμα δεδομένων CSV
-DATA_URL = f"google.com{SHEET_ID}/export?format=csv"
+CSV_FILE = "forum_data.csv"
+ADMIN_PASSWORD = "geyer123"
 
-st.title("💬 Forum Τεχνικής Υποστήριξης")
-st.markdown("---")
+# =========================
+# CREATE CSV IF NOT EXISTS
+# =========================
 
-# Περιοχή Επισκέπτη
-with st.expander("➕ Πώς να κάνετε μια ερώτηση"):
-    st.info("Για να υποβάλετε μια νέα ερώτηση, πατήστε το κουμπί 'Διαχείριση' στο πλάι για να μπείτε στο Sheet (αν είστε ο Νεκτάριος) ή στείλτε τη μήνυμα.")
-    st.write("Οι ερωτήσεις και οι απαντήσεις εμφανίζονται αυτόματα παρακάτω.")
+if not os.path.exists(CSV_FILE):
+    df = pd.DataFrame(columns=[
+        "id",
+        "date",
+        "name",
+        "question",
+        "answer"
+    ])
+    df.to_csv(CSV_FILE, index=False)
 
-st.subheader("Πρόσφατες Συζητήσεις")
+# =========================
+# LOAD DATA
+# =========================
 
-# Διάβασμα και Εμφάνιση Δεδομένων
-try:
-    # Διαβάζουμε το Sheet με εξαναγκασμένο refresh
-    df = pd.read_csv(DATA_URL)
-    
-    # Καθαρίζουμε τυχόν κενά από τα ονόματα των στηλών
-    df.columns = df.columns.str.strip()
-    
-    if not df.empty:
-        # Φιλτράρουμε ώστε να δείχνει μόνο τις γραμμές που έχουν γραμμένη ερώτηση (3η στήλη = index 2)
-        df = df.dropna(subset=[df.columns[2]])
-        
-        for index, row in df.iterrows():
-            with st.container():
-                # Παίρνουμε τα δεδομένα με βάση τη σειρά των στηλών (0=Ημερομηνία, 1=Όνομα, 2=Ερώτηση, 3=Απάντηση)
-                hmerominia = row.iloc[0] if pd.notna(row.iloc[0]) else "-"
-                onoma = row.iloc[1] if pd.notna(row.iloc[1]) else "Επισκέπτης"
-                erotisi = row.iloc[2]
-                apantisi = row.iloc[3] if len(row) > 3 and pd.notna(row.iloc[3]) else None
-                
-                # Εμφάνιση στην οθόνη
-                st.markdown(f"**👤 {onoma}** | 📅 {hmerominia}")
-                st.info(f"❓ {erotisi}")
-                
-                if apantisi and str(apantisi).strip() != "" and str(apantisi).lower() != "nan":
-                    st.success(f"✅ **Απάντηση Νεκτάριου:** {apantisi}")
-                else:
-                    st.warning("🕒 *Αναμένεται απάντηση από τον Νεκτάριο...*")
-                st.write("---")
-    else:
-        st.write("Δεν υπάρχουν ακόμα διαθέσιμες συζητήσεις.")
+def load_data():
+    return pd.read_csv(CSV_FILE)
 
-except Exception as e:
-    st.error("⚠️ Η σύνδεση με το Google Sheets ανανεώνεται. Παρακαλώ κάντε ένα Refresh στη σελίδα σας.")
+def save_data(df):
+    df.to_csv(CSV_FILE, index=False)
 
-# ΚΡΥΦΗ ΠΕΡΙΟΧΗ ΔΙΑΧΕΙΡΙΣΗΣ (Sidebar)
-st.sidebar.markdown("---")
-password = st.sidebar.text_input("Κωδικός Διαχειριστή", type="password")
+df = load_data()
 
-if password == "geyer123":
-    st.sidebar.success("Καλώς ήρθες Νεκτάριε!")
-    # Το σωστό link για να ανοίγει το Excel σου απευθείας
-    edit_url = f"google.com{SHEET_ID}/edit#gid=0"
-    st.sidebar.link_button("📝 Απάντησε / Σβήσε Ερωτήσεις", edit_url)
+# =========================
+# TITLE
+# =========================
+
+st.title("💬 Public Forum")
+
+st.write("Κάνε την ερώτησή σου και δες απαντήσεις από την κοινότητα ή τον διαχειριστή.")
+
+# =========================
+# QUESTION FORM
+# =========================
+
+with st.expander("➕ Κάνε νέα ερώτηση", expanded=False):
+
+    with st.form("question_form", clear_on_submit=True):
+
+        name = st.text_input("Το όνομά σου")
+        question = st.text_area("Η ερώτησή σου")
+
+        submit = st.form_submit_button("Υποβολή")
+
+        if submit:
+
+            if name.strip() == "" or question.strip() == "":
+                st.warning("Συμπλήρωσε όνομα και ερώτηση.")
+            else:
+
+                new_id = 1
+
+                if len(df) > 0:
+                    new_id = int(df["id"].max()) + 1
+
+                new_row = {
+                    "id": new_id,
+                    "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                    "name": name,
+                    "question": question,
+                    "answer": ""
+                }
+
+                df = pd.concat(
+                    [df, pd.DataFrame([new_row])],
+                    ignore_index=True
+                )
+
+                save_data(df)
+
+                st.success("Η ερώτηση καταχωρήθηκε!")
+
+                st.rerun()
+
+# =========================
+# DISPLAY QUESTIONS
+# =========================
+
+st.subheader("📋 Ερωτήσεις")
+
+df = load_data()
+
+if len(df) == 0:
+
+    st.info("Δεν υπάρχουν ακόμα ερωτήσεις.")
+
+else:
+
+    df = df.sort_values(by="id", ascending=False)
+
+    for _, row in df.iterrows():
+
+        with st.container(border=True):
+
+            st.markdown(f"### ❓ {row['question']}")
+
+            st.caption(
+                f"Από: {row['name']} • {row['date']}"
+            )
+
+            if pd.notna(row["answer"]) and str(row["answer"]).strip() != "":
+
+                st.success(f"✅ Απάντηση: {row['answer']}")
+
+# =========================
+# ADMIN PANEL
+# =========================
+
+st.sidebar.title("🔒 Admin")
+
+admin_pass = st.sidebar.text_input(
+    "Password",
+    type="password"
+)
+
+if admin_pass == ADMIN_PASSWORD:
+
+    st.sidebar.success("Συνδέθηκε ο διαχειριστής")
+
+    df = load_data()
+
+    if len(df) > 0:
+
+        question_ids = df["id"].tolist()
+
+        selected_id = st.sidebar.selectbox(
+            "Επιλογή ερώτησης",
+            question_ids
+        )
+
+        selected_row = df[df["id"] == selected_id].iloc[0]
+
+        st.sidebar.markdown("### Ερώτηση")
+        st.sidebar.write(selected_row["question"])
+
+        answer_text = st.sidebar.text_area(
+            "Απάντηση",
+            value="" if pd.isna(selected_row["answer"]) else selected_row["answer"],
+            height=150
+        )
+
+        if st.sidebar.button("💾 Αποθήκευση απάντησης"):
+
+            df.loc[df["id"] == selected_id, "answer"] = answer_text
+
+            save_data(df)
+
+            st.sidebar.success("Η απάντηση αποθηκεύτηκε!")
+
+            st.rerun()
+
+        st.sidebar.divider()
+
+        if st.sidebar.button("🗑️ Διαγραφή ερώτησης"):
+
+            df = df[df["id"] != selected_id]
+
+            save_data(df)
+
+            st.sidebar.success("Η ερώτηση διαγράφηκε!")
+
+            st.rerun()
+
+else:
+
+    st.sidebar.info("Μόνο για διαχειριστή")
