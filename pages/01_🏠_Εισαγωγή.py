@@ -2,6 +2,27 @@ import streamlit as st
 
 # Ρύθμιση σελίδας
 st.set_page_config(page_title="Εισαγωγή - Geyer Portal", page_icon="🏠", layout="wide")
+# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
+st.markdown(
+    """
+    <style>
+        /* Φόντο αριστερής μπάρας */
+        [data-testid="stSidebar"] {
+            background-color: #0b3c26 !important;
+        }
+        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
+        [data-testid="stSidebarNav"] span {
+            color: white !important;
+        }
+        /* Εικονίδια αριστερής μπάρας */
+        [data-testid="stSidebarNav"] svg {
+            fill: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # Τίτλος και Καλωσόρισμα
 st.markdown("<h1 style='text-align: center; color: #28a745;'>Καλώς ήρθατε στο Geyer Technical Portal</h1>", unsafe_allow_html=True)
