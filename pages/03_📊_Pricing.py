@@ -13,6 +13,27 @@ BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Mide
 JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
 
 st.set_page_config(page_title="GEYER Portal", layout="wide")
+# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
+st.markdown(
+    """
+    <style>
+        /* Φόντο αριστερής μπάρας */
+        [data-testid="stSidebar"] {
+            background-color: #0b3c26 !important;
+        }
+        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
+        [data-testid="stSidebarNav"] span {
+            color: white !important;
+        }
+        /* Εικονίδια αριστερής μπάρας */
+        [data-testid="stSidebarNav"] svg {
+            fill: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # --- CSS ---
 st.markdown("""
