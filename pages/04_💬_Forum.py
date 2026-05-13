@@ -1,99 +1,172 @@
-# pages/Forum.py
+# pages/04_💬_Forum.py
 
 import streamlit as st
 import pandas as pd
 import os
 from datetime import datetime
 
-# =========================
-# CONFIG
-# =========================
+# ==================================================
+# SETTINGS
+# ==================================================
 
-st.set_page_config(page_title="Public Forum", page_icon="💬")
+st.set_page_config(
+    page_title="Public Forum",
+    page_icon="💬",
+    layout="centered"
+)
 
 CSV_FILE = "forum_data.csv"
 ADMIN_PASSWORD = "geyer123"
 
-# =========================
+# ==================================================
 # CREATE CSV IF NOT EXISTS
-# =========================
+# ==================================================
 
 if not os.path.exists(CSV_FILE):
-    df = pd.DataFrame(columns=[
+
+    empty_df = pd.DataFrame(columns=[
         "id",
         "date",
         "name",
         "question",
         "answer"
     ])
-    df.to_csv(CSV_FILE, index=False)
 
-# =========================
-# LOAD DATA
-# =========================
+    empty_df.to_csv(CSV_FILE, index=False)
+
+# ==================================================
+# FUNCTIONS
+# ==================================================
 
 def load_data():
-    return pd.read_csv(CSV_FILE)
+
+    try:
+
+        df = pd.read_csv(
+            CSV_FILE,
+            dtype=str
+        )
+
+    except Exception:
+
+        df = pd.DataFrame(columns=[
+            "id",
+            "date",
+            "name",
+            "question",
+            "answer"
+        ])
+
+    # Αν είναι άδειο
+    if df.empty:
+
+        df = pd.DataFrame(columns=[
+            "id",
+            "date",
+            "name",
+            "question",
+            "answer"
+        ])
+
+    # Συμπλήρωση κενών
+    df = df.fillna("")
+
+    # Μετατροπή ID σε integer
+    if "id" in df.columns:
+
+        df["id"] = pd.to_numeric(
+            df["id"],
+            errors="coerce"
+        ).fillna(0).astype(int)
+
+    return df
+
 
 def save_data(df):
-    df.to_csv(CSV_FILE, index=False)
+
+    df.to_csv(
+        CSV_FILE,
+        index=False
+    )
+
+# ==================================================
+# LOAD DATA
+# ==================================================
 
 df = load_data()
 
-# =========================
+# ==================================================
 # TITLE
-# =========================
+# ==================================================
 
 st.title("💬 Public Forum")
 
-st.write("Κάνε την ερώτησή σου και δες απαντήσεις από την κοινότητα ή τον διαχειριστή.")
+st.write(
+    "Γράψε την ερώτησή σου και δες απαντήσεις από τον διαχειριστή."
+)
 
-# =========================
+# ==================================================
 # QUESTION FORM
-# =========================
+# ==================================================
 
-with st.expander("➕ Κάνε νέα ερώτηση", expanded=False):
+with st.expander("➕ Νέα Ερώτηση", expanded=False):
 
     with st.form("question_form", clear_on_submit=True):
 
-        name = st.text_input("Το όνομά σου")
-        question = st.text_area("Η ερώτησή σου")
+        name = st.text_input("Όνομα")
 
-        submit = st.form_submit_button("Υποβολή")
+        question = st.text_area(
+            "Ερώτηση",
+            height=120
+        )
 
-        if submit:
+        submit_question = st.form_submit_button("Υποβολή")
 
-            if name.strip() == "" or question.strip() == "":
-                st.warning("Συμπλήρωσε όνομα και ερώτηση.")
+        if submit_question:
+
+            if not name.strip():
+
+                st.warning("Συμπλήρωσε όνομα.")
+
+            elif not question.strip():
+
+                st.warning("Συμπλήρωσε ερώτηση.")
+
             else:
 
-                new_id = 1
-
-                if len(df) > 0:
+                # νέο ID
+                if len(df) == 0:
+                    new_id = 1
+                else:
                     new_id = int(df["id"].max()) + 1
 
-                new_row = {
+                # νέα εγγραφή
+                new_row = pd.DataFrame([{
                     "id": new_id,
-                    "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
-                    "name": name,
-                    "question": question,
+                    "date": datetime.now().strftime("%d/%m/%Y %H:%M"),
+                    "name": str(name),
+                    "question": str(question),
                     "answer": ""
-                }
+                }])
 
+                # προσθήκη
                 df = pd.concat(
-                    [df, pd.DataFrame([new_row])],
+                    [df, new_row],
                     ignore_index=True
                 )
 
+                # αποθήκευση
                 save_data(df)
 
                 st.success("Η ερώτηση καταχωρήθηκε!")
 
                 st.rerun()
 
-# =========================
-# DISPLAY QUESTIONS
-# =========================
+# ==================================================
+# QUESTIONS LIST
+# ==================================================
+
+st.divider()
 
 st.subheader("📋 Ερωτήσεις")
 
@@ -101,11 +174,15 @@ df = load_data()
 
 if len(df) == 0:
 
-    st.info("Δεν υπάρχουν ακόμα ερωτήσεις.")
+    st.info("Δεν υπάρχουν ακόμη ερωτήσεις.")
 
 else:
 
-    df = df.sort_values(by="id", ascending=False)
+    # newest first
+    df = df.sort_values(
+        by="id",
+        ascending=False
+    )
 
     for _, row in df.iterrows():
 
@@ -114,72 +191,106 @@ else:
             st.markdown(f"### ❓ {row['question']}")
 
             st.caption(
-                f"Από: {row['name']} • {row['date']}"
+                f"👤 {row['name']} | 🕒 {row['date']}"
             )
 
-            if pd.notna(row["answer"]) and str(row["answer"]).strip() != "":
+            # απάντηση
+            if str(row["answer"]).strip() != "":
 
-                st.success(f"✅ Απάντηση: {row['answer']}")
+                st.success(
+                    f"✅ Απάντηση:\n\n{row['answer']}"
+                )
 
-# =========================
+# ==================================================
 # ADMIN PANEL
-# =========================
+# ==================================================
 
-st.sidebar.title("🔒 Admin")
+st.sidebar.title("🔒 Admin Panel")
 
-admin_pass = st.sidebar.text_input(
+admin_password = st.sidebar.text_input(
     "Password",
     type="password"
 )
 
-if admin_pass == ADMIN_PASSWORD:
+# ==================================================
+# ADMIN ACCESS
+# ==================================================
 
-    st.sidebar.success("Συνδέθηκε ο διαχειριστής")
+if admin_password == ADMIN_PASSWORD:
+
+    st.sidebar.success("Επιτυχής σύνδεση")
 
     df = load_data()
 
     if len(df) > 0:
 
-        question_ids = df["id"].tolist()
-
+        # επιλογή ερώτησης
         selected_id = st.sidebar.selectbox(
-            "Επιλογή ερώτησης",
-            question_ids
+            "Επιλογή Question ID",
+            df["id"].tolist()
         )
 
-        selected_row = df[df["id"] == selected_id].iloc[0]
+        # επιλεγμένη γραμμή
+        selected_row = df[
+            df["id"] == int(selected_id)
+        ].iloc[0]
 
-        st.sidebar.markdown("### Ερώτηση")
-        st.sidebar.write(selected_row["question"])
+        st.sidebar.markdown("---")
 
+        st.sidebar.write("### Ερώτηση")
+
+        st.sidebar.info(
+            selected_row["question"]
+        )
+
+        # answer box
         answer_text = st.sidebar.text_area(
             "Απάντηση",
-            value="" if pd.isna(selected_row["answer"]) else selected_row["answer"],
-            height=150
+            value=str(selected_row["answer"]),
+            height=180
         )
 
-        if st.sidebar.button("💾 Αποθήκευση απάντησης"):
+        # SAVE ANSWER
+        if st.sidebar.button("💾 Αποθήκευση Απάντησης"):
 
-            df.loc[df["id"] == selected_id, "answer"] = answer_text
-
-            save_data(df)
-
-            st.sidebar.success("Η απάντηση αποθηκεύτηκε!")
-
-            st.rerun()
-
-        st.sidebar.divider()
-
-        if st.sidebar.button("🗑️ Διαγραφή ερώτησης"):
-
-            df = df[df["id"] != selected_id]
+            df.loc[
+                df["id"] == int(selected_id),
+                "answer"
+            ] = str(answer_text)
 
             save_data(df)
 
-            st.sidebar.success("Η ερώτηση διαγράφηκε!")
+            st.sidebar.success(
+                "Η απάντηση αποθηκεύτηκε!"
+            )
 
             st.rerun()
+
+        st.sidebar.markdown("---")
+
+        # DELETE QUESTION
+        if st.sidebar.button("🗑️ Διαγραφή Ερώτησης"):
+
+            df = df[
+                df["id"] != int(selected_id)
+            ]
+
+            save_data(df)
+
+            st.sidebar.success(
+                "Η ερώτηση διαγράφηκε!"
+            )
+
+            st.rerun()
+
+    else:
+
+        st.sidebar.info(
+            "Δεν υπάρχουν ερωτήσεις."
+        )
 
 else:
 
-    st.sidebar.info("Μόνο για διαχειριστή")
+    st.sidebar.caption(
+        "Πρόσβαση μόνο διαχειριστή"
+    )
