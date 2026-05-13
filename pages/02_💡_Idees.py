@@ -8,17 +8,27 @@ st.set_page_config(
     page_icon="💡",
     layout="centered"
 )
-# Κώδικας CSS για να γίνουν λευκά ΜΟΝΟ τα γράμματα του αριστερού μενού
+# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
 st.markdown(
     """
     <style>
+        /* Φόντο αριστερής μπάρας */
+        [data-testid="stSidebar"] {
+            background-color: #0b3c26 !important;
+        }
+        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
         [data-testid="stSidebarNav"] span {
             color: white !important;
+        }
+        /* Εικονίδια αριστερής μπάρας */
+        [data-testid="stSidebarNav"] svg {
+            fill: white !important;
         }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 st.title("💡 Ιδέες & Έξυπνες Λύσεις")
 st.write("Επιλέξτε μια κατηγορία από το διαδραστικό μενού για να δείτε λύσεις και προτάσεις.")
