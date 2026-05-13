@@ -3,6 +3,27 @@ import streamlit as st
 # 1. Ρύθμιση σελίδας
 st.set_page_config(page_title="Επικοινωνία - GEYER", layout="wide")
 
+# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
+st.markdown(
+    """
+    <style>
+        /* Φόντο αριστερής μπάρας */
+        [data-testid="stSidebar"] {
+            background-color: #0b3c26 !important;
+        }
+        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
+        [data-testid="stSidebarNav"] span {
+            color: white !important;
+        }
+        /* Εικονίδια αριστερής μπάρας */
+        [data-testid="stSidebarNav"] svg {
+            fill: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # 2. CSS για GEYER Green
 st.markdown("""
     <style>
