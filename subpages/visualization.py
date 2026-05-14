@@ -11,7 +11,7 @@ def show():
     st.divider()
     st.subheader("📺 Δείτε το Σύστημα σε Λειτουργία")
     
-    youtube_url = "https://www.youtube.com/watch?v=ckgDEu-wTXo" # Βάλτε το δικό σας Link
+    youtube_url = "https://www.youtube.com/watch?v=Z8UmoFfZcqY&t=204s" # Βάλτε το δικό σας Link
     st.video(youtube_url)
     
     st.link_button("🌐 Άνοιγμα του βίντεο στο YouTube", youtube_url)
