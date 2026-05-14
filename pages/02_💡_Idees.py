@@ -1,4 +1,5 @@
 import streamlit as st
+import importlib
 
 # ==================================================
 # SETTINGS
@@ -8,111 +9,47 @@ st.set_page_config(
     page_icon="💡",
     layout="centered"
 )
-# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
+
+# Custom CSS για το πράσινο μενού
 st.markdown(
     """
     <style>
-        /* Φόντο αριστερής μπάρας */
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
-        [data-testid="stSidebarNav"] span {
-            color: white !important;
-        }
-        /* Εικονίδια αριστερής μπάρας */
-        [data-testid="stSidebarNav"] svg {
-            fill: white !important;
-        }
+        [data-testid="stSidebar"] { background-color: #0b3c26 !important; }
+        [data-testid="stSidebarNav"] span { color: white !important; }
+        [data-testid="stSidebarNav"] svg { fill: white !important; }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-
 st.title("💡 Ιδέες & Έξυπνες Λύσεις")
-st.write("Επιλέξτε μια κατηγορία από το διαδραστικό μενού για να δείτε λύσεις και προτάσεις.")
 
 # ==================================================
-# ΔΙΑΔΡΑΣΤΙΚΟ ΜΕΝΟΥ (DICTIONARY ΓΙΑ ΕΥΚΟΛΗ ΠΡΟΣΘΗΚΗ)
+# ΔΙΑΔΡΑΣΤΙΚΟ ΜΕΝΟΥ (Όνομα Ενότητας : Όνομα Αρχείου Python)
 # ==================================================
-# Αν θέλετε να προσθέσετε νέα υποενότητα στο μέλλον, 
-# απλά προσθέστε μια γραμμή εδώ: "Όνομα": "Περιγραφή/Συναρτήση"
 categories = {
-    "🏠 Ιδέες για Ενοικιαζόμενα": "rentals",
-    "🏢 Ιδέες για Επαγγελματικό Φωτισμό": "prof_lighting",
     "🖥️ Οπτικοποίηση Συστήματος": "visualization",
-    "🎛️ Πρόγραμμα Κεντρικής Μονάδας": "central_unit",
-    "🌡️ Θερμικές Ζώνες": "thermal_zones",
-    "🌱 Πρόγραμμα Ποτίσματος": "irrigation",
-    "🚨 Σενάρια με Ενσωμάτωση Συναγερμού": "alarm_scenarios",
-    "⚡ Ενεργειακός Πίνακας": "energy_panel",
-    "⏱️ Χρονικά Προγράμματα": "time_programs",
-    "📶 Zwave": "zwave",
-    "🛠️ Tips Εγκατάστασης": "installation_tips"
+    "🏠 Ιδέες για Ενοικιαζόμενα": "rentals",
+    "🏢 Ιδέες για Επαγγελματικό Φωτισμό": "prof_lighting"
 }
 
-# Εμφάνιση του διαδραστικού μενού στην κορυφή
 selected_category_name = st.selectbox(
     "🔍 Επιλέξτε Υποενότητα:",
     list(categories.keys())
 )
 
-# Αντιστοίχιση της επιλογής με το ID της υποενότητας
-selected_id = categories[selected_category_name]
-
+file_name = categories[selected_category_name]
 st.divider()
 
 # ==================================================
-# ΠΕΡΙΕΧΟΜΕΝΟ ΥΠΟΕΝΟΤΗΤΩΝ
+# ΔΥΝΑΜΙΚΗ ΦΟΡΤΩΣΗ ΤΟΥ ΑΡΧΕΙΟΥ
 # ==================================================
-
-if selected_id == "rentals":
-    st.header("🏠 Ιδέες για Ενοικιαζόμενα")
-    st.info("Έξυπνες λύσεις για AirBnB και ενοικιαζόμενα δωμάτια.")
-    # Γράψτε το κείμενό σας εδώ
-    st.write("- Αυτόματο σβήσιμο κλιματιστικού όταν ανοίγουν οι μπαλκονόπορτες.")
-    st.write("- Έξυπνες κλειδαριές με προσωρινούς κωδικούς για τους επισκέπτες.")
-
-elif selected_id == "prof_lighting":
-    st.header("🏢 Ιδέες για Επαγγελματικό Φωτισμό")
-    st.info("Φωτισμός για καταστήματα, γραφεία και επαγγελματικούς χώρους.")
-    st.write("- Δημιουργία ατμόσφαιρας ανάλογα με την ώρα της ημέρας.")
-
-elif selected_id == "visualization":
-    st.header("🖥️ Οπτικοποίηση Συστήματος")
-    st.info("Δείτε πώς αποτυπώνεται η κατάσταση του κτιρίου σε μια οθόνη.")
-    st.write("Εδώ μπορείτε να περιγράψετε το user interface του συστήματος.")
-
-elif selected_id == "central_unit":
-    st.header("🎛️ Πρόγραμμα Κεντρικής Μονάδας")
-    st.info("Η καρδιά του αυτοματισμού και ο τρόπος λειτουργίας της.")
-
-elif selected_id == "thermal_zones":
-    st.header("🌡️ Θερμικές Ζώνες")
-    st.info("Ανεξάρτητος έλεγχος θέρμανσης και ψύξης ανά δωμάτιο για εξοικονόμηση ενέργειας.")
-
-elif selected_id == "irrigation":
-    st.header("🌱 Πρόγραμμα Ποτίσματος")
-    st.info("Έξυπνο πότισμα με βάση τον καιρό και την υγρασία του εδάφους.")
-
-elif selected_id == "alarm_scenarios":
-    st.header("🚨 Σενάρια με Ενσωμάτωση Συναγερμού")
-    st.info("Σύνδεση του συστήματος ασφαλείας με τα φώτα και τα ρολά του σπιτιού.")
-    st.write("- Με την όπλιση του συναγερμού, κλείνουν αυτόματα όλα τα φώτα και τα ρολά.")
-
-elif selected_id == "energy_panel":
-    st.header("⚡ Ενεργειακός Πίνακας")
-    st.info("Καταγραφή και παρακολούθηση της ηλεκτρικής καταλάνωσης σε πραγματικό χρόνο.")
-
-elif selected_id == "time_programs":
-    st.header("⏱️ Χρονικά Προγράμματα")
-    st.info("Αυτοματοποιημένες ενέργειες με βάση την ώρα ή την ανατολή/δύση του ηλίου.")
-
-elif selected_id == "zwave":
-    st.header("📶 Zwave")
-    st.info("Ασύρματο πρωτόκολλο επικοινωνίας για αξιόπιστο smart home χωρίς μερεμέτια.")
-
-elif selected_id == "installation_tips":
-    st.header("🛠️ Tips Εγκατάστασης")
-    st.info("Χρήσιμες συμβουλές και οδηγίες για σωστή καλωδίωση και τοποθέτηση.")
+try:
+    # Φορτώνει δυναμικά το αρχείο από τον φάκελο subpages
+    subpage = importlib.import_module(f"subpages.{file_name}")
+    # Εκτελεί τη συνάρτηση show() που γράψαμε μέσα στο αρχείο
+    subpage.show()
+except ModuleNotFoundError:
+    st.warning(f"⚠️ Το αρχείο `subpages/{file_name}.py` δεν έχει δημιουργηθεί ακόμα.")
+except Exception as e:
+    st.error(f"❌ Σφάλμα κατά τη φόρτωση της υποσελίδας: {e}")
