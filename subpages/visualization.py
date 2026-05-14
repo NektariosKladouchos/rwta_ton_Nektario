@@ -62,7 +62,7 @@ def show():
     st.write("Παρακολουθήστε το παρακάτω βίντεο για να δείτε την απόκριση του interface και τις δυνατότητες διαχείρισης:")
     
     # Αντικαταστήστε το παρακάτω URL με το πραγματικό Link του βίντεό σας στο YouTube
-    youtube_url = "youtube.com" 
+    youtube_url = https://www.youtube.com/watch?v=Z8UmoFfZcqY&t=204s"" 
     st.video(youtube_url)
     
     st.link_button("🌐 Άνοιγμα του βίντεο στο YouTube", youtube_url)
