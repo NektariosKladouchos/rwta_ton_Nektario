@@ -1,6 +1,10 @@
 import streamlit as st
 import urllib.parse
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 # --- ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER ---
 PRICES = {
     "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 52.0, 
