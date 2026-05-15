@@ -219,10 +219,7 @@ with tab_calc:
                 
                 st.write("---")
                 notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
-
-            
-                
-              if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
+if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
 
     try:
 
@@ -244,7 +241,7 @@ with tab_calc:
 {notes}
 """
 
-        # Create message
+        # Create email
         msg = MIMEMultipart()
 
         msg["From"] = sender_email
@@ -255,7 +252,7 @@ with tab_calc:
             MIMEText(body, "plain", "utf-8")
         )
 
-        # SMTP connection
+        # SMTP
         server = smtplib.SMTP(
             smtp_server,
             smtp_port
@@ -283,8 +280,8 @@ with tab_calc:
     except Exception as e:
 
         st.error(
-            f"❌ Σφάλμα αποστολής email: {e}"
+            f"❌ Σφάλμα αποστολής: {e}"
         )
-with tab_home: st.markdown("### 🏠 Digital Showroom")
-with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
-#---with tab_contact: st.markdown("### 📨 Επικοινωνία")
+            
+                
+             
