@@ -1,10 +1,6 @@
 import streamlit as st
 import urllib.parse
 
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
 # --- ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER ---
 PRICES = {
     "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 52.0, 
@@ -220,66 +216,11 @@ with tab_calc:
                 st.write("---")
                 notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
                 
-              if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
+                if st.button("🚀 1. ΠΡΟΕΤΟΙΜΑΣΙΑ ΑΠΟΣΤΟΛΗΣ"):
+                    subject = f"Ζήτηση Portal - {v_name}"; body = f"Προσφορά:\n\n{disp_text}\n\nΠΑΡΑΤΗΡΗΣΕΙΣ:\n{notes}"
+                    mailto_link = f"mailto:kladouxos@geyer.gr?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+                    st.success("Έτοιμο!"); st.markdown(f'<a href="{mailto_link}" style="background-color: #27ae60; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: block; text-align: center;">📩 2. ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΟΡΙΣΤΙΚΗ ΑΠΟΣΤΟΛΗ</a>', unsafe_allow_html=True)
 
-    try:
-
-        sender_email = st.secrets["email"]["sender"]
-        sender_password = st.secrets["email"]["password"]
-        receiver_email = st.secrets["email"]["receiver"]
-        smtp_server = st.secrets["email"]["smtp_server"]
-        smtp_port = st.secrets["email"]["smtp_port"]
-
-        subject = f"Ζήτηση Portal - {v_name}"
-
-        body = f"""
-ΠΡΟΣΦΟΡΑ:
-
-{disp_text}
-
-ΠΑΡΑΤΗΡΗΣΕΙΣ:
-
-{notes}
-"""
-
-        # Create message
-        msg = MIMEMultipart()
-
-        msg["From"] = sender_email
-        msg["To"] = receiver_email
-        msg["Subject"] = subject
-
-        msg.attach(
-            MIMEText(body, "plain", "utf-8")
-        )
-
-        # SMTP connection
-        server = smtplib.SMTP(
-            smtp_server,
-            smtp_port
-        )
-
-        server.starttls()
-
-        server.login(
-            sender_email,
-            sender_password
-        )
-
-        server.sendmail(
-            sender_email,
-            receiver_email,
-            msg.as_string()
-        )
-
-        server.quit()
-
-        st.success(
-            "✅ Το email στάλθηκε επιτυχώς!"
-        )
-
-    except Exception as e:
-
-        st.error(
-            f"❌ Σφάλμα αποστολής email: {e}"
-        )
+with tab_home: st.markdown("### 🏠 Digital Showroom")
+with tab_docs: st.markdown("### 📂 Βιβλιοθήκη")
+#---with tab_contact: st.markdown("### 📨 Επικοινωνία")
