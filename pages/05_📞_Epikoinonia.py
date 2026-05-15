@@ -50,11 +50,21 @@ st.markdown("<h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</
 st.write("Πατήστε το παρακάτω κουμπί για να δείτε το βίντεο στο YouTube:")
 
 # Χρησιμοποιούμε το st.link_button που είναι το πιο ασφαλές εργαλείο του Streamlit
-st.link_button("▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ (YouTube Shorts)","https://www.youtube.com/shorts/Q2dzj4YCIy4")
+#st.link_button("▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ (YouTube Shorts)","https://www.youtube.com/shorts/Q2dzj4YCIy4")
 
-st.markdown("</div>", unsafe_allow_html=True)
+#st.markdown("</div>", unsafe_allow_html=True)
 
-st.write("---")
+#st.write("---")
+
+  # 4. Ενότητα: Πολυμέσα / Βίντεο (Προαιρετικό)
+    st.subheader("📺 Παρουσίαση Κεντρικής Μονάδας")
+    st.write("Δείτε τον τρόπο διαχείρισης και το περιβάλλον προγραμματισμού της μονάδας:")
+    
+    # Αν έχετε βίντεο για τη μονάδα, βάζετε το link εδώ, αλλιώς μπορεί να αφαιρεθεί
+    youtube_url = "https://www.youtube.com/watch?v=JHi6gZI8QAY" 
+    st.video(youtube_url)
+    st.link_button("🌐 Άνοιγμα στο YouTube", youtube_url)
+
 
 # --- ΚΑΡΤΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ ---
 col1, col2 = st.columns(2)
