@@ -9,7 +9,7 @@ from email.mime.multipart import MIMEMultipart
 PRICES = {
     "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 52.0, 
     "led_strip": 63.92, "dali": 160.0, "shutter": 63.92, 
-    "energy_1ph": 110.0, "energy_3ph": 160.0, "heater": 95.0,
+    "energy_1ph": 110.0, "energy_3ph": 160.0, "heater": 99.0,
     "heat_thermostat": 120.0, "fancoil_ctrl": 130.0, "electric_heat": 70.0, 
     "split_ac": 100.0, "vrv_interface": 260.0, "hub_small": 139.0, "hub_large": 609.0
 }
