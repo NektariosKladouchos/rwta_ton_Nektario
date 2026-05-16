@@ -79,8 +79,7 @@ def show():
 
     st.divider()
 
-    # 4. Διασύνδεση & Εφαρμογές (Screenshots)
-       st.divider()
+   
 
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
