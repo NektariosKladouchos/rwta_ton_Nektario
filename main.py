@@ -12,7 +12,7 @@ analytics_code = """
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-1P15YY9QVG');
+  gtag('config','G-1P15YY9QVG');
 </script>
 """
 
