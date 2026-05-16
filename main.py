@@ -12,12 +12,27 @@ analytics_code = """
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config','G-1P15YY9QVG');
+  gtag('config', 'G-1P15YY9QVG');
 </script>
 """
 
 # Ενσωμάτωση του κώδικα κρυφά στη σελίδα
 components.html(analytics_code, height=0, width=0)
+
+
+# 2. CSS για εμφάνιση (Πράσινο Sidebar & Στυλ)
+st.markdown("""
+    <style>
+        /* Πράσινο φόντο στο Sidebar */
+        [data-testid="stSidebar"] {
+            background-color: #1a4a2e !important;
+        }
+        /* Λευκά γράμματα στο Sidebar */
+        [data-testid="stSidebar"] * {
+            color: white !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 
 
