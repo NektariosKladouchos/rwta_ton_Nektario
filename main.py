@@ -1,23 +1,24 @@
 import streamlit as st
-import streamlit.components.v1 as components
+from streamlit_javascript import st_javascript
 
-# 1. Ρύθμιση Σελίδας (Πρέπει να είναι ΠΡΩΤΗ από όλες τις εντολές streamlit)
+# 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
 
-# Κώδικας Google Analytics για την καταγραφή επισκεπτών
-analytics_code = """
-<!-- Google tag (gtag.js) -->
-<script async src="https://googletagmanager.com"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1P15YY9QVG');
-</script>
-"""
+# Google Analytics που παρακάμπτει τους περιορισμούς των κινητών
+analytics_js = """
+    var script = document.createElement('script');
+    script.src = 'https://googletagmanager.com';
+    script.async = true;
+    document.head.appendChild(script);
 
-# Ενσωμάτωση του κώδικα κρυφά στη σελίδα
-components.html(analytics_code, height=0, width=0)
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1P15YY9QVG');
+"""
+st_javascript(analytics_js)
+
+
 
 
 # 2. CSS για εμφάνιση (Πράσινο Sidebar & Στυλ)
