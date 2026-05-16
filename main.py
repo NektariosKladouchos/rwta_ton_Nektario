@@ -1,22 +1,12 @@
 import streamlit as st
-from streamlit_javascript import st_javascript
+import streamlit_analytics2 as analytics
 
-# 1. Ρύθμιση Σελίδας
 st.set_page_config(page_title="Geyer Technical Portal", page_icon="⚡", layout="wide")
 
-# Google Analytics που παρακάμπτει τους περιορισμούς των κινητών
-analytics_js = """
-    var script = document.createElement('script');
-    script.src = 'https://googletagmanager.com';
-    script.async = true;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-1P15YY9QVG');
-"""
-st_javascript(analytics_js)
+# Ξεκινάει η καταγραφή
+with analytics.track():
+    st.title("Ρώτα τον Νεκτάριο")
+    # ... όλος ο υπόλοιπος κώδικας της σελίδας σας μπαίνει ΕΔΩ ΜΕΣΑ (με tab) ...
 
 
 
