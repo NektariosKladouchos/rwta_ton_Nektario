@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+
 
 def show():
     st.header("🏨 Μελέτη Περίπτωσης: Ολοκληρωμένος Αυτοματισμός Ενοικιαζόμενων Διαμερισμάτων")
@@ -81,8 +83,7 @@ def show():
 
    
 
-  import streamlit as st
-import os
+
 
 # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
 st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
