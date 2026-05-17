@@ -1,6 +1,4 @@
 import streamlit as st
-import os
-
 
 def show():
     st.header("🏨 Μελέτη Περίπτωσης: Ολοκληρωμένος Αυτοματισμός Ενοικιαζόμενων Διαμερισμάτων")
@@ -83,115 +81,62 @@ def show():
 
    
 
+    # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
+    st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
+    st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
+
+    # Δημιουργία 2 στηλών: Αριστερά το Κινητό, Δεξιά ο Υπολογιστής
+    col_carousel1, col_carousel2 = st.columns(2)
+
+    # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
+    with col_carousel1:
+        st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
+        
+        # 1. Λίστα με τις εικόνες και τις λεζάντες για το Κινητό
+        app_images = [
+            {"title": "Κεντρική Οθόνη (Dashboard)", "url": "https://unsplash.com", "desc": "Επισκόπηση της κατάστασης του διαμερίσματος, έλεγχος αν η κάρτα είναι μέσα και γρήγορα κουμπιά."},
+            {"title": "Έλεγχος Θερμοκρασίας Boiler", "url": "https://unsplash.com", "desc": "Προβολή της θερμοκρασίας του νερού σε πραγματικό χρόνο και χειροκίνητη ενεργοποίηση αν χρειαστεί."},
+            {"title": "Ρύθμιση Προκλιματισμού A/C", "url": "https://unsplash.com", "desc": "Μενού επιλογής θερμοκρασίας για την προετοιμασία του δωματίου πριν την άφιξη του πελάτη."},
+            {"title": "Ιστορικό Εισόδων / Εξόδων", "url": "https://unsplash.com", "desc": "Καταγραφή των ωρών που μπήκε ή βγήκε ο πελάτης για τον συντονισμό της καθαρίστριας."}
+        ]
+        
+        # 2. Selectbox που λειτουργεί ως click-to-change
+        selected_app_page = st.selectbox(
+            "Επιλέξτε οθόνη κινητού για προβολή:", 
+            [img["title"] for img in app_images],
+            key="app_carousel_select"
+        )
+        
+        # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
+        for img in app_images:
+            if img["title"] == selected_app_page:
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
-# 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
-st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
-
-# Δημιουργία 2 στηλών: Αριστερά το Κινητό, Δεξιά ο Υπολογιστής
-col_carousel1, col_carousel2 = st.columns(2)
-
-# ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
-with col_carousel1:
-    st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
-    
-    # 1. Λίστα με τις τοπικές εικόνες .png και τις λεζάντες για το Κινητό
-    app_images = [
-        {
-            "title": "Κεντρική Οθόνη (Dashboard)", 
-            "filename": "01_Dashboard.png", 
-            "desc": "Επισκόπηση της κατάστασης του διαμερίσματος, έλεγχος αν η κάρτα είναι μέσα και γρήγορα κουμπιά."
-        },
-        {
-            "title": "Έλεγχος Θερμοστάτη / IR", 
-            "filename": "03_history_Thermostat_IR.png", 
-            "desc": "Προβολή της θερμοκρασίας σε πραγματικό χρόνο, ιστορικό λειτουργίας και χειροκίνητη ενεργοποίηση αν χρειαστεί."
-        },
-        {
-            "title": "Ρύθμιση Προκλιματισμού A/C", 
-            "filename": "04_history_scene open windows close AC.png", 
-            "desc": "Μενού επιλογής θερμοκρασίας και αυτοματισμοί. Παράδειγμα: Τα ανοιχτά παράθυρα κλείνουν αυτόματα το A/C."
-        },
-        {
-            "title": "Διαθέσιμες Σκηνές", 
-            "filename": "05_SCENES.png", 
-            "desc": "Λίστα με τις ρυθμισμένες έξυπνες σκηνές και το ιστορικό ενεργοποίησής τους από τους χρήστες."
-        }
-    ]
-    
-    # 2. Selectbox που λειτουργεί ως click-to-change
-    selected_app_page = st.selectbox(
-        "Επιλέξτε οθόνη κινητού για προβολή:", 
-        [img["title"] for img in app_images],
-        key="app_carousel_select"
-    )
-    
-    # 3. Εύρεση και εμφάνιση της επιλεγμένης εικόνας από τον φάκελο subpages/pictures
-    selected_app_data = next(img for img in app_images if img["title"] == selected_app_page)
-    app_img_path = os.path.join("subpages", "pictures", selected_app_data["filename"])
-    
-    if os.path.exists(app_img_path):
-        st.image(app_img_path, caption=selected_app_data["title"], use_container_width=True)
-        st.info(f"**ℹ️ Επεξήγηση:** {selected_app_data['desc']}")
-    else:
-        st.error(f"⚠️ Δεν βρέθηκε το αρχείο: {app_img_path}")
-
-
-# ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
-with col_carousel2:
-    st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
-    
-    # 1. Λίστα με τις τοπικές εικόνες .png και τις λεζάντες για το PC
-    pc_images = [
-        {
-            "title": "Ρυθμίσεις Συσκευών", 
-            "filename": "09_SETTINGS_DEVICES.png", 
-            "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."
-        },
-        {
-            "title": "Διαχείριση & Οργάνωση Δωματίων", 
-            "filename": "10_SETTINGS_ROOMS.png", 
-            "desc": "Διαχωρισμός και έλεγχος των ανώτατων και κατώτατων ορίων των συσκευών ανά δωμάτιο του ακινήτου."
-        },
-        {
-            "title": "Κέντρο Ρύθμισης Σκηνών (Επίπεδο 1)", 
-            "filename": "11_SETTINGS_SCENES_1.png", 
-            "desc": "Πάνελ παραμετροποίησης βασικών αυτοματισμών και κρίσιμων ειδοποιήσεων για τη λειτουργία του κτιρίου."
-        },
-        {
-            "title": "Κέντρο Ρύθμισης Σκηνών (Επίπεδο 2)", 
-            "filename": "12_SETTINGS_SCENES_2.png", 
-            "desc": "Προχωρημένες ρυθμίσεις αλληλουχίας ενεργειών (IF/THEN) για εξοικονόμηση ενέργειας."
-        },
-        {
-            "title": "Κέντρο Ρύθμισης Σκηνών (Επίπεδο 3)", 
-            "filename": "13_SETTINGS_SCENES_3.png", 
-            "desc": "Διασύνδεση των σκηνών με εξωτερικά δεδομένα, μετεωρολογικούς σταθμούς ή χρονοδιαγράμματα."
-        },
-        {
-            "title": "Γενική Τοποθεσία & Κεντρικός Έλεγχος", 
-            "filename": "21_SETTINGS_GENERAL_LOCATION.png", 
-            "desc": "Κεντρικός χάρτης και ρυθμίσεις γεωεντοπισμού για τον συντονισμό των συσκευών βάσει τοποθεσίας."
-        }
-    ]
-    
-    # 2. Selectbox που λειτουργεί ως click-to-change
-    selected_pc_page = st.selectbox(
-        "Επιλέξτε οθόνη PC για προβολή:", 
-        [img["title"] for img in pc_images],
-        key="pc_carousel_select"
-    )
-    
-    # 3. Εύρεση και εμφάνιση της επιλεγμένης εικόνας από τον φάκελο subpages/pictures
-    selected_pc_data = next(img for img in pc_images if img["title"] == selected_pc_page)
-    pc_img_path = os.path.join("subpages", "pictures", selected_pc_data["filename"])
-    
-    if os.path.exists(pc_img_path):
-        st.image(pc_img_path, caption=selected_pc_data["title"], use_container_width=True)
-        st.info(f"**ℹ️ Επεξήγηση:** {selected_pc_data['desc']}")
-    else:
-        st.error(f"⚠️ Δεν βρέθηκε το αρχείο: {pc_img_path}")
+    # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
+    with col_carousel2:
+        st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
+        
+        # 1. Λίστα με τις εικόνες και τις λεζάντες για το PC
+        pc_images = [
+            {"title": "Κεντρικός Έλεγχος των δωματίων του Διαμερισμάτος", "url": "   ", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει και τα 3 ακίνητα ταυτόχρονα στην ίδια οθόνη."},
+            {"title": "Διαχείριση Ορίων Θερμοστάτη", "url": "https://unsplash.com", "desc": "Κλείδωμα των ανώτατων και κατώτατων ορίων των κλιματιστικών βάσει του μετεωρολογικού σταθμού."},
+            {"title": "Κέντρο Κρίσιμων Ειδοποιήσεων", "url": "https://unsplash.com", "desc": "Πάνελ που εμφανίζει αμέσως τυχόν βλάβες, διακοπές ρεύματος, απώλεια internet ή παραβιάσεις συναγερμού."}
+        ]
+        
+        # 2. Selectbox που λειτουργεί ως click-to-change
+        selected_pc_page = st.selectbox(
+            "Επιλέξτε οθόνη PC για προβολή:", 
+            [img["title"] for img in pc_images],
+            key="pc_carousel_select"
+        )
+        
+        # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
+        for img in pc_images:
+            if img["title"] == selected_pc_page:
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
@@ -210,3 +155,4 @@ with col_carousel2:
     """)
 
     st.success("📞 Επικοινωνήστε μαζί μας για να σχεδιάσουμε τη δική σας custom λύση αυτοματισμού!")
+
