@@ -147,7 +147,7 @@ def show():
         
         for img in pc_images:
             if img["title"] == selected_pc_page:
-                st.image(img["url"], caption=img["title"], width=580)
+                st.image(img["url"], caption=img["title"], width=800)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
