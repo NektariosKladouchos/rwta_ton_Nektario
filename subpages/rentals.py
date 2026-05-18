@@ -80,17 +80,11 @@ def show():
     st.divider()
 
        # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
-           # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ με Έξυπνο Zoom)
+             # 4. Διασύνδεση & Εφαρμογές (Καθαρή Προβολή ανά Σειρά με Μεγάλη Ανάλυση)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-    st.write("Περιηγηθείτε στις οθόνες. Πατήστε το κουμπί μεγέθυνσης για να διαβάσετε τα γράμματα σε πλήρη ανάλυση.")
+    st.write("Περιηγηθείτε στις οθόνες διαχείρισης. Οι εικόνες εμφανίζονται σε μέγιστη ανάλυση για εύκολη ανάγνωση των στοιχείων.")
 
-    # Αρχικοποίηση μεταβλητών Zoom στο session_state
-    if "app_zoom" not in st.session_state:
-        st.session_state.app_zoom = False
-    if "pc_zoom" not in st.session_state:
-        st.session_state.pc_zoom = False
-
-    # Ορισμός των λιστών εικόνων (Κινητό & PC)
+    # Λίστα με τις εικόνες και τις λεζάντες για το Κινητό (Δικά σας Τοπικά Αρχεία)
     app_images = [
         {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
         {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Στο πάνω μέρος εμφανίζονται συγκεντρωτικά και ανά κατηγορίες οι συσκευές. Στο κάτω μέρος αναλυτικά οι συσκευές ανά κατηγορία."},
@@ -107,6 +101,7 @@ def show():
         {"title": "Οθόνη ALARM", "url": "subpages/pictures/MORE_2.jpg", "desc": "Παρακολούθηση λειτουργίας και απομακρυσμένης διαχείρισης της κάθε ζώνης συναγερμού που έχουμε ορίσει για κάθε Δωμάτιο."}
     ]
 
+    # Λίστα με τις εικόνες και τις λεζάντες για το PC (Δικά σας Τοπικά Αρχεία)
     pc_images = [
         {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
         {"title": "Ιστορικό παρακολούθησης λειτουργίας Συσκευών", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Ιστορικό για παρακολούθηση χειρισμού θερμοστάτη απο τον πελάτη τοπικά."},
@@ -123,61 +118,38 @@ def show():
         {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρυθμίζω παγίδες παραθύρου να δουλεύουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο."}
     ]
 
-    # Φίλτρα επιλογής πάνω από τις στήλες
-    col_sel1, col_sel2 = st.columns(2)
-    with col_sel1:
-        selected_app_page = st.selectbox("Επιλέξτε οθόνη κινητού:", [img["title"] for img in app_images], key="app_select")
-    with col_sel2:
-        selected_pc_page = st.selectbox("Επιλέξτε οθόνη PC:", [img["title"] for img in pc_images], key="pc_select")
+    st.markdown("## ⚙️ ΣΕΙΡΑ 1: Διαχειριστικό Πρόγραμμα PC")
+    
+    # Selectbox για το PC
+    selected_pc_page = st.selectbox(
+        "Επιλέξτε οθόνη PC για προβολή:", 
+        [img["title"] for img in pc_images],
+        key="pc_row_select"
+    )
+    
+    for img in pc_images:
+        if img["title"] == selected_pc_page:
+            # Μέγιστο σταθερό πλάτος 1200px για απόλυτη καθαρότητα χωρίς θολώματα
+            st.image(img["url"], caption=img["title"], width=1200)
+            # Επεξήγηση με έγχρωμο φόντο
+            st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
-    st.divider()
+    st.markdown("---")
+    st.markdown("## 📱 ΣΕΙΡΑ 2: Εφαρμογή Κινητού (Mobile App)")
 
-    # ΕΛΕΓΧΟΣ ZOOM: Αν κάποιο είναι ενεργό, σπάει η διάταξη και δείχνει ΜΟΝΟ την εικόνα σε Full Size
-    if st.session_state.app_zoom:
-        for img in app_images:
-            if img["title"] == selected_app_page:
-                st.markdown(f"### 🔍 Μεγέθυνση Κινητού: {img['title']}")
-                st.image(img["url"], width=500) # Μεγάλο μέγεθος για το κινητό
-                if st.button("↩️ Επιστροφή στη διπλή προβολή", key="app_zoom_off"):
-                    st.session_state.app_zoom = False
-                    st.rerun()
-                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
-
-    elif st.session_state.pc_zoom:
-        for img in pc_images:
-            if img["title"] == selected_pc_page:
-                st.markdown(f"### 🔍 Μεγέθυνση PC: {img['title']}")
-                st.image(img["url"], width=1600) # Πλήρες πεντακάθαρο μέγεθος PC
-                if st.button("↩️ Επιστροφή στη διπλή προβολή", key="pc_zoom_off"):
-                    st.session_state.pc_zoom = False
-                    st.rerun()
-                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
-
-    else:
-        # ΚΑΝΟΝΙΚΗ ΚΑΤΑΣΤΑΣΗ: Εικόνες δίπλα-δίπλα σε στήλες
-        col_carousel1, col_carousel2 = st.columns(2)
-
-        # ------------------ ΣΤΗΛΗ 1: ΚΙΝΗΤΟ ------------------
-        with col_carousel1:
-            st.markdown("### 📱 Εφαρμογή Κινητού")
-            for img in app_images:
-                if img["title"] == selected_app_page:
-                    st.image(img["url"], width=260) # Μαζεμένο πλάτος για να μην ξεχειλώνει δίπλα στο PC
-                    if st.button("🔍 Μεγέθυνση Κινητού", key="btn_app_zoom"):
-                        st.session_state.app_zoom = True
-                        st.rerun()
-                    st.caption(img["desc"])
-
-        # ------------------ ΣΤΗΛΗ 2: ΥΠΟΛΟΓΙΣΤΗΣ ------------------
-        with col_carousel2:
-            st.markdown("### 💻 Πρόγραμμα PC")
-            for img in pc_images:
-                if img["title"] == selected_pc_page:
-                    st.image(img["url"], width=520) # Ισορροπημένο πλάτος
-                    if st.button("🔍 Μεγέθυνση Οθόνης PC", key="btn_pc_zoom"):
-                        st.session_state.pc_zoom = True
-                        st.rerun()
-                    st.caption(img["desc"])
+    # Selectbox για το Κινητό
+    selected_app_page = st.selectbox(
+        "Επιλέξτε οθόνη κινητού για προβολή:", 
+        [img["title"] for img in app_images],
+        key="app_row_select"
+    )
+    
+    for img in app_images:
+        if img["title"] == selected_app_page:
+            # Σταθερό πλάτος 380px για το κινητό για να είναι μεγάλο αλλά σωστά στοιχισμένο
+            st.image(img["url"], caption=img["title"], width=380)
+            # Επεξήγηση με έγχρωμο φόντο
+            st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
     # 5. Κόστος Project
