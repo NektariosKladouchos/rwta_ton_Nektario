@@ -132,7 +132,7 @@ def show():
             {"title": "Διαμόρφωση Συστήματος ", "url": "subpages/pictures/21_SETTINGS_GENERAL._LOCATION.png", "desc": "Ορισμός τοποθεσίας συστήματος για λειτουργίες μετεωρολογικού σταθμου ,Ανατολής - Δύσης κτλ."},
             {"title": "Πίνακας Μεταβλητών ", "url": "subpages/pictures/23_SETTINGS_GENELAL_VARIABLES.png", "desc": "Δημιουργία μεταβλητών για κατάσταση κλιματιστικών και εξωτερικής θερμοκρασίας Χειμώνα - Καλοκαίρι"},
             {"title": "BACKUP ", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Δημιουργία Backup προγραμματισμού και συσκευών σε CLOUD & LOCAL."},
-            {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png, "desc": "Ρυθμιση παγίδων παραθύρου να δουλέυουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο "}
+            {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρυθμιση παγίδων παραθύρου να δουλέυουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο "}
         ]
         
         # 2. Selectbox που λειτουργεί ως click-to-change
