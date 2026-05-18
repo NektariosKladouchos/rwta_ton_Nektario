@@ -129,7 +129,7 @@ def show():
             {"title": "Πινακας Σεναρίων ανά Δωμάτιο ", "url": "subpages/pictures/11_SETTINGS_SCENES_1.png", "desc": "Πάνελ Εμφάνισης Σεναρίων για παρουσία στο Διαμέρισμα και χρήση ζεστών νερών ."},
             {"title": "Δημιουργία Σεναρίου Παρουσίας ", "url": "subpages/pictures/12_SETTINGS_SCENES_2.png", "desc": "Δημιουργία σεναρίου σε μορφή (BLOCK SCENE ).Ορίζει τι θα γίνει με το που μπεί η κάρτα "},
             {"title": "Δημιουργία Σεναρίου Θερμοσίφωνα", "url": "subpages/pictures/13_SETTINGS_SCENES_3.png", "desc": "Δημιουργία σεναρίου για άνοιγμα θερμοσίφωνα για μια ώρα με συνθήκη την θερμοκρασία νερού και την παρουσία στον χώρο ."},
-            {"title": "Διαμόρφωση Συστήματος ", "url": "subpages/pictures/21_SETTINGS_GENERAL._LOCATION.png", "desc": "Ορισμός τοποθεσίας συστήματος για λειτουργίες μετεωρολογικού σταθμου ,Ανατολής - Δύσης κτλ."},
+            {"title": "Διαμόρφωση Συστήματος ", "url": "subpages/pictures/21_SETTINGS_GENERAL_LOCATION.png", "desc": "Ορισμός τοποθεσίας συστήματος για λειτουργίες μετεωρολογικού σταθμου ,Ανατολής - Δύσης κτλ."},
             {"title": "Πίνακας Μεταβλητών ", "url": "subpages/pictures/23_SETTINGS_GENELAL_VARIABLES.png", "desc": "Δημιουργία μεταβλητών για κατάσταση κλιματιστικών και εξωτερικής θερμοκρασίας Χειμώνα - Καλοκαίρι"},
             {"title": "BACKUP ", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Δημιουργία Backup προγραμματισμού και συσκευών σε CLOUD & LOCAL."},
             {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρυθμιση παγίδων παραθύρου να δουλέυουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο "}
