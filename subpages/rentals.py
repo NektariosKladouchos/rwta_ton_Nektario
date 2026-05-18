@@ -147,7 +147,7 @@ def show():
         for img in pc_images:
             if img["title"] == selected_pc_page:
                 st.markdown(f"### 🔍 Μεγέθυνση PC: {img['title']}")
-                st.image(img["url"], width=1150) # Πλήρες πεντακάθαρο μέγεθος PC
+                st.image(img["url"], width=1600) # Πλήρες πεντακάθαρο μέγεθος PC
                 if st.button("↩️ Επιστροφή στη διπλή προβολή", key="pc_zoom_off"):
                     st.session_state.pc_zoom = False
                     st.rerun()
