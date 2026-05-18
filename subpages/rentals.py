@@ -79,10 +79,7 @@ def show():
 
     st.divider()
 
-   
-
-   
-    # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
+       # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
     st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
@@ -91,9 +88,7 @@ def show():
 
     # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
     with col_carousel1:
-        st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
-        
-        # Η δική σας λίστα εικόνων για το κινητό
+        # Λίστα με τις εικόνες και τις λεζάντες για το Κινητό (Δικά σας Τοπικά Αρχεία)
         app_images = [
             {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
             {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Στο πάνω μέρος εμφανίζονται συγκεντρωτικά και ανά κατηγορίες οι συσκευές. Στο κάτω μέρος αναλυτικά οι συσκευές ανά κατηγορία."},
@@ -116,17 +111,16 @@ def show():
             key="app_carousel_select"
         )
         
+        st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
+        
         for img in app_images:
             if img["title"] == selected_app_page:
-                # ΔΙΟΡΘΩΣΗ: Σταθερό πλάτος 320px για να μην μεγαλώνει υπερβολικά το κινητό
                 st.image(img["url"], caption=img["title"], width=320)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
     with col_carousel2:
-        st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
-        
-        # Η νέα δική σας λίστα εικόνων (Τοπικά Αρχεία με .png)
+        # Η δική σας λίστα εικόνων (Τοπικά Αρχεία .png)
         pc_images = [
             {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
             {"title": "Ιστορικό παρακολούθησης λειτουργίας Συσκευών", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Ιστορικό για παρακολούθηση χειρισμού θερμοστάτη απο τον πελάτη τοπικά."},
@@ -140,7 +134,7 @@ def show():
             {"title": "Διαμόρφωση Συστήματος", "url": "subpages/pictures/21_SETTINGS_GENERAL_LOCATION.png", "desc": "Ορισμός τοποθεσίας συστήματος για λειτουργίες μετεωρολογικού σταθμού, Ανατολής - Δύσης κτλ."},
             {"title": "Πίνακας Μεταβλητών", "url": "subpages/pictures/23_SETTINGS_GENERAL_VARIABLES.png", "desc": "Δημιουργία μεταβλητών για κατάσταση κλιματιστικών και εξωτερικής θερμοκρασίας Χειμώνα - Καλοκαίρι."},
             {"title": "BACKUP", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Δημιουργία Backup προγραμματισμού και συσκευών σε CLOUD & LOCAL."},
-            {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρύθμιση παγίδων παραθύρου να δουλεύουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο."}
+            {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρυθμίζω παγίδες παραθύρου να δουλεύουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο."}
         ]
         
         selected_pc_page = st.selectbox(
@@ -149,12 +143,16 @@ def show():
             key="pc_carousel_select"
         )
         
+        st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
+        
         for img in pc_images:
             if img["title"] == selected_pc_page:
-                # Εδώ κρατάμε το use_container_width=True για να απλώνει σωστά η οθόνη του υπολογιστή
-                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.image(img["url"], caption=img["title"], width=580)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
+
+   
+   
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
     st.write("Η επένδυση στον αυτοματισμό αποσβένεται γρήγορα μέσω της εξοικονόμησης ενέργειας και της μείωσης των ζημιών.")
