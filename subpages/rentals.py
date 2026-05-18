@@ -80,18 +80,17 @@ def show():
     st.divider()
 
        # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
-       # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
+         # 4. Διασύνδεση & Εφαρμογές (Καθαρή Προβολή ανά Συσκευή)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-    st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
+    st.write("Επιλέξτε συσκευή για να περιηγηθείτε στις οθόνες διαχείρισης σε πλήρη ανάλυση.")
 
-    # Δημιουργία 2 στηλών: Αριστερά το Κινητό, Δεξιά ο Υπολογιστής
-    col_carousel1, col_carousel2 = st.columns(2)
+    # Δημιουργία μεγάλων Tabs για αποφυγή συμπίεσης των εικόνων
+    tab_app, tab_pc = st.tabs(["📱 Εφαρμογή Κινητού (Mobile App)", "💻 Διαχειριστικό Πρόγραμμα Υπολογιστή (PC Dashboard)"])
 
-    # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
-    with col_carousel1:
+    # ------------------ ΚΑΡΤΕΛΑ 1: ΚΙΝΗΤΟ ------------------
+    with tab_app:
         st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
         
-        # Λίστα με τις εικόνες και τις λεζάντες για το Κινητό (Δικά σας Τοπικά Αρχεία)
         app_images = [
             {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
             {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Στο πάνω μέρος εμφανίζονται συγκεντρωτικά και ανά κατηγορίες οι συσκευές. Στο κάτω μέρος αναλυτικά οι συσκευές ανά κατηγορία."},
@@ -111,20 +110,21 @@ def show():
         selected_app_page = st.selectbox(
             "Επιλέξτε οθόνη κινητού για προβολή:", 
             [img["title"] for img in app_images],
-            key="app_carousel_select"
+            key="app_tab_select"
         )
         
         for img in app_images:
             if img["title"] == selected_app_page:
-                # Σταθερό πλάτος για το κινητό
-                st.image(img["url"], caption=img["title"], width=320)
+                # Χρήση st.columns εσωτερικά για να κεντράρουμε το κινητό στην οθόνη
+                col_center_app, _ = st.columns([1, 2])
+                with col_center_app:
+                    st.image(img["url"], caption=img["title"], width=360)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
-    # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
-    with col_carousel2:
+    # ------------------ ΚΑΡΤΕΛΑ 2: ΥΠΟΛΟΓΙΣΤΗΣ ------------------
+    with tab_pc:
         st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
         
-        # Η δική σας λίστα εικόνων (Τοπικά Αρχεία .png)
         pc_images = [
             {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
             {"title": "Ιστορικό παρακολούθησης λειτουργίας Συσκευών", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Ιστορικό για παρακολούθηση χειρισμού θερμοστάτη απο τον πελάτη τοπικά."},
@@ -144,18 +144,15 @@ def show():
         selected_pc_page = st.selectbox(
             "Επιλέξτε οθόνη PC για προβολή:", 
             [img["title"] for img in pc_images],
-            key="pc_carousel_select"
+            key="pc_tab_select"
         )
         
         for img in pc_images:
             if img["title"] == selected_pc_page:
-                # Δυναμικό πλάτος για τον υπολογιστή
+                # Εδώ η εικόνα απλώνει σε όλο το διαθέσιμο πλάτος για μέγιστη ευκρίνεια
                 st.image(img["url"], caption=img["title"], use_container_width=True)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
-
-   
-   
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
     st.write("Η επένδυση στον αυτοματισμό αποσβένεται γρήγορα μέσω της εξοικονόμησης ενέργειας και της μείωσης των ζημιών.")
