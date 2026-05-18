@@ -80,6 +80,7 @@ def show():
     st.divider()
 
        # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
+       # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
     st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
@@ -88,6 +89,8 @@ def show():
 
     # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
     with col_carousel1:
+        st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
+        
         # Λίστα με τις εικόνες και τις λεζάντες για το Κινητό (Δικά σας Τοπικά Αρχεία)
         app_images = [
             {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
@@ -111,15 +114,16 @@ def show():
             key="app_carousel_select"
         )
         
-        st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
-        
         for img in app_images:
             if img["title"] == selected_app_page:
-                st.image(img["url"], caption=img["title"], width=120)
+                # Σταθερό πλάτος για το κινητό
+                st.image(img["url"], caption=img["title"], width=320)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
     with col_carousel2:
+        st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
+        
         # Η δική σας λίστα εικόνων (Τοπικά Αρχεία .png)
         pc_images = [
             {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
@@ -143,11 +147,10 @@ def show():
             key="pc_carousel_select"
         )
         
-        st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
-        
         for img in pc_images:
             if img["title"] == selected_pc_page:
-                st.image(img["url"], caption=img["title"], width=800)
+                # Δυναμικό πλάτος για τον υπολογιστή
+                st.image(img["url"], caption=img["title"], use_container_width=True)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
