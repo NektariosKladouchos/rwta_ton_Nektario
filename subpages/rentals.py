@@ -114,8 +114,7 @@ def show():
 
    
 
-    # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
-   # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
+  # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
 st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
 st.write("Περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
@@ -201,7 +200,6 @@ with col2:
         st.session_state.pc_index = (st.session_state.pc_index + 1) % len(pc_images)
 
 st.markdown("</div>", unsafe_allow_html=True)
-
 
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
