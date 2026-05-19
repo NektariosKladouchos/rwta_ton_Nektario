@@ -1,37 +1,4 @@
 import streamlit as st
-st.markdown("""
-<style>
-.carousel-box {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    border: 2px solid #0b3c26;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-    margin-bottom: 35px;
-}
-
-.carousel-img {
-    border-radius: 10px;
-    width: 100%;
-    height: 420px;
-    object-fit: contain;
-    background: #f2f2f2;
-}
-
-.carousel-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #0b3c26;
-    margin-top: 10px;
-}
-
-.carousel-desc {
-    font-size: 15px;
-    color: #333;
-}
-
-</style>
-""", unsafe_allow_html=True)
 
 def show():
     st.header("🏨 Αυτοματισμός Ενοικιαζόμενων Διαμερισμάτων")
@@ -116,95 +83,97 @@ def show():
 
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-    st.subheader("📱 Οθόνες Εφαρμογής Κινητού")
+    st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
-if "app_index" not in st.session_state:
-    st.session_state.app_index = 0
+        # Δημιουργία 2 στηλών: Αριστερά το Κινητό, Δεξιά ο Υπολογιστής
+    col_carousel1, col_carousel2 = st.columns(2)
 
-app_images = [
-    {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
-    {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Στο πάνω μέρος εμφανίζονται συγκεντρωτικά και ανά κατηγορίες οι συσκευές.Στο κάτω μέρος αναλύτικά οι συσκευές ανα κατηγορία."},
-    {"title": "Συσκευές ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_3.jpg", "desc": "Ο χρήστης επιλέγει ποιά κατηγόρία θα ποιά συσκευή θα εμφανίζεται. Εδώ φαίνονται οι καταστάσεις των κλιματιστικών και των ALARMS."},
-    {"title": "Ανάλυση συσκευών ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_4.jpg", "desc": "Επιλέγοντας κατηγορία από το πάνω μενού, εμφανίζει αναλυτικά τις συγκεκριμένες συσκευές και την κατάστασή τους."},
-    {"title": "Μετεωρολογικός Σταθμός", "url": "subpages/pictures/FAVOURITES_5.jpg", "desc": "Εμφανίζει την κατάσταση καιρού (Ηλιοφάνεια, βροχή), την εξωτερική θερμοκρασία, υγρασία και ταχύτητα ανέμου."},
-    {"title": "Οθόνη παρουσίασης Δωματίων", "url": "subpages/pictures/HOME_1.jpg", "desc": "Μας δείχνει τα δωμάτια που έχουμε δημιουργήσει και σημαντικές πληροφορίες όπως θερμοκρασία και υγρασία δωματίου."},
-    {"title": "Ανάλυση συσκευών Δωματίου", "url": "subpages/pictures/HOME_2.jpg", "desc": "Επιλέγοντας κάποιο δωμάτιο βλέπουμε και διαχειριζόμαστε τις συσκευές του."},
-    {"title": "Δωμάτιο Ηλεκτρικός Πίνακας", "url": "subpages/pictures/HOME_3.jpg", "desc": "Παρακολουθούμε την παρουσία με βάση την κάρτα, τη θερμοκρασία νερού Boiler και την κατάσταση του θερμοσίφωνα."},
-    {"title": "Ενότητα Scenes", "url": "subpages/pictures/SCENES_1.jpg", "desc": "Παρουσιάζονται τα σενάρια που έχουμε φτιάξει π.χ. για παρουσία και ζεστά νερά χρήσης."},
-    {"title": "Σενάρια κλιματιστικών", "url": "subpages/pictures/SCENES_2.jpg", "desc": "Δημιουργία σεναρίων για κλείδωμα θερμοκρασιών σε κάθε θερμοστάτη κλιματιστικού (ανώτερο και κατώτερο όριο)."},
-    {"title": "Επιλογή Σεναρίων", "url": "subpages/pictures/SCENES_5.jpg", "desc": "Απομακρυσμένη επιλογή για το αν θα είναι ενεργό ή όχι το κάθε σενάριο."},
-    {"title": "Συγκεντρωτική οθόνη θερμοστατών", "url": "subpages/pictures/MORE_1.jpg", "desc": "Για απομακρυσμένη λειτουργία του κάθε κλιματιστικού ή live παρακολούθηση της κατάστασής τους."},
-    {"title": "Οθόνη ALARM", "url": "subpages/pictures/MORE_2.jpg", "desc": "Παρακολούθηση λειτουργίας και απομακρυσμένη διαχείριση της κάθε ζώνης συναγερμού."},
-]
-
-img = app_images[st.session_state.app_index]
-
-st.markdown("<div class='carousel-box'>", unsafe_allow_html=True)
-st.image(img["url"], use_container_width=True)
-st.markdown(f"<div class='carousel-title'>{img['title']}</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='carousel-desc'>{img['desc']}</div>", unsafe_allow_html=True)
-
-col1, col2 = st.columns(2)
-with col1:
-    if st.button("⬅ Προηγούμενο", key="app_prev"):
-        st.session_state.app_index = (st.session_state.app_index - 1) % len(app_images)
-with col2:
-    if st.button("Επόμενο ➡", key="app_next"):
-        st.session_state.app_index = (st.session_state.app_index + 1) % len(app_images)
-
-st.markdown("</div>", unsafe_allow_html=True)
-st.subheader("💻 Διαχειριστικό Πρόγραμμα PC")
-
-if "pc_index" not in st.session_state:
-    st.session_state.pc_index = 0
-
-pc_images = [
-    {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
-    {"title": "Ιστορικό παρακολούθησης λειτουργίας Συσκευών", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Ιστορικό για παρακολούθηση χειρισμού θερμοστάτη από τον πελάτη τοπικά."},
-    {"title": "Ιστορικό λειτουργίας Σεναρίων", "url": "subpages/pictures/04_history_scene open windows close AC.png", "desc": "Ιστορικό λειτουργίας σεναρίων. Διακοπή κλιματιστικού όταν ανοίγει το παράθυρο."},
-    {"title": "Πίνακας Σεναρίων", "url": "subpages/pictures/05_SCENES.png", "desc": "Πάνελ που δείχνει τα σενάρια που λειτουργούν ανά δωμάτιο."},
-    {"title": "Ρυθμίσεις Συσκευών", "url": "subpages/pictures/09_SETTINGS_DEVICES.png", "desc": "Όλες οι συσκευές (ενσύρματες & ασύρματες). Παραμετροποίηση συσκευών."},
-    {"title": "Δημιουργία Δωματίων", "url": "subpages/pictures/10_SETTINGS_ROOMS.png", "desc": "Πάνελ εμφάνισης & παραμετροποίησης χώρου. Δημιουργία Περιοχών και Δωματίων."},
-    {"title": "Πίνακας Σεναρίων ανά Δωμάτιο", "url": "subpages/pictures/11_SETTINGS_SCENES_1.png", "desc": "Σενάρια για παρουσία στο Διαμέρισμα και χρήση ζεστών νερών."},
-    {"title": "Δημιουργία Σεναρίου Παρουσίας", "url": "subpages/pictures/12_SETTINGS_SCENES_2.png", "desc": "BLOCK SCENE: Τι θα γίνει με το που μπει η κάρτα."},
-    {"title": "Δημιουργία Σεναρίου Θερμοσίφωνα", "url": "subpages/pictures/13_SETTINGS_SCENES_3.png", "desc": "Σενάριο για άνοιγμα θερμοσίφωνα με συνθήκη θερμοκρασίας νερού."},
-    {"title": "Διαμόρφωση Συστήματος", "url": "subpages/pictures/21_SETTINGS_GENERAL_LOCATION.png", "desc": "Ορισμός τοποθεσίας για λειτουργίες μετεωρολογικού σταθμού."},
-    {"title": "Πίνακας Μεταβλητών", "url": "subpages/pictures/23_SETTINGS_GENERAL_VARIABLES.png", "desc": "Μεταβλητές για κατάσταση κλιματιστικών & εξωτερικής θερμοκρασίας."},
-    {"title": "BACKUP", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Backup προγραμματισμού και συσκευών σε CLOUD & LOCAL."},
-    {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρύθμιση παγίδων παραθύρου να δουλεύουν και σαν συναγερμός."},
-]
-
-img = pc_images[st.session_state.pc_index]
-
-st.markdown("<div class='carousel-box'>", unsafe_allow_html=True)
-st.image(img["url"], use_container_width=True)
-st.markdown(f"<div class='carousel-title'>{img['title']}</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='carousel-desc'>{img['desc']}</div>", unsafe_allow_html=True)
-
-col1, col2 = st.columns(2)
-with col1:
-    if st.button("⬅ Προηγούμενο", key="pc_prev"):
-        st.session_state.pc_index = (st.session_state.pc_index - 1) % len(pc_images)
-with col2:
-    if st.button("Επόμενο ➡", key="pc_next"):
-        st.session_state.pc_index = (st.session_state.pc_index + 1) % len(pc_images)
-
-st.markdown("</div>", unsafe_allow_html=True)
+    # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
+    with col_carousel1:
+        st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
+        
+        # 1. Λίστα με τις εικόνες και τις λεζάντες για το Κινητό (Τοπικά Αρχεία)
+        app_images = [
+            {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
+            {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Στο πάνω μέρος εμφανίζονται συγκεντρωτικά και ανά κατηγορίες οι συσκευές.Στο κάτω μέρος αναλύτικά οι συσκευές ανα κατηγορία."},
+            {"title": "Συσκευές ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_3.jpg", "desc": "Ο χρήστης επιλέγει ποιά κατηγόρία θα ποιά συσκευή θα  εμφανίζετε.Εδώ φαίνονται οι καταστάσεις των κλιματιστικών και των ALARMS"},
+            {"title": "Ανάλυση συσκευών ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_4.jpg", "desc": "Επιλέγοντας κατηγορία απο το πάνω μενού ,εμφανίζει αναλυτικά τις συγκεκριμένες συσκευές και την κατάστασή τους."},
+            {"title": "Μετεωρολογικός Σταθμος", "url": "subpages/pictures/FAVOURITES_5.jpg", "desc": "Εμφανίζει την κατάσταση καιρού(Ηλιοφάνεια,βροχή την εξωτερική θερμοκρασία ,υγρασία,ταχύτητα ανέμου."},
+            {"title": "Οθόνη παρουσίασης Δωματίων ", "url": "subpages/pictures/HOME_1.jpg", "desc": "Μας δείχνει τα δωμάτια που έχουμε δημιουργήσει και συμαντικές πληροφορίες όπως θερμοκρασία και υγρασία δωματίου κ.α."},  
+            {"title": "Ανάλυση συσκευών Δωματίου", "url": "subpages/pictures/HOME_2.jpg", "desc": "Επιλέγοντας κάποιο δωμάτιο βλέπουμε και διαχειριζόμαστε τις συσκευές του."},     
+            {"title": "Δωμάτιο Ηλεκτρικός Πίνακας", "url": "subpages/pictures/HOME_3.jpg", "desc": "Παρακολουθούμε την παρουσία με βάση την κάρτα ,την θερμοκρασία νερού Boiler,και την κατάσταση του θερμοσίφωνα."},
+            {"title": "Ενότητα Scenes ", "url": "subpages/pictures/SCENES_1.jpg", "desc": "Παρουσιάζονται τα σενάρια που έχουμε φτιάξει π.χ για παρουσία και ζεστά νερά χρήσης "},
+            {"title": "Σενάρια κλιματιστικών ", "url": "subpages/pictures/SCENES_2.jpg", "desc": "Δημιουργία σεναρίων για κλείδωμα θερμοκρασίων σε κάθε θερμοστάτη κλιματιστικού .Ανώτερο και κατώτερο όριο ."},
+            {"title": "Επιλογή Σεναρίων ", "url": "subpages/pictures/SCENES_5.jpg", "desc": "Απομακρυσμένη επιλογή για τον αν θα είναι ενεργό ή οχι το κάθε σενάριο. "},
+            {"title": "Συγκεντρωτική οθόνη θερμοστατών ", "url": "subpages/pictures/MORE_1.jpg", "desc": "Για απομακρυσμένη λειτουργία του κάθε κλιματιστικού ή live παρακολούθηση της κατάστασης τους."}, 
+            {"title": "Οθόνη ALARM", "url": "subpages/pictures/MORE_2.jpg", "desc": "Παρακολούθηση λειτουργίας και απομακρυσμένης διαχείρισης της κάθε ζώνης συναγερμού που έχουμε ορίσει για κάθε Δωμάτιο."},
+        
+        
+        ]
+        
+        # 2. Selectbox που λειτουργεί ως click-to-change
+        selected_app_page = st.selectbox(
+            "Επιλέξτε οθόνη κινητού για προβολή:", 
+            [img["title"] for img in app_images],
+            key="app_carousel_select"
+        )
+        
+        # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
+        for img in app_images:
+            if img["title"] == selected_app_page:
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
-# 5. Κόστος Project  ← ΠΡΟΣΟΧΗ: ΧΩΡΙΣ indent
-st.subheader("💰 Κόστος Project & Υλικών")
-st.write("Η επένδυση στον αυτοματισμό αποσβένεται γρήγορα μέσω της εξοικονόμησης ενέργειας και της μείωσης των ζημιών.")
+    # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
+    with col_carousel2:
+        st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
+        
+        # 1. Λίστα με τις εικόνες και τις λεζάντες για το PC (Τοπικά Αρχεία)
+        pc_images = [
+            {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
+            {"title": "Ιστορικό παρακολούθησης λειτουργίας Συσκευών", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Ιστορικό για παρακολούθηση χειρισμού θερμοστάτη απο τον πελάτη τοπικά  "},
+            {"title": "Ιστορικό λειτουργίας Σεναρίων ", "url": "subpages/pictures/04_history_scene open windows close AC.png", "desc": "Ιστορικό για παρακολούθηση λειτουργίας σεναρίων.Διακοπή κλιματιστικού όταν ανοίγει το παράθυρο"},
+            {"title": "Πίνακας Σεναρίων  ", "url": "subpages/pictures/05_SCENES.png", "desc": "Πάνελ που δείχνει τα σενάρια που λειτουργούν ανα δωμάτιο ."},
+            {"title": "Ρυθμίσεις Συσκευών ", "url": "subpages/pictures/09_SETTINGS_DEVICES.png", "desc": "Τμήμα που δείχνει όλες τις συσκευές(ενσύρματες & ασύρματες )Από εδώ παραμετροποιούμε τις συσκευές "},
+            {"title": "Δημιουργία  Δωματίων  ", "url": "subpages/pictures/10_SETTINGS_ROOMS.png", "desc": "Πάνελ εμφάνισεις & παραμετροποίησης του χώρου.Δημιουργία Περιοχών  και Δωματίων "},
+            {"title": "Πινακας Σεναρίων ανά Δωμάτιο ", "url": "subpages/pictures/11_SETTINGS_SCENES_1.png", "desc": "Πάνελ Εμφάνισης Σεναρίων για παρουσία στο Διαμέρισμα και χρήση ζεστών νερών ."},
+            {"title": "Δημιουργία Σεναρίου Παρουσίας ", "url": "subpages/pictures/12_SETTINGS_SCENES_2.png", "desc": "Δημιουργία σεναρίου σε μορφή (BLOCK SCENE ).Ορίζει τι θα γίνει με το που μπεί η κάρτα "},
+            {"title": "Δημιουργία Σεναρίου Θερμοσίφωνα", "url": "subpages/pictures/13_SETTINGS_SCENES_3.png", "desc": "Δημιουργία σεναρίου για άνοιγμα θερμοσίφωνα για μια ώρα με συνθήκη την θερμοκρασία νερού και την παρουσία στον χώρο ."},
+            {"title": "Διαμόρφωση Συστήματος ", "url": "subpages/pictures/21_SETTINGS_GENERAL_LOCATION.png", "desc": "Ορισμός τοποθεσίας συστήματος για λειτουργίες μετεωρολογικού σταθμου ,Ανατολής - Δύσης κτλ."},
+            {"title": "Πίνακας Μεταβλητών ", "url": "subpages/pictures/23_SETTINGS_GENERAL_VARIABLES.png", "desc": "Δημιουργία μεταβλητών για κατάσταση κλιματιστικών και εξωτερικής θερμοκρασίας Χειμώνα - Καλοκαίρι"},
+            {"title": "BACKUP ", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Δημιουργία Backup προγραμματισμού και συσκευών σε CLOUD & LOCAL."},
+            {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρυθμιση παγίδων παραθύρου να δουλέυουν και σαν συναγερμός για όταν δεν υπάρχει παρουσία στον χώρο "}
+        ]
+        
+        # 2. Selectbox που λειτουργεί ως click-to-change
+        selected_pc_page = st.selectbox(
+            "Επιλέξτε οθόνη PC για προβολή:", 
+            [img["title"] for img in pc_images],
+            key="pc_carousel_select"
+        )
+        
+        # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
+        for img in pc_images:
+            if img["title"] == selected_pc_page:
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
-st.markdown("""
-| Κατηγορία Υλικών / Υπηρεσιών | Περιγραφή | Κόστος ανά Διαμέρισμα |
-| :--- | :--- | :---: |
-| **Κεντρικός Ελεγκτής & Sensors** | Κεντρική μονάδα αυτοματισμού, αισθητήρες θερμοκρασίας boiler, καλωδιακές παγίδες παραθύρων/πορτών (4 ζώνες). | **350 €** |
-| **Θερμοστάτες κλιματιστικών & Έλεγχος Φορτίων** | Έξυπνοι διακόπτες ρεύματος, έλεγχος αντίστασης νερού, έλεγχος 3 κλιματιστικών (IR/πλακέτα). | **420 €** |
-| **Παραμετροποίηση & Εφαρμογές** | Προγραμματισμός σεναρίων (μαγικό χέρι, συναγερμός, boiler), σύνδεση με Mobile App & PC. | **150 €** |
-| **Σύνολο Υλικών & Λογισμικού** | **Κόστος ανά μονάδα (διαμέρισμα)** | **920 €** |
+    # 5. Κόστος Project
+    st.subheader("💰 Κόστος Project & Υλικών")
+    st.write("Η επένδυση στον αυτοματισμό αποσβένεται γρήγορα μέσω της εξοικονόμησης ενέργειας και της μείωσης των ζημιών.")
 
-*Σημείωση: Στις τιμές δεν περιλαμβάνεται ο Φ.Π.Α. και το κόστος της τοπικής ηλεκτρολογικής εγκατάστασης (καλωδιώσεις). Για το συνολικό project των 3 διαμερισμάτων, παρέχεται ειδική έκπτωση κατόπιν επικοινωνίας.*
-""")
+    st.markdown("""
 
-st.success("📞 Επικοινωνήστε μαζί μας για να σχεδιάσουμε τη δική σας custom λύση αυτοματισμού!")
+    | Κατηγορία Υλικών / Υπηρεσιών | Περιγραφή | Κόστος ανά Διαμέρισμα |
+    | :--- | :--- | :---: |
+    | **Κεντρικός Ελεγκτής & Sensors** | Κεντρική μονάδα αυτοματισμού, αισθητήρες θερμοκρασίας boiler, καλωδιακές παγίδες παραθύρων/πορτών (4 ζώνες). | **350 €** |
+    | **Θερμοστάτες κλιματιστικών & Έλεγχος Φορτίων** | Έξυπνοι διακόπτες ρεύματος, έλεγχος αντίστασης νερού, έλεγχος 3 κλιματιστικών (IR/πλακέτα). | **420 €** |
+    | **Παραμετροποίηση & Εφαρμογές** | Προγραμματισμός σεναρίων (μαγικό χέρι, συναγερμός, boiler), σύνδεση με Mobile App & PC. | **150 €** |
+    | **Σύνολο Υλικών & Λογισμικού** | **Κόστος ανά μονάδα (διαμέρισμα)** | **920 €** |
+
+    *Σημείωση: Στις τιμές δεν περιλαμβάνεται ο Φ.Π.Α. και το κόστος της τοπικής ηλεκτρολογικής εγκατάστασης (καλωδιώσεις). Για το συνολικό project των 3 διαμερισμάτων, παρέχεται ειδική έκπτωση κατόπιν επικοινωνίας.*
+    """)
+
+    st.success("📞 Επικοινωνήστε μαζί μας για να σχεδιάσουμε τη δική σας custom λύση αυτοματισμού!")
+
