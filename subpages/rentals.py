@@ -117,19 +117,20 @@ with col_carousel1:
         {"title": "Οθόνη ALARM", "url": "pictures/MORE_2.jpg", "desc": "Παρακολούθηση λειτουργίας και απομακρυσμένης διαχείρισης της κάθε ζώνης συναγερμού που έχουμε ορίσει για κάθε Δωμάτιο."},
     ]
 
-    selected_app_page = st.selectbox(
-        "Επιλέξτε οθόνη κινητού για προβολή:",
-        [img["title"] for img in app_images],
-        key="app_carousel_select"
-    )
+   selected_app_page = st.selectbox(
+    "Επιλέξτε οθόνη κινητού για προβολή:",
+    [img["title"] for img in app_images],
+    key="app_carousel_select"
+)
 
-    for img in app_images:
-        if img["title"] == selected_app_page:
-            st.markdown(f"<img src='{img['url']}' class='carousel-img'>", unsafe_allow_html=True)
-            st.caption(img["title"])
-            st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+for img in app_images:
+    if img["title"] == selected_app_page:
+        st.markdown(f"<img src='{img['url']}' class='carousel-img'>", unsafe_allow_html=True)
+        st.caption(img["title"])
+        st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
-   with col_carousel2:
+# ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΖΕΛ PC ------------------
+with col_carousel2:
     st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
 
     pc_images = [
@@ -159,7 +160,6 @@ with col_carousel1:
             st.markdown(f"<img src='{img['url']}' class='carousel-img'>", unsafe_allow_html=True)
             st.caption(img["title"])
             st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
-
 
    # 5. Κόστος Project
 st.subheader("💰 Κόστος Project & Υλικών")
