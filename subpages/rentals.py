@@ -1,6 +1,19 @@
 import streamlit as st
 
 def show():
+    st.markdown("""
+<style>
+.carousel-img {
+    width: 100%;
+    height: 420px;        /* Σταθερό ύψος για ευθυγράμμιση */
+    object-fit: contain;  /* Δεν κόβει την εικόνα */
+    background: #f5f5f5;  /* Premium φόντο */
+    border-radius: 10px;
+    padding: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
+
     st.header("🏨 Αυτοματισμός Ενοικιαζόμενων Διαμερισμάτων")
     st.write("Δείτε πώς μετατρέψαμε μια πραγματική ανάγκη συνεργάτη μας σε ένα έξυπνο, αυτόματο και ενεργειακά αποδοτικό κατάλυμα.")
 
