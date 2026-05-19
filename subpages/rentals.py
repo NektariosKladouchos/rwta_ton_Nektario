@@ -117,7 +117,7 @@ with col_carousel1:
         {"title": "Οθόνη ALARM", "url": "pictures/MORE_2.jpg", "desc": "Παρακολούθηση λειτουργίας και απομακρυσμένης διαχείρισης της κάθε ζώνης συναγερμού που έχουμε ορίσει για κάθε Δωμάτιο."},
     ]
 
-   selected_app_page = st.selectbox(
+ selected_app_page = st.selectbox(
     "Επιλέξτε οθόνη κινητού για προβολή:",
     [img["title"] for img in app_images],
     key="app_carousel_select"
@@ -128,6 +128,39 @@ for img in app_images:
         st.markdown(f"<img src='{img['url']}' class='carousel-img'>", unsafe_allow_html=True)
         st.caption(img["title"])
         st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+
+# ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΖΕΛ PC ------------------
+with col_carousel2:
+    st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
+
+    pc_images = [
+        {"title": "Κεντρική Οθόνη (Dashboard)", "url": "pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου όπου ο ιδιοκτήτης επιβλέπει, παραμετροποιεί και διαχειρίζεται τις συνδεδεμένες συσκευές."},
+        {"title": "Ιστορικό παρακολούθησης λειτουργίας Συσκευών", "url": "pictures/03_history_Thermostat_IR.png", "desc": "Ιστορικό για παρακολούθηση χειρισμού θερμοστάτη απο τον πελάτη τοπικά."},
+        {"title": "Ιστορικό λειτουργίας Σεναρίων ", "url": "pictures/04_history_scene open window.png", "desc": "Ιστορικό για παρακολούθηση λειτουργίας σεναρίων. Διακοπή κλιματιστικού όταν ανοίγει το παράθυρο."},
+        {"title": "Πίνακας Σεναρίων", "url": "pictures/05_SCENES.png", "desc": "Πάνελ που δείχνει τα σενάρια που λειτουργούν ανα δωμάτιο."},
+        {"title": "Ρυθμίσεις Συσκευών", "url": "pictures/09_SETTINGS_DEVICES.png", "desc": "Τμήμα που δείχνει όλες τις συσκευές (ενσύρματες & ασύρματες)."},
+        {"title": "Δημιουργία Δωματίων", "url": "pictures/10_SETTINGS_ROOMS.png", "desc": "Πάνελ εμφάνισης & παραμετροποίησης του χώρου."},
+        {"title": "Πίνακας Σεναρίων ανά Δωμάτιο", "url": "pictures/11_SETTINGS_SCENES_1.png", "desc": "Πάνελ εμφάνισης σεναρίων για παρουσία & ζεστά νερά."},
+        {"title": "Δημιουργία Σεναρίου Παρουσίας", "url": "pictures/12_SETTINGS_SCENES_2.png", "desc": "Δημιουργία σεναρίου σε μορφή BLOCK SCENE."},
+        {"title": "Δημιουργία Σεναρίου Θερμοσίφωνα", "url": "pictures/13_SETTINGS_SCENES_3.png", "desc": "Σενάριο για άνοιγμα θερμοσίφωνα με συνθήκες."},
+        {"title": "Διαμόρφωση Συστήματος", "url": "pictures/21_SETTINGS_GENERAL_LOCAL.png", "desc": "Ορισμός τοποθεσίας συστήματος."},
+        {"title": "Πίνακας Μεταβλητών", "url": "pictures/23_SETTINGS_GENERAL_VARIABLES.png", "desc": "Μεταβλητές για κλιματιστικά & θερμοκρασίες."},
+        {"title": "BACKUP", "url": "pictures/28_SETTINGS_BACKUP.png", "desc": "Backup προγραμματισμού & συσκευών."},
+        {"title": "Πίνακας ALARM", "url": "pictures/29_SETTINGS_ALARM.png", "desc": "Ρύθμιση παγίδων παραθύρου & συναγερμού."}
+    ]
+
+    selected_pc_page = st.selectbox(
+        "Επιλέξτε οθόνη PC για προβολή:",
+        [img["title"] for img in pc_images],
+        key="pc_carousel_select"
+    )
+
+    for img in pc_images:
+        if img["title"] == selected_pc_page:
+            st.markdown(f"<img src='{img['url']}' class='carousel-img'>", unsafe_allow_html=True)
+            st.caption(img["title"])
+            st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+
 
 # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΖΕΛ PC ------------------
 with col_carousel2:
