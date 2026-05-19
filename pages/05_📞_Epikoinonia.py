@@ -78,18 +78,16 @@ st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήρ
 # --- ΕΝΟΤΗΤΑ VIDEO ---
 st.markdown("<div class='video-card'>", unsafe_allow_html=True)
 st.markdown("<h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</h3>", unsafe_allow_html=True)
-#st.write("Πατήστε το παρακάτω κουμπί για να δείτε το βίντεο στο YouTube:")
-#st.video("https://www.youtube.com/shorts/Q2dzj4YCIy4")
- youtube_url ="https://www.youtube.com/watch?vQ2dzj4YCIy4="
-    st.video(youtube_url)
+st.write("Πατήστε το παρακάτω κουμπί για να δείτε το βίντεο στο YouTube:")
+st.video("https://www.youtube.com/shorts/Q2dzj4YCIy4")
 
 
 # Χρησιμοποιούμε το st.link_button που είναι το πιο ασφαλές εργαλείο του Streamlit
-#st.link_button("▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ (YouTube Shorts)","https://www.youtube.com/shorts/Q2dzj4YCIy4")
+st.link_button("▶ ΠΡΟΒΟΛΗ ΒΙΝΤΕΟ (YouTube Shorts)","https://www.youtube.com/shorts/Q2dzj4YCIy4")
 
-#st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
-#st.write("---")
+st.write("---")
 
  
 
