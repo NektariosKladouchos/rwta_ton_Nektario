@@ -33,18 +33,7 @@ st.markdown(
             color: white !important;
         }
 
-        /* App background */
         .stApp { background-color: #f8f9fa; }
-
-        .stNumberInput, .stSelectbox, .stTextInput, .stRadio {
-            margin-bottom: -20px !important;
-        }
-
-        .stMarkdown h3 {
-            font-size: 15px !important;
-            margin-bottom: -10px !important;
-            color: #1E3A8A;
-        }
 
         .display-box {
             background-color: #ffffff;
@@ -90,9 +79,7 @@ st.markdown(
 # -------------------------------------------------
 # TABS
 # -------------------------------------------------
-tab_calc, tab_home, tab_docs, tab_contact = st.tabs(
-    ["📊 LIVE PRICING", "🏠 ΙΔΕΕΣ", "📂 ΒΙΒΛΙΟΘΗΚΗ", "📨 ΕΠΙΚΟΙΝΩΝΙΑ"]
-)
+tab_calc, tab_help = st.tabs(["📊 LIVE PRICING", "📝 ΟΔΗΓΙΕΣ"])
 
 # =================================================
 # 1. LIVE PRICING TAB
@@ -179,35 +166,6 @@ with tab_calc:
             unsafe_allow_html=True
         )
 
-        # Placeholder εικόνα από το έργο σου (αλλάξ’ την με δική σου αν θέλεις)
-        st.image("placeholder.jpg", caption="GEYER Smart Home Project", use_container_width=True)
-
-        with st.expander("🏆 20 ΛΟΓΟΙ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΤΟ ΣΥΣΤΗΜΑ ΜΑΣ"):
-            st.markdown(
-                """
-                1. **Λειτουργία χωρίς Internet:** Το σύστημα παραμένει πλήρως λειτουργικό τοπικά.  
-                2. **Οποιοσδήποτε Φωτισμός:** Πλήρης διαχείριση DALI, 1-10V, Phase Cut και RGB.  
-                3. **Retrofit Τεχνολογία:** Τοποθέτηση σε υφιστάμενες εγκαταστάσεις χωρίς μερεμέτια.  
-                4. **Ανοιχτό Πρωτόκολλο:** Επικοινωνία μέσω Z-Wave για μέγιστη συμβατότητα.  
-                5. **Δωρεάν Ενσωματώσεις:** Alexa, Google Assistant, Philips HUE, Sonos κ.α.  
-                6. **Σύνδεση με Home Assistant:** Για τους λάτρεις του απόλυτου ελέγχου.  
-                7. **Εύκολα Σενάρια:** Δημιουργία σκηνών (π.χ. Αναχώρηση) με ελάχιστα κλικ.  
-                8. **Lua Scripting:** Δυνατότητα για εξειδικευμένο προγραμματισμό από επαγγελματίες.  
-                9. **Cloud & Local Backup:** Μην ξανασετάρετε ποτέ τις συσκευές σας.  
-                10. **Mesh Επικοινωνία:** Κάθε συσκευή λειτουργεί ως επαναλήπτης για τέλειο σήμα.  
-                11. **Τεράστια Γκάμα Υλικών:** Καλύπτουμε κάθε ανάγκη αυτοματισμού.  
-                12. **Απομακρυσμένη Υποστήριξη:** Μέσω της εφαρμογής Installer App.  
-                13. **Ενεργειακή Παρακολούθηση:** Δείτε την κατανάλωση σε πραγματικό χρόνο.  
-                14. **Θερμικές Ζώνες:** Ανεξάρτητος έλεγχος θερμοκρασίας ανά δωμάτιο.  
-                15. **Αυτόματο Πότισμα:** Έξυπνη διαχείριση του κήπου σας.  
-                16. **Push Notifications:** Διαδραστική επικοινωνία για κάθε συμβάν στο σπίτι.  
-                17. **Εξοικονόμηση 30%:** Σημαντική μείωση στο κόστος ρεύματος και θέρμανσης.  
-                18. **Ελληνική Υποστήριξη:** Άμεση βοήθεια από την τεχνική ομάδα της GEYER.  
-                19. **Design:** Συσκευές που "κρύβονται" ή αναδεικνύουν τον χώρο σας.  
-                20. **Αξία Ακινήτου:** Άμεση αναβάθμιση της εμπορικής αξίας του έργου.  
-                """
-            )
-
         # ---------------- VALIDATION & CALC ----------------
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
 
@@ -217,7 +175,7 @@ with tab_calc:
         elif on_off < 0:
             error = "❌ ΣΦΑΛΜΑ ΣΤΟ ΦΩΤΙΣΜΟ"
         elif (h_type == "VRV/VRF" and hb == "Άλλη") or (c_type == "VRV/VRF" and cb == "Άλλη"):
-            error = "❌ ΜΗ ΣΥΜΒΑΤΟ: Η επιλογή 'Άλλη' στο VRV δεν υποστηρίζεται απευθείας."
+            error = "❌ ΜΗ ΣΥΜΒΑΤΟ: Η επιλογή 'Άλλη' στο VRV δεν υποστηρίζεται."
         elif h_type == "VRV/VRF" and c_type == "VRV/VRF" and hb != cb:
             error = "❌ ΛΑΘΟΣ: ΔΙΑΦΟΡΕΤΙΚΕΣ ΜΑΡΚΕΣ VRV"
 
@@ -359,84 +317,4 @@ with tab_calc:
                 if dali > 0:
                     res += f"{'Γραμμές DALI':<40} | {dali:<4} | {dali*160.00:10.2f}€\n"
                 for d in h_det:
-                    res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:10.2f}€\n"
-                if shutt > 0:
-                    res += f"{'Ρολά / Τέντες / Κουρτίνες':<40} | {shutt:<4} | {shutt*63.92:10.2f}€\n"
-                if e_val > 0:
-                    res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
-                if heater:
-                    res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
-
-                res += f"{'-'*70}\n"
-                res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΩΝ:':<40} | {total_dev:<4} | \n"
-                res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
-                res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
-                res += f"{'='*70}\n"
-                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
-                res += f"{'='*70}\n"
-                res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ προαιρετικό  (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
-
-                disp_text = res
-
-                st.markdown('<div class="display-box">', unsafe_allow_html=True)
-                st.subheader("🖥️ LIVE PRICING SYSTEM")
-                st.code(disp_text, language="text")
-                st.markdown("</div>", unsafe_allow_html=True)
-
-                st.write("---")
-                notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
-
-        # ---------------- EMAIL BUTTON ----------------
-        def send_email(disp_text: str, notes: str, v_name: str):
-            try:
-                sender_email = st.secrets["email"]["sender"]
-                sender_password = st.secrets["email"]["password"]
-                receiver_email = st.secrets["email"]["receiver"]
-                smtp_server = st.secrets["email"]["smtp_server"]
-                smtp_port = st.secrets["email"]["smtp_port"]
-
-                subject = f"Ζήτηση Portal - {v_name}"
-
-                body = f"""
-ΠΡΟΣΦΟΡΑ:
-
-{disp_text}
-
-ΠΑΡΑΤΗΡΗΣΕΙΣ:
-
-{notes}
-"""
-
-                msg = MIMEMultipart()
-                msg["From"] = sender_email
-                msg["To"] = receiver_email
-                msg["Subject"] = subject
-                msg.attach(MIMEText(body, "plain", "utf-8"))
-
-                server = smtplib.SMTP(smtp_server, smtp_port)
-                server.starttls()
-                server.login(sender_email, sender_password)
-                server.sendmail(sender_email, receiver_email, msg.as_string())
-                server.quit()
-
-                st.success("✅ Το email στάλθηκε επιτυχώς!")
-            except Exception as e:
-                st.error(f"❌ Σφάλμα αποστολής: {e}")
-
-        if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
-            if not disp_text or "ΣΦΑΛΜΑ" in disp_text or "⚠️" in disp_text:
-                st.error("❌ Δεν μπορεί να σταλεί email. Υπάρχει σφάλμα ή δεν έχει γίνει υπολογισμός.")
-            else:
-                send_email(disp_text, notes, v_name)
-
-# =================================================
-# ΤΑ ΑΛΛΑ TABS (placeholder προς το παρόν)
-# =================================================
-with tab_home:
-    st.write("Εδώ θα μπουν οι ΙΔΕΕΣ (σύνδεση με Idees.py ή άλλο layout).")
-
-with tab_docs:
-    st.write("Εδώ θα μπει η ΒΙΒΛΙΟΘΗΚΗ (τεχνικά έγγραφα, pdf, links).")
-
-with tab_contact:
-    st.write("Εδώ θα μπει η ΕΠΙΚΟΙΝΩΝΙΑ (φόρμα, στοιχεία, links).")
+                    res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:
