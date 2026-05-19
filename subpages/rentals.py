@@ -198,7 +198,6 @@ with col1:
 with col2:
     if st.button("Επόμενο ➡", key="pc_next"):
         st.session_state.pc_index = (st.session_state.pc_index + 1) % len(pc_images)
-
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 5. Κόστος Project
@@ -217,3 +216,4 @@ st.markdown("""
 """)
 
 st.success("📞 Επικοινωνήστε μαζί μας για να σχεδιάσουμε τη δική σας custom λύση αυτοματισμού!")
+
