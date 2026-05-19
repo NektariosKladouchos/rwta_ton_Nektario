@@ -16,33 +16,67 @@ st.set_page_config(
 ADMIN_PASSWORD = "geyer123"
 
 # CSS για να είναι όλα τα γράμματα λευκά και ευανάγνωστα στο μενού
-st.markdown(
-    """
-    <style>
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        [data-testid="stSidebarNav"] span {
-            color: white !important;
-        }
-        [data-testid="stSidebarNav"] svg {
-            fill: white !important;
-        }
-        [data-testid="stSidebar"] .stMarkdown p, 
-        [data-testid="stSidebar"] h1, 
-        [data-testid="stSidebar"] h2, 
-        [data-testid="stSidebar"] h3,
-        [data-testid="stSidebar"] caption,
-        [data-testid="stSidebar"] p {
-            color: white !important;
-        }
-        [data-testid="stSidebar"] label {
-            color: white !important;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+
+    /* Sidebar background */
+    [data-testid="stSidebar"] {
+        background-color: #0b3c26 !important;
+        padding-top: 30px;
+    }
+
+    /* Sidebar text — WHITE */
+    [data-testid="stSidebar"] * {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* Sidebar icons — WHITE */
+    [data-testid="stSidebar"] svg {
+        fill: white !important;
+    }
+
+    /* Collapse button "<" — WHITE */
+    button[kind="header"] svg {
+        fill: white !important;
+    }
+
+    /* Main background */
+    .stApp {
+        background-color: #f8f9fa !important;
+    }
+
+    /* Forum question card */
+    .forum-card {
+        background-color: white;
+        border: 2px solid #0b3c26;
+        padding: 18px;
+        border-radius: 10px;
+        margin-bottom: 18px;
+    }
+
+    /* Answer box */
+    .answer-box {
+        background-color: #e8f4e8;
+        border-left: 5px solid #0b3c26;
+        padding: 12px;
+        border-radius: 6px;
+        margin-top: 10px;
+    }
+
+    /* Header */
+    .main-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .main-header h1 {
+        color: #0b3c26;
+        font-weight: 700;
+    }
+
+</style>
+""", unsafe_allow_html=True)
+
 
 # Σύνδεση με Supabase μέσω Secrets
 @st.cache_resource
