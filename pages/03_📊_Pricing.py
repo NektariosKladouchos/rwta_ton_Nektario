@@ -146,8 +146,6 @@ with tab_calc:
         st.markdown("### 🔌 6. ΠΙΝΑΚΑΣ")
         energy = st.radio("Μετρητής", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
-
-
     # ---------------- RIGHT COLUMN ----------------
     with right:
         st.markdown(
@@ -287,12 +285,9 @@ with tab_calc:
                 vat = total_mat * 0.24
                 gen_total = total_mat + vat
 
-              res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
-              res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
-              res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
-
-
-
+                res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
+                res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
+                res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
 
                 if on_off > 0:
                     res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
@@ -335,7 +330,6 @@ with tab_calc:
 
                 st.write("---")
                 notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
-
         # ---------------- EMAIL BUTTON ----------------
         def send_email(disp_text: str, notes: str, v_name: str):
             try:
@@ -517,6 +511,4 @@ with tab_help:
     Αν έχεις αμφιβολία για κάτι, βάλε μια σημείωση στις παρατηρήσεις.  
     Θα το δω προσωπικά και θα σε καθοδηγήσω.
     """)
-
-
 
