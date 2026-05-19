@@ -116,7 +116,7 @@ def show():
 
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-   st.subheader("📱 Οθόνες Εφαρμογής Κινητού")
+    st.subheader("📱 Οθόνες Εφαρμογής Κινητού")
 
 if "app_index" not in st.session_state:
     st.session_state.app_index = 0
