@@ -53,10 +53,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+  
 
 # 2. CSS για GEYER Green
 st.markdown("""
