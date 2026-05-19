@@ -25,16 +25,13 @@ st.set_page_config(page_title="GEYER Portal", layout="wide")
 st.markdown(
     """
     <style>
-        /* Sidebar */
         [data-testid="stSidebar"] {
             background-color: #0b3c26 !important;
         }
         [data-testid="stSidebar"] * {
             color: white !important;
         }
-
         .stApp { background-color: #f8f9fa; }
-
         .display-box {
             background-color: #ffffff;
             padding: 15px;
@@ -42,20 +39,17 @@ st.markdown(
             border-radius: 8px;
             box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
         }
-
         pre {
             font-family: 'Consolas', monospace !important;
             font-size: 11px !important;
             line-height: 1.2 !important;
             color: #000 !important;
         }
-
         .main-header {
             text-align: center;
             color: #1E3A8A;
             margin-top: -30px;
         }
-
         .info-text {
             background-color: #e8f4fd;
             padding: 15px;
@@ -150,6 +144,7 @@ with tab_calc:
         shutt = st.number_input("Τεμάχια", min_value=0)
 
         st.markdown("### 🔌 6. ΠΙΝΑΚΑΣ")
+
         energy = st.radio("Μετρητής", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
 
@@ -195,6 +190,7 @@ with tab_calc:
                 unsafe_allow_html=True
             )
             disp_text = error
+
         else:
             # HVAC υπολογισμοί
             h_c_hvac = 0
@@ -272,6 +268,7 @@ with tab_calc:
                     unsafe_allow_html=True
                 )
                 disp_text = "ΣΦΑΛΜΑ ΟΡΙΟΥ"
+
             else:
                 total_mat = (
                     max(0, on_off) * 63.92
@@ -294,16 +291,6 @@ with tab_calc:
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
                 res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
 
-                if base_c <= 37:
-                    res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
-                elif base_c <= 97:
-                    res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n"
-                elif base_c <= 130:
-                    res += f"{'Κεντρική μονάδα (100)':<40} | 1    | {PRICES['hub_large']:10.2f}€\n"
-                    res += f"{'Κεντρική μονάδα (40)':<40} | 1    | {PRICES['hub_small']:10.2f}€\n"
-                else:
-                    res += f"{'Κεντρική μονάδα (100)':<40} | 2    | {PRICES['hub_large']*2:10.2f}€\n"
-
                 if on_off > 0:
                     res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
                 if double > 0:
@@ -316,5 +303,215 @@ with tab_calc:
                     res += f"{'Ταινίες LED Dimming':<40} | {led:<4} | {led*63.92:10.2f}€\n"
                 if dali > 0:
                     res += f"{'Γραμμές DALI':<40} | {dali:<4} | {dali*160.00:10.2f}€\n"
+
                 for d in h_det:
-                    res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:
+                    res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:10.2f}€\n"
+
+                if shutt > 0:
+                    res += f"{'Ρολά / Τέντες / Κουρτίνες':<40} | {shutt:<4} | {shutt*63.92:10.2f}€\n"
+                if e_val > 0:
+                    res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
+                if heater:
+                    res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
+
+                res += f"{'-'*70}\n"
+                res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΩΝ:':<40} | {total_dev:<4} |\n"
+                res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
+                res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
+                res += f"{'='*70}\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
+                res += f"{'='*70}\n"
+                res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€"
+
+                disp_text = res
+
+                st.markdown('<div class="display-box">', unsafe_allow_html=True)
+                st.subheader("🖥️ LIVE PRICING SYSTEM")
+                st.code(disp_text, language="text")
+                st.markdown("</div>", unsafe_allow_html=True)
+
+                st.write("---")
+                notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
+
+        # ---------------- EMAIL BUTTON ----------------
+        def send_email(disp_text: str, notes: str, v_name: str):
+            try:
+                sender_email = st.secrets["email"]["sender"]
+                sender_password = st.secrets["email"]["password"]
+                receiver_email = st.secrets["email"]["receiver"]
+                smtp_server = st.secrets["email"]["smtp_server"]
+                smtp_port = st.secrets["email"]["smtp_port"]
+
+                subject = f"Ζήτηση Portal - {v_name}"
+
+                body = f"""
+ΠΡΟΣΦΟΡΑ:
+
+{disp_text}
+
+ΠΑΡΑΤΗΡΗΣΕΙΣ:
+
+{notes}
+"""
+
+                msg = MIMEMultipart()
+                msg["From"] = sender_email
+                msg["To"] = receiver_email
+                msg["Subject"] = subject
+                msg.attach(MIMEText(body, "plain", "utf-8"))
+
+                server = smtplib.SMTP(smtp_server, smtp_port)
+                server.starttls()
+                server.login(sender_email, sender_password)
+                server.sendmail(sender_email, receiver_email, msg.as_string())
+                server.quit()
+
+                st.success("✅ Το email στάλθηκε επιτυχώς!")
+            except Exception as e:
+                st.error(f"❌ Σφάλμα αποστολής: {e}")
+
+        if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
+            if not disp_text or "ΣΦΑΛΜΑ" in disp_text or "⚠️" in disp_text:
+                st.error("❌ Δεν μπορεί να σταλεί email. Υπάρχει σφάλμα ή δεν έχει γίνει υπολογισμός.")
+            else:
+                send_email(disp_text, notes, v_name)
+
+# =================================================
+# 2. ΟΔΗΓΙΕΣ TAB
+# =================================================
+with tab_help:
+    st.title("📝 Οδηγίες Χρήσης του LIVE PRICING")
+
+    st.markdown("""
+    ## 🔍 Τι κάνει το LIVE PRICING;
+    Το σύστημα LIVE PRICING υπολογίζει **αυτόματα** το κόστος ενός έργου Smart Home της GEYER, 
+    με βάση τις πραγματικές ανάγκες του χώρου.
+
+    Περιλαμβάνει:
+    - Φωτισμό  
+    - Dimming  
+    - LED Strips  
+    - DALI  
+    - Θέρμανση  
+    - Ψύξη  
+    - Ρολά / Τέντες  
+    - Μετρητές ενέργειας  
+    - Θερμοσίφωνα  
+    - Κεντρικές μονάδες (Hubs)  
+    - ΦΠΑ  
+    - Προαιρετικό κόστος προγραμματισμού  
+
+    ---
+
+    ## 🧩 Πώς συμπληρώνω τα πεδία;
+
+    ### 1️⃣ Στοιχεία Πελάτη
+    Συμπληρώνεις:
+    - Ονοματεπώνυμο  
+    - Ιδιότητα (π.χ. Ηλεκτρολόγος, Ιδιώτης)  
+    - Διεύθυνση έργου  
+
+    **Αν λείπει κάτι → εμφανίζεται προειδοποίηση.**
+
+    ---
+
+    ### 2️⃣ Φωτισμός
+    Βάζεις:
+    - Πόσες εσωτερικές γραμμές φωτισμού έχεις  
+    - Πόσες εξωτερικές  
+    - Πόσες από αυτές είναι dimming (220V, 1-10V, LED, DALI)  
+    - Πόσες είναι κομιτατέρ (διπλές γραμμές)
+
+    **Παράδειγμα:**  
+    - Εσωτερικές: 10  
+    - Εξωτερικές: 4  
+    - Dimming 220V: 2  
+    - LED: 1  
+    - DALI: 1  
+    - Κομιτατέρ: 1  
+
+    Το σύστημα υπολογίζει αυτόματα πόσες είναι **On/Off**.
+
+    ---
+
+    ### 3️⃣ Θέρμανση & Ψύξη
+    Επιλέγεις τύπο:
+    - Καλοριφέρ  
+    - Ενδοδαπέδια  
+    - Fancoil  
+    - VRV/VRF  
+    - Split  
+
+    Το σύστημα:
+    - Υπολογίζει σωστό τύπο συσκευής  
+    - Ελέγχει αν οι ποσότητες ταιριάζουν  
+    - Ελέγχει αν οι μάρκες VRV/VRF είναι ίδιες  
+
+    **Παράδειγμα:**  
+    Θέρμανση: VRV/VRF → 5 μονάδες → Daikin  
+    Ψύξη: VRV/VRF → 5 μονάδες → Daikin  
+    ✔️ Επιτρέπεται  
+
+    Αν βάλεις διαφορετικές μάρκες:  
+    ❌ Εμφανίζεται μήνυμα λάθους  
+
+    ---
+
+    ### 4️⃣ Ρολά / Τέντες
+    Απλά βάζεις πόσα τεμάχια έχεις.
+
+    ---
+
+    ### 5️⃣ Μετρητής & Θερμοσίφωνας
+    - Μονοφασικός → +110€  
+    - Τριφασικός → +160€  
+    - Θερμοσίφωνας → +95€  
+
+    ---
+
+    ## 🧮 Πώς υπολογίζεται το σύνολο;
+
+    Το σύστημα υπολογίζει:
+    - Όλες τις γραμμές φωτισμού  
+    - Όλες τις μονάδες HVAC  
+    - Τις κεντρικές μονάδες (ανάλογα με το πλήθος συσκευών)  
+    - Τον μετρητή  
+    - Τον θερμοσίφωνα  
+    - Το ΦΠΑ  
+    - Το προαιρετικό κόστος προγραμματισμού  
+
+    **Παράδειγμα:**  
+    - Υλικά: 2.000€  
+    - ΦΠΑ 24%: 480€  
+    - Σύνολο: 2.480€  
+    - Προγραμματισμός (20%): 400€  
+
+    ---
+
+    ## 📧 Πώς στέλνω email;
+
+    1. Κάνεις τον υπολογισμό  
+    2. Γράφεις παρατηρήσεις  
+    3. Πατάς **ΑΠΟΣΤΟΛΗ EMAIL**  
+
+    Το email φεύγει **αυτόματα** στο τεχνικό τμήμα της GEYER.
+
+    ---
+
+    ## ❗ Συχνά Λάθη
+
+    - ❌ Αρνητικές γραμμές φωτισμού  
+    - ❌ Διαφορετικές μάρκες VRV/VRF  
+    - ❌ Διαφορετικές ποσότητες σε κοινά συστήματα  
+    - ❌ Πάνω από 230 συσκευές  
+    - ❌ Κενά στοιχεία πελάτη  
+
+    Το σύστημα τα εντοπίζει και τα εμφανίζει με κόκκινο μήνυμα.
+
+    ---
+
+    ## 🎯 Τελική Συμβουλή
+    Αν έχεις αμφιβολία για κάτι, βάλε μια σημείωση στις παρατηρήσεις.  
+    Θα το δω προσωπικά και θα σε καθοδηγήσω.
+    """)
+
