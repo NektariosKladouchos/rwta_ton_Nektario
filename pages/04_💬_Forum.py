@@ -1,4 +1,4 @@
-st.markdown("""
+st.markdown(""")
 <style>
 
     /* Sidebar background */
