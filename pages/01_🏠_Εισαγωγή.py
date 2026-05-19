@@ -23,6 +23,9 @@ st.markdown(
             color: white !important;
         }
 
+        /* Hide Streamlit top bar if desired */
+        header {visibility: hidden;}
+
         /* Main title */
         .main-title {
             text-align: center;
@@ -45,12 +48,13 @@ st.markdown(
             font-weight: 700 !important;
         }
 
-        /* Info box styling */
+        /* Philosophy box */
         .philosophy-box {
             background-color: #e8f5e9;
             padding: 18px;
             border-radius: 10px;
             border-left: 5px solid #28a745;
+            margin-bottom: 15px;
         }
     </style>
     """,
@@ -76,17 +80,17 @@ with col1:
     Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και πληροφοριακή υποστήριξη που χρειάζεστε για να δώσετε **τεχνική ευφυΐα** στους χώρους σας.
 
     Εστιάζουμε σε λύσεις που κάνουν τα κτίρια:
-    - **Πιο Ενεργειακά & Αποδοτικά**: Μείωση του κόστους λειτουργίας  
-    - **Πιο Βιώσιμα**: Σεβασμός στο περιβάλλον μέσω της τεχνολογίας  
-    - **Πιο Διαχειρίσιμα**: Έλεγχος στα χέρια σας, ανά πάσα στιγμή  
+    - **Πιο Ενεργειακά & Αποδοτικά**  
+    - **Πιο Βιώσιμα**  
+    - **Πιο Διαχειρίσιμα**  
     """)
 
     st.markdown("### 🛠 Τι θα βρείτε εδώ")
     st.write("""
-    - **Παρουσίαση Έργων**: Πάρτε έμπνευση από πραγματικές εφαρμογές και έτοιμα τεχνικά σχέδια  
-    - **Επίλυση Προβλημάτων**: Εξειδικευμένες απαντήσεις σε κάθε τεχνική πρόκληση  
-    - **Live Pricing System**: Δείτε το οικονομικό κομμάτι του έργου σας, ζωντανά  
-    - **Διαδραστική Επικοινωνία**: Συμμετέχετε ενεργά στη διαμόρφωση της ιδανικής λύσης  
+    - **Παρουσίαση Έργων**  
+    - **Επίλυση Προβλημάτων**  
+    - **Live Pricing System**  
+    - **Διαδραστική Επικοινωνία**  
     """)
 
 with col2:
@@ -95,11 +99,8 @@ with col2:
     st.write("Πιστεύω στη δύναμη της συνεργασίας. Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών, αλλά μια ζωντανή κοινότητα ανταλλαγής ιδεών.")
     st.markdown("</div>", unsafe_allow_html=True)
 
-    st.image(
-        "https://cdn.pixabay.com/photo/2017/01/22/19/20/smart-home-2005993_1280.jpg",
-        caption="Smart Living",
-        use_container_width=True
-    )
+    # Εικόνα από το έργο σου (όπως στο main.py)
+    st.image("home_light.jpg", caption="Smart Living", use_container_width=True)
 
 st.write("---")
 
