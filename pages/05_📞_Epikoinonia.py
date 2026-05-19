@@ -7,18 +7,52 @@ st.set_page_config(page_title="Επικοινωνία - GEYER", layout="wide")
 st.markdown(
     """
     <style>
+
+        /* ============================
+           SIDEBAR (ΠΡΑΣΙΝΟ + ΑΣΠΡΑ ΓΡΑΜΜΑΤΑ)
+        ============================ */
+
         /* Φόντο αριστερής μπάρας */
         [data-testid="stSidebar"] {
             background-color: #0b3c26 !important;
         }
+
         /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
-        [data-testid="stSidebarNav"] span {
+        [data-testid="stSidebar"] * {
             color: white !important;
         }
+
         /* Εικονίδια αριστερής μπάρας */
-        [data-testid="stSidebarNav"] svg {
+        [data-testid="stSidebar"] svg {
             fill: white !important;
         }
+
+        /* Κουμπί "<" που κλείνει το sidebar */
+        button[kind="header"] svg {
+            fill: white !important;
+        }
+
+
+        /* ============================
+           INPUT FIELDS (ΑΣΠΡΑ ΚΟΥΤΙΑ + ΜΑΥΡΟ ΚΕΙΜΕΝΟ)
+        ============================ */
+
+        /* Κείμενο που γράφεις */
+        input, textarea, .stTextInput input, .stTextArea textarea {
+            color: black !important;
+        }
+
+        /* Placeholder text */
+        input::placeholder,
+        textarea::placeholder {
+            color: #444 !important;
+        }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
     </style>
     """,
     unsafe_allow_html=True
