@@ -147,98 +147,96 @@ def show():
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ – Premium Fullscreen Dark Gallery
-    # ---------------------------------------------------------
-    st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
-    st.write("Παρουσίαση λειτουργιών της κεντρικής μονάδας και της εφαρμογής διαχείρισης κινητού, με premium dark‑mode αισθητική και fullscreen προβολή.")
+   # ---------------------------------------------------------
+#  ΕΝΟΤΗΤΑ – Premium Fullscreen Dark Gallery
+# ---------------------------------------------------------
+st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
+st.write("Παρουσίαση λειτουργιών της κεντρικής μονάδας και της εφαρμογής διαχείρισης κινητού, με premium dark‑mode αισθητική και fullscreen προβολή.")
 
-    # CSS για fullscreen lightbox + dark cards
-    st.markdown("""
-    <style>
+# CSS για fullscreen lightbox + dark cards
+st.markdown("""
+<style>
 
-    .dark-card {
-        background: #111;
-        border: 1px solid #222;
-        border-radius: 14px;
-        padding: 18px;
-        box-shadow: 0 0 18px rgba(0,0,0,0.45);
-        transition: 0.25s ease;
-        cursor: pointer;
-    }
+.dark-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.45);
+    transition: 0.25s ease;
+    cursor: pointer;
+}
 
-    .dark-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 0 28px rgba(0,0,0,0.65);
-    }
+.dark-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 28px rgba(0,0,0,0.65);
+}
 
-    .dark-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: #fff;
-        margin-top: 12px;
-    }
+.dark-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 12px;
+}
 
-    .dark-desc {
-        font-size: 14px;
-        color: #bbb;
-        margin-top: 6px;
-    }
+.dark-desc {
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 6px;
+}
 
-    .lightbox {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        padding-top: 40px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.90);
-        text-align: center;
-    }
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 40px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.90);
+    text-align: center;
+}
 
-    .lightbox img {
-        max-width: 90%;
-        max-height: 90%;
-        border-radius: 12px;
-    }
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+}
 
-    .lightbox:target {
-        display: block;
-    }
+.lightbox:target {
+    display: block;
+}
 
-    </style>
-    """, unsafe_allow_html=True)
+</style>
+""", unsafe_allow_html=True)
 
-    cols = st.columns(3)
+cols = st.columns(3)
 
-    # Τυχαίες εικόνες από subpages/pictures/
-    gallery_items = [
-        {"img": "subpages/pictures/Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
-        {"img": "subpages/pictures/screen2.jpg", "title": "Groups", "desc": "Ομαδοποίηση φωτισμού."},
-        {"img": "subpages/pictures/screen3.png", "title": "Schedules", "desc": "Χρονοπρογράμματα & profiles."},
-        {"img": "subpages/pictures/screen4.jpg", "title": "Mobile Home", "desc": "Αρχική οθόνη εφαρμογής."},
-        {"img": "subpages/pictures/screen5.png", "title": "Mobile Groups", "desc": "Έλεγχος ομάδων από κινητό."},
-        {"img": "subpages/pictures/screen6.jpg", "title": "Scenes", "desc": "Σκηνές φωτισμού."}
-    ]
+# ΠΡΑΓΜΑΤΙΚΕΣ ΕΙΚΟΝΕΣ ΑΠΟ ΤΟΝ ΦΑΚΕΛΟ ΣΟΥ
+gallery_items = [
+    {"img": "pictures/01_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
+    {"img": "pictures/03_history_Thermostat_IR.png", "title": "Ιστορικό Θερμοστάτη", "desc": "Αναλυτικό ιστορικό θερμοκρασιών & IR."},
+    {"img": "pictures/05_SCENES.png", "title": "Σκηνές Φωτισμού", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
+    {"img": "pictures/09_SETTINGS_DEVICES.png", "title": "Ρυθμίσεις Συσκευών", "desc": "Λίστα και παραμετροποίηση συσκευών."},
+    {"img": "pictures/10_SETTINGS_ROOMS.png", "title": "Ρυθμίσεις Χώρων", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
+    {"img": "pictures/11_SETTINGS_SCENES_1.png", "title": "Ρυθμίσεις Σκηνών", "desc": "Δημιουργία και επεξεργασία σκηνών."},
+]
 
-    for i, item in enumerate(gallery_items):
-        with cols[i % 3]:
-            st.markdown(f"""
-            <a href="#lightbox{i}">
-                <div class="dark-card">
-                    <img src="{item['img']}" style="width:100%; border-radius:10px;">
-                    <div class="dark-title">{item['title']}</div>
-                    <div class="dark-desc">{item['desc']}</div>
-                </div>
-            </a>
-
-            <div id="lightbox{i}" class="lightbox" onclick="window.location='#'">
-                <img src="{item['img']}">
+# Render gallery + fullscreen lightbox
+for i, item in enumerate(gallery_items):
+    with cols[i % 3]:
+        st.markdown(f"""
+        <a href="#lightbox{i}">
+            <div class="dark-card">
+                <img src="{item['img']}" style="width:100%; border-radius:10px;">
+                <div class="dark-title">{item['title']}</div>
+                <div class="dark-desc">{item['desc']}</div>
             </div>
-            """, unsafe_allow_html=True)
+        </a>
 
-    st.divider()
-
-    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
+        <div id="lightbox{i}" class="lightbox" onclick="window.location='#'">
+            <img src="{item['img']}">
+        </div>
+        """, unsafe_allow_html=True)
