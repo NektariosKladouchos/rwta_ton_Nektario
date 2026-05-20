@@ -217,44 +217,62 @@ def show():
     # ---------------------------------------------------------
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
-    st.markdown('<div class="gallery-section">', unsafe_allow_html=True)
+    st.markdown("""
+<style>
 
-    st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
-    st.write("Premium gallery με απλή προβολή και επεξήγηση κάτω από κάθε εικόνα.")
+.premium-img {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
 
-    gallery_items = [
-        ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
-        ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
-        ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
-        ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
-        ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
-        ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
-        ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
-        ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
-        ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
-        ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
-        ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
-        ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
-    ]
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
-    cols = st.columns(3)
+/* Σταθερό ύψος εικόνας (μικρότερο για λιγότερα κενά) */
+.premium-img img {
+    height: 240px !important;
+    object-fit: cover !important;
+    width: 100% !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+}
 
-    for i, (filename, title, desc) in enumerate(gallery_items):
+/* Σταθερό ύψος τίτλου */
+.gallery-title {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 10px;
+}
 
-        full_path = os.path.join(PICTURES_DIR, filename)
+/* Σταθερό ύψος περιγραφής */
+.gallery-desc {
+    height: 55px;
+    font-size: 15px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
 
-        with cols[i % 3]:
-            st.markdown('<div class="gallery-block">', unsafe_allow_html=True)
+/* Σταθερό ύψος όλου του block (μικρότερο για λιγότερα κενά) */
+.gallery-block {
+    min-height: 380px;
+    margin-bottom: 20px;
+}
 
-            st.markdown('<div class="premium-img">', unsafe_allow_html=True)
-            st.image(full_path, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+/* Premium background */
+.gallery-section {
+    background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+    padding: 40px 25px;
+    border-radius: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
 
-            st.markdown(f'<div class="gallery-title">{title}</div>', unsafe_allow_html=True)
-            st.markdown(f'<div class="gallery-desc">{desc}</div>', unsafe_allow_html=True)
-
-            st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
+</style>
+""", unsafe_allow_html=True)
