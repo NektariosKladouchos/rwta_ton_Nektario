@@ -2,6 +2,7 @@
 #  ΕΝΟΤΗΤΑ – Premium Gallery Screenshots
 # ---------------------------------------------------------
 st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
+import streamlit as st
 
 st.write("Παρουσίαση λειτουργιών της κεντρικής μονάδας και της εφαρμογής διαχείρισης κινητού, με premium dark‑mode αισθητική.")
 
