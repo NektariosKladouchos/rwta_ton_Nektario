@@ -76,7 +76,18 @@ def show():
     """)
 
     st.divider()
-    # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
+    # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots
+    # --- Σταθερό μέγιστο ύψος για όλες τις εικόνες των carousels ---
+    st.markdown("""
+    <style>
+    img {
+        max-height: 450px !important;
+        width: auto !important;
+        object-fit: contain !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
     st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
