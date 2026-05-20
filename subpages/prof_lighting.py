@@ -145,98 +145,192 @@ def show():
     )
 
     st.divider()
-
     # ---------------------------------------------------------
-   # ---------------------------------------------------------
-#  ΕΝΟΤΗΤΑ – Premium Fullscreen Dark Gallery
-# ---------------------------------------------------------
-st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
-st.write("Παρουσίαση λειτουργιών της κεντρικής μονάδας και της εφαρμογής διαχείρισης κινητού, με premium dark‑mode αισθητική και fullscreen προβολή.")
+    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM
+    # ---------------------------------------------------------
 
-# CSS για fullscreen lightbox + dark cards
-st.markdown("""
-<style>
+    # CSS για fullscreen lightbox + dark cards + text κάτω από την εικόνα
+    st.markdown("""
+    <style>
 
-.dark-card {
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 14px;
-    padding: 18px;
-    box-shadow: 0 0 18px rgba(0,0,0,0.45);
-    transition: 0.25s ease;
-    cursor: pointer;
-}
+    /* ----------- GALLERY CARDS ----------- */
+    .dark-card {
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 0 18px rgba(0,0,0,0.45);
+        transition: 0.25s ease;
+        cursor: pointer;
+    }
 
-.dark-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 28px rgba(0,0,0,0.65);
-}
+    .dark-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 28px rgba(0,0,0,0.65);
+    }
 
-.dark-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    margin-top: 12px;
-}
+    .dark-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        margin-top: 12px;
+    }
 
-.dark-desc {
-    font-size: 14px;
-    color: #bbb;
-    margin-top: 6px;
-}
+    .dark-desc {
+        font-size: 14px;
+        color: #bbb;
+        margin-top: 6px;
+    }
 
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    padding-top: 40px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.90);
-    text-align: center;
-}
+    /* ----------- FULLSCREEN LIGHTBOX ----------- */
+    .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        background-color: rgba(0,0,0,0.92);
+        text-align: center;
+        padding: 40px 0;
+    }
 
-.lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-}
+    .lightbox:target {
+        display: block;
+    }
 
-.lightbox:target {
-    display: block;
-}
+    .lightbox-content {
+        display: inline-block;
+        max-width: 90%;
+        margin: auto;
+    }
 
-</style>
-""", unsafe_allow_html=True)
+    .lightbox-content img {
+        width: 100%;
+        max-width: 900px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
 
-cols = st.columns(3)
+    .lightbox-text {
+        color: white;
+        max-width: 900px;
+        margin: auto;
+        text-align: center;
+        padding: 10px 20px;
+    }
 
-# ΠΡΑΓΜΑΤΙΚΕΣ ΕΙΚΟΝΕΣ ΑΠΟ ΤΟΝ ΦΑΚΕΛΟ ΣΟΥ
-gallery_items = [
-    {"img": "pictures/01_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
-    {"img": "pictures/03_history_Thermostat_IR.png", "title": "Ιστορικό Θερμοστάτη", "desc": "Αναλυτικό ιστορικό θερμοκρασιών & IR."},
-    {"img": "pictures/05_SCENES.png", "title": "Σκηνές Φωτισμού", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
-    {"img": "pictures/09_SETTINGS_DEVICES.png", "title": "Ρυθμίσεις Συσκευών", "desc": "Λίστα και παραμετροποίηση συσκευών."},
-    {"img": "pictures/10_SETTINGS_ROOMS.png", "title": "Ρυθμίσεις Χώρων", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
-    {"img": "pictures/11_SETTINGS_SCENES_1.png", "title": "Ρυθμίσεις Σκηνών", "desc": "Δημιουργία και επεξεργασία σκηνών."},
-]
+    .lightbox-text h2 {
+        margin-bottom: 10px;
+        font-size: 26px;
+        font-weight: 700;
+    }
 
-# Render gallery + fullscreen lightbox
-for i, item in enumerate(gallery_items):
-    with cols[i % 3]:
-        st.markdown(f"""
-        <a href="#lightbox{i}">
-            <div class="dark-card">
-                <img src="{item['img']}" style="width:100%; border-radius:10px;">
-                <div class="dark-title">{item['title']}</div>
-                <div class="dark-desc">{item['desc']}</div>
+    .lightbox-text p {
+        font-size: 16px;
+        color: #ccc;
+        line-height: 1.5;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Τίτλος Gallery
+    st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
+    st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
+    # ---------------------------------------------------------
+    #  PREMIUM DARK GALLERY – 12 ΕΙΚΟΝΕΣ ΜΕ FULLSCREEN
+    # ---------------------------------------------------------
+
+    cols = st.columns(3)
+
+    gallery_items = [
+        {
+            "img": "pictures/01_Dashboard.png",
+            "title": "Dashboard",
+            "desc": "Κεντρική οθόνη διαχείρισης με πλήρη εποπτεία συσκευών."
+        },
+        {
+            "img": "pictures/03_history_Thermostat_IR.png",
+            "title": "Ιστορικό Θερμοστάτη",
+            "desc": "Αναλυτικό ιστορικό θερμοκρασιών και IR λειτουργιών."
+        },
+        {
+            "img": "pictures/04_history_scene open window.png",
+            "title": "Scene – Open Window",
+            "desc": "Αυτόματη σκηνή όταν εντοπίζεται ανοιχτό παράθυρο."
+        },
+        {
+            "img": "pictures/05_SCENES.png",
+            "title": "Σκηνές Φωτισμού",
+            "desc": "Δημιουργία και ενεργοποίηση σκηνών φωτισμού."
+        },
+        {
+            "img": "pictures/09_SETTINGS_DEVICES.png",
+            "title": "Ρυθμίσεις Συσκευών",
+            "desc": "Λίστα συσκευών και παραμετροποίηση λειτουργιών."
+        },
+        {
+            "img": "pictures/10_SETTINGS_ROOMS.png",
+            "title": "Ρυθμίσεις Χώρων",
+            "desc": "Ομαδοποίηση και διαχείριση δωματίων."
+        },
+        {
+            "img": "pictures/11_SETTINGS_SCENES_1.png",
+            "title": "Ρυθμίσεις Σκηνών 1",
+            "desc": "Διαμόρφωση σκηνών φωτισμού – μέρος 1."
+        },
+        {
+            "img": "pictures/12_SETTINGS_SCENES_2.png",
+            "title": "Ρυθμίσεις Σκηνών 2",
+            "desc": "Διαμόρφωση σκηνών φωτισμού – μέρος 2."
+        },
+        {
+            "img": "pictures/13_SETTINGS_SCENES_3.png",
+            "title": "Ρυθμίσεις Σκηνών 3",
+            "desc": "Διαμόρφωση σκηνών φωτισμού – μέρος 3."
+        },
+        {
+            "img": "pictures/21_SETTINGS_GENERAL_LOCAL.png",
+            "title": "Γενικές Ρυθμίσεις – Local",
+            "desc": "Τοπικές ρυθμίσεις συστήματος και παραμέτρων."
+        },
+        {
+            "img": "pictures/23_SETTINGS_GENERAL_VARIABLES.png",
+            "title": "Γενικές Ρυθμίσεις – Variables",
+            "desc": "Μεταβλητές συστήματος και προχωρημένες επιλογές."
+        },
+        {
+            "img": "pictures/28_SETTINGS_BACKUP.png",
+            "title": "Backup",
+            "desc": "Δημιουργία και επαναφορά αντιγράφων ασφαλείας."
+        }
+    ]
+
+    # Render gallery + fullscreen lightbox
+    for i, item in enumerate(gallery_items):
+        with cols[i % 3]:
+            st.markdown(f"""
+            <a href="#lightbox{i}">
+                <div class="dark-card">
+                    <img src="{item['img']}" style="width:100%; border-radius:10px;">
+                    <div class="dark-title">{item['title']}</div>
+                    <div class="dark-desc">{item['desc']}</div>
+                </div>
+            </a>
+
+            <div id="lightbox{i}" class="lightbox" onclick="window.location='#'">
+                <div class="lightbox-content">
+                    <img src="{item['img']}">
+                    <div class="lightbox-text">
+                        <h2>{item['title']}</h2>
+                        <p>{item['desc']}</p>
+                    </div>
+                </div>
             </div>
-        </a>
+            """, unsafe_allow_html=True)
 
-        <div id="lightbox{i}" class="lightbox" onclick="window.location='#'">
-            <img src="{item['img']}">
-        </div>
-        """, unsafe_allow_html=True)
+    st.divider()
+    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
