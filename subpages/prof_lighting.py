@@ -263,9 +263,8 @@ def show():
     #  GALLERY – 12 ΕΙΚΟΝΕΣ ΜΕ BASE64
     # ---------------------------------------------------------
 
-cols = st.columns(3)
-
-        gallery_items = [
+ cols = st.columns(3)
+ gallery_items = [
         {"img": "pictures/UI_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
         {"img": "pictures/UI_Thermostat.png", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
         {"img": "pictures/UI_Scenes.png", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
