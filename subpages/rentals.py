@@ -145,7 +145,7 @@ with col_carousel1:
 st.image(img["url"], caption=img["title"], use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
