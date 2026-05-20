@@ -149,6 +149,62 @@ def show():
     # ---------------------------------------------------------
     #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM
     # ---------------------------------------------------------
+st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
+st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
+
+pictures_dir = "pictures"
+
+gallery_items = [
+    ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
+    ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
+    ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
+    ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
+    ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
+    ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
+    ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
+    ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
+    ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
+    ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
+    ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
+    ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
+]
+
+cols = st.columns(3)
+
+for i, (filename, title, desc) in enumerate(gallery_items):
+
+    full_path = os.path.join(pictures_dir, filename)
+    img_b64 = load_image_base64(full_path)
+
+    with cols[i % 3]:
+
+        # Thumbnail (Streamlit)
+        st.image(full_path, use_container_width=True)
+
+        # Clickable card
+        st.markdown(f"""
+        <a href="#lightbox{i}">
+            <div class="dark-card">
+                <img src="data:image/png;base64,{img_b64}" style="width:100%; border-radius:10px;">
+                <div class="dark-title">{title}</div>
+                <div class="dark-desc">{desc}</div>
+            </div>
+        </a>
+        """, unsafe_allow_html=True)
+
+        # FULLSCREEN LIGHTBOX
+        st.markdown(f"""
+        <div id="lightbox{i}" class="lightbox">
+            <a href="#" class="lightbox-close"></a>
+            <div class="lightbox-content">
+                <img src="data:image/png;base64,{img_b64}">
+                <div class="lightbox-text">
+                    <h2>{title}</h2>
+                    <p>{desc}</p>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("""
     <style>
@@ -247,47 +303,4 @@ def show():
     </style>
     """, unsafe_allow_html=True)
 
-    st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
-    st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
-
-    # ---------------------------------------------------------
-    #  GALLERY – ΜΕ URLS (ΤΕΛΙΚΟ)
-    # ---------------------------------------------------------
-
-    cols = st.columns(3)
-
-    gallery_items = [
-        {"img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
-        {"img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
-        {"img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
-        {"img": "https://images.unsplash.com/photo-1520880867055-1e30d1cb001c", "title": "Devices", "desc": "Λίστα συσκευών και παραμετροποίηση."},
-        {"img": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", "title": "Rooms", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
-        {"img": "https://images.unsplash.com/photo-1558002038-1055907df827", "title": "Alarm", "desc": "Σύστημα συναγερμού και ειδοποιήσεις."},
-        {"img": "https://images.unsplash.com/photo-1505842465776-3d90f616310d", "title": "Favourites", "desc": "Αγαπημένες λειτουργίες και shortcuts."}
-    ]
-
-    for i, item in enumerate(gallery_items):
-        with cols[i % 3]:
-            st.markdown(f"""
-            <a href="#lightbox{i}">
-                <div class="dark-card">
-                    <img src="{item['img']}" style="width:100%; border-radius:10px;">
-                    <div class="dark-title">{item['title']}</div>
-                    <div class="dark-desc">{item['desc']}</div>
-                </div>
-            </a>
-
-            <div id="lightbox{i}" class="lightbox">
-                <a href="#" class="lightbox-close"></a>
-                <div class="lightbox-content">
-                    <img src="{item['img']}">
-                    <div class="lightbox-text">
-                        <h2>{item['title']}</h2>
-                        <p>{item['desc']}</p>
-                    </div>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-    st.divider()
-    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
+    
