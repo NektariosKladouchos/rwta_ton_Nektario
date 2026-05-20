@@ -147,7 +147,7 @@ def show():
     st.divider()
 
     # ---------------------------------------------------------
-    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM
+    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM (FIXED)
     # ---------------------------------------------------------
 
     st.markdown("""
@@ -251,20 +251,25 @@ def show():
     st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
 
     # ---------------------------------------------------------
-    #  GALLERY – ΜΕ URLS (ΤΕΛΙΚΟ)
+    #  GALLERY – 12 ΕΙΚΟΝΕΣ
     # ---------------------------------------------------------
 
     cols = st.columns(3)
 
     gallery_items = [
-        {"img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
-        {"img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
-        {"img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
-        {"img": "https://images.unsplash.com/photo-1520880867055-1e30d1cb001c", "title": "Devices", "desc": "Λίστα συσκευών και παραμετροποίηση."},
-        {"img": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", "title": "Rooms", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
-        {"img": "https://images.unsplash.com/photo-1558002038-1055907df827", "title": "Alarm", "desc": "Σύστημα συναγερμού και ειδοποιήσεις."},
-        {"img": "https://images.unsplash.com/photo-1505842465776-3d90f616310d", "title": "Favourites", "desc": "Αγαπημένες λειτουργίες και shortcuts."}
-    ]
+    {"img": "pictures/UI_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
+    {"img": "pictures/UI_Thermostat.png", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
+    {"img": "pictures/UI_Scenes.png", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
+    {"img": "pictures/UI_Devices.png", "title": "Devices", "desc": "Λίστα συσκευών και παραμετροποίηση."},
+    {"img": "pictures/UI_Rooms.png", "title": "Rooms", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
+    {"img": "pictures/UI_Alarm.png", "title": "Alarm", "desc": "Σύστημα συναγερμού και ειδοποιήσεις."},
+    {"img": "pictures/UI_Favourites.png", "title": "Favourites", "desc": "Αγαπημένες λειτουργίες και shortcuts."},
+    {"img": "pictures/UI_Home.png", "title": "Home", "desc": "Αρχική οθόνη εφαρμογής."},
+    {"img": "pictures/UI_Settings.png", "title": "Settings", "desc": "Γενικές ρυθμίσεις συστήματος."},
+    {"img": "pictures/UI_Slideshow.png", "title": "Slideshow", "desc": "Προβολή εικόνων και πληροφοριών."},
+    {"img": "pictures/UI_Numbers.png", "title": "Numbers", "desc": "Αριθμητικές ενδείξεις και στατιστικά."},
+    {"img": "pictures/UI_Weather.png", "title": "Weather", "desc": "Καιρικές συνθήκες και πρόγνωση."}
+]
 
     for i, item in enumerate(gallery_items):
         with cols[i % 3]:
