@@ -1,10 +1,9 @@
 import streamlit as st
 import os
 
-# Το αρχείο αυτό είναι μέσα στο subpages/
+# Το αρχείο αυτό βρίσκεται μέσα στο subpages/
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PICTURES_DIR = os.path.join(BASE_DIR, "pictures")
-
 
 def show():
 
@@ -38,7 +37,7 @@ def show():
     with colB:
         st.image(
             "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
-            caption="Σύγχρονος επαγγελματικός χώρος με πολλαπλές γραμμές φωτισμού",
+            caption="Σύγχρονος επαγγελματικός χώρος",
             use_container_width=True
         )
 
@@ -67,14 +66,12 @@ def show():
 
         st.subheader("🎚️ Dimming LED Strip")
         st.markdown("""
-        - Dimming με απλό τροφοδοτικό 12V/24V.
-        - Ομαδοποίηση για πολλά μέτρα ταινίας.
-        - RGB / RGBW / μονόχρωμη ταινία.
-        - Ale retour με απλά μπουτόν.
+        - Παράδειγμα με δική σου εικόνα από το project.
+        - Μπορείς να αντικαταστήσεις οποιαδήποτε εικόνα έτσι.
         """)
         st.image(
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-            caption="Premium LED strip φωτισμός σε επαγγελματικό χώρο",
+            os.path.join(PICTURES_DIR, "09_SETTINGS_DEVICES.png"),
+            caption="Δική σου εικόνα από το project (παράδειγμα)",
             use_container_width=True
         )
 
@@ -117,23 +114,22 @@ def show():
     with colX:
         st.markdown("""
         - Οπτικοποίηση όλων των γραμμών φωτισμού.
-        - Ομαδοποίηση ανά κατηγορία (220V / LED Strip / DALI).
+        - Ομαδοποίηση ανά κατηγορία.
         - Μεμονωμένος ή ομαδικός χειρισμός.
-        - Ταυτόχρονο dimming σε όλες τις ομάδες.
-        - Χρονοπρογράμματα με profiles ανά ώρα/μέρα/συνθήκες.
+        - Χρονοπρογράμματα & profiles.
         """)
 
     with colY:
         st.image(
             "https://images.unsplash.com/photo-1558002038-1055907df827",
-            caption="Κεντρική διαχείριση φωτισμού σε επαγγελματικό περιβάλλον",
+            caption="Κεντρική διαχείριση φωτισμού",
             use_container_width=True
         )
 
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 4 – Εφαρμογές σε Πραγματικούς Χώρους
+    #  ΕΝΟΤΗΤΑ 4 – Πού εφαρμόζεται
     # ---------------------------------------------------------
     st.header("🏢 Πού εφαρμόζεται")
 
@@ -148,11 +144,35 @@ def show():
 
     st.image(
         "https://images.unsplash.com/photo-1505842465776-3d90f616310d",
-        caption="Εφαρμογές φωτισμού σε πραγματικούς επαγγελματικούς χώρους",
+        caption="Εφαρμογές φωτισμού",
         use_container_width=True
     )
 
     st.divider()
+    # ---------------------------------------------------------
+    #  PREMIUM CSS PACK – Rounded + Shadow + Border + Fade‑in
+    # ---------------------------------------------------------
+    st.markdown("""
+    <style>
+
+    .premium-img {
+        opacity: 0;
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .premium-img img {
+        border-radius: 14px !important;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
     # ---------------------------------------------------------
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
@@ -177,10 +197,14 @@ def show():
     cols = st.columns(3)
 
     for i, (filename, title, desc) in enumerate(gallery_items):
+
         full_path = os.path.join(PICTURES_DIR, filename)
 
         with cols[i % 3]:
+            st.markdown('<div class="premium-img">', unsafe_allow_html=True)
             st.image(full_path, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+
             st.markdown(f"### {title}")
             st.markdown(desc)
             st.markdown("---")
