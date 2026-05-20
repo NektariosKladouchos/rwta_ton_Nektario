@@ -83,7 +83,7 @@ def show():
 <style>
 /* Ίδιο ύψος για mobile */
 .carousel-img-mobile {
-    max-height: 380px !important;
+    max-height: 180px !important;
     object-fit: contain !important;
     border-radius: 12px;
 }
