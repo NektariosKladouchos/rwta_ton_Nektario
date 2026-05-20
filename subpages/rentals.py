@@ -90,6 +90,23 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* Ίδιο ύψος για mobile */
+.carousel-img-mobile {
+    max-height: 380px !important;
+    object-fit: contain !important;
+}
+
+/* Μεγαλύτερο ύψος για PC ώστε να ισορροπήσει */
+.carousel-img-pc {
+    max-height: 430px !important;
+    object-fit: contain !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
    
 
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
