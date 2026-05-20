@@ -215,7 +215,7 @@ def show():
 
     # Τυχαίες εικόνες από subpages/pictures/
     gallery_items = [
-        {"img": "subpages/pictures/screen1.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
+        {"img": "subpages/pictures/Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
         {"img": "subpages/pictures/screen2.jpg", "title": "Groups", "desc": "Ομαδοποίηση φωτισμού."},
         {"img": "subpages/pictures/screen3.png", "title": "Schedules", "desc": "Χρονοπρογράμματα & profiles."},
         {"img": "subpages/pictures/screen4.jpg", "title": "Mobile Home", "desc": "Αρχική οθόνη εφαρμογής."},
