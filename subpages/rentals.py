@@ -135,9 +135,9 @@ def show():
         for img in app_images:
             if img["title"] == selected_app_page:
                st.markdown('<div class="carousel-img">', unsafe_allow_html=True)
-st.image(img["url"], use_container_width=True)
-st.markdown('</div>', unsafe_allow_html=True)
-st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+               st.image(img["url"], use_container_width=True)
+               st.markdown('</div>', unsafe_allow_html=True)
+               st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
