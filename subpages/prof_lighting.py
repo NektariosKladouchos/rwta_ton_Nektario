@@ -2,21 +2,20 @@ import streamlit as st
 import base64
 import os
 
-def load_image_base64(path):
-    with open(path, "rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+# === ABSOLUTE PATH ΓΙΑ ΝΑ ΔΟΥΛΕΥΟΥΝ ΟΙ ΕΙΚΟΝΕΣ ΠΑΝΤΟΥ ===
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PICTURES_DIR = os.path.join(BASE_DIR, "pictures")
+
+def load_image_base64(filename):
+    full_path = os.path.join(PICTURES_DIR, filename)
+    with open(full_path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
 def show():
 
-    # ---------------------------------------------------------
-    #  ΤΙΤΛΟΣ ΣΕΛΙΔΑΣ
-    # ---------------------------------------------------------
     st.title("💡 Ιδέες για Επαγγελματικό Φωτισμό")
     st.write("Premium λύσεις για επαγγελματικούς χώρους με Dimmer 220V, LED Strip, 0-10V, DALI & κεντρική διαχείριση.")
-
     st.divider()
-
     # ---------------------------------------------------------
     #  ΕΝΟΤΗΤΑ 1 – Προβλήματα που λύνουμε
     # ---------------------------------------------------------
@@ -37,11 +36,12 @@ def show():
     with colB:
         st.image(
             "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
-            caption="Σύγχρονος επαγγελματικός χώρος με πολλαπλές γραμμές φωτισμού",
+            caption="Σύγχρονος επαγγελματικός χώρος",
             use_container_width=True
         )
 
     st.divider()
+
     # ---------------------------------------------------------
     #  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας
     # ---------------------------------------------------------
@@ -57,11 +57,7 @@ def show():
         - Ομοιόμορφο dimming σε όλες τις γραμμές.
         - Χειρισμός από ένα μπουτόν.
         """)
-        st.image(
-            "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
-            caption="Ομοιόμορφος φωτισμός σε επαγγελματικό περιβάλλον",
-            use_container_width=True
-        )
+        st.image("https://images.unsplash.com/photo-1504384308090-c894fdcc538d", use_container_width=True)
 
         st.subheader("🎚️ Dimming LED Strip")
         st.markdown("""
@@ -70,11 +66,7 @@ def show():
         - RGB / RGBW / μονόχρωμη ταινία.
         - Ale retour με απλά μπουτόν.
         """)
-        st.image(
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-            caption="Premium LED strip φωτισμός σε επαγγελματικό χώρο",
-            use_container_width=True
-        )
+        st.image("https://images.unsplash.com/photo-1600585154340-be6161a56a0c", use_container_width=True)
 
     with col2:
         st.subheader("🔵 Dimming 0-10V & 1-10V")
@@ -84,11 +76,7 @@ def show():
         - Ασύρματη ομαδοποίηση πολλών drivers.
         - Μνήμη τελευταίας κατάστασης.
         """)
-        st.image(
-            "https://images.unsplash.com/photo-1520880867055-1e30d1cb001c",
-            caption="Επαγγελματικός φωτισμός γραφείων με 0-10V",
-            use_container_width=True
-        )
+        st.image("https://images.unsplash.com/photo-1520880867055-1e30d1cb001c", use_container_width=True)
 
         st.subheader("🟣 DALI Dimming")
         st.markdown("""
@@ -97,16 +85,12 @@ def show():
         - Τοπικός έλεγχος με μπουτόν.
         - Σύνδεση μέχρι 64 drivers στην ίδια γραμμή.
         """)
-        st.image(
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
-            caption="DALI φωτισμός σε retail χώρο",
-            use_container_width=True
-        )
+        st.image("https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", use_container_width=True)
 
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 3 – Κεντρική Διαχείριση Φωτισμού
+    #  ΕΝΟΤΗΤΑ 3 – Κεντρική Διαχείριση
     # ---------------------------------------------------------
     st.header("🖥️ Κεντρική Οθόνη Διαχείρισης")
 
@@ -115,23 +99,18 @@ def show():
     with colX:
         st.markdown("""
         - Οπτικοποίηση όλων των γραμμών φωτισμού.
-        - Ομαδοποίηση ανά κατηγορία (220V / LED Strip / DALI).
+        - Ομαδοποίηση ανά κατηγορία.
         - Μεμονωμένος ή ομαδικός χειρισμός.
-        - Ταυτόχρονο dimming σε όλες τις ομάδες.
-        - Χρονοπρογράμματα με profiles ανά ώρα/μέρα/συνθήκες.
+        - Χρονοπρογράμματα & profiles.
         """)
 
     with colY:
-        st.image(
-            "https://images.unsplash.com/photo-1558002038-1055907df827",
-            caption="Κεντρική διαχείριση φωτισμού σε επαγγελματικό περιβάλλον",
-            use_container_width=True
-        )
+        st.image("https://images.unsplash.com/photo-1558002038-1055907df827", use_container_width=True)
 
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 4 – Εφαρμογές σε Πραγματικούς Χώρους
+    #  ΕΝΟΤΗΤΑ 4 – Πού εφαρμόζεται
     # ---------------------------------------------------------
     st.header("🏢 Πού εφαρμόζεται")
 
@@ -144,16 +123,9 @@ def show():
     - Μεγάλα καταστήματα με πολλές γραμμές φωτισμού.
     """)
 
-    st.image(
-        "https://images.unsplash.com/photo-1505842465776-3d90f616310d",
-        caption="Εφαρμογές φωτισμού σε πραγματικούς επαγγελματικούς χώρους",
-        use_container_width=True
-    )
+    st.image("https://images.unsplash.com/photo-1505842465776-3d90f616310d", use_container_width=True)
 
     st.divider()
-    # ---------------------------------------------------------
-    #  CSS – Κάρτες + Fullscreen Lightbox
-    # ---------------------------------------------------------
     st.markdown("""
     <style>
 
@@ -233,13 +205,8 @@ def show():
 
     </style>
     """, unsafe_allow_html=True)
-    # ---------------------------------------------------------
-    #  GALLERY – Screenshots Κεντρικής Μονάδας & App
-    # ---------------------------------------------------------
     st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
     st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
-
-    pictures_dir = "pictures"
 
     gallery_items = [
         ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
@@ -260,15 +227,13 @@ def show():
 
     for i, (filename, title, desc) in enumerate(gallery_items):
 
-        full_path = os.path.join(pictures_dir, filename)
-        img_b64 = load_image_base64(full_path)
+        full_path = os.path.join(PICTURES_DIR, filename)
+        img_b64 = load_image_base64(filename)
 
         with cols[i % 3]:
 
-            # Thumbnail (Streamlit)
             st.image(full_path, use_container_width=True)
 
-            # Κάρτα + click για fullscreen
             st.markdown(f"""
             <a href="#lightbox{i}">
                 <div class="dark-card">
@@ -279,7 +244,6 @@ def show():
             </a>
             """, unsafe_allow_html=True)
 
-            # FULLSCREEN LIGHTBOX
             st.markdown(f"""
             <div id="lightbox{i}" class="lightbox">
                 <a href="#" class="lightbox-close"></a>
