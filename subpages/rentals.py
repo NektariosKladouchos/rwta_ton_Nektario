@@ -177,7 +177,7 @@ with col_carousel2:
         )
         
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
-       for img in pc_images:
+for img in pc_images:
     if img["title"] == selected_pc_page:
         st.markdown('<div class="carousel-img-pc">', unsafe_allow_html=True)
         st.image(img["url"], caption=img["title"], use_container_width=True)
