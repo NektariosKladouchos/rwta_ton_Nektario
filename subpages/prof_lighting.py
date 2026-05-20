@@ -1,9 +1,10 @@
 import streamlit as st
 import os
 
-# Το αρχείο αυτό βρίσκεται μέσα στο subpages/
+# Το αρχείο αυτό είναι μέσα στο subpages/
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PICTURES_DIR = os.path.join(BASE_DIR, "pictures")
+
 
 def show():
 
@@ -37,7 +38,7 @@ def show():
     with colB:
         st.image(
             "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
-            caption="Σύγχρονος επαγγελματικός χώρος",
+            caption="Σύγχρονος επαγγελματικός χώρος με πολλαπλές γραμμές φωτισμού",
             use_container_width=True
         )
 
@@ -66,12 +67,14 @@ def show():
 
         st.subheader("🎚️ Dimming LED Strip")
         st.markdown("""
-        - Παράδειγμα με δική σου εικόνα από το project.
-        - Μπορείς να αντικαταστήσεις οποιαδήποτε εικόνα έτσι.
+        - Dimming με απλό τροφοδοτικό 12V/24V.
+        - Ομαδοποίηση για πολλά μέτρα ταινίας.
+        - RGB / RGBW / μονόχρωμη ταινία.
+        - Ale retour με απλά μπουτόν.
         """)
         st.image(
-            os.path.join(PICTURES_DIR, "09_SETTINGS_DEVICES.png"),
-            caption="Δική σου εικόνα από το project (παράδειγμα)",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+            caption="Premium LED strip φωτισμός σε επαγγελματικό χώρο",
             use_container_width=True
         )
 
@@ -114,22 +117,23 @@ def show():
     with colX:
         st.markdown("""
         - Οπτικοποίηση όλων των γραμμών φωτισμού.
-        - Ομαδοποίηση ανά κατηγορία.
+        - Ομαδοποίηση ανά κατηγορία (220V / LED Strip / DALI).
         - Μεμονωμένος ή ομαδικός χειρισμός.
-        - Χρονοπρογράμματα & profiles.
+        - Ταυτόχρονο dimming σε όλες τις ομάδες.
+        - Χρονοπρογράμματα με profiles ανά ώρα/μέρα/συνθήκες.
         """)
 
     with colY:
         st.image(
             "https://images.unsplash.com/photo-1558002038-1055907df827",
-            caption="Κεντρική διαχείριση φωτισμού",
+            caption="Κεντρική διαχείριση φωτισμού σε επαγγελματικό περιβάλλον",
             use_container_width=True
         )
 
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 4 – Πού εφαρμόζεται
+    #  ΕΝΟΤΗΤΑ 4 – Εφαρμογές σε Πραγματικούς Χώρους
     # ---------------------------------------------------------
     st.header("🏢 Πού εφαρμόζεται")
 
@@ -144,135 +148,41 @@ def show():
 
     st.image(
         "https://images.unsplash.com/photo-1505842465776-3d90f616310d",
-        caption="Εφαρμογές φωτισμού",
+        caption="Εφαρμογές φωτισμού σε πραγματικούς επαγγελματικούς χώρους",
         use_container_width=True
     )
 
     st.divider()
-      # ---------------------------------------------------------
-    #  PREMIUM CSS PACK – Rounded + Shadow + Border + Fade‑in + Alignment
-    # ---------------------------------------------------------
-    st.markdown("""
-    <style>
-
-    /* Fade-in animation */
-    .premium-img {
-        opacity: 0;
-        animation: fadeIn 0.8s ease forwards;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(6px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Σταθερό ύψος εικόνας */
-    .premium-img img {
-        height: 260px !important;
-        object-fit: cover !important;
-        width: 100% !important;
-        border-radius: 14px !important;
-        border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 4px 18px rgba(0,0,0,0.35);
-    }
-
-    /* Σταθερό ύψος τίτλου */
-    .gallery-title {
-        height: 40px;
-        display: flex;
-        align-items: center;
-        font-size: 20px;
-        font-weight: 600;
-        margin-top: 10px;
-    }
-
-    /* Σταθερό ύψος περιγραφής */
-    .gallery-desc {
-        height: 55px;
-        font-size: 15px;
-        color: #ccc;
-        margin-bottom: 10px;
-    }
-
-    /* Σταθερό ύψος όλου του block */
-    .gallery-block {
-        min-height: 420px;
-        margin-bottom: 20px;
-    }
-
-    /* Premium background */
-    .gallery-section {
-        background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
-        padding: 40px 25px;
-        border-radius: 18px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-
     # ---------------------------------------------------------
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
-    st.markdown("""
-<style>
+    st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
+    st.write("Premium gallery με απλή προβολή και επεξήγηση κάτω από κάθε εικόνα.")
 
-.premium-img {
-    opacity: 0;
-    animation: fadeIn 0.8s ease forwards;
-}
+    gallery_items = [
+        ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
+        ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
+        ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
+        ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
+        ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
+        ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
+        ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
+        ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
+        ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
+        ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
+        ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
+        ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
+    ]
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+    cols = st.columns(3)
 
-/* Σταθερό ύψος εικόνας (μικρότερο για λιγότερα κενά) */
-.premium-img img {
-    height: 240px !important;
-    object-fit: cover !important;
-    width: 100% !important;
-    border-radius: 14px !important;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
-}
+    for i, (filename, title, desc) in enumerate(gallery_items):
+        full_path = os.path.join(PICTURES_DIR, filename)
 
-/* Σταθερό ύψος τίτλου */
-.gallery-title {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 10px;
-}
+        with cols[i % 3]:
+            st.image(full_path, use_container_width=True)
+            st.markdown(f"### {title}")
+            st.markdown(desc)
+            st.markdown("---")
 
-/* Σταθερό ύψος περιγραφής */
-.gallery-desc {
-    height: 55px;
-    font-size: 15px;
-    color: #ccc;
-    margin-bottom: 10px;
-}
-
-/* Σταθερό ύψος όλου του block (μικρότερο για λιγότερα κενά) */
-.gallery-block {
-    min-height: 380px;
-    margin-bottom: 20px;
-}
-
-/* Premium background */
-.gallery-section {
-    background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
-    padding: 40px 25px;
-    border-radius: 18px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255,255,255,0.06);
-}
-
-</style>
-""", unsafe_allow_html=True)
+    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
