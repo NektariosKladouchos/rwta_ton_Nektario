@@ -79,16 +79,24 @@ def show():
 
     st.divider()
 
-    st.markdown("""
+st.markdown("""
 <style>
 .carousel-img {
-    max-height: 330px !important;
+    height: 260px !important;        /* Το πραγματικό ύψος που θα φαίνεται */
+    max-height: 260px !important;
     width: 100% !important;
-    object-fit: contain !important;
-    border-radius: 12px;
+    overflow: hidden !important;     /* Κόβει το παραπάνω ύψος */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.carousel-img img {
+    object-fit: contain !important;  /* Δεν παραμορφώνει την εικόνα */
+    height: 100% !important;
 }
 </style>
 """, unsafe_allow_html=True)
+ 
 
 
 
