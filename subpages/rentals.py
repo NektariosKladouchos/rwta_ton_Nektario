@@ -79,23 +79,17 @@ def show():
 
     st.divider()
 
-    st.markdown("""
+  st.markdown("""
 <style>
-/* Ίδιο ύψος για mobile */
-.carousel-img-mobile {
-    max-height: 180px !important;
-    object-fit: contain !important;
-    border-radius: 12px;
-}
-
-/* Μεγαλύτερο ύψος για PC ώστε να ισορροπήσει */
-.carousel-img-pc {
-    max-height: 430px !important;
+.carousel-img {
+    max-height: 280px !important;
+    width: 100% !important;
     object-fit: contain !important;
     border-radius: 12px;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
    
 
