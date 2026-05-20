@@ -81,7 +81,7 @@ def show():
     st.markdown("""
 <style>
 .carousel-img-mobile {
-    max-height: 260px !important;   /* Μίκρυνε εδώ όσο θες: 260, 240, 220 κτλ */
+    max-height: 200px !important;   /* Μίκρυνε εδώ όσο θες: 260, 240, 220 κτλ */
     object-fit: contain !important;
     border-radius: 12px;
 }
