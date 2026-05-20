@@ -78,6 +78,17 @@ def show():
     """)
 
     st.divider()
+    
+st.markdown("""
+<style>
+.carousel-img {
+    max-height: 380px !important;
+    width: 100% !important;
+    object-fit: contain !important;
+    border-radius: 12px;
+}
+</style>
+""", unsafe_allow_html=True)
 
    
 
