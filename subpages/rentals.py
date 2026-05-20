@@ -122,7 +122,7 @@ def show():
         for img in app_images:
             if img["title"] == selected_app_page:
               
-               # st.image(img["url"], caption=img["title"], use_container_width=330)
+               # st.image(img["url"], caption=img["title"], use_container_width=True)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
