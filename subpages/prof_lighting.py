@@ -1,4 +1,11 @@
 import streamlit as st
+import base64
+import os
+
+def load_image_base64(path):
+    with open(path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
 def show():
 
@@ -35,7 +42,6 @@ def show():
         )
 
     st.divider()
-
     # ---------------------------------------------------------
     #  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας
     # ---------------------------------------------------------
@@ -145,67 +151,9 @@ def show():
     )
 
     st.divider()
-
     # ---------------------------------------------------------
-    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM
+    #  CSS – Κάρτες + Fullscreen Lightbox
     # ---------------------------------------------------------
-st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
-st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
-
-pictures_dir = "pictures"
-
-gallery_items = [
-    ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
-    ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
-    ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
-    ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
-    ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
-    ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
-    ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
-    ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
-    ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
-    ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
-    ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
-    ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
-]
-
-cols = st.columns(3)
-
-for i, (filename, title, desc) in enumerate(gallery_items):
-
-    full_path = os.path.join(pictures_dir, filename)
-    img_b64 = load_image_base64(full_path)
-
-    with cols[i % 3]:
-
-        # Thumbnail (Streamlit)
-        st.image(full_path, use_container_width=True)
-
-        # Clickable card
-        st.markdown(f"""
-        <a href="#lightbox{i}">
-            <div class="dark-card">
-                <img src="data:image/png;base64,{img_b64}" style="width:100%; border-radius:10px;">
-                <div class="dark-title">{title}</div>
-                <div class="dark-desc">{desc}</div>
-            </div>
-        </a>
-        """, unsafe_allow_html=True)
-
-        # FULLSCREEN LIGHTBOX
-        st.markdown(f"""
-        <div id="lightbox{i}" class="lightbox">
-            <a href="#" class="lightbox-close"></a>
-            <div class="lightbox-content">
-                <img src="data:image/png;base64,{img_b64}">
-                <div class="lightbox-text">
-                    <h2>{title}</h2>
-                    <p>{desc}</p>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
     st.markdown("""
     <style>
 
@@ -237,7 +185,6 @@ for i, (filename, title, desc) in enumerate(gallery_items):
         margin-top: 6px;
     }
 
-    /* FULLSCREEN LIGHTBOX */
     .lightbox {
         display: none;
         position: fixed;
@@ -246,10 +193,9 @@ for i, (filename, title, desc) in enumerate(gallery_items):
         top: 0;
         width: 100%;
         height: 100%;
-        overflow-y: auto;
         background-color: rgba(0,0,0,0.92);
         text-align: center;
-        padding: 40px 0;
+        padding-top: 40px;
     }
 
     .lightbox:target {
@@ -268,7 +214,6 @@ for i, (filename, title, desc) in enumerate(gallery_items):
     .lightbox-content {
         position: relative;
         z-index: 2;
-        display: inline-block;
         max-width: 90%;
         margin: auto;
     }
@@ -277,30 +222,76 @@ for i, (filename, title, desc) in enumerate(gallery_items):
         width: 100%;
         max-width: 900px;
         border-radius: 12px;
-        margin-bottom: 20px;
     }
 
     .lightbox-text {
         color: white;
-        max-width: 900px;
-        margin: auto;
-        text-align: center;
-        padding: 10px 20px;
-    }
-
-    .lightbox-text h2 {
-        margin-bottom: 10px;
-        font-size: 26px;
-        font-weight: 700;
-    }
-
-    .lightbox-text p {
-        font-size: 16px;
-        color: #ccc;
-        line-height: 1.5;
+        margin-top: 20px;
+        font-size: 18px;
+        padding: 0 20px;
     }
 
     </style>
     """, unsafe_allow_html=True)
+    # ---------------------------------------------------------
+    #  GALLERY – Screenshots Κεντρικής Μονάδας & App
+    # ---------------------------------------------------------
+    st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
+    st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
 
-    
+    pictures_dir = "pictures"
+
+    gallery_items = [
+        ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
+        ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
+        ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
+        ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
+        ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
+        ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
+        ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
+        ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
+        ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
+        ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
+        ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
+        ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
+    ]
+
+    cols = st.columns(3)
+
+    for i, (filename, title, desc) in enumerate(gallery_items):
+
+        full_path = os.path.join(pictures_dir, filename)
+        img_b64 = load_image_base64(full_path)
+
+        with cols[i % 3]:
+
+            # Thumbnail (Streamlit)
+            st.image(full_path, use_container_width=True)
+
+            # Κάρτα + click για fullscreen
+            st.markdown(f"""
+            <a href="#lightbox{i}">
+                <div class="dark-card">
+                    <img src="data:image/png;base64,{img_b64}" style="width:100%; border-radius:10px;">
+                    <div class="dark-title">{title}</div>
+                    <div class="dark-desc">{desc}</div>
+                </div>
+            </a>
+            """, unsafe_allow_html=True)
+
+            # FULLSCREEN LIGHTBOX
+            st.markdown(f"""
+            <div id="lightbox{i}" class="lightbox">
+                <a href="#" class="lightbox-close"></a>
+                <div class="lightbox-content">
+                    <img src="data:image/png;base64,{img_b64}">
+                    <div class="lightbox-text">
+                        <h2>{title}</h2>
+                        <p>{desc}</p>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.divider()
+    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
