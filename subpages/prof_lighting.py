@@ -171,11 +171,22 @@ def show():
         box-shadow: 0 4px 18px rgba(0,0,0,0.35);
     }
 
+    .gallery-section {
+        background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+        padding: 40px 25px;
+        border-radius: 18px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+
     </style>
     """, unsafe_allow_html=True)
     # ---------------------------------------------------------
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
+    st.markdown('<div class="gallery-section">', unsafe_allow_html=True)
+
     st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
     st.write("Premium gallery με απλή προβολή και επεξήγηση κάτω από κάθε εικόνα.")
 
@@ -208,5 +219,7 @@ def show():
             st.markdown(f"### {title}")
             st.markdown(desc)
             st.markdown("---")
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
     st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
