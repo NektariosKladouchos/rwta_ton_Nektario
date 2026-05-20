@@ -1,4 +1,12 @@
 import streamlit as st
+import base64
+
+# ---------------------------------------------------------
+#  BASE64 LOADER (ΑΥΤΟΜΑΤΑ ΑΠΟ ΤΟ PATH)
+# ---------------------------------------------------------
+def load_image_base64(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
 def show():
 
@@ -145,14 +153,14 @@ def show():
     )
 
     st.divider()
-
     # ---------------------------------------------------------
-    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM (FIXED)
+    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM (BASE64 READY)
     # ---------------------------------------------------------
 
     st.markdown("""
     <style>
 
+    /* ----------- GALLERY CARDS ----------- */
     .dark-card {
         background: #111;
         border: 1px solid #222;
@@ -181,7 +189,7 @@ def show():
         margin-top: 6px;
     }
 
-    /* FULLSCREEN LIGHTBOX */
+    /* ----------- FULLSCREEN LIGHTBOX ----------- */
     .lightbox {
         display: none;
         position: fixed;
@@ -200,6 +208,7 @@ def show():
         display: block;
     }
 
+    /* Invisible click‑to‑close layer */
     .lightbox-close {
         position: fixed;
         top: 0;
@@ -209,6 +218,7 @@ def show():
         z-index: 1;
     }
 
+    /* Content stays above the close layer */
     .lightbox-content {
         position: relative;
         z-index: 2;
@@ -249,34 +259,37 @@ def show():
 
     st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
     st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
-
     # ---------------------------------------------------------
-    #  GALLERY – 12 ΕΙΚΟΝΕΣ
+    #  GALLERY – 12 ΕΙΚΟΝΕΣ ΜΕ BASE64
     # ---------------------------------------------------------
 
     cols = st.columns(3)
 
     gallery_items = [
-    {"img": "pictures/UI_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
-    {"img": "pictures/UI_Thermostat.png", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
-    {"img": "pictures/UI_Scenes.png", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
-    {"img": "pictures/UI_Devices.png", "title": "Devices", "desc": "Λίστα συσκευών και παραμετροποίηση."},
-    {"img": "pictures/UI_Rooms.png", "title": "Rooms", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
-    {"img": "pictures/UI_Alarm.png", "title": "Alarm", "desc": "Σύστημα συναγερμού και ειδοποιήσεις."},
-    {"img": "pictures/UI_Favourites.png", "title": "Favourites", "desc": "Αγαπημένες λειτουργίες και shortcuts."},
-    {"img": "pictures/UI_Home.png", "title": "Home", "desc": "Αρχική οθόνη εφαρμογής."},
-    {"img": "pictures/UI_Settings.png", "title": "Settings", "desc": "Γενικές ρυθμίσεις συστήματος."},
-    {"img": "pictures/UI_Slideshow.png", "title": "Slideshow", "desc": "Προβολή εικόνων και πληροφοριών."},
-    {"img": "pictures/UI_Numbers.png", "title": "Numbers", "desc": "Αριθμητικές ενδείξεις και στατιστικά."},
-    {"img": "pictures/UI_Weather.png", "title": "Weather", "desc": "Καιρικές συνθήκες και πρόγνωση."}
-]
+        {"img": "subpages/pictures/UI_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
+        {"img": "subpages/pictures/UI_Thermostat.png", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
+        {"img": "subpages/pictures/UI_Scenes.png", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
+        {"img": "subpages/pictures/UI_Devices.png", "title": "Devices", "desc": "Λίστα συσκευών και παραμετροποίηση."},
+        {"img": "subpages/pictures/UI_Rooms.png", "title": "Rooms", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
+        {"img": "subpages/pictures/UI_Alarm.png", "title": "Alarm", "desc": "Σύστημα συναγερμού και ειδοποιήσεις."},
+        {"img": "subpages/pictures/UI_Favourites.png", "title": "Favourites", "desc": "Αγαπημένες λειτουργίες και shortcuts."},
+        {"img": "subpages/pictures/UI_Home.png", "title": "Home", "desc": "Αρχική οθόνη εφαρμογής."},
+        {"img": "subpages/pictures/UI_Settings.png", "title": "Settings", "desc": "Γενικές ρυθμίσεις συστήματος."},
+        {"img": "subpages/pictures/UI_Slideshow.png", "title": "Slideshow", "desc": "Προβολή εικόνων και πληροφοριών."},
+        {"img": "subpages/pictures/UI_Numbers.png", "title": "Numbers", "desc": "Αριθμητικές ενδείξεις και στατιστικά."},
+        {"img": "subpages/pictures/UI_Weather.png", "title": "Weather", "desc": "Καιρικές συνθήκες και πρόγνωση."}
+    ]
 
     for i, item in enumerate(gallery_items):
+
+        # Φόρτωση εικόνας σε base64
+        img_b64 = load_image_base64(item['img'])
+
         with cols[i % 3]:
             st.markdown(f"""
             <a href="#lightbox{i}">
                 <div class="dark-card">
-                    <img src="{item['img']}" style="width:100%; border-radius:10px;">
+                    <img src="data:image/png;base64,{img_b64}" style="width:100%; border-radius:10px;">
                     <div class="dark-title">{item['title']}</div>
                     <div class="dark-desc">{item['desc']}</div>
                 </div>
@@ -285,7 +298,7 @@ def show():
             <div id="lightbox{i}" class="lightbox">
                 <a href="#" class="lightbox-close"></a>
                 <div class="lightbox-content">
-                    <img src="{item['img']}">
+                    <img src="data:image/png;base64,{img_b64}">
                     <div class="lightbox-text">
                         <h2>{item['title']}</h2>
                         <p>{item['desc']}</p>
