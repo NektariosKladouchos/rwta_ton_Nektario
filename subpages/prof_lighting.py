@@ -145,15 +145,14 @@ def show():
     )
 
     st.divider()
+
     # ---------------------------------------------------------
-    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM
+    #  FULLSCREEN GALLERY – CSS & LIGHTBOX SYSTEM (FIXED)
     # ---------------------------------------------------------
 
-    # CSS για fullscreen lightbox + dark cards + text κάτω από την εικόνα
     st.markdown("""
     <style>
 
-    /* ----------- GALLERY CARDS ----------- */
     .dark-card {
         background: #111;
         border: 1px solid #222;
@@ -182,7 +181,7 @@ def show():
         margin-top: 6px;
     }
 
-    /* ----------- FULLSCREEN LIGHTBOX ----------- */
+    /* FULLSCREEN LIGHTBOX */
     .lightbox {
         display: none;
         position: fixed;
@@ -201,7 +200,18 @@ def show():
         display: block;
     }
 
+    .lightbox-close {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
     .lightbox-content {
+        position: relative;
+        z-index: 2;
         display: inline-block;
         max-width: 90%;
         margin: auto;
@@ -237,79 +247,30 @@ def show():
     </style>
     """, unsafe_allow_html=True)
 
-    # Τίτλος Gallery
     st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
     st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
+
     # ---------------------------------------------------------
-    #  PREMIUM DARK GALLERY – 12 ΕΙΚΟΝΕΣ ΜΕ FULLSCREEN
+    #  GALLERY – 12 ΕΙΚΟΝΕΣ
     # ---------------------------------------------------------
 
     cols = st.columns(3)
 
     gallery_items = [
-        {
-            "img": "pictures/01_Dashboard.png",
-            "title": "Dashboard",
-            "desc": "Κεντρική οθόνη διαχείρισης με πλήρη εποπτεία συσκευών."
-        },
-        {
-            "img": "pictures/03_history_Thermostat_IR.png",
-            "title": "Ιστορικό Θερμοστάτη",
-            "desc": "Αναλυτικό ιστορικό θερμοκρασιών και IR λειτουργιών."
-        },
-        {
-            "img": "pictures/04_history_scene open window.png",
-            "title": "Scene – Open Window",
-            "desc": "Αυτόματη σκηνή όταν εντοπίζεται ανοιχτό παράθυρο."
-        },
-        {
-            "img": "pictures/05_SCENES.png",
-            "title": "Σκηνές Φωτισμού",
-            "desc": "Δημιουργία και ενεργοποίηση σκηνών φωτισμού."
-        },
-        {
-            "img": "pictures/09_SETTINGS_DEVICES.png",
-            "title": "Ρυθμίσεις Συσκευών",
-            "desc": "Λίστα συσκευών και παραμετροποίηση λειτουργιών."
-        },
-        {
-            "img": "pictures/10_SETTINGS_ROOMS.png",
-            "title": "Ρυθμίσεις Χώρων",
-            "desc": "Ομαδοποίηση και διαχείριση δωματίων."
-        },
-        {
-            "img": "pictures/11_SETTINGS_SCENES_1.png",
-            "title": "Ρυθμίσεις Σκηνών 1",
-            "desc": "Διαμόρφωση σκηνών φωτισμού – μέρος 1."
-        },
-        {
-            "img": "pictures/12_SETTINGS_SCENES_2.png",
-            "title": "Ρυθμίσεις Σκηνών 2",
-            "desc": "Διαμόρφωση σκηνών φωτισμού – μέρος 2."
-        },
-        {
-            "img": "pictures/13_SETTINGS_SCENES_3.png",
-            "title": "Ρυθμίσεις Σκηνών 3",
-            "desc": "Διαμόρφωση σκηνών φωτισμού – μέρος 3."
-        },
-        {
-            "img": "pictures/21_SETTINGS_GENERAL_LOCAL.png",
-            "title": "Γενικές Ρυθμίσεις – Local",
-            "desc": "Τοπικές ρυθμίσεις συστήματος και παραμέτρων."
-        },
-        {
-            "img": "pictures/23_SETTINGS_GENERAL_VARIABLES.png",
-            "title": "Γενικές Ρυθμίσεις – Variables",
-            "desc": "Μεταβλητές συστήματος και προχωρημένες επιλογές."
-        },
-        {
-            "img": "pictures/28_SETTINGS_BACKUP.png",
-            "title": "Backup",
-            "desc": "Δημιουργία και επαναφορά αντιγράφων ασφαλείας."
-        }
+        {"img": "pictures/01_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
+        {"img": "pictures/03_history_Thermostat_IR.png", "title": "Ιστορικό Θερμοστάτη", "desc": "Αναλυτικό ιστορικό θερμοκρασιών."},
+        {"img": "pictures/04_history_scene open window.png", "title": "Scene – Open Window", "desc": "Αυτόματη σκηνή όταν ανοίγει παράθυρο."},
+        {"img": "pictures/05_SCENES.png", "title": "Σκηνές Φωτισμού", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
+        {"img": "pictures/09_SETTINGS_DEVICES.png", "title": "Ρυθμίσεις Συσκευών", "desc": "Παραμετροποίηση συσκευών."},
+        {"img": "pictures/10_SETTINGS_ROOMS.png", "title": "Ρυθμίσεις Χώρων", "desc": "Ομαδοποίηση δωματίων."},
+        {"img": "pictures/11_SETTINGS_SCENES_1.png", "title": "Ρυθμίσεις Σκηνών 1", "desc": "Διαμόρφωση σκηνών – μέρος 1."},
+        {"img": "pictures/12_SETTINGS_SCENES_2.png", "title": "Ρυθμίσεις Σκηνών 2", "desc": "Διαμόρφωση σκηνών – μέρος 2."},
+        {"img": "pictures/13_SETTINGS_SCENES_3.png", "title": "Ρυθμίσεις Σκηνών 3", "desc": "Διαμόρφωση σκηνών – μέρος 3."},
+        {"img": "pictures/21_SETTINGS_GENERAL_LOCAL.png", "title": "General – Local", "desc": "Τοπικές ρυθμίσεις συστήματος."},
+        {"img": "pictures/23_SETTINGS_GENERAL_VARIABLES.png", "title": "General – Variables", "desc": "Μεταβλητές συστήματος."},
+        {"img": "pictures/28_SETTINGS_BACKUP.png", "title": "Backup", "desc": "Αντίγραφα ασφαλείας."}
     ]
 
-    # Render gallery + fullscreen lightbox
     for i, item in enumerate(gallery_items):
         with cols[i % 3]:
             st.markdown(f"""
@@ -321,7 +282,8 @@ def show():
                 </div>
             </a>
 
-            <div id="lightbox{i}" class="lightbox" onclick="window.location='#'">
+            <div id="lightbox{i}" class="lightbox">
+                <a href="#" class="lightbox-close"></a>
                 <div class="lightbox-content">
                     <img src="{item['img']}">
                     <div class="lightbox-text">
