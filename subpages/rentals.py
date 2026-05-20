@@ -77,21 +77,69 @@ def show():
 
     st.divider()
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots
-    # --- Σταθερό μέγιστο ύψος για όλες τις εικόνες των carousels ---
+    # --- Lightbox για μεγέθυνση εικόνων ---
     st.markdown("""
     <style>
+    .lightbox-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .lightbox-image {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(255,255,255,0.3);
+    }
+
+    .lightbox-close {
+        position: absolute;
+        top: 25px;
+        right: 35px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
     img {
+        cursor: zoom-in;
         max-height: 450px !important;
         width: auto !important;
         object-fit: contain !important;
+        border-radius: 10px;
     }
     </style>
+
+    <script>
+    function openLightbox(src) {
+        document.getElementById("lightbox-img").src = src;
+        document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
+    }
+    </script>
+
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" class="lightbox-image">
+    </div>
     """, unsafe_allow_html=True)
 
+    # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
     st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-    st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
+    st.write("Κάντε κλικ στις εικόνες για μεγέθυνση και περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
-    # Δημιουργία 2 στηλών: Αριστερά το Κινητό, Δεξιά ο Υπολογιστής
     col_carousel1, col_carousel2 = st.columns(2)
 
     # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
@@ -99,19 +147,17 @@ def show():
         st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
 
         app_images = [
-            {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη που θέλει ορίζοντας να βλέπει τις αγαπημένες του συσκευές."},
-            {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Στο πάνω μέρος εμφανίζονται συγκεντρωτικά και ανά κατηγορίες οι συσκευές. Στο κάτω μέρος αναλύονται οι συσκευές ανά κατηγορία."},
-            {"title": "Συσκευές ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_3.jpg", "desc": "Ο χρήστης επιλέγει ποια κατηγορία και ποιες συσκευές θα εμφανίζονται."},
-            {"title": "Ανάλυση συσκευών ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_4.jpg", "desc": "Αναλυτική εμφάνιση συσκευών ανά κατηγορία."},
-            {"title": "Μετεωρολογικός Σταθμός", "url": "subpages/pictures/FAVOURITES_5.jpg", "desc": "Εμφάνιση καιρικών συνθηκών, θερμοκρασίας, υγρασίας και ανέμου."},
-            {"title": "Οθόνη παρουσίασης Δωματίων", "url": "subpages/pictures/HOME_1.jpg", "desc": "Εμφάνιση δωματίων με θερμοκρασία, υγρασία και κατάσταση χώρου."},
-            {"title": "Ανάλυση συσκευών Δωματίου", "url": "subpages/pictures/HOME_2.jpg", "desc": "Διαχείριση συσκευών ανά δωμάτιο."},
-            {"title": "Δωμάτιο Ηλεκτρικός Πίνακας", "url": "subpages/pictures/HOME_3.jpg", "desc": "Παρακολούθηση παρουσίας, θερμοσίφωνα και boiler."},
-            {"title": "Ενότητα Scenes", "url": "subpages/pictures/SCENES_1.jpg", "desc": "Σενάρια για παρουσία και ζεστά νερά χρήσης."},
-            {"title": "Σενάρια κλιματιστικών", "url": "subpages/pictures/SCENES_2.jpg", "desc": "Κλείδωμα θερμοκρασιών κλιματιστικών."},
-            {"title": "Επιλογή Σεναρίων", "url": "subpages/pictures/SCENES_5.jpg", "desc": "Απομακρυσμένη ενεργοποίηση/απενεργοποίηση σεναρίων."},
-            {"title": "Συγκεντρωτική οθόνη θερμοστατών", "url": "subpages/pictures/MORE_1.jpg", "desc": "Live παρακολούθηση κατάστασης κλιματιστικών."},
-            {"title": "Οθόνη ALARM", "url": "subpages/pictures/MORE_2.jpg", "desc": "Παρακολούθηση και διαχείριση ζωνών συναγερμού."}
+            {"title": "Κεντρική Οθόνη (Favourites)", "url": "subpages/pictures/FAVOURITES_1.jpg", "desc": "Κεντρική οθόνη που ο κάθε χρήστης φτιάχνει την οθόνη του."},
+            {"title": "Κεντρική Οθόνη", "url": "subpages/pictures/FAVOURITES_2.jpg", "desc": "Συγκεντρωτική εμφάνιση συσκευών ανά κατηγορία."},
+            {"title": "Συσκευές ανά κατηγορία", "url": "subpages/pictures/FAVOURITES_3.jpg", "desc": "Ο χρήστης επιλέγει ποιες συσκευές θα εμφανίζονται."},
+            {"title": "Ανάλυση συσκευών", "url": "subpages/pictures/FAVOURITES_4.jpg", "desc": "Αναλυτική εμφάνιση συσκευών ανά κατηγορία."},
+            {"title": "Μετεωρολογικός Σταθμός", "url": "subpages/pictures/FAVOURITES_5.jpg", "desc": "Καιρικές συνθήκες, θερμοκρασία, υγρασία."},
+            {"title": "Οθόνη Δωματίων", "url": "subpages/pictures/HOME_1.jpg", "desc": "Εμφάνιση δωματίων με θερμοκρασία & υγρασία."},
+            {"title": "Ανάλυση Δωματίου", "url": "subpages/pictures/HOME_2.jpg", "desc": "Διαχείριση συσκευών ανά δωμάτιο."},
+            {"title": "Ηλεκτρικός Πίνακας", "url": "subpages/pictures/HOME_3.jpg", "desc": "Παρακολούθηση παρουσίας & boiler."},
+            {"title": "Σενάρια", "url": "subpages/pictures/SCENES_1.jpg", "desc": "Σενάρια παρουσίας & ζεστών νερών."},
+            {"title": "Ρυθμίσεις Σκηνών", "url": "subpages/pictures/SCENES_5.jpg", "desc": "Ενεργοποίηση/απενεργοποίηση σεναρίων."},
+            {"title": "Περισσότερα", "url": "subpages/pictures/MORE_1.jpg", "desc": "Live παρακολούθηση κλιματιστικών."}
         ]
 
         selected_app_page = st.selectbox(
@@ -122,7 +168,10 @@ def show():
 
         for img in app_images:
             if img["title"] == selected_app_page:
-                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.markdown(
+                    f'<img src="{img["url"]}" onclick="openLightbox(\'{img["url"]}\')" style="width:100%;">',
+                    unsafe_allow_html=True
+                )
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
@@ -130,19 +179,18 @@ def show():
         st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
 
         pc_images = [
-            {"title": "Κεντρική Οθόνη (Dashboard)", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου και διαχείρισης συσκευών."},
-            {"title": "Ιστορικό λειτουργίας θερμοστάτη", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Παρακολούθηση χειρισμών θερμοστάτη από τον πελάτη."},
-            {"title": "Ιστορικό λειτουργίας σεναρίων", "url": "subpages/pictures/04_history_scene open window.png", "desc": "Διακοπή κλιματιστικού όταν ανοίγει το παράθυρο."},
-            {"title": "Πίνακας Σεναρίων", "url": "subpages/pictures/05_SCENES.png", "desc": "Σενάρια ανά δωμάτιο."},
-            {"title": "Ρυθμίσεις Συσκευών", "url": "subpages/pictures/09_SETTINGS_DEVICES.png", "desc": "Παραμετροποίηση ενσύρματων & ασύρματων συσκευών."},
-            {"title": "Δημιουργία Δωματίων", "url": "subpages/pictures/10_SETTINGS_ROOMS.png", "desc": "Δημιουργία και παραμετροποίηση χώρων."},
-            {"title": "Πίνακας Σεναρίων ανά Δωμάτιο", "url": "subpages/pictures/11_SETTINGS_SCENES_1.png", "desc": "Σενάρια παρουσίας & ζεστών νερών."},
-            {"title": "Δημιουργία Σεναρίου Παρουσίας", "url": "subpages/pictures/12_SETTINGS_SCENES_2.png", "desc": "BLOCK SCENE για παρουσία."},
-            {"title": "Δημιουργία Σεναρίου Θερμοσίφωνα", "url": "subpages/pictures/13_SETTINGS_SCENES_3.png", "desc": "Σενάριο για άνοιγμα θερμοσίφωνα με συνθήκες."},
-            {"title": "Διαμόρφωση Συστήματος", "url": "subpages/pictures/21_SETTINGS_GENERAL_LOCATION.png", "desc": "Ορισμός τοποθεσίας συστήματος."},
-            {"title": "Πίνακας Μεταβλητών", "url": "subpages/pictures/23_SETTINGS_GENERAL_VARIABLES.png", "desc": "Μεταβλητές για κλιματιστικά & θερμοκρασίες."},
-            {"title": "BACKUP", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Backup προγραμματισμού & συσκευών."},
-            {"title": "Πίνακας ALARM", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρύθμιση παγίδων παραθύρου & συναγερμού."}
+            {"title": "Dashboard", "url": "subpages/pictures/01_Dashboard.png", "desc": "Πλήρες ταμπλό ελέγχου."},
+            {"title": "Ιστορικό Θερμοστάτη", "url": "subpages/pictures/03_history_Thermostat_IR.png", "desc": "Παρακολούθηση χειρισμών θερμοστάτη."},
+            {"title": "Ιστορικό Σκηνών", "url": "subpages/pictures/04_history_scene open window.png", "desc": "Ανίχνευση ανοικτού παραθύρου."},
+            {"title": "Πίνακας Σκηνών", "url": "subpages/pictures/05_SCENES.png", "desc": "Σενάρια ανά δωμάτιο."},
+            {"title": "Ρυθμίσεις Συσκευών", "url": "subpages/pictures/09_SETTINGS_DEVICES.png", "desc": "Παραμετροποίηση συσκευών."},
+            {"title": "Ρυθμίσεις Δωματίων", "url": "subpages/pictures/10_SETTINGS_ROOMS.png", "desc": "Δημιουργία & ρύθμιση χώρων."},
+            {"title": "Σενάρια Παρουσίας", "url": "subpages/pictures/12_SETTINGS_SCENES_2.png", "desc": "BLOCK SCENE για παρουσία."},
+            {"title": "Σενάρια Θερμοσίφωνα", "url": "subpages/pictures/13_SETTINGS_SCENES_3.png", "desc": "Αυτόματη ενεργοποίηση θερμοσίφωνα."},
+            {"title": "Τοποθεσία Συστήματος", "url": "subpages/pictures/21_SETTINGS_GENERAL_LOCATION.png", "desc": "Ορισμός τοποθεσίας."},
+            {"title": "Μεταβλητές", "url": "subpages/pictures/23_SETTINGS_GENERAL_VARIABLES.png", "desc": "Ρυθμίσεις θερμοκρασιών."},
+            {"title": "Backup", "url": "subpages/pictures/28_SETTINGS_BACKUP.png", "desc": "Αντίγραφα ασφαλείας."},
+            {"title": "Alarm", "url": "subpages/pictures/33_SETTINGS_ALARM.png", "desc": "Ρύθμιση ζωνών συναγερμού."}
         ]
 
         selected_pc_page = st.selectbox(
@@ -153,8 +201,12 @@ def show():
 
         for img in pc_images:
             if img["title"] == selected_pc_page:
-                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.markdown(
+                    f'<img src="{img["url"]}" onclick="openLightbox(\'{img["url"]}\')" style="width:100%;">',
+                    unsafe_allow_html=True
+                )
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
     st.write("Η επένδυση στον αυτοματισμό αποσβένεται γρήγορα μέσω της εξοικονόμησης ενέργειας και της μείωσης των ζημιών.")
