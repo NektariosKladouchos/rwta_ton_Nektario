@@ -78,38 +78,18 @@ def show():
     """)
 
     st.divider()
-    
-
-st.markdown("""
-<style>
-/* Ίδιο ύψος για mobile */
-.carousel-img-mobile {
-    max-height: 380px !important;
-    object-fit: contain !important;
-    border-radius: 12px;
-}
-
-/* Μεγαλύτερο ύψος για PC ώστε να ισορροπήσει */
-.carousel-img-pc {
-    max-height: 430px !important;
-    object-fit: contain !important;
-    border-radius: 12px;
-}
-</style>
-""", unsafe_allow_html=True)
-
 
    
 
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
-st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
-st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
+    st.subheader("📱 Περιβάλλον Διαχείρισης (Live App & PC Screenshots)")
+    st.write("Κάντε κλικ στα μενού για να περιηγηθείτε στις οθόνες της εφαρμογής και του διαχειριστικού προγράμματος.")
 
         # Δημιουργία 2 στηλών: Αριστερά το Κινητό, Δεξιά ο Υπολογιστής
-col_carousel1, col_carousel2 = st.columns(2)
+    col_carousel1, col_carousel2 = st.columns(2)
 
     # ------------------ ΣΤΗΛΗ 1: ΚΑΡΟΥΣΕΛ ΚΙΝΗΤΟΥ ------------------
-with col_carousel1:
+    with col_carousel1:
         st.markdown("### 📱 Οθόνες Εφαρμογής Κινητού")
         
         # 1. Λίστα με τις εικόνες και τις λεζάντες για το Κινητό (Τοπικά Αρχεία)
@@ -141,15 +121,12 @@ with col_carousel1:
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
         for img in app_images:
             if img["title"] == selected_app_page:
-                st.markdown('<div class="carousel-img-mobile">', unsafe_allow_html=True)
-st.image(img["url"], caption=img["title"], use_container_width=True)
-st.markdown('</div>', unsafe_allow_html=True)
-
-st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
-with col_carousel2:
+    with col_carousel2:
         st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
         
         # 1. Λίστα με τις εικόνες και τις λεζάντες για το PC (Τοπικά Αρχεία)
@@ -177,13 +154,10 @@ with col_carousel2:
         )
         
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
-for img in pc_images:
-    if img["title"] == selected_pc_page:
-        st.markdown('<div class="carousel-img-pc">', unsafe_allow_html=True)
-        st.image(img["url"], caption=img["title"], use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        st.info(f"**🖥 Επεξήγηση:** {img['desc']}")
+        for img in pc_images:
+            if img["title"] == selected_pc_page:
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
