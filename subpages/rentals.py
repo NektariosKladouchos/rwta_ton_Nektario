@@ -79,9 +79,9 @@ def show():
 
     st.divider()
 
-  st.markdown("""
+    st.markdown("""
 <style>
-.carousel-img {
+    .carousel-img {
     max-height: 280px !important;
     width: 100% !important;
     object-fit: contain !important;
