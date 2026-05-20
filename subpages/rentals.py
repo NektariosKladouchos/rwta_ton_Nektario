@@ -82,7 +82,7 @@ def show():
     st.markdown("""
 <style>
 .carousel-img {
-    max-height: 380px !important;
+    max-height: 330px !important;
     width: 100% !important;
     object-fit: contain !important;
     border-radius: 12px;
