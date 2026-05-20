@@ -263,7 +263,7 @@ def show():
     #  GALLERY – 12 ΕΙΚΟΝΕΣ ΜΕ BASE64
     # ---------------------------------------------------------
 
-        cols = st.columns(3)
+cols = st.columns(3)
 
         gallery_items = [
         {"img": "pictures/UI_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
