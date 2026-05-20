@@ -149,12 +149,13 @@ def show():
     )
 
     st.divider()
-    # ---------------------------------------------------------
-    #  PREMIUM CSS PACK – Rounded + Shadow + Border + Fade‑in
+      # ---------------------------------------------------------
+    #  PREMIUM CSS PACK – Rounded + Shadow + Border + Fade‑in + Alignment
     # ---------------------------------------------------------
     st.markdown("""
     <style>
 
+    /* Fade-in animation */
     .premium-img {
         opacity: 0;
         animation: fadeIn 0.8s ease forwards;
@@ -165,12 +166,41 @@ def show():
         to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* Σταθερό ύψος εικόνας */
     .premium-img img {
+        height: 260px !important;
+        object-fit: cover !important;
+        width: 100% !important;
         border-radius: 14px !important;
         border: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 4px 18px rgba(0,0,0,0.35);
     }
 
+    /* Σταθερό ύψος τίτλου */
+    .gallery-title {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    /* Σταθερό ύψος περιγραφής */
+    .gallery-desc {
+        height: 55px;
+        font-size: 15px;
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    /* Σταθερό ύψος όλου του block */
+    .gallery-block {
+        min-height: 420px;
+        margin-bottom: 20px;
+    }
+
+    /* Premium background */
     .gallery-section {
         background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
         padding: 40px 25px;
@@ -182,6 +212,8 @@ def show():
 
     </style>
     """, unsafe_allow_html=True)
+
+
     # ---------------------------------------------------------
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
@@ -212,13 +244,16 @@ def show():
         full_path = os.path.join(PICTURES_DIR, filename)
 
         with cols[i % 3]:
+            st.markdown('<div class="gallery-block">', unsafe_allow_html=True)
+
             st.markdown('<div class="premium-img">', unsafe_allow_html=True)
             st.image(full_path, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
-            st.markdown(f"### {title}")
-            st.markdown(desc)
-            st.markdown("---")
+            st.markdown(f'<div class="gallery-title">{title}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="gallery-desc">{desc}</div>', unsafe_allow_html=True)
+
+            st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
