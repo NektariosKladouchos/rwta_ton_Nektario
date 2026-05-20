@@ -206,56 +206,33 @@ def show():
     </style>
     """, unsafe_allow_html=True)
     st.header("📱 Screenshots Κεντρικής Μονάδας & Mobile App")
-    st.write("Premium dark‑mode gallery με fullscreen προβολή και επεξηγηματικό κείμενο.")
+st.write("Premium gallery με απλή προβολή και επεξήγηση κάτω από κάθε εικόνα.")
 
-    gallery_items = [
-        ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
-        ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
-        ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
-        ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
-        ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
-        ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
-        ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
-        ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
-        ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
-        ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
-        ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
-        ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
-    ]
+pictures_dir = "pictures"
 
-    cols = st.columns(3)
+gallery_items = [
+    ("01_Dashboard.png", "Dashboard", "Κεντρική οθόνη διαχείρισης."),
+    ("03_history_Thermostat_IR.png", "Thermostat History", "Ιστορικό θερμοστάτη & εντολές."),
+    ("04_history_scene open windows close AC.png", "Scene History", "Αυτόματη σκηνή: Παράθυρα ανοιχτά → Κλείσιμο AC."),
+    ("05_SCENES.png", "Scenes", "Λίστα σκηνών & ενεργοποίηση."),
+    ("09_SETTINGS_DEVICES.png", "Devices", "Ρυθμίσεις συσκευών & παραμετροποίηση."),
+    ("10_SETTINGS_ROOMS.png", "Rooms", "Ομαδοποίηση δωματίων & διαχείριση."),
+    ("11_SETTINGS_SCENES_1.png", "Scenes Setup 1", "Ρυθμίσεις σκηνών – Βήμα 1."),
+    ("12_SETTINGS_SCENES_2.png", "Scenes Setup 2", "Ρυθμίσεις σκηνών – Βήμα 2."),
+    ("13_SETTINGS_SCENES_3.png", "Scenes Setup 3", "Ρυθμίσεις σκηνών – Βήμα 3."),
+    ("21_SETTINGS_GENERAL_LOCATION.png", "Location", "Ρυθμίσεις τοποθεσίας & ώρας."),
+    ("23_SETTINGS_GENERAL_VARIABLES.png", "Variables", "Μεταβλητές συστήματος & automation."),
+    ("33_SETTINGS_ALARM.png", "Alarm", "Ρυθμίσεις συστήματος συναγερμού.")
+]
 
-    for i, (filename, title, desc) in enumerate(gallery_items):
+cols = st.columns(3)
 
-        full_path = os.path.join(PICTURES_DIR, filename)
-        img_b64 = load_image_base64(filename)
+for i, (filename, title, desc) in enumerate(gallery_items):
 
-        with cols[i % 3]:
+    full_path = os.path.join(pictures_dir, filename)
 
-            st.image(full_path, use_container_width=True)
-
-            st.markdown(f"""
-            <a href="#lightbox{i}">
-                <div class="dark-card">
-                    <img src="data:image/png;base64,{img_b64}" style="width:100%; border-radius:10px;">
-                    <div class="dark-title">{title}</div>
-                    <div class="dark-desc">{desc}</div>
-                </div>
-            </a>
-            """, unsafe_allow_html=True)
-
-            st.markdown(f"""
-            <div id="lightbox{i}" class="lightbox">
-                <a href="#" class="lightbox-close"></a>
-                <div class="lightbox-content">
-                    <img src="data:image/png;base64,{img_b64}">
-                    <div class="lightbox-text">
-                        <h2>{title}</h2>
-                        <p>{desc}</p>
-                    </div>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-    st.divider()
-    st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
+    with cols[i % 3]:
+        st.image(full_path, use_container_width=True)
+        st.markdown(f"### {title}")
+        st.markdown(f"{desc}")
+        st.markdown("---")
