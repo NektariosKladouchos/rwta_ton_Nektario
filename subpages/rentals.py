@@ -79,6 +79,24 @@ def show():
 
     st.divider()
 
+    st.markdown("""
+<style>
+/* Ίδιο ύψος για mobile */
+.carousel-img-mobile {
+    max-height: 380px !important;
+    object-fit: contain !important;
+    border-radius: 12px;
+}
+
+/* Μεγαλύτερο ύψος για PC ώστε να ισορροπήσει */
+.carousel-img-pc {
+    max-height: 430px !important;
+    object-fit: contain !important;
+    border-radius: 12px;
+}
+</style>
+""", unsafe_allow_html=True)
+
    
 
     # 4. Διασύνδεση & Εφαρμογές (Διαδραστικό Καρουσέλ Screenshots)
