@@ -256,20 +256,20 @@ def show():
 
     cols = st.columns(3)
 
-    gallery_items = [
-        {"img": "pictures/01_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
-        {"img": "pictures/03_history_Thermostat_IR.png", "title": "Ιστορικό Θερμοστάτη", "desc": "Αναλυτικό ιστορικό θερμοκρασιών."},
-        {"img": "pictures/04_history_scene open window.png", "title": "Scene – Open Window", "desc": "Αυτόματη σκηνή όταν ανοίγει παράθυρο."},
-        {"img": "pictures/05_SCENES.png", "title": "Σκηνές Φωτισμού", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
-        {"img": "pictures/09_SETTINGS_DEVICES.png", "title": "Ρυθμίσεις Συσκευών", "desc": "Παραμετροποίηση συσκευών."},
-        {"img": "pictures/10_SETTINGS_ROOMS.png", "title": "Ρυθμίσεις Χώρων", "desc": "Ομαδοποίηση δωματίων."},
-        {"img": "pictures/11_SETTINGS_SCENES_1.png", "title": "Ρυθμίσεις Σκηνών 1", "desc": "Διαμόρφωση σκηνών – μέρος 1."},
-        {"img": "pictures/12_SETTINGS_SCENES_2.png", "title": "Ρυθμίσεις Σκηνών 2", "desc": "Διαμόρφωση σκηνών – μέρος 2."},
-        {"img": "pictures/13_SETTINGS_SCENES_3.png", "title": "Ρυθμίσεις Σκηνών 3", "desc": "Διαμόρφωση σκηνών – μέρος 3."},
-        {"img": "pictures/21_SETTINGS_GENERAL_LOCAL.png", "title": "General – Local", "desc": "Τοπικές ρυθμίσεις συστήματος."},
-        {"img": "pictures/23_SETTINGS_GENERAL_VARIABLES.png", "title": "General – Variables", "desc": "Μεταβλητές συστήματος."},
-        {"img": "pictures/28_SETTINGS_BACKUP.png", "title": "Backup", "desc": "Αντίγραφα ασφαλείας."}
-    ]
+  gallery_items = [
+    {"img": "pictures/UI_Dashboard.png", "title": "Dashboard", "desc": "Κεντρική οθόνη διαχείρισης."},
+    {"img": "pictures/UI_Thermostat.png", "title": "Thermostat", "desc": "Έλεγχος θερμοκρασίας και ιστορικό."},
+    {"img": "pictures/UI_Scenes.png", "title": "Scenes", "desc": "Διαχείριση και ενεργοποίηση σκηνών."},
+    {"img": "pictures/UI_Devices.png", "title": "Devices", "desc": "Λίστα συσκευών και παραμετροποίηση."},
+    {"img": "pictures/UI_Rooms.png", "title": "Rooms", "desc": "Ομαδοποίηση και διαχείριση δωματίων."},
+    {"img": "pictures/UI_Alarm.png", "title": "Alarm", "desc": "Σύστημα συναγερμού και ειδοποιήσεις."},
+    {"img": "pictures/UI_Favourites.png", "title": "Favourites", "desc": "Αγαπημένες λειτουργίες και shortcuts."},
+    {"img": "pictures/UI_Home.png", "title": "Home", "desc": "Αρχική οθόνη εφαρμογής."},
+    {"img": "pictures/UI_Settings.png", "title": "Settings", "desc": "Γενικές ρυθμίσεις συστήματος."},
+    {"img": "pictures/UI_Slideshow.png", "title": "Slideshow", "desc": "Προβολή εικόνων και πληροφοριών."},
+    {"img": "pictures/UI_Numbers.png", "title": "Numbers", "desc": "Αριθμητικές ενδείξεις και στατιστικά."},
+    {"img": "pictures/UI_Weather.png", "title": "Weather", "desc": "Καιρικές συνθήκες και πρόγνωση."}
+]
 
     for i, item in enumerate(gallery_items):
         with cols[i % 3]:
