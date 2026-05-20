@@ -78,21 +78,6 @@ def show():
     """)
 
     st.divider()
-# --- Premium εικόνες με ίσιο ύψος ---
-    st.markdown("""
-    <style>
-    img {
-    max-height: 420px !important;
-    object-fit: contain !important;
-    border-radius: 12px;
-}
-    img:hover {
-    transform: scale(1.03);
-    transition: 0.25s ease-in-out;
-    box-shadow: 0 0 18px rgba(0,0,0,0.35);
-}
-    </style>
-    """, unsafe_allow_html=True)
 
    
 
