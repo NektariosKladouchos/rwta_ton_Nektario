@@ -86,12 +86,14 @@ st.markdown("""
 .carousel-img-mobile {
     max-height: 380px !important;
     object-fit: contain !important;
+    border-radius: 12px;
 }
 
 /* Μεγαλύτερο ύψος για PC ώστε να ισορροπήσει */
 .carousel-img-pc {
     max-height: 430px !important;
     object-fit: contain !important;
+    border-radius: 12px;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -139,7 +141,10 @@ st.markdown("""
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
         for img in app_images:
             if img["title"] == selected_app_page:
-                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.markdown('<div class="carousel-img-mobile">', unsafe_allow_html=True)
+st.image(img["url"], caption=img["title"], use_container_width=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
@@ -172,10 +177,13 @@ st.markdown("""
         )
         
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
-        for img in pc_images:
-            if img["title"] == selected_pc_page:
-                st.image(img["url"], caption=img["title"], use_container_width=True)
-                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+       for img in pc_images:
+    if img["title"] == selected_pc_page:
+        st.markdown('<div class="carousel-img-pc">', unsafe_allow_html=True)
+        st.image(img["url"], caption=img["title"], use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.info(f"**🖥 Επεξήγηση:** {img['desc']}")
 
     # 5. Κόστος Project
     st.subheader("💰 Κόστος Project & Υλικών")
