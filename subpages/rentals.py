@@ -81,7 +81,7 @@ def show():
 
     st.markdown("""
 <style>
-    .carousel-img {
+.carousel-img {
     max-height: 300px !important;
     width: 100% !important;
     object-fit: contain !important;
@@ -89,6 +89,7 @@ def show():
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
    
