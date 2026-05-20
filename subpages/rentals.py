@@ -78,19 +78,6 @@ def show():
     """)
 
     st.divider()
-    st.markdown("""
-<style>
-.carousel-img-mobile {
-    max-height: 200px !important;   /* Μίκρυνε εδώ όσο θες: 260, 240, 220 κτλ */
-    object-fit: contain !important;
-    border-radius: 12px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-
-
 
    
 
@@ -134,12 +121,8 @@ def show():
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
         for img in app_images:
             if img["title"] == selected_app_page:
-              st.markdown('<div class="carousel-img">', unsafe_allow_html=True)
-              st.image(img["url"], width=230)   # ΠΑΙΞΕ με το νούμερο: 230, 210, 190 κτλ
-              st.markdown('</div>', unsafe_allow_html=True)
-
-               st.markdown('</div>', unsafe_allow_html=True)
-               st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
+                st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
