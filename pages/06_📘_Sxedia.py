@@ -1,5 +1,7 @@
 import streamlit as st
 import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PICTURES_DIR = os.path.join(BASE_DIR, "subpages", "pictures")
 
 # ---------------------------------------------------------
 # PATHS
