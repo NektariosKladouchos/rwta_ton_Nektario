@@ -82,7 +82,8 @@ with col1:
     st.markdown("### 📘 Τεχνικά Σχέδια")
     st.write("Διαγράμματα σύνδεσης DALI, LED και HVAC.")
     if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ", use_container_width=True):
-        st.switch_page("pages/06_Sxedia.py")
+       "st.switch_page("pages/06_sxedia.py")
+
 
 # -------- RIGHT COLUMN --------
 with col2:
