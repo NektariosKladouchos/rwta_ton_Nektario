@@ -191,7 +191,7 @@ with tab2:
 with tab3:
     st.subheader("🎓 Μαθήματα")
 
-       επιλογή3 = st.selectbox(
+    επιλογή3 = st.selectbox(
         "Επιλέξτε μάθημα:",
         [
             "Τι είναι το 0-10V",
