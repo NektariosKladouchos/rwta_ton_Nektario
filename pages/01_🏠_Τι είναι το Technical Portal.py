@@ -1,177 +1,75 @@
 import streamlit as st
-import streamlit_analytics2 as analytics
 
-# ---------------------------------------------------------
-# PAGE CONFIG
-# ---------------------------------------------------------
-st.set_page_config(
-    page_title="Geyer Technical Portal",
-    page_icon="⚡",
-    layout="wide"
-)
-
-# ---------------------------------------------------------
-# ANALYTICS
-# ---------------------------------------------------------
-with analytics.track():
-    st.title("Ρώτα τον Νεκτάριο")
-
-# ---------------------------------------------------------
-# CUSTOM CSS
-# ---------------------------------------------------------
-CUSTOM_CSS = """
-<style>
-
-/* Sidebar background */
-[data-testid="stSidebar"] {
-    background-color: #1a4a2e !important;
-}
-
-/* Sidebar text */
-[data-testid="stSidebar"] * {
-    color: white !important;
-}
-
-/* Hide first nav item */
-[data-testid="stSidebarNav"] li:first-child {
-    display: none;
-}
-
-/* Main title */
-.main-title {
-    color: #28a745;
-    text-align: center;
-    font-family: sans-serif;
-}
-
-/* CARD STYLE */
-.card {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 2px solid #1a4a2e20;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
-    transition: 0.2s ease-in-out;
-}
-
-.card:hover {
-    border-color: #1a4a2e;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
-    transform: translateY(-3px);
-}
-
-/* Card titles */
-.card h3 {
-    color: #1a4a2e;
-    margin-bottom: 8px;
-}
-
-/* Buttons */
-button[kind="secondary"] {
-    background-color: #1a4a2e !important;
-    color: white !important;
-    border-radius: 6px !important;
-}
-
-button[kind="secondary"]:hover {
-    background-color: #145a32 !important;
-}
-
-</style>
-"""
-st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
-
-# ---------------------------------------------------------
-# SIDEBAR
-# ---------------------------------------------------------
-with st.sidebar:
-    st.image("home_light.jpg", caption="Geyer Technical Portal", use_container_width=True)
-    st.markdown("<h2 style='text-align:center;'>GEYER</h2>", unsafe_allow_html=True)
-    st.write("---")
-    st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
-
-# ---------------------------------------------------------
-# MAIN TITLE
-# ---------------------------------------------------------
-st.markdown("<h1 class='main-title'>TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
+# Ρύθμιση σελίδας
+st.set_page_config(page_title="Εισαγωγή - Geyer Portal", page_icon="🏠", layout="wide")
+# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
 st.markdown(
-    "<p style='text-align:center; color:gray;'>"
-    "Πλατφόρμα τεχνικής υποστήριξης Smart Home - Υπεύθυνος: Νεκτάριος Κλαδούχος"
-    "</p>",
+    """
+    <style>
+        /* Φόντο αριστερής μπάρας */
+        [data-testid="stSidebar"] {
+            background-color: #0b3c26 !important;
+        }
+        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
+        [data-testid="stSidebarNav"] span {
+            color: white !important;
+        }
+        /* Εικονίδια αριστερής μπάρας */
+        [data-testid="stSidebarNav"] svg {
+            fill: white !important;
+        }
+    </style>
+    """,
     unsafe_allow_html=True
 )
+
+
+# Τίτλος και Καλωσόρισμα
+st.markdown("<h1 style='text-align: center; color: #28a745;'>Καλώς ήρθατε στο Geyer Technical Portal</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: #666;'>Με την υπογραφή του Νεκτάριου Κλαδούχου</h3>", unsafe_allow_html=True)
 st.write("---")
 
-# ---------------------------------------------------------
-# CONTENT SECTIONS (WHITE MINIMAL CARDS)
-# ---------------------------------------------------------
-col1, col2 = st.columns(2)
+# Κύριο Σώμα
+col1, col2 = st.columns([2, 1])
 
-# -------- LEFT COLUMN --------
 with col1:
+    st.markdown("### 🎯 Ο Σκοπός μας")
+    st.write("""
+    Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον πολυτέλεια, αλλά το εργαλείο για έναν εξυπνότερο τρόπο ζωής. 
+    Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και πληροφοριακή υποστήριξη που χρειάζεστε για να δώσετε **τεχνική ευφυΐα** στους χώρους σας.
+    
+    Εστιάζουμε σε λύσεις που κάνουν τα κτίρια:
+    *   **Πιο Ενεργειακά & Αποδοτικά**: Μείωση του κόστους λειτουργίας.
+    *   **Πιο Βιώσιμα**: Σεβασμός στο περιβάλλον μέσω της τεχνολογίας.
+    *   **Πιο Διαχειρίσιμα**: Έλεγχος στα χέρια σας, ανά πάσα στιγμή.
+    """)
 
-    # NEW FIRST CARD — Τι είναι το Technical Portal
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 🏠 Τι είναι το Technical Portal")
-        st.write("Μάθετε τι προσφέρει η πλατφόρμα και πώς μπορεί να σας βοηθήσει.")
-        if st.button("ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ", use_container_width=True):
-            st.switch_page("pages/01_🏠_Τι είναι το Technical Portal.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 🛠 Τι θα βρείτε εδώ")
+    st.write("""
+    *   **Παρουσίαση Έργων**: Πάρτε έμπνευση από πραγματικές εφαρμογές και έτοιμα τεχνικά σχέδια.
+    *   **Επίλυση Προβλημάτων**: Εξειδικευμένες απαντήσεις σε κάθε τεχνική πρόκληση που μπορεί να λύσει ο αυτοματισμός.
+    *   **Live Pricing System**: Μια καινοτομία που σας επιτρέπει να ορίζετε και να βλέπετε εσείς το οικονομικό κομμάτι του έργου σας, ζωντανά.
+    *   **Διαδραστική Επικοινωνία**: Δεν είστε μόνοι. Εδώ συμμετέχετε ενεργά στη διαμόρφωση της πιο αξιόπιστης και οικονομικής λύσης.
+    """)
 
-    st.write("")
-
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
-        st.write("Υπολογισμός υλικών και άμεση προσφορά Smart Home.")
-        if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING", use_container_width=True):
-            st.switch_page("pages/03_📊_Φτιάξε ΕΣΥ το κόστος σου.py")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    st.write("")
-
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📘 Τεχνικά Σχέδια")
-        st.write("Διαγράμματα σύνδεσης DALI, LED και HVAC.")
-        if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ", use_container_width=True):
-            st.switch_page("pages/06_📘_Σχέδια.py")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-# -------- RIGHT COLUMN --------
 with col2:
+    st.info("""
+    **💡 Η Φιλοσοφία μας**
+    Πιστεύω στη δύναμη της συνεργασίας. Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών, αλλά μια ζωντανή κοινότητα ανταλλαγής ιδεών.
+    """)
+    st.image("https://pixabay.com", caption="Smart Living")
 
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
-        st.write("Video tutorials και προτάσεις αυτοματισμού.")
-        if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ", use_container_width=True):
-            st.switch_page("pages/02_💡_ΙΔΕΕΣ & ΛΥΣΕΙΣ.py")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    st.write("")
-
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 💬 Forum")
-        st.write("Συζητήσεις, απορίες και τεχνική κοινότητα.")
-        if st.button("ΜΠΕΙΤΕ ΣΤΟ FORUM", use_container_width=True):
-            st.switch_page("pages/04_💬_Forum.py")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    st.write("")
-
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📞 Επικοινωνία")
-        st.write("Άμεση υποστήριξη και στοιχεία επικοινωνίας.")
-        if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ", use_container_width=True):
-            st.switch_page("pages/05_📞_Επικοινωνία.py")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-# ---------------------------------------------------------
-# FOOTER
-# ---------------------------------------------------------
 st.write("---")
-st.caption("© 2024 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
+
+# Το Forum και το Σύνθημα
+st.markdown("### 💬 Η Κοινότητά μας (Forum)")
+st.write("""
+Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά σε κάθε απαίτηση αυτοματισμού που σας ζητείται. 
+Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
+""")
+
+st.success("### *«Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό»*")
+
+st.write("---")
+st.caption("© 2024 Geyer Technical Portal | Σχεδιασμός & Υλοποίηση: Νεκτάριος Κλαδούχος")
+
