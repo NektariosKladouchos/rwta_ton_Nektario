@@ -11,12 +11,6 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ANALYTICS
-# ---------------------------------------------------------
-with analytics.track():
-    st.markdown("<h1 class='main-title-ask'>GEYER HELLAS</h1>", unsafe_allow_html=True)
-
-# ---------------------------------------------------------
 # CUSTOM CSS
 # ---------------------------------------------------------
 CUSTOM_CSS = """
@@ -41,9 +35,9 @@ CUSTOM_CSS = """
     color: white !important;
 }
 
-/* Hide first nav item */
-[data-testid="stSidebarNav"] li:first-child {
-    display: none;
+/* Hide default "main" label */
+[data-testid="stSidebarNav"] li:first-child a {
+    font-size: 0px !important;
 }
 
 /* CARD STYLE */
@@ -87,10 +81,23 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # SIDEBAR
 # ---------------------------------------------------------
 with st.sidebar:
+
+    # Custom ⭐ Αρχική label
+    st.markdown(
+        "<div style='font-size:22px; font-weight:700; color:white; padding:10px 0;'>⭐ Αρχική</div>",
+        unsafe_allow_html=True
+    )
+
     st.image("LOGO_GEYER.png", use_container_width=True)
     st.markdown("<h2 style='text-align:center;'>GEYER</h2>", unsafe_allow_html=True)
     st.write("---")
     st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
+
+# ---------------------------------------------------------
+# ANALYTICS
+# ---------------------------------------------------------
+with analytics.track():
+    st.markdown("<h1 class='main-title-ask'>GEYER HELLAS</h1>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # MAIN SUBTITLE
