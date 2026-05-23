@@ -40,6 +40,16 @@ CUSTOM_CSS = """
     font-size: 0px !important;
 }
 
+/* Insert custom label ⭐ Αρχική above the nav */
+[data-testid="stSidebarNav"]::before {
+    content: "⭐ Αρχική";
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    display: block;
+    padding: 15px 20px;
+}
+
 /* CARD STYLE */
 .card {
     background-color: white;
@@ -81,13 +91,6 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # SIDEBAR
 # ---------------------------------------------------------
 with st.sidebar:
-
-    # Custom ⭐ Αρχική label
-    st.markdown(
-        "<div style='font-size:22px; font-weight:700; color:white; padding:10px 0;'>⭐ Αρχική</div>",
-        unsafe_allow_html=True
-    )
-
     st.image("LOGO_GEYER.png", use_container_width=True)
     st.markdown("<h2 style='text-align:center;'>GEYER</h2>", unsafe_allow_html=True)
     st.write("---")
