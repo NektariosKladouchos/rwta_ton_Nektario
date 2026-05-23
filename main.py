@@ -109,6 +109,18 @@ col1, col2 = st.columns(2)
 
 # -------- LEFT COLUMN --------
 with col1:
+
+    # NEW FIRST CARD — Τι είναι το Technical Portal
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 🏠 Τι είναι το Technical Portal")
+        st.write("Μάθετε τι προσφέρει η πλατφόρμα και πώς μπορεί να σας βοηθήσει.")
+        if st.button("ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ", use_container_width=True):
+            st.switch_page("pages/01_🏠_Τι είναι το Technical Portal.py")
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    st.write("")
+
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
@@ -129,6 +141,7 @@ with col1:
 
 # -------- RIGHT COLUMN --------
 with col2:
+
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
