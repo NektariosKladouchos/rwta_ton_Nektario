@@ -87,7 +87,7 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # SIDEBAR
 # ---------------------------------------------------------
 with st.sidebar:
-    st.image("GEYER LOGO.png", use_container_width=True)
+    st.image("LOGO_GEYER.png", use_container_width=True)
     st.markdown("<h2 style='text-align:center;'>GEYER</h2>", unsafe_allow_html=True)
     st.write("---")
     st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
