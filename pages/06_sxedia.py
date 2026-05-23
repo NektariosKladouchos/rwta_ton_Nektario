@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 st.set_page_config(
     page_title="📘 Τεχνικά Σχέδια",
     page_icon="📘",
@@ -20,6 +19,7 @@ st.write("""
 - Παραδείγματα προγραμματισμού
 - Εκπαιδευτικό υλικό
 """)
+
 
 st.write("---")
 
