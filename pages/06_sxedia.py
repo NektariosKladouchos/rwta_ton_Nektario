@@ -5,6 +5,43 @@ st.set_page_config(
     page_icon="📘",
     layout="wide"
 )
+# ---------------------------------------------------------
+# CUSTOM SIDEBAR CSS (ίδιο με τις άλλες ενότητες)
+# ---------------------------------------------------------
+SIDEBAR_CSS = """
+<style>
+/* Sidebar background */
+[data-testid="stSidebar"] {
+    background-color: #1a4a2e !important;
+}
+
+/* Sidebar text + icons */
+[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* Active page highlight */
+[data-testid="stSidebarNav"] li a {
+    padding: 8px 14px !important;
+    border-radius: 6px;
+}
+
+[data-testid="stSidebarNav"] li a:hover {
+    background-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-testid="stSidebarNav"] li a[aria-current="page"] {
+    background-color: rgba(255,255,255,0.2) !important;
+    font-weight: 600 !important;
+}
+
+/* Collapse button "<" */
+button[kind="header"] {
+    color: white !important;
+}
+</style>
+"""
+st.markdown(SIDEBAR_CSS, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # PAGE TITLE
