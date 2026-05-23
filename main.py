@@ -95,7 +95,7 @@ with col2:
     st.markdown("### 📞 Επικοινωνία")
     st.write("Άμεση υποστήριξη και στοιχεία επικοινωνίας.")
     if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ", use_container_width=True):
-        st.switch_page("pages/05_📞_Epikoinonia.py")
+        st.switch_page("05_📞_Επικοινωνία.py")
 
 # ---------------------------------------------------------
 # FOOTER
