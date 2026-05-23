@@ -18,6 +18,7 @@ def show():
     )
 
     st.divider()
+
     # ---------------------------------------------------------
     #  ΕΝΟΤΗΤΑ 1 – Προβλήματα που λύνουμε
     # ---------------------------------------------------------
@@ -37,21 +38,24 @@ def show():
 
     with colB:
         st.image(
-            "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
-            caption="Σύγχρονος επαγγελματικός χώρος με πολλαπλές γραμμές φωτισμού",
+            os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
+            caption="Φωτισμός γραφείων με panel με dimming phase cut",
             use_container_width=True
         )
 
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας
+    #  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας (ΜΕ ΔΙΚΕΣ ΣΟΥ ΦΩΤΟΓΡΑΦΙΕΣ)
     # ---------------------------------------------------------
     st.header("⚙️ Λύσεις για Επαγγελματικό Φωτισμό")
 
     col1, col2 = st.columns(2)
 
+    # ---------------- LEFT COLUMN ----------------
     with col1:
+
+        # DIMMER 220V
         st.subheader("🔌 Dimmer 220V")
         st.markdown("""
         - Dimming σε LED panel & PL μέχρι 200VA.
@@ -60,11 +64,12 @@ def show():
         - Χειρισμός από ένα μπουτόν.
         """)
         st.image(
-            "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
-            caption="Ομοιόμορφος φωτισμός σε επαγγελματικό περιβάλλον",
+            os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
+            caption="Φωτισμός γραφείων με panel με dimming phase cut",
             use_container_width=True
         )
 
+        # LED STRIP
         st.subheader("🎚️ Dimming LED Strip")
         st.markdown("""
         - Dimming με απλό τροφοδοτικό 12V/24V.
@@ -73,12 +78,15 @@ def show():
         - Ale retour με απλά μπουτόν.
         """)
         st.image(
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-            caption="Premium LED strip φωτισμός σε επαγγελματικό χώρο",
+            os.path.join(PICTURES_DIR, "ligths_room_RGBW.png"),
+            caption="Dimming σε ταινίες Led μονόχρωμες, CCT, RGB, RGBW",
             use_container_width=True
         )
 
+    # ---------------- RIGHT COLUMN ----------------
     with col2:
+
+        # 0-10V / 1-10V
         st.subheader("🔵 Dimming 0-10V & 1-10V")
         st.markdown("""
         - Οδήγηση οποιουδήποτε driver 1-10V.
@@ -87,11 +95,12 @@ def show():
         - Μνήμη τελευταίας κατάστασης.
         """)
         st.image(
-            "https://images.unsplash.com/photo-1520880867055-1e30d1cb001c",
-            caption="Επαγγελματικός φωτισμός γραφείων με 0-10V",
+            os.path.join(PICTURES_DIR, "0-10v.png"),
+            caption="Dimming φωτοσωλήνας ειδικής κατασκευής 1-10V",
             use_container_width=True
         )
 
+        # DALI
         st.subheader("🟣 DALI Dimming")
         st.markdown("""
         - Έλεγχος DALI drivers (DT6).
@@ -100,8 +109,8 @@ def show():
         - Σύνδεση μέχρι 64 drivers στην ίδια γραμμή.
         """)
         st.image(
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
-            caption="DALI φωτισμός σε retail χώρο",
+            os.path.join(PICTURES_DIR, "Dali_office.png"),
+            caption="Dimming φωτισμός σε γραφεία με μέθοδο DALI 2 (DT6)",
             use_container_width=True
         )
 
@@ -125,8 +134,8 @@ def show():
 
     with colY:
         st.image(
-            "https://images.unsplash.com/photo-1558002038-1055907df827",
-            caption="Κεντρική διαχείριση φωτισμού σε επαγγελματικό περιβάλλον",
+            os.path.join(PICTURES_DIR, "kentrikh_othonh.png"),
+            caption="Ομαδοποίηση και κεντρική διαχείριση με σενάρια dimming για όλα τα είδη φωτισμού",
             use_container_width=True
         )
 
@@ -147,12 +156,13 @@ def show():
     """)
 
     st.image(
-        "https://images.unsplash.com/photo-1505842465776-3d90f616310d",
+        os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
         caption="Εφαρμογές φωτισμού σε πραγματικούς επαγγελματικούς χώρους",
         use_container_width=True
     )
 
     st.divider()
+
     # ---------------------------------------------------------
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
