@@ -14,7 +14,7 @@ st.set_page_config(
 # ANALYTICS
 # ---------------------------------------------------------
 with analytics.track():
-    st.markdown("<h1 class='main-title-ask'>Ρώτα τον Νεκτάριο</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='main-title-ask'>GEYER HELLAS</h1>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # CUSTOM CSS
