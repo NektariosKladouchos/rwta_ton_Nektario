@@ -90,7 +90,7 @@ with col2:
     st.markdown("### 💡 Ιδέες & Λύσεις")
     st.write("Video tutorials και προτάσεις αυτοματισμού.")
     if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ", use_container_width=True):
-        st.switch_page("pages/02_💡_Idees.py")
+        st.switch_page("02_💡_ΙΔΕΕΣ & ΛΥΣΕΙΣ.py")
 
     st.markdown("### 📞 Επικοινωνία")
     st.write("Άμεση υποστήριξη και στοιχεία επικοινωνίας.")
