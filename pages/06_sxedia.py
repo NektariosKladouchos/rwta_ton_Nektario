@@ -16,36 +16,6 @@ st.write("""
 
 st.write("---")
 
-# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
-st.markdown(
-    """
-    <style>
-
-        /* ============================
-           SIDEBAR (ΠΡΑΣΙΝΟ + ΑΣΠΡΑ ΓΡΑΜΜΑΤΑ)
-        ============================ */
-
-        /* Φόντο αριστερής μπάρας */
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-
-        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
-        [data-testid="stSidebar"] * {
-            color: white !important;
-        }
-
-        /* Εικονίδια αριστερής μπάρας */
-        [data-testid="stSidebar"] svg {
-            fill: white !important;
-        }
-
-        /* Κουμπί "<" που κλείνει το sidebar */
-        button[kind="header"] svg {
-            fill: white !important;
-        }
-
-
 
 # ---------------------------------------------------------
 # TABS
