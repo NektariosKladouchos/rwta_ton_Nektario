@@ -14,13 +14,22 @@ st.set_page_config(
 # ANALYTICS
 # ---------------------------------------------------------
 with analytics.track():
-    st.title("Ρώτα τον Νεκτάριο")
+    st.markdown("<h1 class='main-title-ask'>Ρώτα τον Νεκτάριο</h1>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # CUSTOM CSS
 # ---------------------------------------------------------
 CUSTOM_CSS = """
 <style>
+
+/* Green GEYER title */
+.main-title-ask {
+    color: #28a745 !important;
+    font-weight: 700;
+    text-align: center;
+    font-size: 38px;
+    margin-top: -20px;
+}
 
 /* Sidebar background */
 [data-testid="stSidebar"] {
@@ -35,13 +44,6 @@ CUSTOM_CSS = """
 /* Hide first nav item */
 [data-testid="stSidebarNav"] li:first-child {
     display: none;
-}
-
-/* Main title */
-.main-title {
-    color: #28a745;
-    text-align: center;
-    font-family: sans-serif;
 }
 
 /* CARD STYLE */
@@ -85,17 +87,16 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # SIDEBAR
 # ---------------------------------------------------------
 with st.sidebar:
-    st.image("home_light.jpg", caption="Geyer Technical Portal", use_container_width=True)
+    st.image("GEYER LOGO.png", use_container_width=True)
     st.markdown("<h2 style='text-align:center;'>GEYER</h2>", unsafe_allow_html=True)
     st.write("---")
     st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
 
 # ---------------------------------------------------------
-# MAIN TITLE
+# MAIN SUBTITLE
 # ---------------------------------------------------------
-st.markdown("<h1 class='main-title'>TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
 st.markdown(
-    "<p style='text-align:center; color:gray;'>"
+    "<p style='text-align:center; color:gray; margin-top:-10px;'>"
     "Πλατφόρμα τεχνικής υποστήριξης Smart Home - Υπεύθυνος: Νεκτάριος Κλαδούχος"
     "</p>",
     unsafe_allow_html=True
@@ -110,7 +111,7 @@ col1, col2 = st.columns(2)
 # -------- LEFT COLUMN --------
 with col1:
 
-    # NEW FIRST CARD — Τι είναι το Technical Portal
+    # 1) Τι είναι το Technical Portal
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 🏠 Τι είναι το Technical Portal")
@@ -121,6 +122,7 @@ with col1:
 
     st.write("")
 
+    # 2) Φτιάξε ΕΣΥ το κόστος σου
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
@@ -131,6 +133,7 @@ with col1:
 
     st.write("")
 
+    # 3) Τεχνικά Σχέδια
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📘 Τεχνικά Σχέδια")
@@ -142,6 +145,7 @@ with col1:
 # -------- RIGHT COLUMN --------
 with col2:
 
+    # 4) Ιδέες & Λύσεις
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
@@ -152,6 +156,7 @@ with col2:
 
     st.write("")
 
+    # 5) Forum
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 💬 Forum")
@@ -162,6 +167,7 @@ with col2:
 
     st.write("")
 
+    # 6) Επικοινωνία
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📞 Επικοινωνία")
