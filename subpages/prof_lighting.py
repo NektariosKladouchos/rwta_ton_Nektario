@@ -9,6 +9,32 @@ PICTURES_DIR = os.path.join(BASE_DIR, "pictures")
 def show():
 
     # ---------------------------------------------------------
+    #  CSS ΓΙΑ ΤΕΛΕΙΑ ΕΥΘΥΓΡΑΜΜΙΣΗ
+    # ---------------------------------------------------------
+    st.markdown("""
+    <style>
+    /* Κάνει όλες τις στήλες να ξεκινούν από το ίδιο ύψος */
+    [data-testid="column"] {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    /* Κεντράρισμα εικόνων */
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Κεντράρισμα captions */
+    .block-container p {
+        text-align: center !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # ---------------------------------------------------------
     #  ΤΙΤΛΟΣ ΣΕΛΙΔΑΣ
     # ---------------------------------------------------------
     st.title("💡 Ιδέες για Επαγγελματικό Φωτισμό")
