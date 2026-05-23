@@ -77,7 +77,7 @@ with col1:
     st.markdown("### 📊 Live Pricing")
     st.write("Υπολογισμός υλικών και άμεση προσφορά Smart Home.")
     if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING", use_container_width=True):
-        st.switch_page("pages/03_📊_Pricing.py")
+        st.switch_page("03_📊_Φτιάξε ΕΣΥ το κόστος σου.py")
 
     st.markdown("### 📘 Τεχνικά Σχέδια")
     st.write("Διαγράμματα σύνδεσης DALI, LED και HVAC.")
