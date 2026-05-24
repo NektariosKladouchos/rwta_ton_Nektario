@@ -100,8 +100,8 @@ with tab1:
     )
 
     st.markdown("### 📘 Τίτλος Σχεδίου")
-    #st.write(clean_title)
-    st.write("Dimmer για 220ν λάμπες ή τροφοδοτικά  Phase Cut Dimming (TRIAC / Leading / Trailing Edge)
+    st.write(clean_title)
+    #st.write("Dimmer για 220ν λάμπες ή τροφοδοτικά  Phase Cut Dimming (TRIAC / Leading / Trailing Edge)
 
     st.markdown("### 📝 Γρήγορη Επεξήγηση")
     st.write("Σύνδεση Dimmer με μπουτόν παράλληλα για on/off & Dimming από όλα τα σημεία.Η επαφή Sx είναι φάση που πηγαίνει στο μπουτόν")
