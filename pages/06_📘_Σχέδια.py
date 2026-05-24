@@ -1,95 +1,33 @@
 import streamlit as st
 import os
 
-# ---------------------------------------------------------
-# PAGE CONFIG
-# ---------------------------------------------------------
-st.set_page_config(
-    page_title="📘 Τεχνικά Σχέδια",
-    page_icon="📘",
-    layout="wide"
-)
-
-# ---------------------------------------------------------
-# CUSTOM SIDEBAR CSS
-# ---------------------------------------------------------
-SIDEBAR_CSS = """
-<style>
-[data-testid="stSidebar"] {
-    background-color: #1a4a2e !important;
-}
-[data-testid="stSidebar"] * {
-    color: white !important;
-}
-[data-testid="stSidebarNav"] li a {
-    padding: 8px 14px !important;
-    border-radius: 6px;
-}
-[data-testid="stSidebarNav"] li a:hover {
-    background-color: rgba(255,255,255,0.1) !important;
-}
-[data-testid="stSidebarNav"] li a[aria-current="page"] {
-    background-color: rgba(255,255,255,0.2) !important;
-    font-weight: 600 !important;
-}
-button[kind="header"] {
-    color: white !important;
-}
-</style>
-"""
-st.markdown(SIDEBAR_CSS, unsafe_allow_html=True)
+st.set_page_config(page_title="📘 Τεχνικά Σχέδια", page_icon="📘", layout="wide")
 
 # ---------------------------------------------------------
 # PAGE TITLE
 # ---------------------------------------------------------
 st.title("📘 Τεχνικά Σχέδια")
-st.write("""
-Καλώς ήρθατε στην ενότητα Τεχνικών Σχεδίων.  
-Εδώ θα βρείτε οργανωμένα παραδείγματα, αναλύσεις και οδηγίες για:
-- Συνδέσεις DALI
-- Συνδέσεις LED & Drivers
-- HVAC αυτοματισμούς
-- Παραδείγματα προγραμματισμού
-- Εκπαιδευτικό υλικό
-""")
 
 st.write("---")
 
-# ---------------------------------------------------------
-# TABS
-# ---------------------------------------------------------
-tab1, tab2, tab3 = st.tabs([
-    "🔌 Σχέδια Σύνδεσης",
-    "⚙️ Τρόποι Προγραμματισμού",
-    "🎓 Μαθήματα"
-])
+tab1, tab2, tab3 = st.tabs(["🔌 Σχέδια Σύνδεσης", "⚙️ Τρόποι Προγραμματισμού", "🎓 Μαθήματα"])
 
 # ---------------------------------------------------------
 # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
 # ---------------------------------------------------------
 with tab1:
+
     st.subheader("🔌 Σχέδια Σύνδεσης")
 
-    # ΕΔΩ είναι η σωστή διαδρομή για τη δομή σου:
-    # 06_📘_Σχέδια.py  (root)
-    # subpages/pictures/sxedia/fotismos/...
+    # ΣΩΣΤΟ PATH ΓΙΑ ΤΟ ΠΕΡΙΒΑΛΛΟΝ ΣΟΥ
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     SXEDIA_DIR = os.path.join(BASE_DIR, "subpages", "pictures", "sxedia")
-    # ---------------- DEBUG MODE ----------------
-st.write("### 🐞 DEBUG INFO")
-st.write("📁 BASE_DIR:", BASE_DIR)
-st.write("📁 SXEDIA_DIR:", SXEDIA_DIR)
-st.write("📁 Selected folder:", folder)
-st.write("📁 Folder exists:", os.path.exists(folder))
 
-if os.path.exists(folder):
-    st.write("📄 Files in folder:", os.listdir(folder))
-else:
-    st.write("⚠️ Folder not found")
-# --------------------------------------------
+    # DEBUG
+    st.write("### 🐞 DEBUG INFO")
+    st.write("📁 BASE_DIR:", BASE_DIR)
+    st.write("📁 SXEDIA_DIR:", SXEDIA_DIR)
 
-
-    # Κατηγορίες
     categories = {
         "Φωτισμός": "fotismos",
         "Μοτέρ Σκίασης": "moter",
@@ -102,172 +40,29 @@ else:
         "Άλλα": "alla"
     }
 
-    # Επιλογή κατηγορίας
     cat_choice = st.selectbox("Επιλέξτε κατηγορία σχεδίων:", list(categories.keys()))
     folder = os.path.join(SXEDIA_DIR, categories[cat_choice])
 
-    st.write("---")
+    # DEBUG
+    st.write("📁 Selected folder:", folder)
+    st.write("📁 Folder exists:", os.path.exists(folder))
 
-    # Αν δεν υπάρχει ο φάκελος
-    if not os.path.exists(folder):
-        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα. Δημιουργήστε τον και προσθέστε PNG/JPG σχέδια.")
+    if os.path.exists(folder):
+        st.write("📄 Files in folder:", os.listdir(folder))
     else:
-        # Φόρτωση PNG/JPG
-        files = [
-            f for f in os.listdir(folder)
-            if f.lower().endswith((".png", ".jpg", ".jpeg"))
-        ]
+        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα.")
+        st.stop()
 
-        if len(files) == 0:
-            st.info("ℹ️ Δεν υπάρχουν ακόμα σχέδια σε αυτή την κατηγορία.")
-        else:
-            choice = st.selectbox("Επιλέξτε σχέδιο:", files)
-            img_path = os.path.join(folder, choice)
+    files = [f for f in os.listdir(folder) if f.lower().endswith((".png", ".jpg", ".jpeg"))]
 
-            # Εμφάνιση εικόνας
-            st.image(img_path, use_container_width=True)
+    if not files:
+        st.info("ℹ️ Δεν υπάρχουν σχέδια.")
+        st.stop()
 
-            # ---------------------------------------------------------
-            #  ΤΙΤΛΟΣ – ΠΕΡΙΓΡΑΦΗ – ΠΡΟΣΟΧΕΣ – ΟΦΕΛΗ
-            # ---------------------------------------------------------
+    choice = st.selectbox("Επιλέξτε σχέδιο:", files)
+    img_path = os.path.join(folder, choice)
 
-            clean_title = (
-                choice.replace(".png", "")
-                      .replace(".jpg", "")
-                      .replace(".jpeg", "")
-                      .replace("_", " ")
-                      .title()
-            )
+    st.image(img_path, use_container_width=True)
 
-            st.markdown("### 📘 Τίτλος Σχεδίου")
-            st.write(clean_title)
-
-            st.markdown("### 📝 Γρήγορη Επεξήγηση")
-            st.write("Εδώ θα μπει η περιγραφή του σχεδίου (θα διαβάζεται αυτόματα από .txt στο μέλλον).")
-
-            st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-            st.write("""
-            - Σωστή συνδεσμολογία  
-            - Έλεγχος πολικότητας  
-            - Αποφυγή υπερφόρτωσης  
-            - Έλεγχος καλής επαφής στους ακροδέκτες  
-            """)
-
-            st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
-            st.write("""
-            - Ασφαλής λειτουργία  
-            - Εξοικονόμηση ενέργειας  
-            - Επαγγελματικό αποτέλεσμα  
-            - Μεγαλύτερη διάρκεια ζωής εξοπλισμού  
-            """)
-
-# ---------------------------------------------------------
-# TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
-# ---------------------------------------------------------
-with tab2:
-    st.subheader("⚙️ Τρόποι Προγραμματισμού")
-
-    επιλογή2 = st.selectbox(
-        "Επιλέξτε διαδικασία:",
-        [
-            "Δημιουργία Σκηνής",
-            "Ρύθμιση Χρονοπρογράμματος",
-            "Ομαδοποίηση Φωτισμού",
-            "Ρύθμιση Θερμοκρασίας",
-            "Αυτοματισμός με Συνθήκες"
-        ]
-    )
-
-    st.write("---")
-
-    if επιλογή2 == "Δημιουργία Σκηνής":
-        st.markdown("### 🎛️ Δημιουργία Σκηνής")
-        st.write("""
-        1. Επιλογή γραμμών φωτισμού  
-        2. Ορισμός επιπέδου φωτισμού  
-        3. Αποθήκευση σκηνής  
-        4. Έλεγχος από εφαρμογή ή οθόνη  
-        """)
-
-    elif επιλογή2 == "Ρύθμιση Χρονοπρογράμματος":
-        st.markdown("### 🕒 Ρύθμιση Χρονοπρογράμματος")
-        st.write("""
-        1. Επιλογή ημέρας  
-        2. Ορισμός ώρας  
-        3. Επιλογή σκηνής ή γραμμής  
-        4. Ενεργοποίηση  
-        """)
-
-    elif επιλογή2 == "Ομαδοποίηση Φωτισμού":
-        st.markdown("### 💡 Ομαδοποίηση Φωτισμού")
-        st.write("""
-        - Ομαδοποίηση πολλών γραμμών σε μία εντολή  
-        - Ιδανικό για κεντρικό έλεγχο  
-        """)
-
-    elif επιλογή2 == "Ρύθμιση Θερμοκρασίας":
-        st.markdown("### 🌡️ Ρύθμιση Θερμοκρασίας")
-        st.write("""
-        - Ρύθμιση θερμοστάτη  
-        - Έλεγχος Fan Coil / Boiler  
-        """)
-
-    elif επιλογή2 == "Αυτοματισμός με Συνθήκες":
-        st.markdown("### ⚡ Αυτοματισμός με Συνθήκες")
-        st.write("""
-        - Ενεργοποίηση βάσει αισθητήρων  
-        - Παράδειγμα: Άνοιγμα παραθύρου → Σβήσιμο θέρμανσης  
-        """)
-
-# ---------------------------------------------------------
-# TAB 3 — ΜΑΘΗΜΑΤΑ
-# ---------------------------------------------------------
-with tab3:
-    st.subheader("🎓 Μαθήματα")
-
-    επιλογή3 = st.selectbox(
-        "Επιλέξτε μάθημα:",
-        [
-            "Τι είναι το 0-10V",
-            "Τι είναι το DALI",
-            "Πώς λειτουργεί το LED Driver",
-            "Εισαγωγή στο HVAC",
-            "Βασικές Αρχές Αυτοματισμού"
-        ]
-    )
-
-    st.write("---")
-
-    if επιλογή3 == "Τι είναι το 0-10V":
-        st.markdown("### 🎓 Τι είναι το 0-10V")
-        st.write("""
-        - Αναλογικό σήμα ελέγχου φωτισμού  
-        - 0V = χαμηλή ένταση, 10V = μέγιστη  
-        """)
-
-    elif επιλογή3 == "Τι είναι το DALI":
-        st.markdown("### 🎓 Τι είναι το DALI")
-        st.write("""
-        - Ψηφιακό πρωτόκολλο φωτισμού  
-        - Διπολικό bus  
-        """)
-
-    elif επιλογή3 == "Πώς λειτουργεί το LED Driver":
-        st.markdown("### 🎓 Πώς λειτουργεί το LED Driver")
-        st.write("""
-        - Μετατρέπει AC → DC  
-        - Σταθερό ρεύμα ή τάση  
-        """)
-
-    elif επιλογή3 == "Εισαγωγή στο HVAC":
-        st.markdown("### 🎓 Εισαγωγή στο HVAC")
-        st.write("""
-        - Θέρμανση, εξαερισμός, κλιματισμός  
-        """)
-
-    elif επιλογή3 == "Βασικές Αρχές Αυτοματισμού":
-        st.markdown("### 🎓 Βασικές Αρχές Αυτοματισμού")
-        st.write("""
-        - Είσοδοι, έξοδοι, αισθητήρες  
-        - Λογικές συνθήκες  
-        """)
+    st.markdown("### 📘 Τίτλος Σχεδίου")
+    st.write(choice.replace(".png", "").replace(".jpg", "").replace("_", " ").title())
