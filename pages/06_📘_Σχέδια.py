@@ -36,18 +36,46 @@ tab1, tab2, tab3 = st.tabs([
 ])
 
 # ---------------------------------------------------------
+# FUNCTION: LOAD TXT
+# ---------------------------------------------------------
+def load_txt_data(txt_path):
+    data = {"title": "", "description": "", "electrician": "", "customer": ""}
+
+    if not os.path.exists(txt_path):
+        return data
+
+    section = None
+    with open(txt_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+
+            if line.lower() == "[title]":
+                section = "title"
+                continue
+            elif line.lower() == "[description]":
+                section = "description"
+                continue
+            elif line.lower() == "[electrician]":
+                section = "electrician"
+                continue
+            elif line.lower() == "[customer]":
+                section = "customer"
+                continue
+
+            if section:
+                data[section] += line + "\n"
+
+    return data
+
+# ---------------------------------------------------------
 # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
 # ---------------------------------------------------------
 with tab1:
     st.subheader("🔌 Σχέδια Σύνδεσης")
 
-    # ΣΩΣΤΟ PATH ΓΙΑ ΤΗ ΔΟΜΗ ΣΟΥ:
-    # pages/06_📘_Σχέδια.py
-    # pages/sxedia/fotismos/...
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     SXEDIA_DIR = os.path.join(BASE_DIR, "sxedia")
 
-    # Κατηγορίες
     categories = {
         "Φωτισμός": "fotismos",
         "Μοτέρ Σκίασης": "moter",
@@ -60,69 +88,49 @@ with tab1:
         "Άλλα": "alla"
     }
 
-    # Επιλογή κατηγορίας
     cat_choice = st.selectbox("Επιλέξτε κατηγορία σχεδίων:", list(categories.keys()))
     folder = os.path.join(SXEDIA_DIR, categories[cat_choice])
 
     st.write("---")
 
-    # Έλεγχος φακέλου
     if not os.path.exists(folder):
-        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα. Δημιουργήστε τον και προσθέστε PNG/JPG σχέδια.")
+        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα.")
         st.stop()
 
-    # Φόρτωση PNG/JPG
     files = [
         f for f in os.listdir(folder)
         if f.lower().endswith((".png", ".jpg", ".jpeg"))
     ]
 
     if len(files) == 0:
-        st.info("ℹ️ Δεν υπάρχουν ακόμα σχέδια σε αυτή την κατηγορία.")
+        st.info("ℹ️ Δεν υπάρχουν σχέδια σε αυτή την κατηγορία.")
         st.stop()
 
     choice = st.selectbox("Επιλέξτε σχέδιο:", files)
     img_path = os.path.join(folder, choice)
 
-    # Εμφάνιση εικόνας
     st.image(img_path, use_container_width=True)
 
     # ---------------------------------------------------------
-    #  ΤΙΤΛΟΣ – ΠΕΡΙΓΡΑΦΗ – ΠΡΟΣΟΧΕΣ – ΟΦΕΛΗ
+    # LOAD TXT FOR THIS IMAGE
     # ---------------------------------------------------------
+    txt_name = choice.rsplit(".", 1)[0] + ".txt"
+    txt_path = os.path.join(folder, txt_name)
+    info = load_txt_data(txt_path)
 
-    clean_title = (
-        choice.replace(".png", "")
-              .replace(".jpg", "")
-              .replace(".jpeg", "")
-              .replace("_", " ")
-              .title()
-    )
+    clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
 
     st.markdown("### 📘 Τίτλος Σχεδίου")
-    st.write(clean_title)
-    #st.write("Dimmer για 220ν λάμπες ή τροφοδοτικά  Phase Cut Dimming (TRIAC / Leading / Trailing Edge)
+    st.write(info["title"] if info["title"] else clean_title)
 
     st.markdown("### 📝 Γρήγορη Επεξήγηση")
-    st.write("Σύνδεση Dimmer με μπουτόν παράλληλα για on/off & Dimming από όλα τα σημεία.Κατάλληλο για Phase Cut Dimming (TRIAC / Leading / Trailing Edge)")
+    st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
 
     st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-    st.write("""
-    - Το dimmer το συνδέουμε μόνο στο σημείο που έχουμε την επιστροφή (εντολή )απο το φορτίο πχ λάμπα ή τροφοδοτικό phase /cut  
-    - Η φάση που συνδέετε στο S1 πρέπει να είναι η ίδια με την L (περίπτωση τριφασικής παροχής )  
-    - Αν δεν έχουμε μόνιμη φάση εκεί που βάζουμε το dimmer τότε κάνουμε γέφυρα το sx με το L και έτσι έχουμε φάση απο το μπουτόν    
-    - Τα μπουτόν συνδέονται παράλληλα .Το ένα άκρο έχει φάση και το δεύτερο είναι η εντολή .Οταν έχουμε καλωδίωση αλλερετούρ το ένα το κάνουμε φάση και το άλλο εντολή .
-    - Η επαφή S2 είναι εφεδρική.Αν βάλουμε την επιστροφή απο ένα επιπλέον μπουτόν μπορούμε να δημιουργούμε σενάρια ή να το το συνδέσουμε ασύρματα με ένα αλλο module ,σαν aleretour λειτουργία.
-    """)
+    st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
 
     st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
-    st.write("""
-    - Dimming με παρατεταμένο πάτημα και on/off με στιγμιαίο πάτημα σε όλα τα μπουτόν  
-    - Μέτρηση κατανάλωσης γραμμής φωτισμού  
-    - Απομακρυσμένο έλεγχο και διαχείριση   
-    - Χρονοπρογράμματα με ορισμό του level π.χ Δύση ηλίου set level = 30% 
-    - Μνήμη τελευταίας κατάστασης και διπλό κλικ για φούλ ένταση set level = 99%
-    """)
+    st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
 
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
