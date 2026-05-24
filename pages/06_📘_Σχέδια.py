@@ -9,6 +9,36 @@ st.set_page_config(
     page_icon="📘",
     layout="wide"
 )
+# ---------------------------------------------------------
+# PREMIUM GREEN SIDEBAR CSS
+# ---------------------------------------------------------
+st.markdown("""
+<style>
+
+    /* Φόντο αριστερής μπάρας */
+    [data-testid="stSidebar"] {
+        background-color: #0b3c26 !important;
+    }
+
+    /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
+    [data-testid="stSidebar"] span, 
+    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] a {
+        color: white !important;
+    }
+
+    /* Εικονίδια αριστερής μπάρας */
+    [data-testid="stSidebar"] svg {
+        fill: white !important;
+    }
+
+    /* Κουμπί που ανοίγει/κλείνει το sidebar */
+    button[kind="header"] svg {
+        fill: white !important;
+    }
+
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # PAGE TITLE
