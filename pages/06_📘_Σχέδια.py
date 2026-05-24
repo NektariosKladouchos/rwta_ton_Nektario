@@ -104,7 +104,7 @@ with tab1:
     #st.write("Dimmer για 220ν λάμπες ή τροφοδοτικά  Phase Cut Dimming (TRIAC / Leading / Trailing Edge)
 
     st.markdown("### 📝 Γρήγορη Επεξήγηση")
-    st.write("Σύνδεση Dimmer με μπουτόν παράλληλα για on/off & Dimming από όλα τα σημεία.Η επαφή Sx είναι φάση που πηγαίνει στο μπουτόν")
+    st.write("Σύνδεση Dimmer με μπουτόν παράλληλα για on/off & Dimming από όλα τα σημεία.Κατάλληλο για Phase Cut Dimming (TRIAC / Leading / Trailing Edge)")
 
     st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
     st.write("""
