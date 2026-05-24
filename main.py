@@ -92,7 +92,7 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # ---------------------------------------------------------
 with st.sidebar:
     st.image("LOGO_GEYER.png", use_container_width=True)
-    st.markdown("<h2 style='text-align:center;'>GEYER</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align:center;'>HELLAS</h2>", unsafe_allow_html=True)
     st.write("---")
     st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
 
@@ -100,7 +100,7 @@ with st.sidebar:
 # ANALYTICS
 # ---------------------------------------------------------
 with analytics.track():
-    st.markdown("<h1 class='main-title-ask'>GEYER HELLAS</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='main-title-ask'>TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # MAIN SUBTITLE
@@ -136,7 +136,7 @@ with col1:
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
-        st.write("Υπολογισμός υλικών και άμεση προσφορά Smart Home.")
+        st.write("Διαδραστικός τιμοκατάλογος Υλικών .")
         if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING", use_container_width=True):
             st.switch_page("pages/03_📊_Φτιάξε ΕΣΥ το κόστος σου.py")
         st.markdown("</div>", unsafe_allow_html=True)
@@ -147,7 +147,7 @@ with col1:
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📘 Τεχνικά Σχέδια")
-        st.write("Διαγράμματα σύνδεσης DALI, LED και HVAC.")
+        st.write("Διαγράμματα σύνδεσης ανά κατηγορία αυτοματισμών.")
         if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ", use_container_width=True):
             st.switch_page("pages/06_📘_Σχέδια.py")
         st.markdown("</div>", unsafe_allow_html=True)
@@ -190,4 +190,4 @@ with col2:
 # FOOTER
 # ---------------------------------------------------------
 st.write("---")
-st.caption("© 2024 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
+st.caption("© 2026 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
