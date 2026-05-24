@@ -68,49 +68,77 @@ def load_lesson_or_program_txt(txt_path):
     return load_txt_sections(txt_path, ["title", "description", "video"])
 
 
+# ---------------------------------------------------------
+# ΑΛΕΞΙΣΦΑΙΡΟ LOADER ΓΙΑ SCREENSHOTS
+# ---------------------------------------------------------
 def load_screenshots(folder):
     """
-    Διαβάζει screenshots από φάκελο (mobile/ ή pc/):
-    - 1.png + 1.txt
-    - 2.png + 2.txt
-    Επιστρέφει λίστα από dicts: {"img": path, "caption": text}
+    Αλεξίσφαιρη φόρτωση screenshots:
+    - Δέχεται .png, .jpg, .jpeg (όλα lowercase)
+    - Αγνοεί κεφαλαία (.PNG)
+    - Αγνοεί κρυφά αρχεία
+    - Αγνοεί αρχεία χωρίς αντίστοιχο .txt
+    - Δεν κρασάρει ποτέ
     """
     if not os.path.exists(folder):
         return []
 
-    files = [f for f in os.listdir(folder) if f.lower().endswith((".png", ".jpg", ".jpeg"))]
-    if not files:
+    valid_ext = (".png", ".jpg", ".jpeg")
+
+    images = [
+        f for f in os.listdir(folder)
+        if f.lower().endswith(valid_ext) and not f.startswith(".")
+    ]
+
+    if not images:
         return []
 
-    # Ταξινόμηση για να είναι 1,2,3,...
-    files = sorted(files, key=lambda x: x.lower())
+    images = sorted(images)
 
     items = []
-    for img_name in files:
-        base, _ = os.path.splitext(img_name)
-        img_path = os.path.join(folder, img_name)
+    for img in images:
+        base, _ = os.path.splitext(img)
+        img_path = os.path.join(folder, img)
         txt_path = os.path.join(folder, base + ".txt")
 
-        caption = ""
-        if os.path.exists(txt_path):
+        if not os.path.exists(txt_path):
+            continue
+
+        try:
             with open(txt_path, "r", encoding="utf-8") as f:
                 caption = f.read().strip()
+        except:
+            caption = ""
 
         items.append({"img": img_path, "caption": caption})
 
     return items
 
 
+# ---------------------------------------------------------
+# ΑΛΕΞΙΣΦΑΙΡΟ CAROUSEL
+# ---------------------------------------------------------
 def render_carousel(title, items, key_prefix):
     """
-    Απλό "carousel" με slider:
-    - title: τίτλος ενότητας (π.χ. '📱 Screens από κινητό')
-    - items: λίστα από {"img", "caption"}
+    Αλεξίσφαιρο carousel:
+    - Αν δεν υπάρχουν εικόνες → δεν εμφανίζει slider
+    - Αν υπάρχει 1 εικόνα → δεν εμφανίζει slider
+    - Αν υπάρχουν πολλές → slider κανονικά
     """
-    if not items:
-        return
+    if not items or len(items) == 0:
+        return  # ΜΗΝ εμφανίσεις τίποτα
 
     st.markdown(f"#### {title}")
+
+    # ΜΟΝΟ ΜΙΑ ΕΙΚΟΝΑ → χωρίς slider
+    if len(items) == 1:
+        st.image(items[0]["img"], use_container_width=True)
+        if items[0]["caption"]:
+            st.caption(items[0]["caption"])
+        st.write("---")
+        return
+
+    # ΠΕΡΙΣΣΟΤΕΡΕΣ ΑΠΟ 1 → slider
     idx = st.slider(
         "Επιλέξτε screenshot",
         min_value=1,
@@ -118,6 +146,7 @@ def render_carousel(title, items, key_prefix):
         value=1,
         key=f"{key_prefix}_slider"
     )
+
     item = items[idx - 1]
     st.image(item["img"], use_container_width=True)
     if item["caption"]:
@@ -195,7 +224,7 @@ with tab1:
     st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
 
 # ---------------------------------------------------------
-# TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (PROGRAMMING)
+# TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
     st.subheader("⚙️ Τρόποι Προγραμματισμού")
@@ -203,7 +232,6 @@ with tab2:
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν έχει δημιουργηθεί ακόμα ο φάκελος 'programming'.")
     else:
-        # Λίστα φακέλων (01_scene, 02_schedule, ...)
         entries = [
             d for d in os.listdir(PROGRAMMING_DIR)
             if os.path.isdir(os.path.join(PROGRAMMING_DIR, d))
@@ -223,14 +251,12 @@ with tab2:
             main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
             data = load_lesson_or_program_txt(main_txt)
 
-            # Τίτλος & περιγραφή
             st.markdown("### 📘 Τίτλος Διαδικασίας")
             st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
 
             st.markdown("### 📝 Περιγραφή")
             st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
 
-            # Video (αν υπάρχει)
             video_url = data["video"].strip()
             if video_url:
                 st.markdown("### 🎬 Βίντεο YouTube")
@@ -238,23 +264,19 @@ with tab2:
 
             st.write("---")
 
-            # Screenshots
             mobile_folder = os.path.join(prog_folder, "mobile")
             pc_folder = os.path.join(prog_folder, "pc")
 
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
 
-            if not mobile_items and not pc_items:
-                st.info("ℹ️ Δεν υπάρχουν ακόμα screenshots για αυτή τη διαδικασία.")
-            else:
-                if mobile_items:
-                    render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
-                if pc_items:
-                    render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+            if mobile_items:
+                render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
+            if pc_items:
+                render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
 
 # ---------------------------------------------------------
-# TAB 3 — ΜΑΘΗΜΑΤΑ (LESSONS)
+# TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
 with tab3:
     st.subheader("🎓 Μαθήματα")
@@ -262,7 +284,6 @@ with tab3:
     if not os.path.exists(LESSONS_DIR):
         st.info("ℹ️ Δεν έχει δημιουργηθεί ακόμα ο φάκελος 'lessons'.")
     else:
-        # Λίστα φακέλων (01_dali, 02_led_driver, ...)
         entries = [
             d for d in os.listdir(LESSONS_DIR)
             if os.path.isdir(os.path.join(LESSONS_DIR, d))
@@ -282,14 +303,12 @@ with tab3:
             main_txt = os.path.join(lesson_folder, f"{choice_lesson}.txt")
             data = load_lesson_or_program_txt(main_txt)
 
-            # Τίτλος & περιγραφή
             st.markdown("### 📘 Τίτλος Μαθήματος")
             st.write(data["title"] if data["title"] else choice_lesson.replace("_", " ").title())
 
             st.markdown("### 📝 Περιγραφή")
             st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
 
-            # Video (αν υπάρχει)
             video_url = data["video"].strip()
             if video_url:
                 st.markdown("### 🎬 Βίντεο YouTube")
@@ -297,17 +316,13 @@ with tab3:
 
             st.write("---")
 
-            # Screenshots
             mobile_folder = os.path.join(lesson_folder, "mobile")
             pc_folder = os.path.join(lesson_folder, "pc")
 
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
 
-            if not mobile_items and not pc_items:
-                st.info("ℹ️ Δεν υπάρχουν ακόμα screenshots για αυτό το μάθημα.")
-            else:
-                if mobile_items:
-                    render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
-                if pc_items:
-                    render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
+            if mobile_items:
+                render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
+            if pc_items:
+                render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
