@@ -75,6 +75,19 @@ with tab1:
     # subpages/pictures/sxedia/fotismos/...
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     SXEDIA_DIR = os.path.join(BASE_DIR, "subpages", "pictures", "sxedia")
+    # ---------------- DEBUG MODE ----------------
+st.write("### 🐞 DEBUG INFO")
+st.write("📁 BASE_DIR:", BASE_DIR)
+st.write("📁 SXEDIA_DIR:", SXEDIA_DIR)
+st.write("📁 Selected folder:", folder)
+st.write("📁 Folder exists:", os.path.exists(folder))
+
+if os.path.exists(folder):
+    st.write("📄 Files in folder:", os.listdir(folder))
+else:
+    st.write("⚠️ Folder not found")
+# --------------------------------------------
+
 
     # Κατηγορίες
     categories = {
