@@ -26,7 +26,7 @@ st.markdown(
 
 # Τίτλος και Καλωσόρισμα
 st.markdown("<h1 style='text-align: center; color: #28a745;'>Καλώς ήρθατε στο Geyer Technical Portal</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; color: #666;'>Με την υπογραφή του Νεκτάριου Κλαδούχου</h3>", unsafe_allow_html=True)
+#st.markdown("<h3 style='text-align: center; color: #666;'>Με την υπογραφή του Νεκτάριου Κλαδούχου</h3>", unsafe_allow_html=True)
 st.write("---")
 
 # Κύριο Σώμα
@@ -57,7 +57,7 @@ with col2:
     **💡 Η Φιλοσοφία μας**
     Πιστεύω στη δύναμη της συνεργασίας. Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών, αλλά μια ζωντανή κοινότητα ανταλλαγής ιδεών.
     """)
-    st.image("https://pixabay.com", caption="Smart Living")
+    #st.image("https://pixabay.com", caption="Smart Living")
 
 st.write("---")
 
