@@ -1,1 +1,18 @@
+[title]
+Dimmer 220v & Phase Cut Dimming (TRIAC / Leading / Trailing Edge)
+
+[description]
+Σύνδεση LED ταινίας με σταθερή τάση 24V και driver κατάλληλης ισχύος.
+
+[electrician]
+- Προσοχή στη σωστή πολικότητα (+/-)
+- Ο driver πρέπει να καλύπτει το συνολικό μήκος της ταινίας
+- Αποφυγή υπερφόρτωσης του driver
+- Προσοχή στις ενώσεις και στα connectors
+
+[customer]
+- Ομοιόμορφος φωτισμός χωρίς flicker
+- Μεγάλη διάρκεια ζωής
+- Χαμηλή κατανάλωση
+- Δυνατότητα dimming με κατάλληλο driver
 
