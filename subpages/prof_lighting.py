@@ -31,6 +31,33 @@ def show():
     .block-container p {
         text-align: center !important;
     }
+
+    /* ----------- GALLERY FIX ----------- */
+
+    .gallery-card {
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .gallery-title {
+        font-size: 18px;
+        font-weight: 600;
+        min-height: 45px; /* ίδιο ύψος για όλους */
+    }
+
+    .gallery-desc {
+        font-size: 14px;
+        color: #555;
+        min-height: 60px; /* ίδιο ύψος για όλους */
+    }
+
+    .gallery-card img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
@@ -187,21 +214,21 @@ def show():
     #  GALLERY – Screenshots Κεντρικής Μονάδας & App
     # ---------------------------------------------------------
     st.header("📱 Screenshots Κεντρικής Μονάδας ")
-    st.write("Premium gallery με απλή προβολή και επεξήγηση κάτω από κάθε εικόνα.")
+    st.write("Premium gallery με τέλεια ευθυγράμμιση σε desktop.")
 
     gallery_items = [
         ("37_Rooms.png", "Section & Rooms", "Τμήματα και χώροι."),
-        ("36_συσκευές.png", "Devices", "Γραμμες φωτισμού μέσα στον κάθε χώρο "),
-        ("44_κεντρικοί φωτισμοί.png", "Ομαδοποιήσεις Γραμμών Φωτισμού", "Ίδιες Γραμμές που ελέγχονται απο εικονική συσκευή"),
+        ("36_συσκευές.png", "Devices", "Γραμμές φωτισμού μέσα στον κάθε χώρο."),
+        ("44_κεντρικοί φωτισμοί.png", "Ομαδοποιήσεις Γραμμών Φωτισμού", "Ίδιες γραμμές που ελέγχονται από εικονική συσκευή."),
         ("36_σενάρια χρονικα 2.png", "Scenes", "Ομαδοποίηση φωτισμού με σενάριο."),
-        ("34_ομαδοποίηση.png", "Ομαδοποίηση συσκευών", "Ρυθμίσεις συσκευών Φωτισμού να λειτουργούν ώς ομάδα."),
-        ("31_profile.png", "Profiles", "Μέσα απο τα Profiles κλειδώνουμε τις ρυθμίσεις της κάθε γραμμής ή ομάδας"),
-        ("35_σενάρια χρονικα.png", "Scenes για τα Profiles", "Δημιουργία σεναρίου για αλλάγή Profile με βάση ώρα ή συνθήκη."),
-        ("32_Scenes.png", "Πίνακας σεναρίων ", "Απο εδώ παραμετροποιούμε τα σενάρια ή τα θέτουμε εκτός λειτουργίας."),
-        ("38_ιστορικό σεναρίων.png", "Ιστορικό ", "Απο εδώ παρακολουθούμε την σωστή λειτουργία των σεναρίων με ώρα και ημερομηνία"),
-        ("33_Καταναλώσεις.png", "Energy", "Πίνακας καταναλώσεων φωτισμών ανα χώρο"),
-        ("42_on_off.png", "Λειτουργία ON/OFF", "Χειρισμός γραμμής φωτισμού με μέτρηση κατανάλωσης."),
-        ("43_dimming.png", "Λειτουργία Dimming", "Χειρισμός Dimming με μέτρηση κατανάλωσης εκτός Dali & 0-10v.")
+        ("34_ομαδοποίηση.png", "Ομαδοποίηση συσκευών", "Ρυθμίσεις συσκευών φωτισμού να λειτουργούν ως ομάδα."),
+        ("31_profile.png", "Profiles", "Κλείδωμα ρυθμίσεων γραμμών ή ομάδων."),
+        ("35_σενάρια χρονικα.png", "Scenes για Profiles", "Αλλαγή Profile με βάση ώρα ή συνθήκη."),
+        ("32_Scenes.png", "Πίνακας σεναρίων", "Παραμετροποίηση ή απενεργοποίηση σεναρίων."),
+        ("38_ιστορικό σεναρίων.png", "Ιστορικό", "Παρακολούθηση λειτουργίας σεναρίων."),
+        ("33_Καταναλώσεις.png", "Energy", "Καταναλώσεις φωτισμού ανά χώρο."),
+        ("42_on_off.png", "Λειτουργία ON/OFF", "Χειρισμός γραμμής φωτισμού με μέτρηση."),
+        ("43_dimming.png", "Λειτουργία Dimming", "Dimming με μέτρηση κατανάλωσης εκτός DALI & 0-10V.")
     ]
 
     cols = st.columns(3)
@@ -210,9 +237,13 @@ def show():
         full_path = os.path.join(PICTURES_DIR, filename)
 
         with cols[i % 3]:
+            st.markdown("<div class='gallery-card'>", unsafe_allow_html=True)
+
             st.image(full_path, use_container_width=True)
-            st.markdown(f"### {title}")
-            st.markdown(desc)
-            st.markdown("---")
+
+            st.markdown(f"<div class='gallery-title'>{title}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='gallery-desc'>{desc}</div>", unsafe_allow_html=True)
+
+            st.markdown("</div>", unsafe_allow_html=True)
 
     st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
