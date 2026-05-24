@@ -70,8 +70,8 @@ tab1, tab2, tab3 = st.tabs([
 with tab1:
     st.subheader("🔌 Σχέδια Σύνδεσης")
 
-    # Πηγαίνουμε 1 επίπεδο πάνω από το subpages/
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # ΣΩΣΤΟ PATH ΓΙΑ ΤΗ ΔΙΚΗ ΣΟΥ ΔΟΜΗ
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     SXEDIA_DIR = os.path.join(BASE_DIR, "pictures", "sxedia")
 
     # Κατηγορίες
