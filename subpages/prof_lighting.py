@@ -79,10 +79,11 @@ def show():
         margin-left: 10px;
     }
 
+    /* ΣΤΑΘΕΡΟ ΥΨΟΣ ΕΙΚΟΝΩΝ ΓΙΑ ΤΕΛΕΙΑ ΕΥΘΥΓΡΑΜΜΙΣΗ */
     .solution-card img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 6px;
     }
 
     </style>
