@@ -99,72 +99,108 @@ def show():
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας (ΜΕ ΤΕΛΕΙΑ ΕΥΘΥΓΡΑΜΜΙΣΗ)
     # ---------------------------------------------------------
-    st.header("⚙️ Λύσεις για Επαγγελματικό Φωτισμό")
+#  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας (PREMIUM ΕΥΘΥΓΡΑΜΜΙΣΗ)
+# ---------------------------------------------------------
+st.header("⚙️ Λύσεις για Επαγγελματικό Φωτισμό")
 
-    col1, col2 = st.columns(2, vertical_alignment="top")
+col1, col2 = st.columns(2, vertical_alignment="top")
 
-    # ---------------- LEFT COLUMN ----------------
-    with col1:
+# ---------------- LEFT COLUMN ----------------
+with col1:
 
-        # DIMMER 220V
-        st.subheader("🔌 Dimmer 220V")
-        st.markdown("""
-        - Dimming σε LED panel & PL μέχρι 200VA.
-        - Ασύρματη ομαδοποίηση πολλών dimmers.
-        - Ομοιόμορφο dimming σε όλες τις γραμμές.
-        - Χειρισμός από ένα μπουτόν.
-        """)
-        st.image(
-            os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
-            caption="Φωτισμός γραφείων με panel με dimming phase cut",
-            use_container_width=True
-        )
+    # DIMMER 220V
+    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
 
-        # LED STRIP (ΕΥΘΥΓΡΑΜΜΙΣΜΕΝΟ)
-        st.subheader("🎚️ Dimming LED Strip")
-        st.markdown("""
-        - Dimming με απλό τροφοδοτικό 12V/24V.
-        - Ομαδοποίηση για πολλά μέτρα ταινίας.
-        - RGB / RGBW / μονόχρωμη ταινία.
-        - Ale retour με απλά μπουτόν.
-        """)
-        st.image(
-            os.path.join(PICTURES_DIR, "ligths_room_RGBW.png"),
-            caption="Dimming σε ταινίες Led μονόχρωμες, CCT, RGB, RGBW",
-            use_container_width=True
-        )
+    st.markdown("<div class='solution-title'>🔌 Dimmer 220V</div>", unsafe_allow_html=True)
 
-    # ---------------- RIGHT COLUMN ----------------
-    with col2:
+    st.markdown("""
+    <div class='solution-text'>
+    • Dimming σε LED panel & PL μέχρι 200VA.<br>
+    • Ασύρματη ομαδοποίηση πολλών dimmers.<br>
+    • Ομοιόμορφο dimming σε όλες τις γραμμές.<br>
+    • Χειρισμός από ένα μπουτόν.
+    </div>
+    """, unsafe_allow_html=True)
 
-        # 0-10V / 1-10V
-        st.subheader("🔵 Dimming 0-10V & 1-10V")
-        st.markdown("""
-        - Οδήγηση οποιουδήποτε driver 1-10V.
-        - Τοπικός έλεγχος με μπουτόν.
-        - Ασύρματη ομαδοποίηση πολλών drivers.
-        - Μνήμη τελευταίας κατάστασης.
-        """)
-        st.image(
-            os.path.join(PICTURES_DIR, "0-10v.png"),
-            caption="Dimming φωτοσωλήνας ειδικής κατασκευής 1-10V",
-            use_container_width=True
-        )
+    st.image(
+        os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
+        caption="Φωτισμός γραφείων με panel με dimming phase cut",
+        use_container_width=True
+    )
 
-        # DALI (ΕΥΘΥΓΡΑΜΜΙΣΜΕΝΟ)
-        st.subheader("🟣 DALI Dimming")
-        st.markdown("""
-        - Έλεγχος DALI drivers (DT6).
-        - Ομαδοποίηση και διευθυνσιοδότηση.
-        - Τοπικός έλεγχος με μπουτόν.
-        - Σύνδεση μέχρι 64 drivers στην ίδια γραμμή.
-        """)
-        st.image(
-            os.path.join(PICTURES_DIR, "Dali_office.png"),
-            caption="Dimming φωτισμός σε γραφεία με μέθοδο DALI 2 (DT6)",
-            use_container_width=True
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # LED STRIP
+    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+
+    st.markdown("<div class='solution-title'>🎚️ Dimming LED Strip</div>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class='solution-text'>
+    • Dimming με απλό τροφοδοτικό 12V/24V.<br>
+    • Ομαδοποίηση για πολλά μέτρα ταινίας.<br>
+    • RGB / RGBW / μονόχρωμη ταινία.<br>
+    • Ale retour με απλά μπουτόν.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.image(
+        os.path.join(PICTURES_DIR, "ligths_room_RGBW.png"),
+        caption="Dimming σε ταινίες Led μονόχρωμες, CCT, RGB, RGBW",
+        use_container_width=True
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------- RIGHT COLUMN ----------------
+with col2:
+
+    # 0-10V / 1-10V
+    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+
+    st.markdown("<div class='solution-title'>🔵 Dimming 0-10V & 1-10V</div>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class='solution-text'>
+    • Οδήγηση οποιουδήποτε driver 1-10V.<br>
+    • Τοπικός έλεγχος με μπουτόν.<br>
+    • Ασύρματη ομαδοποίηση πολλών drivers.<br>
+    • Μνήμη τελευταίας κατάστασης.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.image(
+        os.path.join(PICTURES_DIR, "0-10v.png"),
+        caption="Dimming φωτοσωλήνας ειδικής κατασκευής 1-10V",
+        use_container_width=True
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # DALI
+    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+
+    st.markdown("<div class='solution-title'>🟣 DALI Dimming</div>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class='solution-text'>
+    • Έλεγχος DALI drivers (DT6).<br>
+    • Ομαδοποίηση και διευθυνσιοδότηση.<br>
+    • Τοπικός έλεγχος με μπουτόν.<br>
+    • Σύνδεση μέχρι 64 drivers στην ίδια γραμμή.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.image(
+        os.path.join(PICTURES_DIR, "Dali_office.png"),
+        caption="Dimming φωτισμός σε γραφεία με μέθοδο DALI 2 (DT6)",
+        use_container_width=True
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
         )
 
     st.divider()
