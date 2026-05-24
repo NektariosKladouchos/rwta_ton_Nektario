@@ -70,9 +70,11 @@ tab1, tab2, tab3 = st.tabs([
 with tab1:
     st.subheader("🔌 Σχέδια Σύνδεσης")
 
-    # ΣΩΣΤΟ PATH ΓΙΑ ΤΗ ΔΙΚΗ ΣΟΥ ΔΟΜΗ
+    # ΕΔΩ είναι η σωστή διαδρομή για τη δομή σου:
+    # 06_📘_Σχέδια.py  (root)
+    # subpages/pictures/sxedia/fotismos/...
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    SXEDIA_DIR = os.path.join(BASE_DIR, "pictures", "sxedia")
+    SXEDIA_DIR = os.path.join(BASE_DIR, "subpages", "pictures", "sxedia")
 
     # Κατηγορίες
     categories = {
@@ -116,7 +118,13 @@ with tab1:
             #  ΤΙΤΛΟΣ – ΠΕΡΙΓΡΑΦΗ – ΠΡΟΣΟΧΕΣ – ΟΦΕΛΗ
             # ---------------------------------------------------------
 
-            clean_title = choice.replace(".png", "").replace(".jpg", "").replace("_", " ").title()
+            clean_title = (
+                choice.replace(".png", "")
+                      .replace(".jpg", "")
+                      .replace(".jpeg", "")
+                      .replace("_", " ")
+                      .title()
+            )
 
             st.markdown("### 📘 Τίτλος Σχεδίου")
             st.write(clean_title)
