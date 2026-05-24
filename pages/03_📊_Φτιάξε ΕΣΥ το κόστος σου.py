@@ -5,11 +5,11 @@ from email.mime.multipart import MIMEMultipart
 
 # --- ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER ---
 PRICES = {
-    "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 52.0,
-    "led_strip": 63.92, "dali": 160.0, "shutter": 63.92,
-    "energy_1ph": 110.0, "energy_3ph": 160.0, "heater": 99.0,
-    "heat_thermostat": 120.0, "fancoil_ctrl": 130.0, "electric_heat": 70.0,
-    "split_ac": 100.0, "vrv_interface": 260.0, "hub_small": 139.0, "hub_large": 609.0
+    "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 66.81,
+    "led_strip": 63.92, "dali": 162.63, "shutter": 63.92,
+    "energy_1ph": 108.11, "energy_3ph": 155.06, "heater": 103.59,
+    "heat_thermostat": 99.95, "fancoil_ctrl": 99.95, "electric_heat": 63.92,
+    "split_ac": 84.06, "vrv_interface": 359.10, "hub_small": 158.04, "hub_large": 619.1
 }
 BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Midea", "Άλλη"]
 JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
@@ -281,7 +281,7 @@ with tab_calc:
                     + e_val
                     + (95 if heater else 0)
                 )
-                prog_cost = total_mat * 0.20
+                prog_cost = total_mat * 0.25
                 vat = total_mat * 0.24
                 gen_total = total_mat + vat
 
@@ -479,7 +479,7 @@ with tab_help:
     ### 5️⃣ Μετρητής & Θερμοσίφωνας
     - Μονοφασικός → +110€  
     - Τριφασικός → +160€  
-    - Θερμοσίφωνας → +95€  
+    - Θερμοσίφωνας → +103€  
 
     ---
 
@@ -498,7 +498,7 @@ with tab_help:
     - Υλικά: 2.000€  
     - ΦΠΑ 24%: 480€  
     - Σύνολο: 2.480€  
-    - Προγραμματισμός (20%): 400€  
+    - Προγραμματισμός: 400€  
 
     ---
 
