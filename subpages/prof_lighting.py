@@ -43,16 +43,43 @@ def show():
     .gallery-title {
         font-size: 18px;
         font-weight: 600;
-        min-height: 45px; /* ίδιο ύψος για όλους */
+        min-height: 45px;
     }
 
     .gallery-desc {
         font-size: 14px;
         color: #555;
-        min-height: 60px; /* ίδιο ύψος για όλους */
+        min-height: 60px;
     }
 
     .gallery-card img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* ----------- SOLUTIONS FIX ----------- */
+
+    .solution-card {
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .solution-title {
+        font-size: 20px;
+        font-weight: 700;
+        min-height: 40px;
+    }
+
+    .solution-text {
+        font-size: 15px;
+        min-height: 120px;
+        text-align: left;
+        margin-left: 10px;
+    }
+
+    .solution-card img {
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -73,7 +100,7 @@ def show():
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 1 – Προβλήματα που λύνουμε (ΜΕ ΤΗ ΔΙΚΗ ΣΟΥ ΦΩΤΟ)
+    #  ΕΝΟΤΗΤΑ 1 – Προβλήματα που λύνουμε
     # ---------------------------------------------------------
     st.header("❗ Προβλήματα στον Επαγγελματικό Φωτισμό")
 
@@ -99,109 +126,81 @@ def show():
     st.divider()
 
     # ---------------------------------------------------------
+    #  ΕΝΟΤΗΤΑ 2 – Λύσεις για Επαγγελματικό Φωτισμό (PREMIUM)
     # ---------------------------------------------------------
-#  ΕΝΟΤΗΤΑ 2 – Οι Λύσεις μας (PREMIUM ΕΥΘΥΓΡΑΜΜΙΣΗ)
-# ---------------------------------------------------------
-st.header("⚙️ Λύσεις για Επαγγελματικό Φωτισμό")
+    st.header("⚙️ Λύσεις για Επαγγελματικό Φωτισμό")
 
-col1, col2 = st.columns(2, vertical_alignment="top")
+    col1, col2 = st.columns(2, vertical_alignment="top")
 
-# ---------------- LEFT COLUMN ----------------
-with col1:
+    # ---------------- LEFT COLUMN ----------------
+    with col1:
 
-    # DIMMER 220V
-    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+        # DIMMER 220V
+        st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+        st.markdown("<div class='solution-title'>🔌 Dimmer 220V</div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='solution-text'>
+        • Dimming σε LED panel & PL μέχρι 200VA.<br>
+        • Ασύρματη ομαδοποίηση πολλών dimmers.<br>
+        • Ομοιόμορφο dimming σε όλες τις γραμμές.<br>
+        • Χειρισμός από ένα μπουτόν.
+        </div>
+        """, unsafe_allow_html=True)
+        st.image(os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
+                 caption="Φωτισμός γραφείων με panel με dimming phase cut",
+                 use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='solution-title'>🔌 Dimmer 220V</div>", unsafe_allow_html=True)
+        # LED STRIP
+        st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+        st.markdown("<div class='solution-title'>🎚️ Dimming LED Strip</div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='solution-text'>
+        • Dimming με απλό τροφοδοτικό 12V/24V.<br>
+        • Ομαδοποίηση για πολλά μέτρα ταινίας.<br>
+        • RGB / RGBW / μονόχρωμη ταινία.<br>
+        • Ale retour με απλά μπουτόν.
+        </div>
+        """, unsafe_allow_html=True)
+        st.image(os.path.join(PICTURES_DIR, "ligths_room_RGBW.png"),
+                 caption="Dimming σε ταινίες Led μονόχρωμες, CCT, RGB, RGBW",
+                 use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class='solution-text'>
-    • Dimming σε LED panel & PL μέχρι 200VA.<br>
-    • Ασύρματη ομαδοποίηση πολλών dimmers.<br>
-    • Ομοιόμορφο dimming σε όλες τις γραμμές.<br>
-    • Χειρισμός από ένα μπουτόν.
-    </div>
-    """, unsafe_allow_html=True)
+    # ---------------- RIGHT COLUMN ----------------
+    with col2:
 
-    st.image(
-        os.path.join(PICTURES_DIR, "ligths_office_220v.png"),
-        caption="Φωτισμός γραφείων με panel με dimming phase cut",
-        use_container_width=True
-    )
+        # 0-10V
+        st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+        st.markdown("<div class='solution-title'>🔵 Dimming 0-10V & 1-10V</div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='solution-text'>
+        • Οδήγηση οποιουδήποτε driver 1-10V.<br>
+        • Τοπικός έλεγχος με μπουτόν.<br>
+        • Ασύρματη ομαδοποίηση πολλών drivers.<br>
+        • Μνήμη τελευταίας κατάστασης.
+        </div>
+        """, unsafe_allow_html=True)
+        st.image(os.path.join(PICTURES_DIR, "0-10v.png"),
+                 caption="Dimming φωτοσωλήνας ειδικής κατασκευής 1-10V",
+                 use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # LED STRIP
-    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
-
-    st.markdown("<div class='solution-title'>🎚️ Dimming LED Strip</div>", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class='solution-text'>
-    • Dimming με απλό τροφοδοτικό 12V/24V.<br>
-    • Ομαδοποίηση για πολλά μέτρα ταινίας.<br>
-    • RGB / RGBW / μονόχρωμη ταινία.<br>
-    • Ale retour με απλά μπουτόν.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.image(
-        os.path.join(PICTURES_DIR, "ligths_room_RGBW.png"),
-        caption="Dimming σε ταινίες Led μονόχρωμες, CCT, RGB, RGBW",
-        use_container_width=True
-    )
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-# ---------------- RIGHT COLUMN ----------------
-with col2:
-
-    # 0-10V / 1-10V
-    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
-
-    st.markdown("<div class='solution-title'>🔵 Dimming 0-10V & 1-10V</div>", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class='solution-text'>
-    • Οδήγηση οποιουδήποτε driver 1-10V.<br>
-    • Τοπικός έλεγχος με μπουτόν.<br>
-    • Ασύρματη ομαδοποίηση πολλών drivers.<br>
-    • Μνήμη τελευταίας κατάστασης.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.image(
-        os.path.join(PICTURES_DIR, "0-10v.png"),
-        caption="Dimming φωτοσωλήνας ειδικής κατασκευής 1-10V",
-        use_container_width=True
-    )
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # DALI
-    st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
-
-    st.markdown("<div class='solution-title'>🟣 DALI Dimming</div>", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class='solution-text'>
-    • Έλεγχος DALI drivers (DT6).<br>
-    • Ομαδοποίηση και διευθυνσιοδότηση.<br>
-    • Τοπικός έλεγχος με μπουτόν.<br>
-    • Σύνδεση μέχρι 64 drivers στην ίδια γραμμή.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.image(
-        os.path.join(PICTURES_DIR, "Dali_office.png"),
-        caption="Dimming φωτισμός σε γραφεία με μέθοδο DALI 2 (DT6)",
-        use_container_width=True
-    )
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-        )
+        # DALI
+        st.markdown("<div class='solution-card'>", unsafe_allow_html=True)
+        st.markdown("<div class='solution-title'>🟣 DALI Dimming</div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='solution-text'>
+        • Έλεγχος DALI drivers (DT6).<br>
+        • Ομαδοποίηση και διευθυνσιοδότηση.<br>
+        • Τοπικός έλεγχος με μπουτόν.<br>
+        • Σύνδεση μέχρι 64 drivers στην ίδια γραμμή.
+        </div>
+        """, unsafe_allow_html=True)
+        st.image(os.path.join(PICTURES_DIR, "Dali_office.png"),
+                 caption="Dimming φωτισμός σε γραφεία με μέθοδο DALI 2 (DT6)",
+                 use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.divider()
 
@@ -222,16 +221,14 @@ with col2:
         """)
 
     with colY:
-        st.image(
-            os.path.join(PICTURES_DIR, "kentrikh_othonh.png"),
-            caption="Ομαδοποίηση και κεντρική διαχείριση με σενάρια dimming για όλα τα είδη φωτισμού",
-            use_container_width=True
-        )
+        st.image(os.path.join(PICTURES_DIR, "kentrikh_othonh.png"),
+                 caption="Ομαδοποίηση και κεντρική διαχείριση με σενάρια dimming για όλα τα είδη φωτισμού",
+                 use_container_width=True)
 
     st.divider()
 
     # ---------------------------------------------------------
-    #  ΕΝΟΤΗΤΑ 4 – Πού εφαρμόζεται (ΧΩΡΙΣ ΕΙΚΟΝΑ)
+    #  ΕΝΟΤΗΤΑ 4 – Πού εφαρμόζεται
     # ---------------------------------------------------------
     st.header("🏢 Πού εφαρμόζεται")
 
@@ -247,9 +244,9 @@ with col2:
     st.divider()
 
     # ---------------------------------------------------------
-    #  GALLERY – Screenshots Κεντρικής Μονάδας & App
+    #  GALLERY – Screenshots Κεντρικής Μονάδας
     # ---------------------------------------------------------
-    st.header("📱 Screenshots Κεντρικής Μονάδας ")
+    st.header("📱 Screenshots Κεντρικής Μονάδας")
     st.write("Premium gallery με τέλεια ευθυγράμμιση σε desktop.")
 
     gallery_items = [
@@ -274,12 +271,9 @@ with col2:
 
         with cols[i % 3]:
             st.markdown("<div class='gallery-card'>", unsafe_allow_html=True)
-
             st.image(full_path, use_container_width=True)
-
             st.markdown(f"<div class='gallery-title'>{title}</div>", unsafe_allow_html=True)
             st.markdown(f"<div class='gallery-desc'>{desc}</div>", unsafe_allow_html=True)
-
             st.markdown("</div>", unsafe_allow_html=True)
 
     st.caption("GEYER Hellas – Επαγγελματικές λύσεις φωτισμού με έξυπνη διαχείριση.")
