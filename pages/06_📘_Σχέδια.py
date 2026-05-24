@@ -70,7 +70,8 @@ tab1, tab2, tab3 = st.tabs([
 with tab1:
     st.subheader("🔌 Σχέδια Σύνδεσης")
 
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # Πηγαίνουμε 1 επίπεδο πάνω από το subpages/
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     SXEDIA_DIR = os.path.join(BASE_DIR, "pictures", "sxedia")
 
     # Κατηγορίες
@@ -94,10 +95,13 @@ with tab1:
 
     # Αν δεν υπάρχει ο φάκελος
     if not os.path.exists(folder):
-        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα. Δημιουργήστε τον και προσθέστε PNG σχέδια.")
+        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα. Δημιουργήστε τον και προσθέστε PNG/JPG σχέδια.")
     else:
-        # Φόρτωση PNG
-        files = [f for f in os.listdir(folder) if f.lower().endswith(".png")]
+        # Φόρτωση PNG/JPG
+        files = [
+            f for f in os.listdir(folder)
+            if f.lower().endswith((".png", ".jpg", ".jpeg"))
+        ]
 
         if len(files) == 0:
             st.info("ℹ️ Δεν υπάρχουν ακόμα σχέδια σε αυτή την κατηγορία.")
@@ -112,20 +116,20 @@ with tab1:
             #  ΤΙΤΛΟΣ – ΠΕΡΙΓΡΑΦΗ – ΠΡΟΣΟΧΕΣ – ΟΦΕΛΗ
             # ---------------------------------------------------------
 
-            # Τίτλος από το όνομα αρχείου
-            clean_title = choice.replace(".png", "").replace("_", " ").title()
+            clean_title = choice.replace(".png", "").replace(".jpg", "").replace("_", " ").title()
 
             st.markdown("### 📘 Τίτλος Σχεδίου")
             st.write(clean_title)
 
             st.markdown("### 📝 Γρήγορη Επεξήγηση")
-            st.write("Εδώ θα μπει η περιγραφή του σχεδίου (θα διαβάζεται αυτόματα από .txt).")
+            st.write("Εδώ θα μπει η περιγραφή του σχεδίου (θα διαβάζεται αυτόματα από .txt στο μέλλον).")
 
             st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
             st.write("""
             - Σωστή συνδεσμολογία  
             - Έλεγχος πολικότητας  
             - Αποφυγή υπερφόρτωσης  
+            - Έλεγχος καλής επαφής στους ακροδέκτες  
             """)
 
             st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
@@ -133,6 +137,7 @@ with tab1:
             - Ασφαλής λειτουργία  
             - Εξοικονόμηση ενέργειας  
             - Επαγγελματικό αποτέλεσμα  
+            - Μεγαλύτερη διάρκεια ζωής εξοπλισμού  
             """)
 
 # ---------------------------------------------------------
