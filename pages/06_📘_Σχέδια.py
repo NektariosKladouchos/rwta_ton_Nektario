@@ -201,7 +201,7 @@ with tab1:
 
     categories = {
         "Φωτισμός": "fotismos",
-        "Μοτέρ Σκίασης": "moter",
+        "Μοτέρ Σκίασης": "moter_skiasis",
         "HVAC": "hvac",
         "Ζεστά Νερά": "znx",
         "Συναγερμός": "synagermos",
