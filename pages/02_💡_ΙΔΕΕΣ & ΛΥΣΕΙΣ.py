@@ -11,6 +11,11 @@ st.set_page_config(
 )
 
 # ==================================================
+# GLOBAL ADMIN MODE (READ ONLY)
+# ==================================================
+is_admin = st.session_state.get("is_admin", False)
+
+# ==================================================
 # CUSTOM CSS
 # ==================================================
 st.markdown(
@@ -22,6 +27,12 @@ st.markdown(
         }
         [data-testid="stSidebar"] * {
             color: white !important;
+        }
+
+        /* Make sidebar text inputs readable */
+        [data-testid="stSidebar"] input {
+            color: black !important;
+            background-color: white !important;
         }
 
         /* Title styling */
@@ -95,3 +106,11 @@ except ModuleNotFoundError:
     st.warning(f"⚠️ Το αρχείο `subpages/{file_name}.py` δεν έχει δημιουργηθεί ακόμα.")
 except Exception as e:
     st.error(f"❌ Σφάλμα κατά τη φόρτωση της υποσελίδας: {e}")
+
+# ==================================================
+# ADMIN ANALYTICS (ONLY IF ADMIN)
+# ==================================================
+if is_admin:
+    st.write("---")
+    st.subheader("📊 Analytics (Μόνο για Admin)")
+    st.info("Το admin mode είναι ενεργό — εδώ θα μπουν τα analytics της ενότητας Ιδέες & Λύσεις.")
