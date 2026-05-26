@@ -389,6 +389,13 @@ with tab_calc:
                 st.error("❌ Δεν μπορεί να σταλεί email. Υπάρχει σφάλμα ή δεν έχει γίνει υπολογισμός.")
             else:
                 send_email(disp_text, notes, v_name)
+    # =================================================
+    # ADMIN ANALYTICS (ONLY IN LIVE PRICING TAB)
+    # =================================================
+    if is_admin:
+        st.write("---")
+        st.subheader("📊 Analytics (Μόνο για Admin)")
+        st.info("Το admin mode είναι ενεργό — εδώ θα εμφανίζονται τα analytics του LIVE PRICING.")
 
 # =================================================
 # 2. ΟΔΗΓΙΕΣ TAB
