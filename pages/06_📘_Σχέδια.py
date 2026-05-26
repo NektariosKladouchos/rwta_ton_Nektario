@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import json
 
 # ---------------------------------------------------------
 # PAGE CONFIG
@@ -9,6 +10,13 @@ st.set_page_config(
     page_icon="📘",
     layout="wide"
 )
+
+# ---------------------------------------------------------
+# ADMIN CHECK (μόνο για kladouxos@geyer.gr)
+# ---------------------------------------------------------
+user_email = getattr(st.experimental_user, "email", None)
+is_admin = (user_email == "kladouxos@geyer.gr")
+
 # ---------------------------------------------------------
 # PREMIUM GREEN SIDEBAR CSS
 # ---------------------------------------------------------
@@ -63,6 +71,29 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SXEDIA_DIR = os.path.join(BASE_DIR, "sxedia")
 PROGRAMMING_DIR = os.path.join(BASE_DIR, "programming")
 LESSONS_DIR = os.path.join(BASE_DIR, "lessons")
+
+# ---------------------------------------------------------
+# GLOBAL COUNTERS (JSON)
+# ---------------------------------------------------------
+COUNTER_FILE = os.path.join(BASE_DIR, "counters.json")
+
+
+def load_counters():
+    if not os.path.exists(COUNTER_FILE):
+        return {}
+    with open(COUNTER_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_counters(data):
+    with open(COUNTER_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
+
+
+# καταγραφή εισόδου στη σελίδα "Σχέδια"
+_c = load_counters()
+_c["sxedia_total"] = _c.get("sxedia_total", 0) + 1
+save_counters(_c)
 
 # ---------------------------------------------------------
 # HELPERS ΓΙΑ TXT
@@ -197,6 +228,11 @@ tab1, tab2, tab3 = st.tabs([
 # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
 # ---------------------------------------------------------
 with tab1:
+    # counter για το tab "Σχέδια Σύνδεσης"
+    _c = load_counters()
+    _c["sxedia_sxedia"] = _c.get("sxedia_sxedia", 0) + 1
+    save_counters(_c)
+
     st.subheader("🔌 Σχέδια Σύνδεσης")
 
     categories = {
@@ -257,6 +293,11 @@ with tab1:
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
+    # counter για το tab "Τρόποι Προγραμματισμού"
+    _c = load_counters()
+    _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
+    save_counters(_c)
+
     st.subheader("⚙️ Τρόποι Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
@@ -309,6 +350,11 @@ with tab2:
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
 with tab3:
+    # counter για το tab "Μαθήματα"
+    _c = load_counters()
+    _c["sxedia_lessons"] = _c.get("sxedia_lessons", 0) + 1
+    save_counters(_c)
+
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
@@ -356,3 +402,29 @@ with tab3:
                 render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
             if pc_items:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
+
+# ---------------------------------------------------------
+# ADMIN‑ONLY ANALYTICS (στο τέλος της σελίδας)
+# ---------------------------------------------------------
+if is_admin:
+    st.write("---")
+    st.subheader("📊 Analytics (Μόνο για Admin)")
+
+    counters = load_counters()
+
+    st.write("### Heatmap Χρήσης (Tabs Σχεδίων)")
+    st.bar_chart({
+        "Ενότητα": [
+            "Σχέδια Σύνδεσης",
+            "Τρόποι Προγραμματισμού",
+            "Μαθήματα"
+        ],
+        "Προβολές": [
+            counters.get("sxedia_sxedia", 0),
+            counters.get("sxedia_programming", 0),
+            counters.get("sxedia_lessons", 0)
+        ]
+    })
+
+    st.write("### Σύνολο επισκέψεων σελίδας Σχέδια")
+    st.write(f"Συνολικές προβολές σελίδας: {counters.get('sxedia_total', 0)}")
