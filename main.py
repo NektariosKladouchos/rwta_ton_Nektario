@@ -35,6 +35,12 @@ CUSTOM_CSS = """
     color: white !important;
 }
 
+/* Make sidebar text inputs readable */
+[data-testid="stSidebar"] input {
+    color: black !important;
+    background-color: white !important;
+}
+
 /* Hide default "main" label */
 [data-testid="stSidebarNav"] li:first-child a {
     font-size: 0px !important;
@@ -119,7 +125,7 @@ with st.sidebar:
         key="admin_password_input"
     )
 
-    if st.button("Ενεργοποίηση Admin", use_container_width=True):
+    if st.button("Ενεργοποίηση Admin", use_container_width=True, key="admin_activate_btn"):
         if admin_input == "geyer123":
             st.session_state.is_admin = True
             st.success("Admin Mode ενεργό!")
