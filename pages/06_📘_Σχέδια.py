@@ -12,14 +12,42 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ADMIN CHECK (αλεξίσφαιρο)
+# ADMIN CHECK (αλεξίσφαιρο, με 2 admin emails)
 # ---------------------------------------------------------
 try:
     user_email = st.experimental_user.email
 except:
     user_email = None
 
-is_admin = (user_email == "nektarioskladouchos@gmai.com")
+admin_emails = [
+    "kladouxos@geyer.gr",
+    "nektarioskladouchos@gmail.com"
+]
+
+is_admin = (user_email in admin_emails)
+
+# ---------------------------------------------------------
+# ADMIN BADGE (εμφανίζεται μόνο στον admin)
+# ---------------------------------------------------------
+if is_admin:
+    st.markdown("""
+        <div style="
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background-color: #0b3c26;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            z-index: 9999;
+        ">
+            🟢 Admin Mode ενεργό<br>
+            <span style="font-size:12px; opacity:0.8;">{}</span>
+        </div>
+    """.format(user_email), unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # PREMIUM GREEN SIDEBAR CSS
@@ -27,24 +55,20 @@ is_admin = (user_email == "nektarioskladouchos@gmai.com")
 st.markdown("""
 <style>
 
-    /* Φόντο αριστερής μπάρας */
     [data-testid="stSidebar"] {
         background-color: #0b3c26 !important;
     }
 
-    /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
     [data-testid="stSidebar"] span, 
     [data-testid="stSidebar"] p, 
     [data-testid="stSidebar"] a {
         color: white !important;
     }
 
-    /* Εικονίδια αριστερής μπάρας */
     [data-testid="stSidebar"] svg {
         fill: white !important;
     }
 
-    /* Κουμπί που ανοίγει/κλείνει το sidebar */
     button[kind="header"] svg {
         fill: white !important;
     }
@@ -69,7 +93,7 @@ st.write("""
 st.write("---")
 
 # ---------------------------------------------------------
-# ΒΑΣΙΚΑ PATHS
+# PATHS
 # ---------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SXEDIA_DIR = os.path.join(BASE_DIR, "sxedia")
@@ -81,31 +105,26 @@ LESSONS_DIR = os.path.join(BASE_DIR, "lessons")
 # ---------------------------------------------------------
 COUNTER_FILE = os.path.join(BASE_DIR, "counters.json")
 
-
 def load_counters():
     if not os.path.exists(COUNTER_FILE):
         return {}
     with open(COUNTER_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
-
 def save_counters(data):
     with open(COUNTER_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-
-# καταγραφή εισόδου στη σελίδα "Σχέδια"
+# καταγραφή εισόδου στη σελίδα
 _c = load_counters()
 _c["sxedia_total"] = _c.get("sxedia_total", 0) + 1
 save_counters(_c)
 
 # ---------------------------------------------------------
-# HELPERS ΓΙΑ TXT
+# TXT HELPERS
 # ---------------------------------------------------------
 def load_txt_sections(txt_path, sections):
-    """Γενική συνάρτηση: διαβάζει .txt με [sections] και επιστρέφει dict."""
     data = {key: "" for key in sections}
-
     if not os.path.exists(txt_path):
         return data
 
@@ -113,43 +132,28 @@ def load_txt_sections(txt_path, sections):
     with open(txt_path, "r", encoding="utf-8") as f:
         for line in f:
             line = line.rstrip("\n")
-
             low = line.strip().lower()
             if low in [f"[{s}]" for s in sections]:
                 section = low.strip("[]")
                 continue
-
             if section:
                 data[section] += line + "\n"
-
     return data
-
 
 def load_sxedio_txt(txt_path):
     return load_txt_sections(txt_path, ["title", "description", "electrician", "customer"])
 
-
 def load_lesson_or_program_txt(txt_path):
     return load_txt_sections(txt_path, ["title", "description", "video"])
 
-
 # ---------------------------------------------------------
-# ΑΛΕΞΙΣΦΑΙΡΟ LOADER ΓΙΑ SCREENSHOTS
+# SCREENSHOT LOADER
 # ---------------------------------------------------------
 def load_screenshots(folder):
-    """
-    Αλεξίσφαιρη φόρτωση screenshots:
-    - Δέχεται .png, .jpg, .jpeg (όλα lowercase)
-    - Αγνοεί κεφαλαία (.PNG)
-    - Αγνοεί κρυφά αρχεία
-    - Αγνοεί αρχεία χωρίς αντίστοιχο .txt
-    - Δεν κρασάρει ποτέ
-    """
     if not os.path.exists(folder):
         return []
 
     valid_ext = (".png", ".jpg", ".jpeg")
-
     images = [
         f for f in os.listdir(folder)
         if f.lower().endswith(valid_ext) and not f.startswith(".")
@@ -159,8 +163,8 @@ def load_screenshots(folder):
         return []
 
     images = sorted(images)
-
     items = []
+
     for img in images:
         base, _ = os.path.splitext(img)
         img_path = os.path.join(folder, img)
@@ -179,23 +183,15 @@ def load_screenshots(folder):
 
     return items
 
-
 # ---------------------------------------------------------
-# ΑΛΕΞΙΣΦΑΙΡΟ CAROUSEL
+# CAROUSEL
 # ---------------------------------------------------------
 def render_carousel(title, items, key_prefix):
-    """
-    Αλεξίσφαιρο carousel:
-    - Αν δεν υπάρχουν εικόνες → δεν εμφανίζει slider
-    - Αν υπάρχει 1 εικόνα → δεν εμφανίζει slider
-    - Αν υπάρχουν πολλές → slider κανονικά
-    """
-    if not items or len(items) == 0:
-        return  # ΜΗΝ εμφανίσεις τίποτα
+    if not items:
+        return
 
     st.markdown(f"#### {title}")
 
-    # ΜΟΝΟ ΜΙΑ ΕΙΚΟΝΑ → χωρίς slider
     if len(items) == 1:
         st.image(items[0]["img"], use_container_width=True)
         if items[0]["caption"]:
@@ -203,7 +199,6 @@ def render_carousel(title, items, key_prefix):
         st.write("---")
         return
 
-    # ΠΕΡΙΣΣΟΤΕΡΕΣ ΑΠΟ 1 → slider
     idx = st.slider(
         "Επιλέξτε screenshot",
         min_value=1,
@@ -218,7 +213,6 @@ def render_carousel(title, items, key_prefix):
         st.caption(item["caption"])
     st.write("---")
 
-
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
@@ -229,10 +223,9 @@ tab1, tab2, tab3 = st.tabs([
 ])
 
 # ---------------------------------------------------------
-# TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
+# TAB 1
 # ---------------------------------------------------------
 with tab1:
-    # counter για το tab "Σχέδια Σύνδεσης"
     _c = load_counters()
     _c["sxedia_sxedia"] = _c.get("sxedia_sxedia", 0) + 1
     save_counters(_c)
@@ -257,7 +250,7 @@ with tab1:
     st.write("---")
 
     if not os.path.exists(folder):
-        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα. Δημιουργήστε τον και προσθέστε PNG/JPG σχέδια.")
+        st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα.")
         st.stop()
 
     files = [
@@ -265,8 +258,8 @@ with tab1:
         if f.lower().endswith((".png", ".jpg", ".jpeg"))
     ]
 
-    if len(files) == 0:
-        st.info("ℹ️ Δεν υπάρχουν ακόμα σχέδια σε αυτή την κατηγορία.")
+    if not files:
+        st.info("ℹ️ Δεν υπάρχουν σχέδια.")
         st.stop()
 
     choice = st.selectbox("Επιλέξτε σχέδιο:", files)
@@ -274,7 +267,6 @@ with tab1:
 
     st.image(img_path, use_container_width=True)
 
-    # TXT για το συγκεκριμένο σχέδιο
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
     txt_path = os.path.join(folder, txt_name)
     info = load_sxedio_txt(txt_path)
@@ -294,10 +286,9 @@ with tab1:
     st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
 
 # ---------------------------------------------------------
-# TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
+# TAB 2
 # ---------------------------------------------------------
 with tab2:
-    # counter για το tab "Τρόποι Προγραμματισμού"
     _c = load_counters()
     _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
     save_counters(_c)
@@ -305,7 +296,7 @@ with tab2:
     st.subheader("⚙️ Τρόποι Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
-        st.info("ℹ️ Δεν έχει δημιουργηθεί ακόμα ο φάκελος 'programming'.")
+        st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
     else:
         entries = [
             d for d in os.listdir(PROGRAMMING_DIR)
@@ -314,7 +305,7 @@ with tab2:
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν ακόμα διαδικασίες προγραμματισμού.")
+            st.info("ℹ️ Δεν υπάρχουν διαδικασίες.")
         else:
             choice_prog = st.selectbox(
                 "Επιλέξτε διαδικασία:",
@@ -351,10 +342,9 @@ with tab2:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
 
 # ---------------------------------------------------------
-# TAB 3 — ΜΑΘΗΜΑΤΑ
+# TAB 3
 # ---------------------------------------------------------
 with tab3:
-    # counter για το tab "Μαθήματα"
     _c = load_counters()
     _c["sxedia_lessons"] = _c.get("sxedia_lessons", 0) + 1
     save_counters(_c)
@@ -362,7 +352,7 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
-        st.info("ℹ️ Δεν έχει δημιουργηθεί ακόμα ο φάκελος 'lessons'.")
+        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'.")
     else:
         entries = [
             d for d in os.listdir(LESSONS_DIR)
@@ -371,7 +361,7 @@ with tab3:
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν ακόμα μαθήματα.")
+            st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
         else:
             choice_lesson = st.selectbox(
                 "Επιλέξτε μάθημα:",
@@ -408,7 +398,7 @@ with tab3:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
 
 # ---------------------------------------------------------
-# ADMIN‑ONLY ANALYTICS (στο τέλος της σελίδας)
+# ADMIN‑ONLY ANALYTICS
 # ---------------------------------------------------------
 if is_admin:
     st.write("---")
