@@ -129,7 +129,6 @@ with tab_calc:
         h_qty_input = st.number_input(label_h, min_value=0, key="hq_val")
         h_qty = 0 if h_type == "Κανένα" else h_qty_input
         hb = st.selectbox("Brand (Θ)", BRANDS, key="hb") if h_type == "VRV/VRF" else ""
-
         st.markdown("### ❄️ 4. ΨΥΞΗ")
         c_list = [
             "Κανένα", "Ενδοδαπέδια Δροσισμός", "Fancoil οροφής",
@@ -299,17 +298,7 @@ with tab_calc:
                 res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
                 res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
-
-                if base_c <= 37:
-                    res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | {1:<4} | {PRICES['hub_small']:10.2f}€\n"
-                elif base_c <= 97:
-                    res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | {1:<4} | {PRICES['hub_large']:10.2f}€\n"
-                elif base_c <= 130:
-                    res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | {1:<4} | {PRICES['hub_large']:10.2f}€\n"
-                    res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | {1:<4} | {PRICES['hub_small']:10.2f}€\n"
-                else:
-                    res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | {2:<4} | {(PRICES['hub_large']*2):10.2f}€\n"
-
+                # --- ΓΡΑΜΜΕΣ ΦΩΤΙΣΜΟΥ ---
                 if on_off > 0:
                     res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
                 if double > 0:
@@ -319,4 +308,119 @@ with tab_calc:
                 if dim110 > 0:
                     res += f"{'Dimming 1-10V':<40} | {dim110:<4} | {dim110*52.00:10.2f}€\n"
                 if led > 0:
-                    res += f"{'Ταινίες LED Dimming':<
+                    res += f"{'Ταινίες LED Dimming':<40} | {led:<4} | {led*63.92:10.2f}€\n"
+                if dali > 0:
+                    res += f"{'Γραμμές DALI':<40} | {dali:<4} | {dali*160.00:10.2f}€\n"
+
+                # --- HVAC ΛΕΠΤΟΜΕΡΕΙΕΣ ---
+                for d in h_det:
+                    res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:10.2f}€\n"
+
+                # --- ΡΟΛΑ / ΤΕΝΤΕΣ ---
+                if shutt > 0:
+                    res += f"{'Ρολά / Τέντες / Κουρτίνες':<40} | {shutt:<4} | {shutt*63.92:10.2f}€\n"
+
+                # --- ΜΕΤΡΗΤΗΣ ---
+                if e_val > 0:
+                    res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
+
+                # --- ΘΕΡΜΟΣΙΦΩΝΑΣ ---
+                if heater:
+                    res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
+
+                # --- ΣΥΝΟΛΑ ---
+                res += f"{'-'*70}\n"
+                res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΥΩΝ:':<40} | {total_dev:<4} |\n"
+                res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
+                res += f"{'ΦΠΑ 24%:':<48} {vat:10.2f}€\n"
+                res += f"{'='*70}\n"
+                res += f"{'ΓΕΝΙΚΟ ΣΥΝΟΛΟ:':<48} {gen_total:10.2f}€\n"
+                res += f"{'='*70}\n"
+                res += f"{'ΚΟΣΤΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ (χωρίς ΦΠΑ):':<48} {prog_cost:10.2f}€\n"
+
+                disp_text = res
+
+                st.markdown('<div class="display-box">', unsafe_allow_html=True)
+                st.subheader("🖥️ LIVE PRICING SYSTEM")
+                st.code(disp_text, language="text")
+                st.markdown("</div>", unsafe_allow_html=True)
+
+                st.write("---")
+                notes = st.text_area("📝 Παρατηρήσεις Ζήτησης:")
+
+        # ---------------- EMAIL BUTTON ----------------
+        def send_email(disp_text: str, notes: str, v_name: str):
+            try:
+                sender_email = st.secrets["email"]["sender"]
+                sender_password = st.secrets["email"]["password"]
+                receiver_email = st.secrets["email"]["receiver"]
+                smtp_server = st.secrets["email"]["smtp_server"]
+                smtp_port = st.secrets["email"]["smtp_port"]
+
+                subject = f"Ζήτηση Portal - {v_name}"
+
+                body = f"""
+ΠΡΟΣΦΟΡΑ:
+
+{disp_text}
+
+ΠΑΡΑΤΗΡΗΣΕΙΣ:
+
+{notes}
+"""
+
+                msg = MIMEMultipart()
+                msg["From"] = sender_email
+                msg["To"] = receiver_email
+                msg["Subject"] = subject
+                msg.attach(MIMEText(body, "plain", "utf-8"))
+
+                server = smtplib.SMTP(smtp_server, smtp_port)
+                server.starttls()
+                server.login(sender_email, sender_password)
+                server.sendmail(sender_email, receiver_email, msg.as_string())
+                server.quit()
+
+                st.success("✅ Το email στάλθηκε επιτυχώς!")
+            except Exception as e:
+                st.error(f"❌ Σφάλμα αποστολής: {e}")
+
+        if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
+            if not disp_text or "ΣΦΑΛΜΑ" in disp_text or "⚠️" in disp_text:
+                st.error("❌ Δεν μπορεί να σταλεί email. Υπάρχει σφάλμα ή δεν έχει γίνει υπολογισμός.")
+            else:
+                send_email(disp_text, notes, v_name)
+
+    # =================================================
+    # ADMIN ANALYTICS (ONLY IN LIVE PRICING TAB)
+    # =================================================
+    if is_admin:
+        st.write("---")
+        st.subheader("📊 Analytics (Μόνο για Admin)")
+        st.info("Το admin mode είναι ενεργό — εδώ θα μπουν τα analytics του LIVE PRICING.")
+
+# =================================================
+# 2. ΟΔΗΓΙΕΣ TAB
+# =================================================
+with tab_help:
+    st.title("📝 Οδηγίες Χρήσης του LIVE PRICING")
+
+    st.markdown("""
+    ## 🔍 Τι κάνει το LIVE PRICING;
+    Το σύστημα LIVE PRICING υπολογίζει **αυτόματα** το κόστος ενός έργου Smart Home της GEYER, 
+    με βάση τις πραγματικές ανάγκες του χώρου.
+
+    Περιλαμβάνει:
+    - Φωτισμό  
+    - Dimming  
+    - LED Strips  
+    - DALI  
+    - Θέρμανση  
+    - Ψύξη  
+    - Ρολά / Τέντες  
+    - Μετρητές ενέργειας  
+    - Θερμοσίφωνα  
+    - Κεντρικές μονάδες (Hubs)  
+    - ΦΠΑ  
+    - Προαιρετικό κόστος προγραμματισμού  
+    """)
