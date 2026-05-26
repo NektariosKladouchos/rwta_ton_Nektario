@@ -182,7 +182,6 @@ def load_screenshots(folder):
         items.append({"img": img_path, "caption": caption})
 
     return items
-
 # ---------------------------------------------------------
 # CAROUSEL
 # ---------------------------------------------------------
@@ -285,6 +284,19 @@ with tab1:
     st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
     st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
 
+    # ---------------------------------------------------------
+    # ADMIN ANALYTICS (TAB 1)
+    # ---------------------------------------------------------
+    if is_admin:
+        st.write("---")
+        st.markdown("### 📊 Analytics — Σχέδια Σύνδεσης")
+
+        counters = load_counters()
+        st.metric("Προβολές ενότητας", counters.get("sxedia_sxedia", 0))
+
+        st.bar_chart({
+            "Προβολές": [counters.get("sxedia_sxedia", 0)]
+        })
 # ---------------------------------------------------------
 # TAB 2
 # ---------------------------------------------------------
@@ -338,9 +350,23 @@ with tab2:
 
             if mobile_items:
                 render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
+
             if pc_items:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
 
+    # ---------------------------------------------------------
+    # ADMIN ANALYTICS (TAB 2)
+    # ---------------------------------------------------------
+    if is_admin:
+        st.write("---")
+        st.markdown("### 📊 Analytics — Τρόποι Προγραμματισμού")
+
+        counters = load_counters()
+        st.metric("Προβολές ενότητας", counters.get("sxedia_programming", 0))
+
+        st.bar_chart({
+            "Προβολές": [counters.get("sxedia_programming", 0)]
+        })
 # ---------------------------------------------------------
 # TAB 3
 # ---------------------------------------------------------
@@ -394,15 +420,29 @@ with tab3:
 
             if mobile_items:
                 render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
+
             if pc_items:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
 
+    # ---------------------------------------------------------
+    # ADMIN ANALYTICS (TAB 3)
+    # ---------------------------------------------------------
+    if is_admin:
+        st.write("---")
+        st.markdown("### 📊 Analytics — Μαθήματα")
+
+        counters = load_counters()
+        st.metric("Προβολές ενότητας", counters.get("sxedia_lessons", 0))
+
+        st.bar_chart({
+            "Προβολές": [counters.get("sxedia_lessons", 0)]
+        })
 # ---------------------------------------------------------
-# ADMIN‑ONLY ANALYTICS
+# ADMIN‑ONLY ANALYTICS (ΤΕΛΟΣ ΣΕΛΙΔΑΣ)
 # ---------------------------------------------------------
 if is_admin:
     st.write("---")
-    st.subheader("📊 Analytics (Μόνο για Admin)")
+    st.subheader("📊 Συνολικά Analytics (Μόνο για Admin)")
 
     counters = load_counters()
 
