@@ -222,7 +222,7 @@ with tab1:
         st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
 
         st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-        st.write(info["electrician"] if info["electricician"] else "Δεν υπάρχουν παρατηρήσεις.")
+        st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
 
         st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
         st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
