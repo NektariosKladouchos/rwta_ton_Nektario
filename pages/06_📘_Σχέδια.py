@@ -12,19 +12,22 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ADMIN CHECK
+# ADMIN MODE WITH PASSWORD (GLOBAL)
 # ---------------------------------------------------------
-try:
-    user_email = st.experimental_user.email
-except:
-    user_email = None
+if "admin" not in st.session_state:
+    st.session_state.admin = False
 
-admin_emails = [
-    "kladouxos@geyer.gr",
-    "nektarioskladouchos@gmail.com"
-]
+with st.sidebar:
+    st.write("### 🔐 Admin Login")
+    pwd = st.text_input("Κωδικός Admin", type="password")
+    if st.button("Είσοδος"):
+        if pwd == "1234":   # ΒΑΛΕ ΤΟΝ ΔΙΚΟ ΣΟΥ ΚΩΔΙΚΟ
+            st.session_state.admin = True
+            st.success("Επιτυχής είσοδος Admin!")
+        else:
+            st.error("Λάθος κωδικός.")
 
-is_admin = (user_email in admin_emails)
+is_admin = st.session_state.admin
 
 # ---------------------------------------------------------
 # ADMIN BADGE
@@ -44,10 +47,9 @@ if is_admin:
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
             z-index: 9999;
         ">
-            🟢 Admin Mode ενεργό<br>
-            <span style="font-size:12px; opacity:0.8;">{}</span>
+            🟢 Admin Mode ενεργό
         </div>
-    """.format(user_email), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # PREMIUM GREEN SIDEBAR CSS
