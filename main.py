@@ -88,11 +88,44 @@ button[kind="secondary"]:hover {
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# SIDEBAR
+# GLOBAL ADMIN MODE (SECRET KEY)
 # ---------------------------------------------------------
+if "is_admin" not in st.session_state:
+    st.session_state.is_admin = False
+
 with st.sidebar:
     st.image("LOGO_GEYER.png", use_container_width=True)
     st.markdown("<h2 style='text-align:center;'>HELLAS</h2>", unsafe_allow_html=True)
+    st.write("---")
+
+    # Admin Panel
+    st.markdown("""
+        <div style="
+            padding: 10px;
+            background-color: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        ">
+            <span style="color:#b6ffce; font-weight:600; font-size:15px;">
+                🔐 Admin Access
+            </span>
+        </div>
+    """, unsafe_allow_html=True)
+
+    admin_input = st.text_input(
+        "Κωδικός Admin:",
+        type="password",
+        label_visibility="collapsed",
+        key="admin_password_input"
+    )
+
+    if st.button("Ενεργοποίηση Admin", use_container_width=True):
+        if admin_input == "geyer123":
+            st.session_state.is_admin = True
+            st.success("Admin Mode ενεργό!")
+        else:
+            st.error("Λάθος κωδικός.")
+
     st.write("---")
     st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
 
