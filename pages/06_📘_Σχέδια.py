@@ -12,9 +12,13 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ADMIN CHECK (μόνο για kladouxos@geyer.gr)
+# ADMIN CHECK (αλεξίσφαιρο)
 # ---------------------------------------------------------
-user_email = getattr(st.experimental_user, "email", None)
+try:
+    user_email = st.experimental_user.email
+except:
+    user_email = None
+
 is_admin = (user_email == "kladouxos@geyer.gr")
 
 # ---------------------------------------------------------
