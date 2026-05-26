@@ -12,63 +12,20 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ADMIN MODE WITH PASSWORD (GLOBAL)
+# GLOBAL ADMIN MODE (READ ONLY)
 # ---------------------------------------------------------
-if "admin" not in st.session_state:
-    st.session_state.admin = False
-
-with st.sidebar:
-    st.write("### 🔐 Admin Login")
-    pwd = st.text_input("Κωδικός Admin", type="password")
-    if st.button("Είσοδος"):
-        if pwd == "1234":   # ΒΑΛΕ ΤΟΝ ΔΙΚΟ ΣΟΥ ΚΩΔΙΚΟ
-            st.session_state.admin = True
-            st.success("Επιτυχής είσοδος Admin!")
-        else:
-            st.error("Λάθος κωδικός.")
-
-is_admin = st.session_state.admin
+is_admin = st.session_state.get("is_admin", False)
 
 # ---------------------------------------------------------
-# ADMIN BADGE
-# ---------------------------------------------------------
-if is_admin:
-    st.markdown("""
-        <div style="
-            position: fixed;
-            top: 15px;
-            right: 20px;
-            background-color: #0b3c26;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
-            z-index: 9999;
-        ">
-            🟢 Admin Mode ενεργό
-        </div>
-    """, unsafe_allow_html=True)
-
-# ---------------------------------------------------------
-# PREMIUM GREEN SIDEBAR CSS
+# CUSTOM CSS
 # ---------------------------------------------------------
 st.markdown("""
 <style>
     [data-testid="stSidebar"] {
         background-color: #0b3c26 !important;
     }
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] a {
+    [data-testid="stSidebar"] * {
         color: white !important;
-    }
-    [data-testid="stSidebar"] svg {
-        fill: white !important;
-    }
-    button[kind="header"] svg {
-        fill: white !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -77,16 +34,7 @@ st.markdown("""
 # PAGE TITLE
 # ---------------------------------------------------------
 st.title("📘 Τεχνικά Σχέδια")
-st.write("""
-Καλώς ήρθατε στην ενότητα Τεχνικών Σχεδίων.  
-Εδώ θα βρείτε οργανωμένα παραδείγματα, αναλύσεις και οδηγίες για:
-- Διαγράμματα ηλεκτρολογικών συνδέσεων  
-- Για κάθε είδος αυτοματισμού  
-- HVAC αυτοματισμούς  
-- Παραδείγματα προγραμματισμού  
-- Εκπαιδευτικό υλικό  
-""")
-
+st.write("Επιλέξτε κατηγορία για να δείτε τεχνικά σχέδια, αναλύσεις και παραδείγματα.")
 st.write("---")
 
 # ---------------------------------------------------------
@@ -112,7 +60,7 @@ def save_counters(data):
     with open(COUNTER_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-# καταγραφή εισόδου στη σελίδα
+# Count page visit
 _c = load_counters()
 _c["sxedia_total"] = _c.get("sxedia_total", 0) + 1
 save_counters(_c)
@@ -274,7 +222,7 @@ with tab1:
         st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
 
         st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-        st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
+        st.write(info["electrician"] if info["electricician"] else "Δεν υπάρχουν παρατηρήσεις.")
 
         st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
         st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
@@ -400,27 +348,9 @@ with tab3:
         st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
 
 # ---------------------------------------------------------
-# ADMIN‑ONLY ANALYTICS (ΕΞΩ ΑΠΟ ΤΑ TABS)
+# ADMIN ANALYTICS (ONLY IF ADMIN)
 # ---------------------------------------------------------
 if is_admin:
     st.write("---")
-    st.subheader("📊 Συνολικά Analytics (Μόνο για Admin)")
-
-    counters = load_counters()
-
-    st.write("### Προβολές ανά ενότητα")
-    st.bar_chart({
-        "Ενότητα": [
-            "Σχέδια Σύνδεσης",
-            "Τρόποι Προγραμματισμού",
-            "Μαθήματα"
-        ],
-        "Προβολές": [
-            counters.get("sxedia_sxedia", 0),
-            counters.get("sxedia_programming", 0),
-            counters.get("sxedia_lessons", 0)
-        ]
-    })
-
-    st.write("### Σύνολο επισκέψεων σελίδας")
-    st.metric("Συνολικές προβολές", counters.get("sxedia_total", 0))
+    st.subheader("📊 Analytics (Μόνο για Admin)")
+    st.info("Το admin mode είναι ενεργό — εδώ θα μπουν τα analytics της ενότητας Σχέδια.")
