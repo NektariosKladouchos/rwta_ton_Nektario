@@ -277,20 +277,6 @@ with tab1:
         st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
     else:
         st.info("ℹ️ Δεν υπάρχουν σχέδια για αυτή την κατηγορία.")
-
-    # ---------------------------------------------------------
-    # ADMIN ANALYTICS (TAB 1) — ΠΑΝΤΑ ΟΡΑΤΟ
-    # ---------------------------------------------------------
-    if is_admin:
-        st.write("---")
-        st.markdown("### 📊 Analytics — Σχέδια Σύνδεσης")
-
-        counters = load_counters()
-        st.metric("Προβολές ενότητας", counters.get("sxedia_sxedia", 0))
-
-        st.bar_chart({
-            "Προβολές": [counters.get("sxedia_sxedia", 0)]
-        })
 # ---------------------------------------------------------
 # TAB 2
 # ---------------------------------------------------------
@@ -349,20 +335,6 @@ with tab2:
 
     else:
         st.info("ℹ️ Δεν υπάρχουν διαδικασίες προγραμματισμού.")
-
-    # ---------------------------------------------------------
-    # ADMIN ANALYTICS (TAB 2) — ΠΑΝΤΑ ΟΡΑΤΟ
-    # ---------------------------------------------------------
-    if is_admin:
-        st.write("---")
-        st.markdown("### 📊 Analytics — Τρόποι Προγραμματισμού")
-
-        counters = load_counters()
-        st.metric("Προβολές ενότητας", counters.get("sxedia_programming", 0))
-
-        st.bar_chart({
-            "Προβολές": [counters.get("sxedia_programming", 0)]
-        })
 # ---------------------------------------------------------
 # TAB 3
 # ---------------------------------------------------------
@@ -421,22 +393,8 @@ with tab3:
 
     else:
         st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
-
-    # ---------------------------------------------------------
-    # ADMIN ANALYTICS (TAB 3) — ΠΑΝΤΑ ΟΡΑΤΟ
-    # ---------------------------------------------------------
-    if is_admin:
-        st.write("---")
-        st.markdown("### 📊 Analytics — Μαθήματα")
-
-        counters = load_counters()
-        st.metric("Προβολές ενότητας", counters.get("sxedia_lessons", 0))
-
-        st.bar_chart({
-            "Προβολές": [counters.get("sxedia_lessons", 0)]
-        })
 # ---------------------------------------------------------
-# ADMIN‑ONLY ANALYTICS (ΤΕΛΟΣ ΣΕΛΙΔΑΣ)
+# ADMIN‑ONLY ANALYTICS (ΕΞΩ ΑΠΟ ΤΑ TABS)
 # ---------------------------------------------------------
 if is_admin:
     st.write("---")
@@ -444,7 +402,7 @@ if is_admin:
 
     counters = load_counters()
 
-    st.write("### Heatmap Χρήσης (Tabs Σχεδίων)")
+    st.write("### Προβολές ανά ενότητα")
     st.bar_chart({
         "Ενότητα": [
             "Σχέδια Σύνδεσης",
@@ -458,5 +416,5 @@ if is_admin:
         ]
     })
 
-    st.write("### Σύνολο επισκέψεων σελίδας Σχέδια")
-    st.write(f"Συνολικές προβολές σελίδας: {counters.get('sxedia_total', 0)}")
+    st.write("### Σύνολο επισκέψεων σελίδας")
+    st.metric("Συνολικές προβολές", counters.get("sxedia_total", 0))
