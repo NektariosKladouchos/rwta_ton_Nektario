@@ -2,6 +2,10 @@ import streamlit as st
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+# -------------------------------------------------
+# GLOBAL ADMIN MODE (READ ONLY)
+# -------------------------------------------------
+is_admin = st.session_state.get("is_admin", False)
 
 # --- ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER ---
 PRICES = {
