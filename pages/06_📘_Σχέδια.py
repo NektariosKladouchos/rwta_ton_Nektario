@@ -19,7 +19,7 @@ try:
 except:
     user_email = None
 
-is_admin = (user_email == "kladouxos@geyer.gr")
+is_admin = (user_email == "nektarioskladouchos@gmai.com")
 
 # ---------------------------------------------------------
 # PREMIUM GREEN SIDEBAR CSS
