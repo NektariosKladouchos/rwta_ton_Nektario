@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ADMIN CHECK (αλεξίσφαιρο, με 2 admin emails)
+# ADMIN CHECK
 # ---------------------------------------------------------
 try:
     user_email = st.experimental_user.email
@@ -27,7 +27,7 @@ admin_emails = [
 is_admin = (user_email in admin_emails)
 
 # ---------------------------------------------------------
-# ADMIN BADGE (εμφανίζεται μόνο στον admin)
+# ADMIN BADGE
 # ---------------------------------------------------------
 if is_admin:
     st.markdown("""
@@ -54,25 +54,20 @@ if is_admin:
 # ---------------------------------------------------------
 st.markdown("""
 <style>
-
     [data-testid="stSidebar"] {
         background-color: #0b3c26 !important;
     }
-
-    [data-testid="stSidebar"] span, 
-    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] p,
     [data-testid="stSidebar"] a {
         color: white !important;
     }
-
     [data-testid="stSidebar"] svg {
         fill: white !important;
     }
-
     button[kind="header"] svg {
         fill: white !important;
     }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -101,7 +96,7 @@ PROGRAMMING_DIR = os.path.join(BASE_DIR, "programming")
 LESSONS_DIR = os.path.join(BASE_DIR, "lessons")
 
 # ---------------------------------------------------------
-# GLOBAL COUNTERS (JSON)
+# GLOBAL COUNTERS
 # ---------------------------------------------------------
 COUNTER_FILE = os.path.join(BASE_DIR, "counters.json")
 
@@ -250,42 +245,41 @@ with tab1:
 
     if not os.path.exists(folder):
         st.warning("⚠️ Ο φάκελος δεν υπάρχει ακόμα.")
-        st.stop()
+        files = []
+    else:
+        files = [
+            f for f in os.listdir(folder)
+            if f.lower().endswith((".png", ".jpg", ".jpeg"))
+        ]
 
-    files = [
-        f for f in os.listdir(folder)
-        if f.lower().endswith((".png", ".jpg", ".jpeg"))
-    ]
+    if files:
+        choice = st.selectbox("Επιλέξτε σχέδιο:", files)
+        img_path = os.path.join(folder, choice)
 
-    if not files:
-        st.info("ℹ️ Δεν υπάρχουν σχέδια.")
-        st.stop()
+        st.image(img_path, use_container_width=True)
 
-    choice = st.selectbox("Επιλέξτε σχέδιο:", files)
-    img_path = os.path.join(folder, choice)
+        txt_name = choice.rsplit(".", 1)[0] + ".txt"
+        txt_path = os.path.join(folder, txt_name)
+        info = load_sxedio_txt(txt_path)
 
-    st.image(img_path, use_container_width=True)
+        clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
 
-    txt_name = choice.rsplit(".", 1)[0] + ".txt"
-    txt_path = os.path.join(folder, txt_name)
-    info = load_sxedio_txt(txt_path)
+        st.markdown("### 📘 Τίτλος Σχεδίου")
+        st.write(info["title"] if info["title"] else clean_title)
 
-    clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
+        st.markdown("### 📝 Γρήγορη Επεξήγηση")
+        st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
 
-    st.markdown("### 📘 Τίτλος Σχεδίου")
-    st.write(info["title"] if info["title"] else clean_title)
+        st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
+        st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
 
-    st.markdown("### 📝 Γρήγορη Επεξήγηση")
-    st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
-
-    st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-    st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
-
-    st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
-    st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
+        st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
+        st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
+    else:
+        st.info("ℹ️ Δεν υπάρχουν σχέδια για αυτή την κατηγορία.")
 
     # ---------------------------------------------------------
-    # ADMIN ANALYTICS (TAB 1)
+    # ADMIN ANALYTICS (TAB 1) — ΠΑΝΤΑ ΟΡΑΤΟ
     # ---------------------------------------------------------
     if is_admin:
         st.write("---")
@@ -309,6 +303,7 @@ with tab2:
 
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
+        entries = []
     else:
         entries = [
             d for d in os.listdir(PROGRAMMING_DIR)
@@ -316,46 +311,47 @@ with tab2:
         ]
         entries = sorted(entries)
 
-        if not entries:
-            st.info("ℹ️ Δεν υπάρχουν διαδικασίες.")
-        else:
-            choice_prog = st.selectbox(
-                "Επιλέξτε διαδικασία:",
-                entries,
-                format_func=lambda x: x.replace("_", " ").title()
-            )
+    if entries:
+        choice_prog = st.selectbox(
+            "Επιλέξτε διαδικασία:",
+            entries,
+            format_func=lambda x: x.replace("_", " ").title()
+        )
 
-            prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
-            main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
-            data = load_lesson_or_program_txt(main_txt)
+        prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
+        main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
+        data = load_lesson_or_program_txt(main_txt)
 
-            st.markdown("### 📘 Τίτλος Διαδικασίας")
-            st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
+        st.markdown("### 📘 Τίτλος Διαδικασίας")
+        st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
 
-            st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+        st.markdown("### 📝 Περιγραφή")
+        st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
 
-            video_url = data["video"].strip()
-            if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
-                st.video(video_url)
+        video_url = data["video"].strip()
+        if video_url:
+            st.markdown("### 🎬 Βίντεο YouTube")
+            st.video(video_url)
 
-            st.write("---")
+        st.write("---")
 
-            mobile_folder = os.path.join(prog_folder, "mobile")
-            pc_folder = os.path.join(prog_folder, "pc")
+        mobile_folder = os.path.join(prog_folder, "mobile")
+        pc_folder = os.path.join(prog_folder, "pc")
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+        mobile_items = load_screenshots(mobile_folder)
+        pc_items = load_screenshots(pc_folder)
 
-            if mobile_items:
-                render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
+        if mobile_items:
+            render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
 
-            if pc_items:
-                render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+        if pc_items:
+            render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+
+    else:
+        st.info("ℹ️ Δεν υπάρχουν διαδικασίες προγραμματισμού.")
 
     # ---------------------------------------------------------
-    # ADMIN ANALYTICS (TAB 2)
+    # ADMIN ANALYTICS (TAB 2) — ΠΑΝΤΑ ΟΡΑΤΟ
     # ---------------------------------------------------------
     if is_admin:
         st.write("---")
@@ -379,6 +375,7 @@ with tab3:
 
     if not os.path.exists(LESSONS_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'.")
+        entries = []
     else:
         entries = [
             d for d in os.listdir(LESSONS_DIR)
@@ -386,46 +383,47 @@ with tab3:
         ]
         entries = sorted(entries)
 
-        if not entries:
-            st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
-        else:
-            choice_lesson = st.selectbox(
-                "Επιλέξτε μάθημα:",
-                entries,
-                format_func=lambda x: x.replace("_", " ").title()
-            )
+    if entries:
+        choice_lesson = st.selectbox(
+            "Επιλέξτε μάθημα:",
+            entries,
+            format_func=lambda x: x.replace("_", " ").title()
+        )
 
-            lesson_folder = os.path.join(LESSONS_DIR, choice_lesson)
-            main_txt = os.path.join(lesson_folder, f"{choice_lesson}.txt")
-            data = load_lesson_or_program_txt(main_txt)
+        lesson_folder = os.path.join(LESSONS_DIR, choice_lesson)
+        main_txt = os.path.join(lesson_folder, f"{choice_lesson}.txt")
+        data = load_lesson_or_program_txt(main_txt)
 
-            st.markdown("### 📘 Τίτλος Μαθήματος")
-            st.write(data["title"] if data["title"] else choice_lesson.replace("_", " ").title())
+        st.markdown("### 📘 Τίτλος Μαθήματος")
+        st.write(data["title"] if data["title"] else choice_lesson.replace("_", " ").title())
 
-            st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+        st.markdown("### 📝 Περιγραφή")
+        st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
 
-            video_url = data["video"].strip()
-            if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
-                st.video(video_url)
+        video_url = data["video"].strip()
+        if video_url:
+            st.markdown("### 🎬 Βίντεο YouTube")
+            st.video(video_url)
 
-            st.write("---")
+        st.write("---")
 
-            mobile_folder = os.path.join(lesson_folder, "mobile")
-            pc_folder = os.path.join(lesson_folder, "pc")
+        mobile_folder = os.path.join(lesson_folder, "mobile")
+        pc_folder = os.path.join(lesson_folder, "pc")
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+        mobile_items = load_screenshots(mobile_folder)
+        pc_items = load_screenshots(pc_folder)
 
-            if mobile_items:
-                render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
+        if mobile_items:
+            render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
 
-            if pc_items:
-                render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
+        if pc_items:
+            render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
+
+    else:
+        st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
 
     # ---------------------------------------------------------
-    # ADMIN ANALYTICS (TAB 3)
+    # ADMIN ANALYTICS (TAB 3) — ΠΑΝΤΑ ΟΡΑΤΟ
     # ---------------------------------------------------------
     if is_admin:
         st.write("---")
