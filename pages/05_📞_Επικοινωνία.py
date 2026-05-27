@@ -1,9 +1,40 @@
 import streamlit as st
+import os
+import json
 
 # 1. Ρύθμιση σελίδας
 st.set_page_config(page_title="Επικοινωνία - GEYER", layout="wide")
 
-# Οριστικό CSS για σκούρο πράσινο μενού και λευκά γράμματα ΜΟΝΟ στην αριστερή μπάρα
+# ---------------------------------------------------------
+# GLOBAL ADMIN MODE (READ ONLY)
+# ---------------------------------------------------------
+is_admin = st.session_state.get("is_admin", False)
+
+# ---------------------------------------------------------
+# COUNTERS FILE
+# ---------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+COUNTER_FILE = os.path.join(BASE_DIR, "counters.json")
+
+def load_counters():
+    if not os.path.exists(COUNTER_FILE):
+        return {}
+    with open(COUNTER_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def save_counters(data):
+    with open(COUNTER_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
+
+# Count page visit
+_c = load_counters()
+_c["contact_total"] = _c.get("contact_total", 0) + 1
+_c["contact_last_visit"] = st.session_state.get("username", "Χρήστης")
+save_counters(_c)
+
+# ---------------------------------------------------------
+# CSS
+# ---------------------------------------------------------
 st.markdown(
     """
     <style>
@@ -12,37 +43,30 @@ st.markdown(
            SIDEBAR (ΠΡΑΣΙΝΟ + ΑΣΠΡΑ ΓΡΑΜΜΑΤΑ)
         ============================ */
 
-        /* Φόντο αριστερής μπάρας */
         [data-testid="stSidebar"] {
             background-color: #0b3c26 !important;
         }
 
-        /* Γράμματα και σύνδεσμοι αριστερής μπάρας */
         [data-testid="stSidebar"] * {
             color: white !important;
         }
 
-        /* Εικονίδια αριστερής μπάρας */
         [data-testid="stSidebar"] svg {
             fill: white !important;
         }
 
-        /* Κουμπί "<" που κλείνει το sidebar */
         button[kind="header"] svg {
             fill: white !important;
         }
 
-
         /* ============================
-           INPUT FIELDS (ΑΣΠΡΑ ΚΟΥΤΙΑ + ΜΑΥΡΟ ΚΕΙΜΕΝΟ)
+           INPUT FIELDS
         ============================ */
 
-        /* Κείμενο που γράφεις */
         input, textarea, .stTextInput input, .stTextArea textarea {
             color: black !important;
         }
 
-        /* Placeholder text */
         input::placeholder,
         textarea::placeholder {
             color: #444 !important;
@@ -52,8 +76,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-  
 
 # 2. CSS για GEYER Green
 st.markdown("""
@@ -87,8 +109,6 @@ st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 st.markdown("</div>", unsafe_allow_html=True)
 st.write("---")
 
- 
-
 # --- ΚΑΡΤΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ ---
 col1, col2 = st.columns(2)
 with col1:
@@ -112,5 +132,26 @@ with col2:
 
 st.write("---")
 
+# Count button clicks
 if st.button("🏠 ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΑΡΧΙΚΗ"):
+    _c = load_counters()
+    _c["contact_home_clicks"] = _c.get("contact_home_clicks", 0) + 1
+    save_counters(_c)
     st.switch_page("main.py")
+
+# ---------------------------------------------------------
+# ADMIN ANALYTICS (ONLY IF ADMIN)
+# ---------------------------------------------------------
+if is_admin:
+    st.write("---")
+    st.subheader("📊 Analytics Επικοινωνίας (Μόνο για Admin)")
+
+    counters = load_counters()
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("📞 Συνολικές Επισκέψεις", counters.get("contact_total", 0))
+    col2.metric("🏠 Επιστροφές στην Αρχική", counters.get("contact_home_clicks", 0))
+    col3.metric("👤 Τελευταίος Επισκέπτης", counters.get("contact_last_visit", "—"))
+
+    st.write("---")
+    st.info("Τα analytics ενημερώνονται αυτόματα σε κάθε επίσκεψη και κάθε πάτημα κουμπιού.")
