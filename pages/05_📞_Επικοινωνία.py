@@ -28,7 +28,7 @@ def save_counters(data):
 
 # Count page visit
 _c = load_counters()
-_c["contact_total"] = _c.get("contact_total", 0) - 6
+_c["contact_total"] = _c.get("contact_total", 0) + 1
 _c["contact_last_visit"] = st.session_state.get("username", "Χρήστης")
 save_counters(_c)
 
