@@ -43,46 +43,18 @@ st.markdown("""
 
     /* Input fields text color (FIX) */
     input, textarea, .stTextInput input, .stTextArea textarea {
-        color: black !important;      /* Το κείμενο που γράφεις */
+        color: black !important;
     }
 
     /* Placeholder text */
     input::placeholder,
     textarea::placeholder {
-        color: #444 !important;       /* Σκούρο γκρι placeholder */
+        color: #444 !important;
     }
 
     /* Main background */
     .stApp {
         background-color: #f8f9fa !important;
-    }
-
-    /* Forum question card */
-    .forum-card {
-        background-color: white;
-        border: 2px solid #0b3c26;
-        padding: 18px;
-        border-radius: 10px;
-        margin-bottom: 18px;
-    }
-
-    /* Answer box */
-    .answer-box {
-        background-color: #e8f4e8;
-        border-left: 5px solid #0b3c26;
-        padding: 12px;
-        border-radius: 6px;
-        margin-top: 10px;
-    }
-
-    /* Header */
-    .main-header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .main-header h1 {
-        color: #0b3c26;
-        font-weight: 700;
     }
 
 </style>
@@ -191,7 +163,6 @@ if admin_password == ADMIN_PASSWORD:
     if len(df) > 0:
         selected_id = st.sidebar.selectbox("Επιλογή Question ID", df["id"].tolist())
         
-        # Εδώ διορθώθηκε το .iloc[0] για να παίρνει σωστά τη γραμμή
         selected_row = df[df["id"] == int(selected_id)].iloc[0]
 
         st.sidebar.markdown("---")
@@ -221,3 +192,37 @@ if admin_password == ADMIN_PASSWORD:
         st.sidebar.info("Δεν υπάρχουν ερωτήσεις.")
 else:
     st.sidebar.caption("Πρόσβαση μόνο διαχειριστή")
+
+# ==================================================
+# ADMIN ANALYTICS (ONLY IF ADMIN)
+# ==================================================
+
+if admin_password == ADMIN_PASSWORD:
+
+    st.write("---")
+    st.subheader("📊 Analytics Forum (Μόνο για Admin)")
+
+    total_questions = len(df)
+    answered = df[df["answer"].str.strip() != ""]
+    unanswered = df[df["answer"].str.strip() == ""]
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("📌 Συνολικές Ερωτήσεις", total_questions)
+    col2.metric("✅ Απαντημένες", len(answered))
+    col3.metric("❓ Αναπάντητες", len(unanswered))
+
+    st.write("---")
+
+    if total_questions > 0:
+        st.write("### 🕒 Τελευταίες Κινήσεις")
+
+        last_question = df.sort_values("id", ascending=False).iloc[0]
+        st.info(f"**Τελευταία Ερώτηση:** {last_question['question']} — από {last_question['name']}")
+
+        last_answered = answered.sort_values("id", ascending=False).iloc[0] if len(answered) > 0 else None
+
+        if last_answered is not None:
+            st.success(f"**Τελευταία Απάντηση:** {last_answered['answer']}")
+        else:
+            st.warning("Δεν υπάρχουν ακόμη απαντήσεις.")
