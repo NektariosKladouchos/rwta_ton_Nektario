@@ -2,75 +2,100 @@ import streamlit as st
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-# -------------------------------------------------
-# GLOBAL ADMIN MODE (READ ONLY)
-# -------------------------------------------------
-is_admin = st.session_state.get("is_admin", False)
+import pandas as pd
+import pytz
+from supabase import create_client, Client
 
-# --- ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER ---
-PRICES = {
-    "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 66.81,
-    "led_strip": 63.92, "dali": 162.63, "shutter": 63.92,
-    "energy_1ph": 108.11, "energy_3ph": 155.06, "heater": 103.59,
-    "heat_thermostat": 99.95, "fancoil_ctrl": 99.95, "electric_heat": 63.92,
-    "split_ac": 84.06, "vrv_interface": 359.10, "hub_small": 158.04, "hub_large": 619.1
-}
-BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Midea", "Άλλη"]
-JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
+# -------------------------------------------------
+# SUPABASE CONNECTION + ANALYTICS
+# -------------------------------------------------
+SUPABASE_URL = st.secrets["supabase"]["url"]
+SUPABASE_KEY = st.secrets["supabase"]["key"]
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+def log_event(page, event, user=None, extra=None):
+    try:
+        supabase.table("analytics").insert({
+            "page": page,
+            "event": event,
+            "user_email": user,
+            "extra": extra
+        }).execute()
+    except:
+        pass
+
+def convert_utc_to_greece(ts):
+    try:
+        gr = pytz.timezone("Europe/Athens")
+        return pd.to_datetime(ts).tz_convert(gr)
+    except:
+        return ts
+
+# -------------------------------------------------
+# GLOBAL ADMIN MODE
+# -------------------------------------------------
+if "is_admin" not in st.session_state:
+    st.session_state.is_admin = False
+
+st.sidebar.title("🔒 Admin Login")
+admin_password = st.sidebar.text_input("Password", type="password")
+
+if admin_password == "geyer123":
+    st.session_state.is_admin = True
+
+is_admin = st.session_state.is_admin
+
+if is_admin:
+    st.markdown("""
+        <div style="
+            position: fixed; top: 15px; right: 20px;
+            background-color: #0b3c26; color: white;
+            padding: 8px 15px; border-radius: 8px;
+            font-size: 14px; font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            z-index: 9999;">
+            🟢 Admin Mode ενεργό
+        </div>
+    """, unsafe_allow_html=True)
 
 # -------------------------------------------------
 # PAGE CONFIG
 # -------------------------------------------------
 st.set_page_config(page_title="Διαδραστικός Τιμοκατάλογος", layout="wide")
+log_event("pricing", "visit")
 
 # -------------------------------------------------
 # GLOBAL CSS
 # -------------------------------------------------
-st.markdown(
-    """
-    <style>
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        [data-testid="stSidebar"] * {
-            color: white !important;
-        }
-        .stApp { background-color: #f8f9fa; }
-        .display-box {
-            background-color: #ffffff;
-            padding: 15px;
-            border: 2px solid #27ae60;
-            border-radius: 8px;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-        }
-        pre {
-            font-family: 'Consolas', monospace !important;
-            font-size: 11px !important;
-            line-height: 1.2 !important;
-            color: #000 !important;
-        }
-        .main-header {
-            text-align: center;
-            color: #1E3A8A;
-            margin-top: -30px;
-        }
-        .info-text {
-            background-color: #e8f4fd;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 5px solid #1E3A8A;
-            margin-bottom: 20px;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+    [data-testid="stSidebar"] { background-color: #0b3c26 !important; }
+    [data-testid="stSidebar"] * { color: white !important; }
+    .stApp { background-color: #f8f9fa; }
+    .display-box {
+        background-color: #ffffff; padding: 15px;
+        border: 2px solid #27ae60; border-radius: 8px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+    pre {
+        font-family: 'Consolas', monospace !important;
+        font-size: 11px !important; line-height: 1.2 !important;
+        color: #000 !important;
+    }
+    .main-header { text-align: center; color: #1E3A8A; margin-top: -30px; }
+    .info-text {
+        background-color: #e8f4fd; padding: 15px;
+        border-radius: 8px; border-left: 5px solid #1E3A8A;
+        margin-bottom: 20px;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # -------------------------------------------------
 # HEADER
 # -------------------------------------------------
 st.markdown(
-    "<div class='main-header'><h1>Φτίαξε εσύ την προσφορά σου</h1><p><b></b></p></div>",
+    "<div class='main-header'><h1>Φτίαξε εσύ την προσφορά σου</h1></div>",
     unsafe_allow_html=True
 )
 
@@ -78,6 +103,20 @@ st.markdown(
 # TABS
 # -------------------------------------------------
 tab_calc, tab_help = st.tabs(["📊 LIVE PRICING", "📝 ΟΔΗΓΙΕΣ"])
+# -------------------------------------------------
+# ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER
+# -------------------------------------------------
+PRICES = {
+    "on_off": 63.92, "double_on_off": 63.92, "dim_220v": 63.92, "dim_1_10v": 66.81,
+    "led_strip": 63.92, "dali": 162.63, "shutter": 63.92,
+    "energy_1ph": 108.11, "energy_3ph": 155.06, "heater": 103.59,
+    "heat_thermostat": 99.95, "fancoil_ctrl": 99.95, "electric_heat": 63.92,
+    "split_ac": 84.06, "vrv_interface": 359.10,
+    "hub_small": 158.04, "hub_large": 619.1
+}
+
+BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Midea", "Άλλη"]
+JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
 
 # =================================================
 # 1. LIVE PRICING TAB
@@ -163,7 +202,7 @@ with tab_calc:
             unsafe_allow_html=True
         )
 
-        # ---------------- VALIDATION & CALC ----------------
+        # ---------------- VALIDATION ----------------
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
 
         error = None
@@ -186,7 +225,10 @@ with tab_calc:
         disp_text = ""
         notes = ""
 
+        # ---------------- ERROR DISPLAY + ANALYTICS ----------------
         if error:
+            log_event("pricing", "error", extra=error)
+
             st.markdown(
                 f'<div class="display-box"><pre style="color:red; text-align:center;">{error}</pre></div>',
                 unsafe_allow_html=True
@@ -194,7 +236,7 @@ with tab_calc:
             disp_text = error
 
         else:
-            # HVAC υπολογισμοί
+            # ---------------- HVAC CALCULATIONS ----------------
             h_c_hvac = 0
             h_det = []
 
@@ -236,7 +278,7 @@ with tab_calc:
                     h_c_hvac += p
                     h_det.append({"n": f"Ψ: {c_type} {cb}", "q": c_qty, "p": p})
 
-            # Μετρητής ενέργειας
+            # ---------------- PANEL / HUB LOGIC ----------------
             e_val = 110 if "Μονοφασικός" in energy else 160 if "Τριφασικός" in energy else 0
 
             base_c = (
@@ -265,6 +307,8 @@ with tab_calc:
             total_dev = base_c + h_q
 
             if total_dev > 230:
+                log_event("pricing", "error", extra="ΥΠΕΡΒΑΣΗ 230 ΣΥΣΚΕΥΩΝ")
+
                 st.markdown(
                     '<div class="display-box"><pre style="color:red; text-align:center;">❌ ΣΦΑΛΜΑ: ΥΠΕΡΒΑΣΗ ΟΡΙΟΥ 230 ΣΥΣΚΕΥΩΝ</pre></div>',
                     unsafe_allow_html=True
@@ -272,6 +316,7 @@ with tab_calc:
                 disp_text = "ΣΦΑΛΜΑ ΟΡΙΟΥ"
 
             else:
+                # ---------------- MATERIAL COST ----------------
                 total_mat = (
                     max(0, on_off) * 63.92
                     + double * 63.92
@@ -289,14 +334,12 @@ with tab_calc:
                 vat = total_mat * 0.24
                 gen_total = total_mat + vat
 
-               
-
-                # --- ΚΕΝΤΡΙΚΕΣ ΜΟΝΑΔΕΣ (HUBS) ---
+                # ---------------- OFFER TEXT ----------------
                 res = f"{'='*70}\n GEYER SMART HOME - ΑΝΑΛΥΤΙΚΗ ΠΡΟΣΦΟΡΑ\n{'='*70}\n"
                 res += f"ΠΕΛΑΤΗΣ: {v_name.upper()} | {v_job}\nΔΙΕΥΘΥΝΣΗ: {v_addr}\n{'-'*70}\n"
                 res += f"{'ΠΕΡΙΓΡΑΦΗ ΥΛΙΚΟΥ':<40} | {'TEM':<4} | {'ΤΙΜΗ':>10}\n{'-'*70}\n"
 
-                # --- ΚΕΝΤΡΙΚΕΣ ΜΟΝΑΔΕΣ (HUBS) ---
+                # HUBS
                 if base_c <= 37:
                     res += f"{'Κεντρική μονάδα (40 συσκευές)':<40} | {1:<4} | {PRICES['hub_small']:10.2f}€\n"
                 elif base_c <= 97:
@@ -307,9 +350,7 @@ with tab_calc:
                 else:
                     res += f"{'Κεντρική μονάδα (100 συσκευές)':<40} | {2:<4} | {(PRICES['hub_large']*2):10.2f}€\n"
 
-
-
-
+                # LIGHTING
                 if on_off > 0:
                     res += f"{'Γραμμές Φωτισμού On/Off':<40} | {on_off:<4} | {on_off*63.92:10.2f}€\n"
                 if double > 0:
@@ -323,16 +364,23 @@ with tab_calc:
                 if dali > 0:
                     res += f"{'Γραμμές DALI':<40} | {dali:<4} | {dali*160.00:10.2f}€\n"
 
+                # HVAC DETAILS
                 for d in h_det:
                     res += f"{d['n'][:40]:<40} | {d['q']:<4} | {d['p']:10.2f}€\n"
 
+                # SHUTTERS
                 if shutt > 0:
                     res += f"{'Ρολά / Τέντες / Κουρτίνες':<40} | {shutt:<4} | {shutt*63.92:10.2f}€\n"
+
+                # ENERGY METER
                 if e_val > 0:
                     res += f"{f'Μετρητής Ενέργειας ({energy})':<40} | 1    | {e_val:10.2f}€\n"
+
+                # WATER HEATER
                 if heater:
                     res += f"{'Έλεγχος Θερμοσίφωνα':<40} | 1    | {95.00:10.2f}€\n"
 
+                # TOTALS
                 res += f"{'-'*70}\n"
                 res += f"{'ΣΥΝΟΛΟ ΣΥΣΚΕΩΝ:':<40} | {total_dev:<4} |\n"
                 res += f"{'ΚΑΘΑΡΗ ΑΞΙΑ ΥΛΙΚΩΝ:':<48} {total_mat:10.2f}€\n"
@@ -344,6 +392,10 @@ with tab_calc:
 
                 disp_text = res
 
+                # ---------------- ANALYTICS: SUCCESSFUL CALC ----------------
+                log_event("pricing", "calc", extra=f"{v_name} | {v_job}")
+
+                # ---------------- DISPLAY RESULT ----------------
                 st.markdown('<div class="display-box">', unsafe_allow_html=True)
                 st.subheader("🖥️ LIVE PRICING SYSTEM")
                 st.code(disp_text, language="text")
@@ -385,12 +437,16 @@ with tab_calc:
                 server.quit()
 
                 st.success("✅ Το email στάλθηκε επιτυχώς!")
+                log_event("pricing", "email_send", extra=v_name)
+
             except Exception as e:
                 st.error(f"❌ Σφάλμα αποστολής: {e}")
+                log_event("pricing", "error", extra=f"email_fail: {e}")
 
         if st.button("🚀 ΑΠΟΣΤΟΛΗ EMAIL"):
             if not disp_text or "ΣΦΑΛΜΑ" in disp_text or "⚠️" in disp_text:
                 st.error("❌ Δεν μπορεί να σταλεί email. Υπάρχει σφάλμα ή δεν έχει γίνει υπολογισμός.")
+                log_event("pricing", "error", extra="email_blocked_no_calc")
             else:
                 send_email(disp_text, notes, v_name)
 
@@ -399,8 +455,19 @@ with tab_calc:
     # =================================================
     if is_admin:
         st.write("---")
-        st.subheader("📊 Analytics (Μόνο για Admin)")
-        st.info("Το admin mode είναι ενεργό — εδώ θα εμφανίζονται τα analytics του LIVE PRICING.")
+        st.subheader("📊 Analytics LIVE PRICING (Admin Only)")
+
+        try:
+            result = supabase.table("analytics").select("*").eq("page", "pricing").order("id", desc=True).execute()
+
+            if result.data:
+                df = pd.DataFrame(result.data)
+                df["timestamp"] = df["timestamp"].apply(convert_utc_to_greece)
+                st.dataframe(df)
+            else:
+                st.info("Δεν υπάρχουν ακόμα δεδομένα.")
+        except Exception as e:
+            st.error(f"Σφάλμα φόρτωσης analytics: {e}")
 
 # =================================================
 # 2. ΟΔΗΓΙΕΣ TAB
@@ -434,7 +501,7 @@ with tab_help:
     ### 1️⃣ Στοιχεία Πελάτη
     Συμπληρώνεις:
     - Ονοματεπώνυμο  
-    - Ιδιότητα (π.χ. Ηλεκτρολόγος, Ιδιώτης)  
+    - Ιδιότητα  
     - Διεύθυνση έργου  
 
     **Αν λείπει κάτι → εμφανίζεται προειδοποίηση.**
@@ -443,18 +510,10 @@ with tab_help:
 
     ### 2️⃣ Φωτισμός
     Βάζεις:
-    - Πόσες εσωτερικές γραμμές φωτισμού έχεις  
-    - Πόσες εξωτερικές  
-    - Πόσες από αυτές είναι dimming (220V, 1-10V, LED, DALI)  
-    - Πόσες είναι κομιτατέρ (διπλές γραμμές)
-
-    **Παράδειγμα:**  
-    - Εσωτερικές: 10  
-    - Εξωτερικές: 4  
-    - Dimming 220V: 2  
-    - LED: 1  
-    - DALI: 1  
-    - Κομιτατέρ: 1  
+    - Εσωτερικές γραμμές  
+    - Εξωτερικές  
+    - Πόσες είναι dimming  
+    - Πόσες είναι κομιτατέρ  
 
     Το σύστημα υπολογίζει αυτόματα πόσες είναι **On/Off**.
 
@@ -470,16 +529,8 @@ with tab_help:
 
     Το σύστημα:
     - Υπολογίζει σωστό τύπο συσκευής  
-    - Ελέγχει αν οι ποσότητες ταιριάζουν  
-    - Ελέγχει αν οι μάρκες VRV/VRF είναι ίδιες  
-
-    **Παράδειγμα:**  
-    Θέρμανση: VRV/VRF → 5 μονάδες → Daikin  
-    Ψύξη: VRV/VRF → 5 μονάδες → Daikin  
-    ✔️ Επιτρέπεται  
-
-    Αν βάλεις διαφορετικές μάρκες:  
-    ❌ Εμφανίζεται μήνυμα λάθους  
+    - Ελέγχει ποσότητες  
+    - Ελέγχει μάρκες VRV  
 
     ---
 
@@ -500,17 +551,11 @@ with tab_help:
     Το σύστημα υπολογίζει:
     - Όλες τις γραμμές φωτισμού  
     - Όλες τις μονάδες HVAC  
-    - Τις κεντρικές μονάδες (ανάλογα με το πλήθος συσκευών)  
-    - Τον μετρητή  
-    - Τον θερμοσίφωνα  
-    - Το ΦΠΑ  
-    - Το προαιρετικό κόστος προγραμματισμού  
-
-    **Παράδειγμα:**  
-    - Υλικά: 2.000€  
-    - ΦΠΑ 24%: 480€  
-    - Σύνολο: 2.480€  
-    - Προγραμματισμός: 400€  
+    - Τις κεντρικές μονάδες  
+    - Μετρητή  
+    - Θερμοσίφωνα  
+    - ΦΠΑ  
+    - Προγραμματισμό  
 
     ---
 
@@ -520,19 +565,15 @@ with tab_help:
     2. Γράφεις παρατηρήσεις  
     3. Πατάς **ΑΠΟΣΤΟΛΗ EMAIL**  
 
-    Το email φεύγει **αυτόματα** στο τεχνικό τμήμα της GEYER.
-
     ---
 
     ## ❗ Συχνά Λάθη
 
-    - ❌ Αρνητικές γραμμές φωτισμού  
-    - ❌ Διαφορετικές μάρκες VRV/VRF  
-    - ❌ Διαφορετικές ποσότητες σε κοινά συστήματα  
-    - ❌ Πάνω από 230 συσκευές  
-    - ❌ Κενά στοιχεία πελάτη  
-
-    Το σύστημα τα εντοπίζει και τα εμφανίζει με κόκκινο μήνυμα.
+    - Αρνητικές γραμμές φωτισμού  
+    - Διαφορετικές μάρκες VRV  
+    - Διαφορετικές ποσότητες  
+    - Πάνω από 230 συσκευές  
+    - Κενά στοιχεία πελάτη  
 
     ---
 
@@ -540,4 +581,7 @@ with tab_help:
     Αν έχεις αμφιβολία για κάτι, βάλε μια σημείωση στις παρατηρήσεις.  
     Θα το δω προσωπικά και θα σε καθοδηγήσω.
     """)
-
+# ΤΕΛΟΣ ΑΡΧΕΙΟΥ LIVE PRICING
+# -------------------------------------------------
+# Δεν απαιτείται άλλη εντολή — το αρχείο ολοκληρώνεται εδώ.
+# -------------------------------------------------
