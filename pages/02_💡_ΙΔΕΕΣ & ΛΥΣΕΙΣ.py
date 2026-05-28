@@ -1,5 +1,27 @@
 import streamlit as st
 import importlib
+from supabase import create_client, Client
+
+# ==================================================
+# SUPABASE CONNECTION
+# ==================================================
+SUPABASE_URL = st.secrets["supabase"]["url"]
+SUPABASE_KEY = st.secrets["supabase"]["key"]
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# ==================================================
+# LOG EVENT FUNCTION
+# ==================================================
+def log_event(page, event, user=None, extra=None):
+    try:
+        supabase.table("analytics").insert({
+            "page": page,
+            "event": event,
+            "user_email": user,
+            "extra": extra
+        }).execute()
+    except Exception as e:
+        print("Analytics error:", e)
 
 # ==================================================
 # PAGE CONFIG
@@ -59,12 +81,16 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # ==================================================
 # PAGE TITLE
 # ==================================================
 st.markdown("<h1 class='main-title'>💡 Ιδέες & Έξυπνες Λύσεις</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Επιλέξτε κατηγορία για να δείτε προτάσεις, λύσεις και παραδείγματα.</p>", unsafe_allow_html=True)
+
+# ==================================================
+# ANALYTICS — PAGE VISIT
+# ==================================================
+log_event("idees", "visit")
 
 # ==================================================
 # CATEGORIES
@@ -91,6 +117,9 @@ selected_category_name = st.selectbox(
     list(categories.keys())
 )
 
+# Log category selection
+log_event("idees", "select_category", extra={"category": selected_category_name})
+
 file_name = categories[selected_category_name]
 st.divider()
 
@@ -100,6 +129,7 @@ st.divider()
 try:
     subpage = importlib.import_module(f"subpages.{file_name}")
     if hasattr(subpage, "show"):
+        log_event("idees", "load_subpage", extra={"file": file_name})
         subpage.show()
     else:
         st.error(f"⚠️ Το αρχείο `subpages/{file_name}.py` δεν περιέχει συνάρτηση show().")
@@ -114,4 +144,14 @@ except Exception as e:
 if is_admin:
     st.write("---")
     st.subheader("📊 Analytics (Μόνο για Admin)")
-    st.info("Το admin mode είναι ενεργό — εδώ θα μπουν τα analytics της ενότητας Ιδέες & Λύσεις.")
+
+    try:
+        result = supabase.table("analytics").select("*").eq("page", "idees").order("id", desc=True).execute()
+
+        if result.data and len(result.data) > 0:
+            st.success(f"Βρέθηκαν {len(result.data)} events.")
+            st.dataframe(result.data)
+        else:
+            st.info("Δεν υπάρχουν ακόμα δεδομένα για την ενότητα Ιδέες & Λύσεις.")
+    except Exception as e:
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
