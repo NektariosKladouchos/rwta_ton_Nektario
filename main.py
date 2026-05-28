@@ -1,6 +1,8 @@
 import streamlit as st
 from supabase import create_client, Client
 import streamlit_analytics2 as analytics
+import pandas as pd
+import pytz
 
 # ---------------------------------------------------------
 # SUPABASE CONNECTION
@@ -24,6 +26,24 @@ def log_event(page, event, user=None, extra=None):
         print("Analytics error:", e)
 
 # ---------------------------------------------------------
+# GLOBAL TIMEZONE CONVERSION (UTC → GREECE)
+# ---------------------------------------------------------
+def convert_utc_to_greece(df):
+    if "timestamp" not in df.columns:
+        return df
+
+    utc = pytz.utc
+    greece = pytz.timezone("Europe/Athens")
+
+    df["timestamp"] = (
+        pd.to_datetime(df["timestamp"])
+        .dt.tz_localize(utc)
+        .dt.tz_convert(greece)
+    )
+
+    return df
+
+# ---------------------------------------------------------
 # PAGE CONFIG
 # ---------------------------------------------------------
 st.set_page_config(
@@ -37,7 +57,6 @@ st.set_page_config(
 # ---------------------------------------------------------
 CUSTOM_CSS = """
 <style>
-
 /* Green GEYER title */
 .main-title-ask {
     color: #28a745 !important;
@@ -46,28 +65,23 @@ CUSTOM_CSS = """
     font-size: 38px;
     margin-top: -20px;
 }
-
 /* Sidebar background */
 [data-testid="stSidebar"] {
     background-color: #1a4a2e !important;
 }
-
 /* Sidebar text */
 [data-testid="stSidebar"] * {
     color: white !important;
 }
-
 /* Make sidebar text inputs readable */
 [data-testid="stSidebar"] input {
     color: black !important;
     background-color: white !important;
 }
-
 /* Hide default "main" label */
 [data-testid="stSidebarNav"] li:first-child a {
     font-size: 0px !important;
 }
-
 /* Insert custom label ⭐ Αρχική above the nav */
 [data-testid="stSidebarNav"]::before {
     content: "⭐ Αρχική";
@@ -77,7 +91,6 @@ CUSTOM_CSS = """
     display: block;
     padding: 15px 20px;
 }
-
 /* CARD STYLE */
 .card {
     background-color: white;
@@ -87,30 +100,25 @@ CUSTOM_CSS = """
     box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
     transition: 0.2s ease-in-out;
 }
-
 .card:hover {
     border-color: #1a4a2e;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
     transform: translateY(-3px);
 }
-
 /* Card titles */
 .card h3 {
     color: #1a4a2e;
     margin-bottom: 8px;
 }
-
 /* Buttons */
 button[kind="secondary"] {
     background-color: #1a4a2e !important;
     color: white !important;
     border-radius: 6px !important;
 }
-
 button[kind="secondary"]:hover {
     background-color: #145a32 !important;
 }
-
 </style>
 """
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
@@ -262,7 +270,7 @@ st.write("---")
 st.caption("© 2026 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
 
 # ---------------------------------------------------------
-# ADMIN ANALYTICS (IMPROVED)
+# ADMIN ANALYTICS (WITH GREECE TIME)
 # ---------------------------------------------------------
 if st.session_state.is_admin:
     st.write("---")
@@ -272,8 +280,9 @@ if st.session_state.is_admin:
         result = supabase.table("analytics").select("*").eq("page", "home").order("id", desc=True).execute()
 
         if result.data and len(result.data) > 0:
-            st.success(f"Βρέθηκαν {len(result.data)} events.")
-            st.dataframe(result.data)
+            df = convert_utc_to_greece(pd.DataFrame(result.data))
+            st.success(f"Βρέθηκαν {len(df)} events.")
+            st.dataframe(df)
         else:
             st.info("Δεν υπάρχουν ακόμα δεδομένα για την Αρχική σελίδα.")
     except Exception as e:
