@@ -1,14 +1,75 @@
 import streamlit as st
 import os
 import json
+import pandas as pd
+import pytz
+from supabase import create_client, Client
 
-# 1. Ρύθμιση σελίδας
+# ---------------------------------------------------------
+# SUPABASE CONNECTION
+# ---------------------------------------------------------
+SUPABASE_URL = st.secrets["supabase"]["url"]
+SUPABASE_KEY = st.secrets["supabase"]["key"]
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+def log_event(page, event, user=None, extra=None):
+    try:
+        supabase.table("analytics").insert({
+            "page": page,
+            "event": event,
+            "user_email": user,
+            "extra": extra
+        }).execute()
+    except:
+        pass
+
+def convert_utc_to_greece(ts):
+    try:
+        greece = pytz.timezone("Europe/Athens")
+        return pd.to_datetime(ts).tz_convert(greece)
+    except:
+        return ts
+
+# ---------------------------------------------------------
+# PAGE CONFIG
+# ---------------------------------------------------------
 st.set_page_config(page_title="Επικοινωνία - GEYER", layout="wide")
 
 # ---------------------------------------------------------
-# GLOBAL ADMIN MODE (READ ONLY)
+# ADMIN LOGIN (όπως Forum & Σχέδια)
 # ---------------------------------------------------------
-is_admin = st.session_state.get("is_admin", False)
+if "is_admin" not in st.session_state:
+    st.session_state.is_admin = False
+
+st.sidebar.title("🔒 Admin Login")
+admin_password = st.sidebar.text_input("Password", type="password")
+
+if admin_password == "geyer123":
+    st.session_state.is_admin = True
+
+is_admin = st.session_state.is_admin
+
+# ---------------------------------------------------------
+# ADMIN BADGE
+# ---------------------------------------------------------
+if is_admin:
+    st.markdown("""
+        <div style="
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background-color: #0b3c26;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            z-index: 9999;
+        ">
+            🟢 Admin Mode ενεργό
+        </div>
+    """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # COUNTERS FILE
@@ -32,52 +93,37 @@ _c["contact_total"] = _c.get("contact_total", 0) + 1
 _c["contact_last_visit"] = st.session_state.get("username", "Χρήστης")
 save_counters(_c)
 
+# LOG VISIT
+log_event("contact", "visit")
+
 # ---------------------------------------------------------
 # CSS
 # ---------------------------------------------------------
 st.markdown(
     """
     <style>
-
-        /* ============================
-           SIDEBAR (ΠΡΑΣΙΝΟ + ΑΣΠΡΑ ΓΡΑΜΜΑΤΑ)
-        ============================ */
-
         [data-testid="stSidebar"] {
             background-color: #0b3c26 !important;
         }
-
         [data-testid="stSidebar"] * {
             color: white !important;
         }
-
         [data-testid="stSidebar"] svg {
             fill: white !important;
         }
-
-        button[kind="header"] svg {
-            fill: white !important;
-        }
-
-        /* ============================
-           INPUT FIELDS
-        ============================ */
-
         input, textarea, .stTextInput input, .stTextArea textarea {
             color: black !important;
         }
-
         input::placeholder,
         textarea::placeholder {
             color: #444 !important;
         }
-
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 2. CSS για GEYER Green
+# GEYER GREEN CSS
 st.markdown("""
     <style>
     .main-title { color: #27ae60; font-weight: bold; text-align: center; margin-bottom: 20px; }
@@ -97,21 +143,30 @@ st.markdown("""
 
 st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
 
-# --- ΕΝΟΤΗΤΑ VIDEO ---
+# ---------------------------------------------------------
+# VIDEO SECTION
+# ---------------------------------------------------------
 st.markdown("<div class='video-card'>", unsafe_allow_html=True)
 st.markdown("<h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</h3>", unsafe_allow_html=True)
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
 
-# Ενσωματωμένο YouTube Shorts
+if st.button("▶️ Play Video"):
+    log_event("contact", "video_play")
+
 st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
 st.markdown("</div>", unsafe_allow_html=True)
 st.write("---")
 
-# --- ΚΑΡΤΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ ---
+# ---------------------------------------------------------
+# CONTACT CARDS
+# ---------------------------------------------------------
 col1, col2 = st.columns(2)
 with col1:
+    if st.button("👤 View Support Card", key="support_card"):
+        log_event("contact", "open_card", extra="support")
+
     st.markdown(f"""
     <div class='contact-card'>
         <h3 style='color: #1E3A8A;'>👤 Τεχνική Υποστήριξη</h3>
@@ -122,6 +177,9 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
+    if st.button("🏢 View Company Card", key="company_card"):
+        log_event("contact", "open_card", extra="company")
+
     st.markdown("""
     <div class='contact-card'>
         <h3>🏢 GEYER HELLAS Α.Ε.</h3>
@@ -132,26 +190,33 @@ with col2:
 
 st.write("---")
 
-# Count button clicks
+# ---------------------------------------------------------
+# HOME BUTTON
+# ---------------------------------------------------------
 if st.button("🏠 ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΑΡΧΙΚΗ"):
     _c = load_counters()
     _c["contact_home_clicks"] = _c.get("contact_home_clicks", 0) + 1
     save_counters(_c)
+
+    log_event("contact", "home_click")
+
     st.switch_page("main.py")
 
 # ---------------------------------------------------------
-# ADMIN ANALYTICS (ONLY IF ADMIN)
+# ADMIN ANALYTICS
 # ---------------------------------------------------------
 if is_admin:
     st.write("---")
-    st.subheader("📊 Analytics Επικοινωνίας (Μόνο για Admin)")
+    st.subheader("📊 Analytics Επικοινωνίας (Admin Only)")
 
-    counters = load_counters()
+    try:
+        result = supabase.table("analytics").select("*").eq("page", "contact").order("id", desc=True).execute()
 
-    col1, col2, col3 = st.columns(3)
-    col1.metric("📞 Συνολικές Επισκέψεις", counters.get("contact_total", 0))
-    col2.metric("🏠 Επιστροφές στην Αρχική", counters.get("contact_home_clicks", 0))
-    col3.metric("👤 Τελευταίος Επισκέπτης", counters.get("contact_last_visit", "—"))
-
-    st.write("---")
-    st.info("Τα analytics ενημερώνονται αυτόματα σε κάθε επίσκεψη και κάθε πάτημα κουμπιού.")
+        if result.data:
+            df = pd.DataFrame(result.data)
+            df["timestamp"] = df["timestamp"].apply(convert_utc_to_greece)
+            st.dataframe(df)
+        else:
+            st.info("Δεν υπάρχουν ακόμα δεδομένα.")
+    except Exception as e:
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
