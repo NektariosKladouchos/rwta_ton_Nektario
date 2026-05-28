@@ -58,8 +58,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.write("DEBUG PATH:", os.getcwd())
-st.write("COUNTER FILE EXISTS:", os.path.exists(COUNTER_FILE))
+
 
 # ==================================================
 # PAGE TITLE
