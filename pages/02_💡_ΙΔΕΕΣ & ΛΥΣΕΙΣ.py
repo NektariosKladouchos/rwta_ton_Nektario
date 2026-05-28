@@ -98,6 +98,7 @@ log_event("idees", "visit")
 categories = {
     "🏠 Ιδέες για Ενοικιαζόμενα": "rentals",
     "🏢 Ιδέες για Επαγγελματικό Φωτισμό": "prof_lighting",
+    "🔥 Έξυπνη Θέρμανση & Ψύξη": "heating_cooling",
     "🖥️ Οπτικοποίηση Συστήματος": "visualization",
     "🎛️ Πρόγραμμα Κεντρικής Μονάδας": "central_unit",
     "🌡️ Θερμικές Ζώνες": "thermal_zones",
