@@ -40,25 +40,24 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# ADMIN CHECK
+# ADMIN LOGIN (όπως στο Forum)
 # ---------------------------------------------------------
-try:
-    user_email = st.experimental_user.email
-except:
-    user_email = None
+if "is_admin" not in st.session_state:
+    st.session_state.is_admin = False
 
-admin_emails = [
-    "kladouxos@geyer.gr",
-    "nektarioskladouchos@gmail.com"
-]
+st.sidebar.title("🔒 Admin Login")
+admin_password = st.sidebar.text_input("Password", type="password")
 
-is_admin = (user_email in admin_emails)
+if admin_password == "geyer123":
+    st.session_state.is_admin = True
+
+is_admin = st.session_state.is_admin
 
 # ---------------------------------------------------------
 # ADMIN BADGE
 # ---------------------------------------------------------
 if is_admin:
-    st.markdown(f"""
+    st.markdown("""
         <div style="
             position: fixed;
             top: 15px;
@@ -72,8 +71,7 @@ if is_admin:
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
             z-index: 9999;
         ">
-            🟢 Admin Mode ενεργό<br>
-            <span style="font-size:12px; opacity:0.8;">{user_email}</span>
+            🟢 Admin Mode ενεργό
         </div>
     """, unsafe_allow_html=True)
 
@@ -101,8 +99,7 @@ st.markdown("""
 # ---------------------------------------------------------
 st.title("📘 Τεχνικά Σχέδια")
 st.write("""
-Καλώς ήρθατε στην ενότητα Τεχνικών Σχεδίων.  
-Εδώ θα βρείτε οργανωμένα παραδείγματα, αναλύσεις και οδηγίες.
+Καλώς ήρθατε στην ενότητα Τεχνικών Σχεδίων.
 """)
 
 st.write("---")
