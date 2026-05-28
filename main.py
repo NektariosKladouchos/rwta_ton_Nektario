@@ -32,12 +32,10 @@ def convert_utc_to_greece(df):
     if "timestamp" not in df.columns:
         return df
 
-    utc = pytz.utc
     greece = pytz.timezone("Europe/Athens")
 
     df["timestamp"] = (
         pd.to_datetime(df["timestamp"])
-        .dt.tz_localize(utc)
         .dt.tz_convert(greece)
     )
 
