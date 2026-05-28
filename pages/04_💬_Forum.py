@@ -143,7 +143,9 @@ st.sidebar.title("🔒 Admin Panel")
 admin_password = st.sidebar.text_input("Password", type="password")
 
 if admin_password == ADMIN_PASSWORD:
+    st.session_state.is_admin = True   # ⭐ ΑΥΤΟ ΕΛΕΙΠΕ
     st.sidebar.success("Επιτυχής σύνδεση")
+
     df = load_data()
 
     if len(df) > 0:
@@ -177,3 +179,22 @@ if admin_password == ADMIN_PASSWORD:
         st.sidebar.info("Δεν υπάρχουν ερωτήσεις.")
 else:
     st.sidebar.caption("Πρόσβαση μόνο διαχειριστή")
+
+# ==================================================
+# ADMIN ANALYTICS
+# ==================================================
+if st.session_state.get("is_admin", False):
+    st.write("---")
+    st.subheader("📊 Analytics Forum (Admin Only)")
+
+    try:
+        result = supabase.table("analytics").select("*").eq("page", "forum").order("id", desc=True).execute()
+
+        if result.data:
+            df_analytics = pd.DataFrame(result.data)
+            df_analytics["timestamp"] = df_analytics["timestamp"].apply(convert_to_greece_time)
+            st.dataframe(df_analytics)
+        else:
+            st.info("Δεν υπάρχουν ακόμα δεδομένα.")
+    except Exception as e:
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
