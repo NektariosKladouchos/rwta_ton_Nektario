@@ -3,3 +3,4 @@ streamlit
 supabase
 streamlit-analytics2
 pytz
+plotly>=5.20.0
