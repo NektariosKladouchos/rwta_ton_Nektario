@@ -2,4 +2,4 @@ pandas
 streamlit
 supabase
 streamlit-analytics2
-
+pytz
