@@ -177,3 +177,21 @@ funnel = pd.DataFrame({
 fig_funnel = px.funnel(funnel, x="value", y="step")
 st.plotly_chart(fig_funnel, use_container_width=True)
 
+# -------------------------------------------------
+# 🧹 ΚΑΘΑΡΙΣΜΟΣ ANALYTICS ΑΝΑ ΗΜΕΡΟΜΗΝΙΑ (ADMIN ONLY)
+# -------------------------------------------------
+st.write("---")
+st.subheader("🧹 Καθαρισμός Analytics ανά Ημερομηνία")
+
+clean_date = st.date_input("Επίλεξε ημερομηνία για διαγραφή")
+
+if st.button("⚠️ Διαγραφή analytics για αυτή την ημερομηνία"):
+    if clean_date:
+        try:
+            supabase.table("analytics").delete().eq("date", str(clean_date)).execute()
+            st.success(f"✅ Τα analytics της {clean_date} διαγράφηκαν επιτυχώς!")
+            st.experimental_rerun()
+        except Exception as e:
+            st.error(f"❌ Σφάλμα διαγραφής: {e}")
+    else:
+        st.warning("⚠️ Δεν έχεις επιλέξει ημερομηνία.")
