@@ -224,7 +224,17 @@ with tab_calc:
 
         disp_text = ""
         notes = ""
-  
+
+        # ---------------- ERROR DISPLAY + ANALYTICS ----------------
+        if error:
+            log_event("pricing", "error", extra=error)
+
+            st.markdown(
+                f'<div class="display-box"><pre style="color:red; text-align:center;">{error}</pre></div>',
+                unsafe_allow_html=True
+            )
+            disp_text = error
+
         else:
             # ---------------- HVAC CALCULATIONS ----------------
             h_c_hvac = 0
@@ -458,7 +468,7 @@ with tab_calc:
                 st.info("Δεν υπάρχουν ακόμα δεδομένα.")
         except Exception as e:
             st.error(f"Σφάλμα φόρτωσης analytics: {e}")
-   
+
 # =================================================
 # 2. ΟΔΗΓΙΕΣ TAB
 # =================================================
