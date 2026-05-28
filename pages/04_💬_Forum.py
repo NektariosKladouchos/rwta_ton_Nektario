@@ -51,6 +51,20 @@ def init_supabase() -> Client:
 supabase = init_supabase()
 
 # ==================================================
+# LOG EVENT
+# ==================================================
+def log_event(page, event, user=None, extra=None):
+    try:
+        supabase.table("analytics").insert({
+            "page": page,
+            "event": event,
+            "user_email": user,
+            "extra": extra
+        }).execute()
+    except:
+        pass
+
+# ==================================================
 # TIMEZONE CONVERSION (UTC → GREECE)
 # ==================================================
 def convert_to_greece_time(ts_str):
@@ -91,6 +105,11 @@ df = load_data()
 st.title("💬 Public Forum")
 st.write("Γράψε την ερώτησή σου και δες απαντήσεις από τον διαχειριστή.")
 
+# --------------------------------------------------
+# LOG PAGE VISIT
+# --------------------------------------------------
+log_event("forum", "visit")
+
 # ==================================================
 # QUESTION FORM
 # ==================================================
@@ -113,6 +132,10 @@ with st.expander("➕ Νέα Ερώτηση", expanded=False):
                     "answer": ""
                 }
                 supabase.table("forum_data").insert(new_row).execute()
+
+                # LOG EVENT
+                log_event("forum", "new_question", name)
+
                 st.success("Η ερώτηση καταχωρήθηκε!")
                 st.rerun()
 
@@ -143,7 +166,7 @@ st.sidebar.title("🔒 Admin Panel")
 admin_password = st.sidebar.text_input("Password", type="password")
 
 if admin_password == ADMIN_PASSWORD:
-    st.session_state.is_admin = True   # ⭐ ΑΥΤΟ ΕΛΕΙΠΕ
+    st.session_state.is_admin = True
     st.sidebar.success("Επιτυχής σύνδεση")
 
     df = load_data()
@@ -165,6 +188,10 @@ if admin_password == ADMIN_PASSWORD:
         # SAVE ANSWER
         if st.sidebar.button("💾 Αποθήκευση Απάντησης"):
             supabase.table("forum_data").update({"answer": str(answer_text)}).eq("id", int(selected_id)).execute()
+
+            # LOG EVENT
+            log_event("forum", "new_answer", "admin")
+
             st.sidebar.success("Η απάντηση αποθηκεύτηκε!")
             st.rerun()
 
