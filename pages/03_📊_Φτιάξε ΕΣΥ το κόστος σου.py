@@ -224,6 +224,46 @@ with tab_calc:
 
         disp_text = ""
         notes = ""
+    # =================================================
+    # 📊 ADVANCED ANALYTICS GRAPHS (ADMIN ONLY)
+    # =================================================
+    if is_admin:
+        st.write("---")
+        st.subheader("📈 Γραφήματα Analytics LIVE PRICING")
+
+        try:
+            result = supabase.table("analytics").select("*").eq("page", "pricing").order("id", desc=True).execute()
+
+            if result.data:
+                df = pd.DataFrame(result.data)
+                df["timestamp"] = df["timestamp"].apply(convert_utc_to_greece)
+
+                # -----------------------------
+                # 1️⃣ Bar Chart – Συχνότητα Events
+                # -----------------------------
+                st.markdown("### 📊 Συχνότητα Events")
+                event_counts = df["event"].value_counts()
+                st.bar_chart(event_counts)
+
+                # -----------------------------
+                # 2️⃣ Pie Chart – Ποσοστά Events
+                # -----------------------------
+                st.markdown("### 🥧 Ποσοστά Events")
+                st.write(event_counts)
+
+                # -----------------------------
+                # 3️⃣ Timeline – Events ανά ώρα
+                # -----------------------------
+                st.markdown("### ⏱️ Χρονοδιάγραμμα Events (ανά ώρα)")
+                df["hour"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:00")
+                timeline = df.groupby("hour").size()
+                st.line_chart(timeline)
+
+            else:
+                st.info("Δεν υπάρχουν ακόμα δεδομένα για γραφήματα.")
+
+        except Exception as e:
+            st.error(f"Σφάλμα φόρτωσης γραφημάτων: {e}")
 
         # ---------------- ERROR DISPLAY + ANALYTICS ----------------
         if error:
