@@ -262,14 +262,19 @@ st.write("---")
 st.caption("© 2026 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
 
 # ---------------------------------------------------------
-# ADMIN ANALYTICS (OPTIONAL)
+# ADMIN ANALYTICS (IMPROVED)
 # ---------------------------------------------------------
 if st.session_state.is_admin:
     st.write("---")
     st.subheader("📊 Analytics Αρχικής Σελίδας (Admin Only)")
 
     try:
-        data = supabase.table("analytics").select("*").eq("page", "home").execute()
-        st.write(data.data)
-    except:
-        st.error("Δεν ήταν δυνατή η φόρτωση των analytics.")
+        result = supabase.table("analytics").select("*").eq("page", "home").order("id", desc=True).execute()
+
+        if result.data and len(result.data) > 0:
+            st.success(f"Βρέθηκαν {len(result.data)} events.")
+            st.dataframe(result.data)
+        else:
+            st.info("Δεν υπάρχουν ακόμα δεδομένα για την Αρχική σελίδα.")
+    except Exception as e:
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
