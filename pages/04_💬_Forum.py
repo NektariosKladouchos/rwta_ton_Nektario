@@ -1,228 +1,167 @@
 import streamlit as st
-import pandas as pd
-from datetime import datetime
 from supabase import create_client, Client
+import pandas as pd
+import pytz
 
-# ==================================================
-# SETTINGS & INITIALIZATION
-# ==================================================
+# ---------------------------------------------------------
+# SUPABASE CONNECTION (ίδια ονόματα με main.py)
+# ---------------------------------------------------------
+SUPABASE_URL = st.secrets["supabase"]["url"]
+SUPABASE_KEY = st.secrets["supabase"]["key"]
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-st.set_page_config(
-    page_title="Public Forum",
-    page_icon="💬",
-    layout="centered"
-)
-
-ADMIN_PASSWORD = "geyer123"
-
-# CSS για να είναι όλα τα γράμματα λευκά και ευανάγνωστα στο μενού
-st.markdown("""
-<style>
-
-    /* Sidebar background */
-    [data-testid="stSidebar"] {
-        background-color: #0b3c26 !important;
-        padding-top: 30px;
-    }
-
-    /* Sidebar text — WHITE */
-    [data-testid="stSidebar"] * {
-        color: white !important;
-        font-weight: 500 !important;
-    }
-
-    /* Sidebar icons — WHITE */
-    [data-testid="stSidebar"] svg {
-        fill: white !important;
-    }
-
-    /* Collapse button "<" — WHITE */
-    button[kind="header"] svg {
-        fill: white !important;
-    }
-
-    /* Input fields text color (FIX) */
-    input, textarea, .stTextInput input, .stTextArea textarea {
-        color: black !important;
-    }
-
-    /* Placeholder text */
-    input::placeholder,
-    textarea::placeholder {
-        color: #444 !important;
-    }
-
-    /* Main background */
-    .stApp {
-        background-color: #f8f9fa !important;
-    }
-
-</style>
-""", unsafe_allow_html=True)
-
-
-# Σύνδεση με Supabase μέσω Secrets
-@st.cache_resource
-def init_supabase() -> Client:
-    url = st.secrets["supabase"]["url"]
-    key = st.secrets["supabase"]["key"]
-    return create_client(url, key)
-
-supabase = init_supabase()
-
-# ==================================================
-# FUNCTIONS
-# ==================================================
-
-def load_data():
+# ---------------------------------------------------------
+# LOG EVENT FUNCTION
+# ---------------------------------------------------------
+def log_event(page, event, user=None, extra=None):
     try:
-        response = supabase.table("forum_data").select("*").execute()
-        df = pd.DataFrame(response.data)
+        supabase.table("analytics").insert({
+            "page": page,
+            "event": event,
+            "user_email": user,
+            "extra": extra
+        }).execute()
     except Exception as e:
-        st.error(f"Σφάλμα φόρτωσης: {e}")
-        df = pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
-    
-    if df.empty:
-        df = pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
-    else:
-        df = df.fillna("")
-        df["id"] = df["id"].astype(int)
-        
+        print("Analytics error:", e)
+
+# ---------------------------------------------------------
+# GLOBAL TIMEZONE CONVERSION (UTC → GREECE)
+# ---------------------------------------------------------
+def convert_utc_to_greece(df):
+    if "timestamp" not in df.columns:
+        return df
+
+    greece = pytz.timezone("Europe/Athens")
+
+    df["timestamp"] = (
+        pd.to_datetime(df["timestamp"])
+        .dt.tz_convert(greece)
+    )
+
     return df
 
-# ==================================================
-# LOAD DATA
-# ==================================================
+# ---------------------------------------------------------
+# PAGE CONFIG
+# ---------------------------------------------------------
+st.set_page_config(
+    page_title="Εισαγωγή - Geyer Portal",
+    page_icon="🏠",
+    layout="wide"
+)
 
-df = load_data()
+# ---------------------------------------------------------
+# GLOBAL ADMIN MODE (READ ONLY)
+# ---------------------------------------------------------
+is_admin = st.session_state.get("is_admin", False)
 
-# ==================================================
-# TITLE
-# ==================================================
+# ---------------------------------------------------------
+# CUSTOM CSS (GREEN SIDEBAR)
+# ---------------------------------------------------------
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            background-color: #0b3c26 !important;
+        }
+        [data-testid="stSidebarNav"] span {
+            color: white !important;
+        }
+        [data-testid="stSidebarNav"] svg {
+            fill: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-st.title("💬 Public Forum")
-st.write("Γράψε την ερώτησή σου και δες απαντήσεις από τον διαχειριστή.")
+# ---------------------------------------------------------
+# PAGE TITLE
+# ---------------------------------------------------------
+st.markdown(
+    "<h1 style='text-align: center; color: #28a745;'>"
+    "Καλώς ήρθατε στο Geyer Technical Portal"
+    "</h1>",
+    unsafe_allow_html=True
+)
 
-# ==================================================
-# QUESTION FORM
-# ==================================================
+st.write("---")
 
-with st.expander("➕ Νέα Ερώτηση", expanded=False):
-    with st.form("question_form", clear_on_submit=True):
-        name = st.text_input("Όνομα")
-        question = st.text_area("Ερώτηση", height=120)
-        submit_question = st.form_submit_button("Υποβολή")
+# ---------------------------------------------------------
+# ANALYTICS — PAGE VISIT
+# ---------------------------------------------------------
+log_event("intro", "visit")
 
-        if submit_question:
-            if not name.strip():
-                st.warning("Συμπλήρωσε όνομα.")
-            elif not question.strip():
-                st.warning("Συμπλήρωσε ερώτηση.")
-            else:
-                new_row = {
-                    "date": datetime.now().strftime("%d/%m/%Y %H:%M"),
-                    "name": str(name),
-                    "question": str(question),
-                    "answer": ""
-                }
-                supabase.table("forum_data").insert(new_row).execute()
-                st.success("Η ερώτηση καταχωρήθηκε!")
-                st.rerun()
+# ---------------------------------------------------------
+# MAIN CONTENT
+# ---------------------------------------------------------
+col1, col2 = st.columns([2, 1])
 
-# ==================================================
-# QUESTIONS LIST
-# ==================================================
+with col1:
+    st.markdown("### 🎯 Ο Σκοπός μας")
+    st.write("""
+    Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον πολυτέλεια, 
+    αλλά το εργαλείο για έναν εξυπνότερο τρόπο ζωής. 
+    
+    Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και πληροφοριακή 
+    υποστήριξη που χρειάζεστε για να δώσετε **τεχνική ευφυΐα** στους χώρους σας.
+    
+    Εστιάζουμε σε λύσεις που κάνουν τα κτίρια:
+    * **Πιο Ενεργειακά & Αποδοτικά**
+    * **Πιο Βιώσιμα**
+    * **Πιο Διαχειρίσιμα**
+    """)
 
-st.divider()
-st.subheader("📋 Ερωτήσεις")
+    st.markdown("### 🛠 Τι θα βρείτε εδώ")
+    st.write("""
+    * **Παρουσίαση Έργων**
+    * **Επίλυση Προβλημάτων**
+    * **Live Pricing System**
+    * **Διαδραστική Επικοινωνία**
+    """)
 
-df = load_data()
+with col2:
+    st.info("""
+    **💡 Η Φιλοσοφία μας**
+    Πιστεύω στη δύναμη της συνεργασίας. 
+    Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών, 
+    αλλά μια ζωντανή κοινότητα ανταλλαγής ιδεών.
+    """)
 
-if len(df) == 0:
-    st.info("Δεν υπάρχουν ακόμη ερωτήσεις.")
-else:
-    df_sorted = df.sort_values(by="id", ascending=False)
-    for _, row in df_sorted.iterrows():
-        with st.container(border=True):
-            st.markdown(f"### ❓ {row['question']}")
-            st.caption(f"👤 {row['name']} | 🕒 {row['date']}")
-            if str(row["answer"]).strip() != "":
-                st.success(f"✅ Απάντηση:\n\n{row['answer']}")
+st.write("---")
 
-# ==================================================
-# ADMIN PANEL
-# ==================================================
+# ---------------------------------------------------------
+# FORUM SECTION
+# ---------------------------------------------------------
+st.markdown("### 💬 Η Κοινότητά μας (Forum)")
+st.write("""
+Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά 
+σε κάθε απαίτηση αυτοματισμού που σας ζητείται. 
+Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
+""")
 
-st.sidebar.title("🔒 Admin Panel")
-admin_password = st.sidebar.text_input("Password", type="password")
+st.success("### *«Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό»*")
 
-if admin_password == ADMIN_PASSWORD:
-    st.sidebar.success("Επιτυχής σύνδεση")
-    df = load_data()
+st.write("---")
 
-    if len(df) > 0:
-        selected_id = st.sidebar.selectbox("Επιλογή Question ID", df["id"].tolist())
-        
-        selected_row = df[df["id"] == int(selected_id)].iloc[0]
-
-        st.sidebar.markdown("---")
-        st.sidebar.write("### Ερώτηση")
-        st.sidebar.info(selected_row["question"])
-
-        answer_text = st.sidebar.text_area(
-            "Απάντηση",
-            value=str(selected_row["answer"]),
-            height=180
-        )
-
-        # SAVE ANSWER
-        if st.sidebar.button("💾 Αποθήκευση Απάντησης"):
-            supabase.table("forum_data").update({"answer": str(answer_text)}).eq("id", int(selected_id)).execute()
-            st.sidebar.success("Η απάντηση αποθηκεύτηκε!")
-            st.rerun()
-
-        st.sidebar.markdown("---")
-
-        # DELETE QUESTION
-        if st.sidebar.button("🗑️ Διαγραφή Ερώτησης"):
-            supabase.table("forum_data").delete().eq("id", int(selected_id)).execute()
-            st.sidebar.success("Η ερώτηση διαγράφηκε!")
-            st.rerun()
-    else:
-        st.sidebar.info("Δεν υπάρχουν ερωτήσεις.")
-else:
-    st.sidebar.caption("Πρόσβαση μόνο διαχειριστή")
-
-# ==================================================
+# ---------------------------------------------------------
 # ADMIN ANALYTICS (ONLY IF ADMIN)
-# ==================================================
+# ---------------------------------------------------------
+if is_admin:
+    st.subheader("📊 Analytics Σελίδας Εισαγωγή (Admin Only)")
 
-if admin_password == ADMIN_PASSWORD:
+    try:
+        result = supabase.table("analytics").select("*").eq("page", "intro").order("id", desc=True).execute()
 
-    st.write("---")
-    st.subheader("📊 Analytics Forum (Μόνο για Admin)")
-
-    total_questions = len(df)
-    answered = df[df["answer"].str.strip() != ""]
-    unanswered = df[df["answer"].str.strip() == ""]
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("📌 Συνολικές Ερωτήσεις", total_questions)
-    col2.metric("✅ Απαντημένες", len(answered))
-    col3.metric("❓ Αναπάντητες", len(unanswered))
-
-    st.write("---")
-
-    if total_questions > 0:
-        st.write("### 🕒 Τελευταίες Κινήσεις")
-
-        last_question = df.sort_values("id", ascending=False).iloc[0]
-        st.info(f"**Τελευταία Ερώτηση:** {last_question['question']} — από {last_question['name']}")
-
-        last_answered = answered.sort_values("id", ascending=False).iloc[0] if len(answered) > 0 else None
-
-        if last_answered is not None:
-            st.success(f"**Τελευταία Απάντηση:** {last_answered['answer']}")
+        if result.data and len(result.data) > 0:
+            df = convert_utc_to_greece(pd.DataFrame(result.data))
+            st.success(f"Βρέθηκαν {len(df)} events.")
+            st.dataframe(df)
         else:
-            st.warning("Δεν υπάρχουν ακόμη απαντήσεις.")
+            st.info("Δεν υπάρχουν ακόμα δεδομένα για τη σελίδα Εισαγωγή.")
+    except Exception as e:
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
+
+# ---------------------------------------------------------
+# FOOTER
+# ---------------------------------------------------------
+st.caption("© 2024 Geyer Technical Portal | Σχεδιασμός & Υλοποίηση: Νεκτάριος Κλαδούχος")
