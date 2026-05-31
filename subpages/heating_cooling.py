@@ -287,61 +287,49 @@ Heating Modes
         unsafe_allow_html=True
     )
     # ---------------------------------------------------------
-    # 🟦 PC Screens – Premium Gallery (CLICK → FULLSCREEN)
+    # 🟦 PC Screens – Premium Gallery (650px)
     # ---------------------------------------------------------
     st.subheader("🟦 PC Screens – Gallery")
 
     pc_images = [
-        ("subpages/pictures/heating/01_thermostats.png",
-         "Κεντρική Επισκόπηση Θερμοστατών",
-         "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
+    ("subpages/pictures/heating/01_thermostats.png",
+     "Κεντρική Επισκόπηση Θερμοστατών",
+     "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
 
-        ("subpages/pictures/heating/02_thermostat.png",
-         "Αναλυτική Προβολή Θερμοστάτη",
-         "Ρύθμιση θερμοκρασίας, επιλογή Heat/Cool και έλεγχος ταχυτήτων ανεμιστήρα."),
+    ("subpages/pictures/heating/02_thermostat.png",
+     "Αναλυτική Προβολή Θερμοστάτη",
+     "Ρύθμιση θερμοκρασίας, επιλογή Heat/Cool και έλεγχος ταχυτήτων ανεμιστήρα."),
 
-        ("subpages/pictures/heating/03_diagram_temp.png",
-         "Διάγραμμα Θερμοκρασίας",
-         "Καταγραφή και απεικόνιση της θερμοκρασίας χώρου σε πραγματικό χρόνο."),
+    ("subpages/pictures/heating/03_diagram_temp.png",
+     "Διάγραμμα Θερμοκρασίας",
+     "Καταγραφή και απεικόνιση της θερμοκρασίας χώρου σε πραγματικό χρόνο."),
 
-        ("subpages/pictures/heating/04_parameters_thermostat.png",
-         "Παραμετροποίηση Θερμοστάτη",
-         "Ρυθμίσεις λειτουργίας, παραμέτρων και συμπεριφοράς του θερμοστάτη."),
+    ("subpages/pictures/heating/04_parameters_thermostat.png",
+     "Παραμετροποίηση Θερμοστάτη",
+     "Ρυθμίσεις λειτουργίας, παραμέτρων και συμπεριφοράς του θερμοστάτη."),
 
-        ("subpages/pictures/heating/05_parameter_thermostat.png",
-         "Ρύθμιση Θερμοστάτη για ON/OFF",
-         "Καθορισμός των ορίων θερμοκρασίας όπου ο θερμοστάτης ενεργοποιείται ή απενεργοποιείται."),
+    ("subpages/pictures/heating/05_parameter_thermostat.png",
+     "Ρύθμιση Θερμοστάτη για ON/OFF",
+     "Καθορισμός των ορίων θερμοκρασίας όπου ο θερμοστάτης ενεργοποιείται ή απενεργοποιείται."),
 
-        ("subpages/pictures/heating/06_Calibration_thermostat.png",
-         "Calibration Θερμοστάτη",
-         "Ρύθμιση και βαθμονόμηση του αισθητήρα θερμοκρασίας για ακριβείς μετρήσεις."),
+    ("subpages/pictures/heating/06_Calibration_thermostat.png",
+     "Calibration Θερμοστάτη",
+     "Ρύθμιση και βαθμονόμηση του αισθητήρα θερμοκρασίας για ακριβείς μετρήσεις."),
 
-        ("subpages/pictures/heating/07_antlia_rithmisis.png",
-         "Τρόπος Λειτουργίας Αντλίας Θερμότητας",
-         "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
-    ]
+    ("subpages/pictures/heating/07_antlia_rithmisis.png",
+     "Τρόπος Λειτουργίας Αντλίας Θερμότητας",
+     "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
+]
 
-    cols = st.columns(2)
+cols = st.columns(2)
 
-    for i, (path, caption, desc) in enumerate(pc_images):
-        with cols[i % 2]:
-            # CLICKABLE IMAGE → FULLSCREEN
-            st.markdown(
-                f"""
-                <div style="cursor:pointer;" onclick="document.body.insertAdjacentHTML('beforeend', `
-                    <div class='fullscreen-overlay' onclick='this.remove()'>
-                        <img src='{path}' />
-                    </div>
-                `)">
-                    <img src="{path}" width="450" style="border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.3);" />
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+for i, (path, caption, desc) in enumerate(pc_images):
+    with cols[i % 2]:
+        st.image(path, width=650)  # 🔥 Μεγαλωμένες εικόνες
+        st.markdown(f"**{caption}**")
+        st.caption(desc)
+        st.markdown("---")
 
-            st.markdown(f"**{caption}**")
-            st.caption(desc)
-            st.markdown("---")
     # ---------------------------------------------------------
     # 🟩 Mobile Screens – Premium Gallery (ΧΩΡΙΣ FULLSCREEN)
     # ---------------------------------------------------------
