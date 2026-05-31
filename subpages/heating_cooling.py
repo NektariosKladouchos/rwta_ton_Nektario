@@ -267,7 +267,7 @@ Heating Modes
         ("subpages/pictures/heating/04_parameters_thermostat.png", "Παραμετροποίηση Θερμοστάτη", "Ρυθμίσεις λειτουργίας Θερμοστάτη."),
         ("subpages/pictures/heating/05_parameter_thermostat.png", "Ρύθμιση Θερμοστάτη για ON/OFF", "Στους πόσους βαθμούς ο θερμοστάτης θα ανοίγει και θα κλείνει"),
         ("subpages/pictures/heating/06_Calibration_thermostat.png", "Calibration Θερμοστάτη", "Ρύθμιση και βαθμονόμηση αισθητήρα."),
-        ("subpages/pictures/heating/07_antlia_rithmisis.png", "Τρόπος λειτουργίας Αντλίας Θερμότητας", "Έπιλογή θέρμανσης, ψύξης της ενδοδαπέδιας και του fan coil(**Μόνο Premium έκδοση**."),
+        ("subpages/pictures/heating/07_antlia_rithmisis.png", "Τρόπος λειτουργίας Αντλίας Θερμότητας", "Έπιλογή θέρμανσης, ψύξης της ενδοδαπέδιας και του fan coil(**Μόνο Premium έκδοση**)"),
     ]
 
     cols = st.columns(2)
