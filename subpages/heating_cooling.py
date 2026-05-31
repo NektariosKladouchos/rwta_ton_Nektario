@@ -2,42 +2,6 @@ import streamlit as st
 
 
 # ---------------------------------------------------------
-# 🔄 CAROUSEL FUNCTION (PC + MOBILE)
-# ---------------------------------------------------------
-def image_carousel(title, images):
-    st.markdown(f"## {title}")
-
-    # Δημιουργία ασφαλούς key (χωρίς emoji/κενά)
-    safe_key = (
-        title.replace(" ", "_")
-        .replace("🟦", "PC")
-        .replace("🟩", "MOBILE")
-        .replace("📸", "GALLERY")
-    )
-
-    key_index = f"carousel_index_{safe_key}"
-    if key_index not in st.session_state:
-        st.session_state[key_index] = 0
-
-    index = st.session_state[key_index]
-
-    col1, col2, col3 = st.columns([1, 6, 1])
-
-    with col1:
-        if st.button("⬅️", key=safe_key + "_prev"):
-            st.session_state[key_index] = (index - 1) % len(images)
-
-    with col2:
-        st.image(images[index]["path"], width=650)  # ΣΩΣΤΟ premium μέγεθος
-        st.markdown(f"**{images[index]['caption']}**")
-        st.caption(images[index]["description"])
-
-    with col3:
-        if st.button("➡️", key=safe_key + "_next"):
-            st.session_state[key_index] = (index + 1) % len(images)
-
-
-# ---------------------------------------------------------
 # 🔥 MAIN PAGE
 # ---------------------------------------------------------
 def show():
@@ -286,37 +250,57 @@ Heating Modes
     st.success("✅ Δύο λύσεις – μία φιλοσοφία: Έξυπνη, καθαρή και premium διαχείριση θέρμανσης & ψύξης χωρίς διπλούς θερμοστάτες.")
 
     # ---------------------------------------------------------
-    # 📸 CAROUSELS SECTION (ΤΕΛΟΣ ΣΕΛΙΔΑΣ)
+    # 📸 PREMIUM GALLERY SECTION (ΤΕΛΟΣ ΣΕΛΙΔΑΣ)
     # ---------------------------------------------------------
     st.divider()
     st.header("📸 Εικόνες Συστήματος – PC & Mobile")
 
-    # PC Screens
+    # ---------------------------------------------------------
+    # 🟦 PC Screens – Premium Gallery
+    # ---------------------------------------------------------
+    st.subheader("🟦 PC Screens – Gallery")
+
     pc_images = [
-        {"path": "subpages/pictures/heating/01_thermostats.png", "caption": "Κεντρική Επισκόπηση Θερμοστατών", "description": "Προβολή όλων των ζωνών."},
-        {"path": "subpages/pictures/heating/02_thermostats.png", "caption": "Αναλυτική Προβολή Θερμοστάτη", "description": "Ρύθμιση θερμοκρασίας & mode."},
-        {"path": "subpages/pictures/heating/03_thermostats.png", "caption": "Διάγραμμα Θερμοκρασίας", "description": "Καταγραφή θερμοκρασίας χώρου."},
-        {"path": "subpages/pictures/heating/04_thermostats.png", "caption": "Ρυθμίσεις Συσκευών", "description": "Παράμετροι Z-Wave."},
-        {"path": "subpages/pictures/heating/05_thermostats.png", "caption": "Ρυθμίσεις Θερμοστάτη", "description": "Offset & advanced settings."},
-        {"path": "subpages/pictures/heating/06_Calibration_thermostat.png", "caption": "Calibration Θερμοστάτη", "description": "Βαθμονόμηση αισθητήρων."},
-        {"path": "subpages/pictures/heating/07_antlia_rithmisis.png", "caption": "Ρυθμίσεις Αντλίας", "description": "Έλεγχος θέρμανσης & ψύξης."},
-        {"path": "subpages/pictures/heating/08_antlia_rithmisis.png", "caption": "Dashboard Αντλίας", "description": "Κεντρική διαχείριση λειτουργιών."},
+        ("subpages/pictures/heating/01_thermostats.png", "Κεντρική Επισκόπηση Θερμοστατών", "Προβολή όλων των ζωνών και της κατάστασης λειτουργίας."),
+        ("subpages/pictures/heating/02_thermostats.png", "Αναλυτική Προβολή Θερμοστάτη", "Ρύθμιση θερμοκρασίας, mode και ανεμιστήρα."),
+        ("subpages/pictures/heating/03_thermostats.png", "Διάγραμμα Θερμοκρασίας", "Καταγραφή θερμοκρασίας χώρου σε πραγματικό χρόνο."),
+        ("subpages/pictures/heating/04_thermostats.png", "Ρυθμίσεις Συσκευών", "Παράμετροι Z-Wave και διαμόρφωση συσκευών."),
+        ("subpages/pictures/heating/05_thermostats.png", "Ρυθμίσεις Θερμοστάτη", "Προχωρημένες επιλογές και offset θερμοκρασίας."),
+        ("subpages/pictures/heating/06_Calibration_thermostat.png", "Calibration Θερμοστάτη", "Ρύθμιση και βαθμονόμηση αισθητήρων."),
+        ("subpages/pictures/heating/07_antlia_rithmisis.png", "Ρυθμίσεις Αντλίας Θερμότητας", "Έλεγχος θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil."),
+        ("subpages/pictures/heating/08_antlia_rithmisis.png", "Dashboard Αντλίας", "Κεντρική διαχείριση λειτουργιών αντλίας θερμότητας."),
     ]
 
-    image_carousel("🟦 PC Screens", pc_images)
+    cols = st.columns(2)
 
-    st.divider()
+    for i, (path, caption, desc) in enumerate(pc_images):
+        with cols[i % 2]:
+            st.image(path, width=450)
+            st.markdown(f"**{caption}**")
+            st.caption(desc)
+            st.markdown("---")
 
-    # Mobile Screens
+    # ---------------------------------------------------------
+    # 🟩 Mobile Screens – Premium Gallery
+    # ---------------------------------------------------------
+    st.subheader("🟩 Mobile Screens – Gallery")
+
     mobile_images = [
-        {"path": "subpages/pictures/heating/09_tropos_litourgias_antlias.jpg", "caption": "Τρόποι Λειτουργίας Αντλίας", "description": "Επιλογή mode από το κινητό."},
-        {"path": "subpages/pictures/heating/10_mobile_thermostats.jpg", "caption": "Θερμοστάτες στο Κινητό", "description": "Προβολή όλων των ζωνών."},
-        {"path": "subpages/pictures/heating/11_mobile_devices.jpg", "caption": "Συσκευές Σπιτιού", "description": "Έλεγχος θέρμανσης & ψύξης."},
-        {"path": "subpages/pictures/heating/12_mobile_home.jpg", "caption": "Αρχική Οθόνη", "description": "Θερμοκρασίες ανά δωμάτιο."},
-        {"path": "subpages/pictures/heating/13_mobile_pump.jpg", "caption": "Οθόνη Αντλίας", "description": "Έλεγχος λειτουργιών αντλίας."},
-        {"path": "subpages/pictures/heating/14_mobile_energy.jpg", "caption": "Energy Panel", "description": "Κατανάλωση ενέργειας."},
-        {"path": "subpages/pictures/heating/15_mobile_summary.jpg", "caption": "Σύνοψη Σπιτιού", "description": "Θερμοκρασία & κατανάλωση."},
-        {"path": "subpages/pictures/heating/16_mobile_kouzina.jpg", "caption": "Οθόνη Κουζίνας", "description": "Θερμοστάτης & φωτισμός."},
+        ("subpages/pictures/heating/09_tropos_litourgias_antlias.jpg", "Τρόποι Λειτουργίας Αντλίας", "Επιλογή mode από το κινητό."),
+        ("subpages/pictures/heating/10_mobile_thermostats.jpg", "Θερμοστάτες στο Κινητό", "Προβολή όλων των θερμοστατών και των τιμών τους."),
+        ("subpages/pictures/heating/11_mobile_devices.jpg", "Συσκευές Σπιτιού", "Έλεγχος θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil."),
+        ("subpages/pictures/heating/12_mobile_home.jpg", "Αρχική Οθόνη Σπιτιού", "Θερμοκρασίες ανά δωμάτιο και κατάσταση συσκευών."),
+        ("subpages/pictures/heating/13_mobile_pump.jpg", "Οθόνη Αντλίας", "Έλεγχος θέρμανσης, ψύξης και ενδοδαπέδιας."),
+        ("subpages/pictures/heating/14_mobile_energy.jpg", "Energy Panel", "Κατανάλωση ενέργειας σε πραγματικό χρόνο."),
+        ("subpages/pictures/heating/15_mobile_summary.jpg", "Σύνοψη Σπιτιού", "Θερμοκρασία, κατανάλωση και κατάσταση συσκευών."),
+        ("subpages/pictures/heating/16_mobile_kouzina.jpg", "Οθόνη Κουζίνας", "Θερμοστάτης, φωτισμός και αισθητήρες κουζίνας."),
     ]
 
-    image_carousel("🟩 Mobile Screens", mobile_images)
+    cols = st.columns(3)
+
+    for i, (path, caption, desc) in enumerate(mobile_images):
+        with cols[i % 3]:
+            st.image(path, width=350)
+            st.markdown(f"**{caption}**")
+            st.caption(desc)
+            st.markdown("---")
