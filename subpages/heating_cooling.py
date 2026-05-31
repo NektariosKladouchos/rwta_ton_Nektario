@@ -1,44 +1,5 @@
 import streamlit as st
 
-# ---------------------------------------------------------
-# FULLSCREEN VIEWER (ΜΟΝΟ ΓΙΑ PC ΕΙΚΟΝΕΣ)
-# ---------------------------------------------------------
-def fullscreen_image(path):
-    st.markdown(
-        f"""
-        <style>
-        .fullscreen-overlay {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.92);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-            animation: fadeIn 0.2s ease-out;
-        }}
-        @keyframes fadeIn {{
-            from {{ opacity: 0; }}
-            to {{ opacity: 1; }}
-        }}
-        .fullscreen-overlay img {{
-            max-width: 95%;
-            max-height: 95%;
-            border-radius: 10px;
-            box-shadow: 0 0 25px rgba(0,0,0,0.6);
-        }}
-        </style>
-
-        <div class="fullscreen-overlay" onclick="this.remove()">
-            <img src="{path}">
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
 
 # ---------------------------------------------------------
 # 🔥 MAIN PAGE
@@ -296,12 +257,11 @@ Heating Modes
     st.header("📸 Εικόνες Συστήματος – PC & Mobile")
 
     # ---------------------------------------------------------
- # ---------------------------------------------------------
-# 🟦 PC Screens – Premium Gallery (CLICK → FULLSCREEN)
-# ---------------------------------------------------------
-st.subheader("🟦 PC Screens – Gallery")
+    # 🟦 PC Screens – Premium Gallery
+    # ---------------------------------------------------------
+    st.subheader("🟦 PC Screens – Gallery")
 
-pc_images = [
+    pc_images = [
     ("subpages/pictures/heating/01_thermostats.png",
      "Κεντρική Επισκόπηση Θερμοστατών",
      "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
@@ -331,31 +291,18 @@ pc_images = [
      "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
 ]
 
-cols = st.columns(2)
 
-for i, (path, caption, desc) in enumerate(pc_images):
-    with cols[i % 2]:
+    cols = st.columns(2)
 
-        # 🔥 CLICKABLE IMAGE → FULLSCREEN
-        st.markdown(
-            f"""
-            <div style="cursor:pointer;" onclick="document.body.insertAdjacentHTML('beforeend', `
-                <div class='fullscreen-overlay' onclick='this.remove()'>
-                    <img src='{path}' />
-                </div>
-            `)">
-                <img src="{path}" width="450" style="border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.3);" />
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.markdown(f"**{caption}**")
-        st.caption(desc)
-        st.markdown("---")
+    for i, (path, caption, desc) in enumerate(pc_images):
+        with cols[i % 2]:
+            st.image(path, width=450)
+            st.markdown(f"**{caption}**")
+            st.caption(desc)
+            st.markdown("---")
 
     # ---------------------------------------------------------
-    # 🟩 Mobile Screens – Premium Gallery (ΧΩΡΙΣ FULLSCREEN)
+    # 🟩 Mobile Screens – Premium Gallery
     # ---------------------------------------------------------
     st.subheader("🟩 Mobile Screens – Gallery")
 
