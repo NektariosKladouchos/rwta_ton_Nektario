@@ -261,14 +261,13 @@ Heating Modes
     st.subheader("🟦 PC Screens – Gallery")
 
     pc_images = [
-        ("subpages/pictures/heating/01_thermostats.png", "Κεντρική Επισκόπηση Θερμοστατών", "Προβολή όλων των ζωνών και της κατάστασης λειτουργίας."),
-        ("subpages/pictures/heating/02_thermostat.png", "Αναλυτική Προβολή Θερμοστάτη", "Ρύθμιση θερμοκρασίας, mode και ανεμιστήρα."),
-        ("subpages/pictures/heating/03_thermostats.png", "Διάγραμμα Θερμοκρασίας", "Καταγραφή θερμοκρασίας χώρου σε πραγματικό χρόνο."),
-        ("subpages/pictures/heating/04_thermostats.png", "Ρυθμίσεις Συσκευών", "Παράμετροι Z-Wave και διαμόρφωση συσκευών."),
-        ("subpages/pictures/heating/05_thermostats.png", "Ρυθμίσεις Θερμοστάτη", "Προχωρημένες επιλογές και offset θερμοκρασίας."),
-        ("subpages/pictures/heating/06_Calibration_thermostat.png", "Calibration Θερμοστάτη", "Ρύθμιση και βαθμονόμηση αισθητήρων."),
-        ("subpages/pictures/heating/07_antlia_rithmisis.png", "Ρυθμίσεις Αντλίας Θερμότητας", "Έλεγχος θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil."),
-        ("subpages/pictures/heating/08_antlia_rithmisis.png", "Dashboard Αντλίας", "Κεντρική διαχείριση λειτουργιών αντλίας θερμότητας."),
+        ("subpages/pictures/heating/01_thermostats.png", "Κεντρική Επισκόπηση Θερμοστατών", "Προβολή όλων των Θερμωστατών και της κατάστασης λειτουργίας τους."),
+        ("subpages/pictures/heating/02_thermostat.png", "Αναλυτική Προβολή Θερμοστάτη", "Ρύθμιση θερμοκρασίας,Heat/Cool και ταχύτητες ανεμιστήρα."),
+        ("subpages/pictures/heating/03_diagram_temp.png", "Διάγραμμα Θερμοκρασίας", "Καταγραφή θερμοκρασίας χώρου σε πραγματικό χρόνο."),
+        ("subpages/pictures/heating/04_parameters_thermostat.png", "Παραμετροποίηση Θερμοστάτη", "Ρυθμίσεις λειτουργίας Θερμοστάτη."),
+        ("subpages/pictures/heating/05_parameter_thermostat.png", "Ρύθμιση Θερμοστάτη για ON/OFF", "Στους πόσους βαθμούς ο θερμοστάτης θα ανοίγει και θα κλείνει"),
+        ("subpages/pictures/heating/06_Calibration_thermostat.png", "Calibration Θερμοστάτη", "Ρύθμιση και βαθμονόμηση αισθητήρα."),
+        ("subpages/pictures/heating/07_antlia_rithmisis.png", "Τρόπος λειτουργίας Αντλίας Θερμότητας", "Έπιλογή θέρμανσης, ψύξης της ενδοδαπέδιας και του fan coil(**Μόνο Premium έκδοση**."),
     ]
 
     cols = st.columns(2)
