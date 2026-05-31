@@ -1,5 +1,44 @@
 import streamlit as st
 
+# ---------------------------------------------------------
+# FULLSCREEN VIEWER (ΜΟΝΟ ΓΙΑ PC ΕΙΚΟΝΕΣ)
+# ---------------------------------------------------------
+def fullscreen_image(path):
+    st.markdown(
+        f"""
+        <style>
+        .fullscreen-overlay {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.92);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            animation: fadeIn 0.2s ease-out;
+        }}
+        @keyframes fadeIn {{
+            from {{ opacity: 0; }}
+            to {{ opacity: 1; }}
+        }}
+        .fullscreen-overlay img {{
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+        }}
+        </style>
+
+        <div class="fullscreen-overlay" onclick="this.remove()">
+            <img src="{path}">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 # ---------------------------------------------------------
 # 🔥 MAIN PAGE
@@ -257,52 +296,56 @@ Heating Modes
     st.header("📸 Εικόνες Συστήματος – PC & Mobile")
 
     # ---------------------------------------------------------
-    # 🟦 PC Screens – Premium Gallery
+    # 🟦 PC Screens – Premium Gallery (ΜΕ FULLSCREEN)
     # ---------------------------------------------------------
     st.subheader("🟦 PC Screens – Gallery")
 
     pc_images = [
-    ("subpages/pictures/heating/01_thermostats.png",
-     "Κεντρική Επισκόπηση Θερμοστατών",
-     "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
+        ("subpages/pictures/heating/01_thermostats.png",
+         "Κεντρική Επισκόπηση Θερμοστατών",
+         "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
 
-    ("subpages/pictures/heating/02_thermostat.png",
-     "Αναλυτική Προβολή Θερμοστάτη",
-     "Ρύθμιση θερμοκρασίας, επιλογή Heat/Cool και έλεγχος ταχυτήτων ανεμιστήρα."),
+        ("subpages/pictures/heating/02_thermostat.png",
+         "Αναλυτική Προβολή Θερμοστάτη",
+         "Ρύθμιση θερμοκρασίας, επιλογή Heat/Cool και έλεγχος ταχυτήτων ανεμιστήρα."),
 
-    ("subpages/pictures/heating/03_diagram_temp.png",
-     "Διάγραμμα Θερμοκρασίας",
-     "Καταγραφή και απεικόνιση της θερμοκρασίας χώρου σε πραγματικό χρόνο."),
+        ("subpages/pictures/heating/03_diagram_temp.png",
+         "Διάγραμμα Θερμοκρασίας",
+         "Καταγραφή και απεικόνιση της θερμοκρασίας χώρου σε πραγματικό χρόνο."),
 
-    ("subpages/pictures/heating/04_parameters_thermostat.png",
-     "Παραμετροποίηση Θερμοστάτη",
-     "Ρυθμίσεις λειτουργίας, παραμέτρων και συμπεριφοράς του θερμοστάτη."),
+        ("subpages/pictures/heating/04_parameters_thermostat.png",
+         "Παραμετροποίηση Θερμοστάτη",
+         "Ρυθμίσεις λειτουργίας, παραμέτρων και συμπεριφοράς του θερμοστάτη."),
 
-    ("subpages/pictures/heating/05_parameter_thermostat.png",
-     "Ρύθμιση Θερμοστάτη για ON/OFF",
-     "Καθορισμός των ορίων θερμοκρασίας όπου ο θερμοστάτης ενεργοποιείται ή απενεργοποιείται."),
+        ("subpages/pictures/heating/05_parameter_thermostat.png",
+         "Ρύθμιση Θερμοστάτη για ON/OFF",
+         "Καθορισμός των ορίων θερμοκρασίας όπου ο θερμοστάτης ενεργοποιείται ή απενεργοποιείται."),
 
-    ("subpages/pictures/heating/06_Calibration_thermostat.png",
-     "Calibration Θερμοστάτη",
-     "Ρύθμιση και βαθμονόμηση του αισθητήρα θερμοκρασίας για ακριβείς μετρήσεις."),
+        ("subpages/pictures/heating/06_Calibration_thermostat.png",
+         "Calibration Θερμοστάτη",
+         "Ρύθμιση και βαθμονόμηση του αισθητήρα θερμοκρασίας για ακριβείς μετρήσεις."),
 
-    ("subpages/pictures/heating/07_antlia_rithmisis.png",
-     "Τρόπος Λειτουργίας Αντλίας Θερμότητας",
-     "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
-]
-
+        ("subpages/pictures/heating/07_antlia_rithmisis.png",
+         "Τρόπος Λειτουργίας Αντλίας Θερμότητας",
+         "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
+    ]
 
     cols = st.columns(2)
 
     for i, (path, caption, desc) in enumerate(pc_images):
         with cols[i % 2]:
+
+            # 🔥 CLICK → FULLSCREEN
+            if st.button(f"🖼️ Μεγέθυνση", key=f"pc_fs_{i}"):
+                fullscreen_image(path)
+
             st.image(path, width=450)
             st.markdown(f"**{caption}**")
             st.caption(desc)
             st.markdown("---")
 
     # ---------------------------------------------------------
-    # 🟩 Mobile Screens – Premium Gallery
+    # 🟩 Mobile Screens – Premium Gallery (ΧΩΡΙΣ FULLSCREEN)
     # ---------------------------------------------------------
     st.subheader("🟩 Mobile Screens – Gallery")
 
