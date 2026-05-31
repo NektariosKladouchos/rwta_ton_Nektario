@@ -260,15 +260,36 @@ Heating Modes
     # ---------------------------------------------------------
     st.subheader("🟦 PC Screens – Gallery")
 
-    pc_images = [
-        ("subpages/pictures/heating/01_thermostats.png", "Κεντρική Επισκόπηση Θερμοστατών", "Προβολή όλων των Θερμωστατών και της κατάστασης λειτουργίας τους."),
-        ("subpages/pictures/heating/02_thermostat.png", "Αναλυτική Προβολή Θερμοστάτη", "Ρύθμιση θερμοκρασίας,Heat/Cool και ταχύτητες ανεμιστήρα."),
-        ("subpages/pictures/heating/03_diagram_temp.png", "Διάγραμμα Θερμοκρασίας", "Καταγραφή θερμοκρασίας χώρου σε πραγματικό χρόνο."),
-        ("subpages/pictures/heating/04_parameters_thermostat.png", "Παραμετροποίηση Θερμοστάτη", "Ρυθμίσεις λειτουργίας Θερμοστάτη."),
-        ("subpages/pictures/heating/05_parameter_thermostat.png", "Ρύθμιση Θερμοστάτη για ON/OFF", "Στους πόσους βαθμούς ο θερμοστάτης θα ανοίγει και θα κλείνει"),
-        ("subpages/pictures/heating/06_Calibration_thermostat.png", "Calibration Θερμοστάτη", "Ρύθμιση και βαθμονόμηση αισθητήρα."),
-        ("subpages/pictures/heating/07_antlia_rithmisis.png", "Τρόπος λειτουργίας Αντλίας Θερμότητας", "Έπιλογή θέρμανσης, ψύξης της ενδοδαπέδιας και του fan coil(**Μόνο Premium έκδοση**)"),
-    ]
+  pc_images = [
+    ("subpages/pictures/heating/01_thermostats.png",
+     "Κεντρική Επισκόπηση Θερμοστατών",
+     "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
+
+    ("subpages/pictures/heating/02_thermostat.png",
+     "Αναλυτική Προβολή Θερμοστάτη",
+     "Ρύθμιση θερμοκρασίας, επιλογή Heat/Cool και έλεγχος ταχυτήτων ανεμιστήρα."),
+
+    ("subpages/pictures/heating/03_diagram_temp.png",
+     "Διάγραμμα Θερμοκρασίας",
+     "Καταγραφή και απεικόνιση της θερμοκρασίας χώρου σε πραγματικό χρόνο."),
+
+    ("subpages/pictures/heating/04_parameters_thermostat.png",
+     "Παραμετροποίηση Θερμοστάτη",
+     "Ρυθμίσεις λειτουργίας, παραμέτρων και συμπεριφοράς του θερμοστάτη."),
+
+    ("subpages/pictures/heating/05_parameter_thermostat.png",
+     "Ρύθμιση Θερμοστάτη για ON/OFF",
+     "Καθορισμός των ορίων θερμοκρασίας όπου ο θερμοστάτης ενεργοποιείται ή απενεργοποιείται."),
+
+    ("subpages/pictures/heating/06_Calibration_thermostat.png",
+     "Calibration Θερμοστάτη",
+     "Ρύθμιση και βαθμονόμηση του αισθητήρα θερμοκρασίας για ακριβείς μετρήσεις."),
+
+    ("subpages/pictures/heating/07_antlia_rithmisis.png",
+     "Τρόπος Λειτουργίας Αντλίας Θερμότητας",
+     "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
+]
+
 
     cols = st.columns(2)
 
