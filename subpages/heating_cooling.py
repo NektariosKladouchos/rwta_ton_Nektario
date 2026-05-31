@@ -286,12 +286,12 @@ Heating Modes
         """,
         unsafe_allow_html=True
     )
-    # ---------------------------------------------------------
-    # 🟦 PC Screens – Premium Gallery (650px)
-    # ---------------------------------------------------------
-    st.subheader("🟦 PC Screens – Gallery")
+ # ---------------------------------------------------------
+ # 🟦 PC Screens – Premium Gallery (650px)
+ # ---------------------------------------------------------
+st.subheader("🟦 PC Screens – Gallery")
 
-    pc_images = [
+pc_images = [
     ("subpages/pictures/heating/01_thermostats.png",
      "Κεντρική Επισκόπηση Θερμοστατών",
      "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
