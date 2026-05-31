@@ -262,7 +262,7 @@ Heating Modes
 
     pc_images = [
         ("subpages/pictures/heating/01_thermostats.png", "Κεντρική Επισκόπηση Θερμοστατών", "Προβολή όλων των ζωνών και της κατάστασης λειτουργίας."),
-        ("subpages/pictures/heating/02_thermostats.png", "Αναλυτική Προβολή Θερμοστάτη", "Ρύθμιση θερμοκρασίας, mode και ανεμιστήρα."),
+        ("subpages/pictures/heating/02_thermostat.png", "Αναλυτική Προβολή Θερμοστάτη", "Ρύθμιση θερμοκρασίας, mode και ανεμιστήρα."),
         ("subpages/pictures/heating/03_thermostats.png", "Διάγραμμα Θερμοκρασίας", "Καταγραφή θερμοκρασίας χώρου σε πραγματικό χρόνο."),
         ("subpages/pictures/heating/04_thermostats.png", "Ρυθμίσεις Συσκευών", "Παράμετροι Z-Wave και διαμόρφωση συσκευών."),
         ("subpages/pictures/heating/05_thermostats.png", "Ρυθμίσεις Θερμοστάτη", "Προχωρημένες επιλογές και offset θερμοκρασίας."),
