@@ -285,14 +285,12 @@ Heating Modes
     st.subheader("🟩 Mobile Screens – Gallery")
 
     mobile_images = [
-        ("subpages/pictures/heating/09_tropos_litourgias_antlias.jpg", "Τρόποι Λειτουργίας Αντλίας", "Επιλογή mode από το κινητό."),
-        ("subpages/pictures/heating/10_mobile_thermostats.jpg", "Θερμοστάτες στο Κινητό", "Προβολή όλων των θερμοστατών και των τιμών τους."),
-        ("subpages/pictures/heating/11_mobile_devices.jpg", "Συσκευές Σπιτιού", "Έλεγχος θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil."),
-        ("subpages/pictures/heating/12_mobile_home.jpg", "Αρχική Οθόνη Σπιτιού", "Θερμοκρασίες ανά δωμάτιο και κατάσταση συσκευών."),
-        ("subpages/pictures/heating/13_mobile_pump.jpg", "Οθόνη Αντλίας", "Έλεγχος θέρμανσης, ψύξης και ενδοδαπέδιας."),
-        ("subpages/pictures/heating/14_mobile_energy.jpg", "Energy Panel", "Κατανάλωση ενέργειας σε πραγματικό χρόνο."),
-        ("subpages/pictures/heating/15_mobile_summary.jpg", "Σύνοψη Σπιτιού", "Θερμοκρασία, κατανάλωση και κατάσταση συσκευών."),
-        ("subpages/pictures/heating/16_mobile_kouzina.jpg", "Οθόνη Κουζίνας", "Θερμοστάτης, φωτισμός και αισθητήρες κουζίνας."),
+        ("subpages/pictures/heating/09_tropos_litourgias_antlias.jpg", "Παρακολούθηση Λειτουργίας Αντλίας", "Σε ποια κατάσταση βρίσκετε η αντλία,η ενδοδαπέδια και τα fancoil.**Μόνο στην premium έκδοση**"),
+        ("subpages/pictures/heating/10_temp_domation.jpg", "Θερμοκρασία Δωματίων", "Προβολή όλων θερμοκρασιών live των ζωνών θέρμανσης και ψύξης."),
+        ("subpages/pictures/heating/11_tropoi_litourgias_antlias.jpg", "Τρόποι Λειτουργίας Αντλίας", "Επιλογή τρόπου Θέρμανσης και ψύξης από το κινητό.**Μόνο στην Premium έκδοση**"),
+        ("subpages/pictures/heating/12_metrisi_antlias.jpg", "Παρακολούθηση κατανάλωσης ", "**Με την χρήση μετρητή κατανάλωσης** "),
+        ("subpages/pictures/heating/13_teleutaia_alagh_thermokrasias.jpg", "Παρακολούθηση live θερμοκρασίας χώρου", "Πριν πόση ώρα άλλαξε η θερμοκρασία"),
+        ("subpages/pictures/heating/14_rithmisi_thermostath.jpg", "Λειτουργία Θερμοστάτη", "Ρύθμιση θερμοστάτη Heat/Cool,Off,Fan και ρύθμιση θερμοκρασίας"),
     ]
 
     cols = st.columns(3)
