@@ -368,5 +368,5 @@ for i, (path, caption, desc) in enumerate(pc_images):
             st.image(path, width=350)
             st.markdown(f"**{caption}**")
             st.caption(desc)
-            st.markmarkdown("---")
+           
             st.markdown("---")
