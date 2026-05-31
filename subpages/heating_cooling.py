@@ -144,6 +144,7 @@ Fan Coil OFF
     st.success("💰 Τελικό κόστος για 5 ζώνες: **657,79 €**")
 
     st.divider()
+
     # 5. Premium λύση
     st.subheader("2️⃣ Premium Λύση – Smart Controller + Επιλογή Mode από Κινητό")
 
@@ -255,43 +256,12 @@ Heating Modes
     st.divider()
     st.header("📸 Εικόνες Συστήματος – PC & Mobile")
 
-    # CSS για fullscreen overlay (PC images)
-    st.markdown(
-        """
-        <style>
-        .fullscreen-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.92);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-            animation: fadeIn 0.2s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .fullscreen-overlay img {
-            max-width: 95%;
-            max-height: 95%;
-            border-radius: 10px;
-            box-shadow: 0 0 25px rgba(0,0,0,0.6);
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
- # ---------------------------------------------------------
- # 🟦 PC Screens – Premium Gallery (650px)
- # ---------------------------------------------------------
-st.subheader("🟦 PC Screens – Gallery")
+    # ---------------------------------------------------------
+    # 🟦 PC Screens – Premium Gallery
+    # ---------------------------------------------------------
+    st.subheader("🟦 PC Screens – Gallery")
 
-pc_images = [
+    pc_images = [
     ("subpages/pictures/heating/01_thermostats.png",
      "Κεντρική Επισκόπηση Θερμοστατών",
      "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
@@ -321,44 +291,28 @@ pc_images = [
      "Επιλογή θέρμανσης, ψύξης, ενδοδαπέδιας και fan coil (διαθέσιμο στην Premium έκδοση)."),
 ]
 
-cols = st.columns(2)
 
-for i, (path, caption, desc) in enumerate(pc_images):
-    with cols[i % 2]:
-        st.image(path, width=650)  # 🔥 Μεγαλωμένες εικόνες
-        st.markdown(f"**{caption}**")
-        st.caption(desc)
-        st.markdown("---")
+    cols = st.columns(2)
+
+    for i, (path, caption, desc) in enumerate(pc_images):
+        with cols[i % 2]:
+            st.image(path, width=450)
+            st.markdown(f"**{caption}**")
+            st.caption(desc)
+            st.markdown("---")
 
     # ---------------------------------------------------------
-    # 🟩 Mobile Screens – Premium Gallery (ΧΩΡΙΣ FULLSCREEN)
+    # 🟩 Mobile Screens – Premium Gallery
     # ---------------------------------------------------------
     st.subheader("🟩 Mobile Screens – Gallery")
 
     mobile_images = [
-        ("subpages/pictures/heating/09_tropos_litourgias_antlias.jpg",
-         "Παρακολούθηση Λειτουργίας Αντλίας",
-         "Σε ποια κατάσταση βρίσκετε η αντλία,η ενδοδαπέδια και τα fancoil.**Μόνο στην premium έκδοση**"),
-
-        ("subpages/pictures/heating/10_temp_domation.jpg",
-         "Θερμοκρασία Δωματίων",
-         "Προβολή όλων θερμοκρασιών live των ζωνών θέρμανσης και ψύξης."),
-
-        ("subpages/pictures/heating/11_tropoi_litourgias_antlias.jpg",
-         "Τρόποι Λειτουργίας Αντλίας",
-         "Επιλογή τρόπου Θέρμανσης και ψύξης από το κινητό.**Μόνο στην Premium έκδοση**"),
-
-        ("subpages/pictures/heating/12_metrisi_antlias.jpg",
-         "Παρακολούθηση κατανάλωσης ",
-         "**Με την χρήση μετρητή κατανάλωσης** "),
-
-        ("subpages/pictures/heating/13_teleutaia_alagh_thermokrasias.jpg",
-         "Παρακολούθηση live θερμοκρασίας χώρου",
-         "Πριν πόση ώρα άλλαξε η θερμοκρασία"),
-
-        ("subpages/pictures/heating/14_rithmisi_thermostath.jpg",
-         "Λειτουργία Θερμοστάτη",
-         "Ρύθμιση θερμοστάτη Heat/Cool,Off,Fan και ρύθμιση θερμοκρασίας"),
+        ("subpages/pictures/heating/09_tropos_litourgias_antlias.jpg", "Παρακολούθηση Λειτουργίας Αντλίας", "Σε ποια κατάσταση βρίσκετε η αντλία,η ενδοδαπέδια και τα fancoil.**Μόνο στην premium έκδοση**"),
+        ("subpages/pictures/heating/10_temp_domation.jpg", "Θερμοκρασία Δωματίων", "Προβολή όλων θερμοκρασιών live των ζωνών θέρμανσης και ψύξης."),
+        ("subpages/pictures/heating/11_tropoi_litourgias_antlias.jpg", "Τρόποι Λειτουργίας Αντλίας", "Επιλογή τρόπου Θέρμανσης και ψύξης από το κινητό.**Μόνο στην Premium έκδοση**"),
+        ("subpages/pictures/heating/12_metrisi_antlias.jpg", "Παρακολούθηση κατανάλωσης ", "**Με την χρήση μετρητή κατανάλωσης** "),
+        ("subpages/pictures/heating/13_teleutaia_alagh_thermokrasias.jpg", "Παρακολούθηση live θερμοκρασίας χώρου", "Πριν πόση ώρα άλλαξε η θερμοκρασία"),
+        ("subpages/pictures/heating/14_rithmisi_thermostath.jpg", "Λειτουργία Θερμοστάτη", "Ρύθμιση θερμοστάτη Heat/Cool,Off,Fan και ρύθμιση θερμοκρασίας"),
     ]
 
     cols = st.columns(3)
@@ -368,5 +322,4 @@ for i, (path, caption, desc) in enumerate(pc_images):
             st.image(path, width=350)
             st.markdown(f"**{caption}**")
             st.caption(desc)
-           
             st.markdown("---")
