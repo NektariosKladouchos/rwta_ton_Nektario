@@ -260,7 +260,7 @@ Heating Modes
     # ---------------------------------------------------------
     st.subheader("🟦 PC Screens – Gallery")
 
-  pc_images = [
+    pc_images = [
     ("subpages/pictures/heating/01_thermostats.png",
      "Κεντρική Επισκόπηση Θερμοστατών",
      "Προβολή όλων των θερμοστατών και της κατάστασης λειτουργίας τους."),
