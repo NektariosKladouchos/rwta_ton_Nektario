@@ -121,7 +121,9 @@ def show():
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
         for img in app_images:
             if img["title"] == selected_app_page:
-                st.image(img["url"], caption=img["title"], use_container_width=True)
+                #st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.image(img["url"], width=200)
+
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
 
@@ -176,4 +178,3 @@ def show():
     """)
 
     st.success("📞 Επικοινωνήστε μαζί μας για να σχεδιάσουμε τη δική σας custom λύση αυτοματισμού!")
-
