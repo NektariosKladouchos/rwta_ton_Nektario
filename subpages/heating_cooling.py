@@ -4,6 +4,38 @@ import streamlit as st
 # ---------------------------------------------------------
 # 🔥 MAIN PAGE
 # ---------------------------------------------------------
+# FULLSCREEN IMAGE VIEWER
+def fullscreen_image(path):
+    st.markdown(
+        f"""
+        <style>
+        .fullscreen-img {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.92);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }}
+        .fullscreen-img img {{
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+        }}
+        </style>
+
+        <div class="fullscreen-img" onclick="this.remove()">
+            <img src="{path}">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 def show():
     # Τίτλος σελίδας
     st.header("🔥 Heating / Cooling – Έξυπνη Θέρμανση & Ψύξη χωρίς Διπλούς Θερμοστάτες")
