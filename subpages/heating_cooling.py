@@ -1,6 +1,37 @@
 import streamlit as st
 
 
+# ---------------------------------------------------------
+# 🔄 CAROUSEL FUNCTION (PC + MOBILE)
+# ---------------------------------------------------------
+def image_carousel(title, images):
+    st.markdown(f"## {title}")
+
+    key_index = f"carousel_index_{title}"
+    if key_index not in st.session_state:
+        st.session_state[key_index] = 0
+
+    index = st.session_state[key_index]
+
+    col1, col2, col3 = st.columns([1, 6, 1])
+
+    with col1:
+        if st.button("⬅️", key=title + "_prev"):
+            st.session_state[key_index] = (index - 1) % len(images)
+
+    with col2:
+        st.image(images[index]["path"], use_column_width=True)
+        st.markdown(f"**{images[index]['caption']}**")
+        st.caption(images[index]["description"])
+
+    with col3:
+        if st.button("➡️", key=title + "_next"):
+            st.session_state[key_index] = (index + 1) % len(images)
+
+
+# ---------------------------------------------------------
+# 🔥 MAIN PAGE
+# ---------------------------------------------------------
 def show():
     # Τίτλος σελίδας
     st.header("🔥 Heating / Cooling – Έξυπνη Θέρμανση & Ψύξη χωρίς Διπλούς Θερμοστάτες")
@@ -31,14 +62,12 @@ def show():
 
         Αυτό δημιουργεί:
 
-        - **σύγχυση** (ποιον θερμοστάτη να ρυθμίσω;)  
-        - **κακή αισθητική** (δύο συσκευές στον τοίχο)  
+        - **σύγχυση**  
+        - **κακή αισθητική**  
         - **λάθος χειρισμούς**  
         - **διπλές ρυθμίσεις θερμοκρασίας**  
         - **αδυναμία αυτοματισμού & σεναρίων**  
         - **αδυναμία επιλογής τρόπου λειτουργίας από το κινητό**  
-
-        Ο πελάτης τελικά **δεν απολαμβάνει** τις δυνατότητες του συστήματος που πλήρωσε.
         """
     )
 
@@ -58,8 +87,6 @@ def show():
         - δεν υπάρχει **ενδοδαπέδια με νερό**  
         - δεν υπάρχουν **fan coil νερού**  
         - δεν υπάρχει δυνατότητα **HEAT/COOL μέσω επαφών**  
-
-        👉 Άρα η λύση μας απευθύνεται σε **υδραυλικά συστήματα με αντλία θερμότητας**.
         """
     )
 
@@ -83,11 +110,6 @@ def show():
 
         ### ✔ Απλή Λύση → Απομακρυσμένη διαχείριση θερμοκρασίας  
         ### ✔ Premium Λύση → Απομακρυσμένη διαχείριση + Επιλογή Mode (Τρόπος λειτουργίας)
-        
-        Οι λύσεις είναι:
-
-        1. **Απλή Λύση** – Smart θερμοστάτης ανά ζώνη.  
-        2. **Premium Λύση** – Smart Controller + Smart Θερμοστάτες με επιλογή Mode από το κινητό.
         """
     )
 
@@ -155,39 +177,28 @@ Fan Coil OFF
 
     st.markdown(
         """
-        Στην premium λύση, ο συνδυασμός:
+        Στην premium λύση:
 
-        - **Smart Θερμοστάτη ανά ζώνη**
-        - **Κεντρικής μονάδας Smart Home**
-        - **Ηλεκτροβανών ενδοδαπέδιας & fan coil**
-        - **Ελέγχου της αντλίας θερμότητας μέσω επαφών**
+        - **Smart Θερμοστάτης ανά ζώνη**
+        - **Κεντρική μονάδα Smart Home**
+        - **Ηλεκτροβάνες ενδοδαπέδιας & fan coil**
+        - **Έλεγχος της αντλίας θερμότητας μέσω επαφών**
 
-        επιτρέπει στον χρήστη:
+        Ο χρήστης μπορεί:
 
-        ### ✔ Να ρυθμίζει θερμοκρασία από το κινητό (όπως και στην απλή λύση)  
-        ### ✔ Να επιλέγει Mode λειτουργίας (διαφορά Premium):
-
-        - Δροσισμός ενδοδαπέδιας  
-        - Δροσισμός ενδοδαπέδιας + fan coil  
-        - Ψύξη μόνο fan coil  
-        - Θέρμανση ενδοδαπέδια  
-        - Θέρμανση fan coil  
-        - Μικτά modes ανά ζώνη  
-        - OFF – Όλα κλειστά  
-
-        👉 Η Premium λύση προσφέρει **πλήρη αυτοματοποίηση** και **έλεγχο όλων των κυκλωμάτων**.
+        - να ρυθμίζει θερμοκρασία από το κινητό  
+        - να επιλέγει Mode λειτουργίας (Heat / Cool / Mixed)  
+        - να ελέγχει ενδοδαπέδια, fan coil & αντλία θερμότητας  
         """
     )
 
     st.markdown("### 🔧 Υδραυλική Υποδομή – Premium Λύση")
     st.markdown(
         """
-        Περιλαμβάνει ό,τι και η απλή λύση, **συν**:
-
-        - Κεντρικές ηλεκτροβάνες (τρίοδες ή δίοδες)  
+        - Κεντρικές ηλεκτροβάνες  
         - Modules για έλεγχο βανών & εντολών αντλίας  
-        - Έλεγχο HEAT / COOL / ON / OFF  
-        - Προαιρετικά: αισθητήρες υγρασίας για ασφαλή δροσισμό  
+        - Έλεγχος HEAT / COOL / ON / OFF  
+        - Προαιρετικά: αισθητήρες υγρασίας  
         """
     )
 
@@ -265,3 +276,39 @@ Heating Modes
     )
 
     st.success("✅ Δύο λύσεις – μία φιλοσοφία: Έξυπνη, καθαρή και premium διαχείριση θέρμανσης & ψύξης χωρίς διπλούς θερμοστάτες.")
+
+    # ---------------------------------------------------------
+    # 📸 CAROUSELS SECTION
+    # ---------------------------------------------------------
+    st.divider()
+    st.header("📸 Εικόνες Συστήματος – PC & Mobile")
+
+    # PC Screens
+    pc_images = [
+        {"path": "subpages/pictures/heating/01_thermostats.png", "caption": "Κεντρική Επισκόπηση Θερμοστατών", "description": "Προβολή όλων των ζωνών."},
+        {"path": "subpages/pictures/heating/02_thermostats.png", "caption": "Αναλυτική Προβολή Θερμοστάτη", "description": "Ρύθμιση θερμοκρασίας & mode."},
+        {"path": "subpages/pictures/heating/03_thermostats.png", "caption": "Διάγραμμα Θερμοκρασίας", "description": "Καταγραφή θερμοκρασίας χώρου."},
+        {"path": "subpages/pictures/heating/04_thermostats.png", "caption": "Ρυθμίσεις Συσκευών", "description": "Παράμετροι Z-Wave."},
+        {"path": "subpages/pictures/heating/05_thermostats.png", "caption": "Ρυθμίσεις Θερμοστάτη", "description": "Offset & advanced settings."},
+        {"path": "subpages/pictures/heating/06_Calibration_thermostat.png", "caption": "Calibration Θερμοστάτη", "description": "Βαθμονόμηση αισθητήρων."},
+        {"path": "subpages/pictures/heating/07_antlia_rithmisis.png", "caption": "Ρυθμίσεις Αντλίας", "description": "Έλεγχος θέρμανσης & ψύξης."},
+        {"path": "subpages/pictures/heating/08_antlia_rithmisis.png", "caption": "Dashboard Αντλίας", "description": "Κεντρική διαχείριση λειτουργιών."},
+    ]
+
+    image_carousel("🟦 PC Screens", pc_images)
+
+    st.divider()
+
+    # Mobile Screens
+    mobile_images = [
+        {"path": "subpages/pictures/heating/09_tropos_litourgias_antlias.jpg", "caption": "Τρόποι Λειτουργίας Αντλίας", "description": "Επιλογή mode από το κινητό."},
+        {"path": "subpages/pictures/heating/10_mobile_thermostats.jpg", "caption": "Θερμοστάτες στο Κινητό", "description": "Προβολή όλων των ζωνών."},
+        {"path": "subpages/pictures/heating/11_mobile_devices.jpg", "caption": "Συσκευές Σπιτιού", "description": "Έλεγχος θέρμανσης & ψύξης."},
+        {"path": "subpages/pictures/heating/12_mobile_home.jpg", "caption": "Αρχική Οθόνη", "description": "Θερμοκρασίες ανά δωμάτιο."},
+        {"path": "subpages/pictures/heating/13_mobile_pump.jpg", "caption": "Οθόνη Αντλίας", "description": "Έλεγχος λειτουργιών αντλίας."},
+        {"path": "subpages/pictures/heating/14_mobile_energy.jpg", "caption": "Energy Panel", "description": "Κατανάλωση ενέργειας."},
+        {"path": "subpages/pictures/heating/15_mobile_summary.jpg", "caption": "Σύνοψη Σπιτιού", "description": "Θερμοκρασία & κατανάλωση."},
+        {"path": "subpages/pictures/heating/16_mobile_kouzina.jpg", "caption": "Οθόνη Κουζίνας", "description": "Θερμοστάτης & φωτισμός."},
+    ]
+
+    image_carousel("🟩 Mobile Screens", mobile_images)
