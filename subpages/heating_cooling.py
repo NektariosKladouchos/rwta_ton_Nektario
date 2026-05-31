@@ -7,7 +7,15 @@ import streamlit as st
 def image_carousel(title, images):
     st.markdown(f"## {title}")
 
-    key_index = f"carousel_index_{title}"
+    # Δημιουργία ασφαλούς key (χωρίς emoji/κενά)
+    safe_key = (
+        title.replace(" ", "_")
+        .replace("🟦", "PC")
+        .replace("🟩", "MOBILE")
+        .replace("📸", "GALLERY")
+    )
+
+    key_index = f"carousel_index_{safe_key}"
     if key_index not in st.session_state:
         st.session_state[key_index] = 0
 
@@ -16,16 +24,16 @@ def image_carousel(title, images):
     col1, col2, col3 = st.columns([1, 6, 1])
 
     with col1:
-        if st.button("⬅️", key=title + "_prev"):
+        if st.button("⬅️", key=safe_key + "_prev"):
             st.session_state[key_index] = (index - 1) % len(images)
 
     with col2:
-        st.image(images[index]["path"], use_column_width=True)
+        st.image(images[index]["path"], width=650)  # ΣΩΣΤΟ premium μέγεθος
         st.markdown(f"**{images[index]['caption']}**")
         st.caption(images[index]["description"])
 
     with col3:
-        if st.button("➡️", key=title + "_next"):
+        if st.button("➡️", key=safe_key + "_next"):
             st.session_state[key_index] = (index + 1) % len(images)
 
 
@@ -278,7 +286,7 @@ Heating Modes
     st.success("✅ Δύο λύσεις – μία φιλοσοφία: Έξυπνη, καθαρή και premium διαχείριση θέρμανσης & ψύξης χωρίς διπλούς θερμοστάτες.")
 
     # ---------------------------------------------------------
-    # 📸 CAROUSELS SECTION
+    # 📸 CAROUSELS SECTION (ΤΕΛΟΣ ΣΕΛΙΔΑΣ)
     # ---------------------------------------------------------
     st.divider()
     st.header("📸 Εικόνες Συστήματος – PC & Mobile")
