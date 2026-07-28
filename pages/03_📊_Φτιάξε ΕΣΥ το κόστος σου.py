@@ -111,7 +111,7 @@ PRICES = {
     "led_strip": 63.92, "dali": 162.63, "shutter": 63.92,
     "energy_1ph": 108.11, "energy_3ph": 155.06, "heater": 103.59,
     "heat_thermostat": 99.95, "fancoil_ctrl": 99.95, "electric_heat": 63.92,
-    "split_ac": 84.06, "vrv_interface": 359.10,
+    "split_ac": 120.61, "vrv_interface": 359.10,
     "hub_small": 158.04, "hub_large": 619.1
 }
 
