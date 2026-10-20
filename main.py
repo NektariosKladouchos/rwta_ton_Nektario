@@ -59,7 +59,9 @@ CUSTOM_CSS = """
 /* =======================================================
    GLOBAL
 ======================================================= */
-
+img {
+    border-radius: 18px;
+}
 .main .block-container {
     max-width: 1400px;
     padding-top: 2rem;
