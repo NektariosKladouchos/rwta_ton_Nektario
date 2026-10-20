@@ -165,10 +165,11 @@ CUSTOM_CSS = """
     border:none !important;
 
     border-radius:12px !important;
+}
 
-    height:48px !important;
+.stButton > button:hover {
 
-    font-weight:600 !important;
+    background:#006f77 !important;
 }
 
 .stButton > button:hover {
