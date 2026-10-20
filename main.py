@@ -65,10 +65,17 @@ CUSTOM_CSS = """
 [data-testid="stAppViewContainer"]{
     background:#f7f8fa;
 }
+[data-testid="stSidebar"] {
 
-[data-testid="stSidebar"]{
     background:#ffffff;
+
     border-right:1px solid #e5e7eb;
+
+    padding-top:20px;
+}
+--[data-testid="stSidebar"]{
+  -- background:#ffffff;
+  --  border-right:1px solid #e5e7eb;
 }
 
 [data-testid="stSidebar"] *{
@@ -80,9 +87,14 @@ CUSTOM_CSS = """
     color:#111827 !important;
     border-radius:10px !important;
 }
+[data-testid="stSidebarNav"] a {
 
-[data-testid="stSidebarNav"] li:first-child a{
-    font-size:0 !important;
+    border-radius:10px;
+
+    margin-bottom:4px;
+}
+--[data-testid="stSidebarNav"] li:first-child a{
+  --  font-size:0 !important;
 }
 
 [data-testid="stSidebarNav"]::before{
