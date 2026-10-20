@@ -103,10 +103,11 @@ CUSTOM_CSS = """
     content:"GEYER SMART";
     display:block;
     padding:15px 20px;
-    font-size:14px;
+    font-size:13px;
     font-weight:700;
-    letter-spacing:2px;
+    letter-spacing:3px;
     color:#008c95;
+    margin-bottom:10px;
 }
 
 [data-testid="stSidebarNav"] a:hover{
@@ -125,9 +126,11 @@ CUSTOM_CSS = """
 /* HERO */
 /* ============================= */
 
-.hero-section{
+   .hero-section{
     text-align:center;
     padding:80px 20px;
+    margin-bottom:30px;
+
 }
 
 .hero-eyebrow{
@@ -140,16 +143,20 @@ CUSTOM_CSS = """
 }
 
 .hero-title{
-    font-size:72px;
-    font-weight:700;
+    font-size:64px;
+    font-weight:800;
     color:#1f2937;
-    line-height:1.1;
-    margin-bottom:12px;
+    line-height:1.05;
+    margin-bottom:16px;
 }
 
+
 .hero-subtitle{
-    font-size:17px;
+    font-size:20px;
     color:#6b7280;
+    max-width:700px;
+    margin:auto;
+    line-height:1.6;
 }
 
 /* ============================= */
