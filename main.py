@@ -199,7 +199,17 @@ CUSTOM_CSS = """
     font-size:13px;
     padding:20px;
 }
+[data-testid="stSidebarNav"] a:hover{
+    background:rgba(0,140,149,0.08);
+    border-radius:10px;
+}
 
+[data-testid="stSidebarNav"] a[aria-current="page"]{
+    background:rgba(0,140,149,0.12);
+    border-radius:10px;
+    color:#008c95 !important;
+    font-weight:600;
+}
 </style>
 """
 # ---------------------------------------------------------
