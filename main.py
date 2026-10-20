@@ -273,7 +273,7 @@ with analytics.track():
         unsafe_allow_html=True
     )
     st.image(
-    "subpages/pictures/hero_banner.png",
+    "subpages/pictures/Hero_Baner.png",
     use_container_width=True
 )
 
