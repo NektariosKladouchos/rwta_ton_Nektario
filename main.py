@@ -278,7 +278,7 @@ with analytics.track():
 )
 
 st.markdown(
-    "<div style='height:30px;'></div>",
+    "<div style='height:20px;'></div>",
     unsafe_allow_html=True
 )
 # ---------------------------------------------------------
