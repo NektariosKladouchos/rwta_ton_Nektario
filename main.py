@@ -124,7 +124,22 @@ CUSTOM_CSS = """
 /* =======================================================
    HERO
 ======================================================= */
+st.markdown(
+    "<p style='text-align:center;color:#6b7280;font-size:18px;'>"
+    "Πλατφόρμα τεχνικής υποστήριξης Smart Home"
+    "</p>",
+    unsafe_allow_html=True
+)
 
+st.image(
+    "subpages/pictures/hero_banner.png",
+    use_container_width=True
+)
+
+st.markdown(
+    "<div style='height:30px;'></div>",
+    unsafe_allow_html=True
+)
 .hero-section {
     text-align: center;
     padding: 80px 20px;
