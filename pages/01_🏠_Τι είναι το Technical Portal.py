@@ -56,26 +56,50 @@ is_admin = st.session_state.get("is_admin", False)
 
 # ---------------------------------------------------------
 # CUSTOM CSS (GREEN SIDEBAR)
-# ---------------------------------------------------------
-st.markdown(
-    """
-    <style>
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        [data-testid="stSidebarNav"] span {
-            color: white !important;
-        }
-        [data-testid="stSidebarNav"] svg {
-            fill: white !important;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
 
-# ---------------------------------------------------------
-# ---------------------------------------------------------
+/* SIDEBAR */
+
+[data-testid="stSidebar"]{
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
+}
+
+[data-testid="stSidebar"] *{
+    color:#1f2937 !important;
+}
+
+/* NAVIGATION */
+
+[data-testid="stSidebarNav"] a{
+    border-radius:10px;
+    margin-bottom:4px;
+}
+
+[data-testid="stSidebarNav"]::before{
+    content:"GEYER SMART";
+    display:block;
+    padding:15px 20px;
+
+    color:#008c95;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:3px;
+}
+
+[data-testid="stSidebarNav"] a:hover{
+    background:rgba(0,140,149,0.08);
+}
+
+[data-testid="stSidebarNav"] a[aria-current="page"]{
+    background:rgba(0,140,149,0.12);
+    color:#008c95 !important;
+    font-weight:600;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # HERO SECTION
 # ---------------------------------------------------------
 
