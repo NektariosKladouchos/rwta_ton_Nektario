@@ -138,30 +138,92 @@ log_event("intro", "visit")
 # Ο ΣΚΟΠΟΣ ΜΑΣ
 # ---------------------------------------------------------
 
-st.markdown("## 🎯 Ο Σκοπός μας")
+st.markdown(
+    """
+    <h2 style='color:#1f2937;'>🎯 Ο Σκοπός μας</h2>
+    """,
+    unsafe_allow_html=True
+)
 
-st.write("""
-Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον πολυτέλεια,
-αλλά το εργαλείο για έναν εξυπνότερο τρόπο ζωής.
-""")
+st.markdown(
+    """
+    <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border-left:5px solid #008c95;
+        box-shadow:0 8px 20px rgba(0,0,0,.05);">
 
-st.info("""
-Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει
-την τεχνική και πληροφοριακή υποστήριξη που χρειάζεστε
-για να δώσετε τεχνική ευφυΐα στους χώρους σας.
-""")
+    Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον πολυτέλεια,
+    αλλά το εργαλείο για έναν εξυπνότερο τρόπο ζωής.
+
+    <br><br>
+
+    Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και πληροφοριακή
+    υποστήριξη που χρειάζεστε για να δώσετε <b>τεχνική ευφυΐα</b> στους χώρους σας.
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.success("⚡ Πιο Ενεργειακά & Αποδοτικά")
+    st.markdown(
+        """
+        <div style="
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,.05);">
+
+        ⚡<br><br>
+        <b>Πιο Ενεργειακά & Αποδοτικά</b>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with col2:
-    st.success("🌱 Πιο Βιώσιμα")
+    st.markdown(
+        """
+        <div style="
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,.05);">
+
+        🌱<br><br>
+        <b>Πιο Βιώσιμα</b>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with col3:
-    st.success("📊 Πιο Διαχειρίσιμα")
+    st.markdown(
+        """
+        <div style="
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,.05);">
 
+        📊<br><br>
+        <b>Πιο Διαχειρίσιμα</b>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
    # ---------------------------------------------------------
 # ΤΙ ΘΑ ΒΡΕΙΤΕ ΕΔΩ
 # ---------------------------------------------------------
