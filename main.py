@@ -147,9 +147,11 @@ CUSTOM_CSS = """
 }
 
 .card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 14px 28px rgba(0,0,0,.08);
+
     border-color:#008c95;
+
+    box-shadow:0 14px 28px rgba(0,140,149,0.15);
+
 }
 
 .card h3{
