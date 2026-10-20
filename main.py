@@ -385,12 +385,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-# ---------------------------------------------------------
-# GLOBAL ADMIN MODE
-# ---------------------------------------------------------
 
-if "is_admin" not in st.session_state:
-    st.session_state["is_admin"] = False
 # ---------------------------------------------------------
 # ADMIN ANALYTICS (WITH GREECE TIME)
 # ---------------------------------------------------------
