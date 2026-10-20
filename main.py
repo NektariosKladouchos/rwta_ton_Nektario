@@ -56,6 +56,10 @@ st.set_page_config(
 CUSTOM_CSS = """
 <style>
 
+/* ============================= */
+/* GLOBAL */
+/* ============================= */
+
 .main .block-container{
     max-width:1400px;
     padding-top:2rem;
@@ -65,17 +69,15 @@ CUSTOM_CSS = """
 [data-testid="stAppViewContainer"]{
     background:#f7f8fa;
 }
-[data-testid="stSidebar"] {
 
+/* ============================= */
+/* SIDEBAR */
+/* ============================= */
+
+[data-testid="stSidebar"]{
     background:#ffffff;
-
     border-right:1px solid #e5e7eb;
-
     padding-top:20px;
-}
---[data-testid="stSidebar"]{
-  -- background:#ffffff;
-  --  border-right:1px solid #e5e7eb;
 }
 
 [data-testid="stSidebar"] *{
@@ -87,14 +89,14 @@ CUSTOM_CSS = """
     color:#111827 !important;
     border-radius:10px !important;
 }
-[data-testid="stSidebarNav"] a {
 
+/* ============================= */
+/* SIDEBAR NAV */
+/* ============================= */
+
+[data-testid="stSidebarNav"] a{
     border-radius:10px;
-
     margin-bottom:4px;
-}
---[data-testid="stSidebarNav"] li:first-child a{
-  --  font-size:0 !important;
 }
 
 [data-testid="stSidebarNav"]::before{
@@ -107,98 +109,6 @@ CUSTOM_CSS = """
     color:#008c95;
 }
 
-.hero-section{
-    text-align:center;
-    padding:40px 20px 50px 20px;
-}
-
-.hero-eyebrow{
-    text-transform:uppercase;
-    letter-spacing:3px;
-    font-size:12px;
-    color:#7b8794;
-    font-weight:600;
-    margin-bottom:12px;
-}
-
-.hero-title{
-    font-size:72px;
-    font-weight:700;
-    color:#1f2937;
-    line-height:1.1;
-    margin-bottom:12px;
-}
-.hero-section{
-    padding:80px 20px;
-}
-
-.hero-subtitle{
-    font-size:17px;
-    color:#6b7280;
-}
-
-.card{
-    background:white;
-    padding:40px;
-    border-radius:24px;
-    border:none;
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.05);
-}
-
-.card:hover{
-
-    border-color:#008c95;
-
-    box-shadow:0 14px 28px rgba(0,140,149,0.15);
-
-}
-
-.card h3{
-    color:#111827;
-    margin-bottom:12px;
-}
-.stButton > button {
-
-    background:#008c95 !important;
-
-    color:white !important;
-
-    border:none !important;
-
-    border-radius:12px !important;
-}
-
-.stButton > button:hover {
-
-    background:#006f77 !important;
-}
-
-.stButton > button:hover {
-
-    background:#006f77 !important;
-}
---.stButton button{
- --   width:100%;
- --   min-height:48px;
- --   background:#008c95;
- --   color:white;
- --   border:none;
-  --  border-radius:12px;
- --   font-weight:600;
-}
-
-.stButton button:hover{
-    background:#006f77;
-    color:white;
-}
-
-.footer{
-    text-align:center;
-    color:#6b7280;
-    font-size:13px;
-    padding:20px;
-}
 [data-testid="stSidebarNav"] a:hover{
     background:rgba(0,140,149,0.08);
     border-radius:10px;
@@ -210,6 +120,105 @@ CUSTOM_CSS = """
     color:#008c95 !important;
     font-weight:600;
 }
+
+/* ============================= */
+/* HERO */
+/* ============================= */
+
+.hero-section{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero-eyebrow{
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    color:#008c95;
+    font-weight:600;
+    margin-bottom:12px;
+}
+
+.hero-title{
+    font-size:72px;
+    font-weight:700;
+    color:#1f2937;
+    line-height:1.1;
+    margin-bottom:12px;
+}
+
+.hero-subtitle{
+    font-size:17px;
+    color:#6b7280;
+}
+
+/* ============================= */
+/* CARDS */
+/* ============================= */
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:24px;
+    border:none;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+    transition:all .25s ease;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 28px rgba(0,140,149,0.15);
+}
+
+/* ============================= */
+/* HEADINGS */
+/* ============================= */
+
+.card h3{
+    color:#111827;
+    margin-bottom:12px;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.stButton > button{
+    width:100%;
+    min-height:48px;
+    background:#008c95 !important;
+    color:white !important;
+    border:none !important;
+    border-radius:12px !important;
+    font-weight:600 !important;
+    transition:all .2s ease;
+}
+
+.stButton > button:hover{
+    background:#006f77 !important;
+    color:white !important;
+}
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+.footer{
+    text-align:center;
+    color:#6b7280;
+    font-size:13px;
+    padding:20px;
+}
+
+/* ============================= */
+/* DIVIDER */
+/* ============================= */
+
+hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+}
+
 </style>
 """
 # ---------------------------------------------------------
