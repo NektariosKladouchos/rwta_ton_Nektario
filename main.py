@@ -364,12 +364,17 @@ with col2:
 # ---------------------------------------------------------
 # FOOTER
 # ---------------------------------------------------------
+
 st.write("---")
-st.markdown("""
-<div class="footer">
-© 2026 GEYER Smart Hellas | Technical Portal
-</div>
-""", unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <div class="footer">
+        © 2026 GEYER Smart Hellas | Technical Portal
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 # ---------------------------------------------------------
 # GLOBAL ADMIN MODE
 # ---------------------------------------------------------
