@@ -295,7 +295,7 @@ with col1:
         log_event("home", "click_more_info")
         st.switch_page(
             "pages/01_🏠_Τι είναι το Technical Portal.py"
-            st.markdown(
+        st.markdown(
     "<div style='height:40px;'></div>",
     unsafe_allow_html=True
 )
