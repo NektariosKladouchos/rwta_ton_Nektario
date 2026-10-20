@@ -174,16 +174,30 @@ p {
 
 .stButton > button {
     width: 100%;
-    min-height: 50px;
+    min-height: 54px;
 
     background: #008c95 !important;
-    color: white !important;
+    color: #ffffff !important;
 
     border: none !important;
     border-radius: 12px !important;
 
-    font-weight: 600 !important;
-    transition: 0.2s ease;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.4px;
+
+    box-shadow: 0 4px 12px rgba(0,140,149,0.20);
+
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover {
+    background: #006f77 !important;
+    color: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(0,111,119,0.30);
 }
 
 .stButton > button:hover {
