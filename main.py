@@ -141,7 +141,7 @@ CUSTOM_CSS = """
 }
 
 .hero-title {
-    font-size: 64px;
+    font-size: 60px;
     font-weight: 800;
     color: #1f2937;
     line-height: 1.05;
