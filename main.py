@@ -56,174 +56,177 @@ st.set_page_config(
 CUSTOM_CSS = """
 <style>
 
-/* ============================= */
-/* GLOBAL */
-/* ============================= */
+/* =======================================================
+   GLOBAL
+======================================================= */
 
-.main .block-container{
-    max-width:1400px;
-    padding-top:2rem;
-    padding-bottom:3rem;
+.main .block-container {
+    max-width: 1400px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
 }
 
-[data-testid="stAppViewContainer"]{
-    background:#f7f8fa;
+[data-testid="stAppViewContainer"] {
+    background: #f7f8fa;
 }
 
-/* ============================= */
-/* SIDEBAR */
-/* ============================= */
+/* =======================================================
+   SIDEBAR
+======================================================= */
 
-[data-testid="stSidebar"]{
-    background:#ffffff;
-    border-right:1px solid #e5e7eb;
-    padding-top:20px;
+[data-testid="stSidebar"] {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding-top: 20px;
 }
 
-[data-testid="stSidebar"] *{
-    color:#1f2937 !important;
+[data-testid="stSidebar"] * {
+    color: #1f2937 !important;
 }
 
-[data-testid="stSidebar"] input{
-    background:#ffffff !important;
-    color:#111827 !important;
-    border-radius:10px !important;
+[data-testid="stSidebar"] input {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-radius: 10px !important;
 }
 
-/* ============================= */
-/* SIDEBAR NAV */
-/* ============================= */
+/* =======================================================
+   SIDEBAR NAVIGATION
+======================================================= */
 
-[data-testid="stSidebarNav"] a{
-    border-radius:10px;
-    margin-bottom:4px;
+[data-testid="stSidebarNav"] a {
+    border-radius: 10px;
+    margin-bottom: 4px;
 }
 
-[data-testid="stSidebarNav"]::before{
-    content:"GEYER SMART";
-    display:block;
-    padding:15px 20px;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:3px;
-    color:#008c95;
-    margin-bottom:10px;
+[data-testid="stSidebarNav"]::before {
+    content: "GEYER SMART";
+    display: block;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+
+    color: #008c95;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
 }
 
-[data-testid="stSidebarNav"] a:hover{
-    background:rgba(0,140,149,0.08);
-    border-radius:10px;
+[data-testid="stSidebarNav"] a:hover {
+    background: rgba(0,140,149,0.08);
 }
 
-[data-testid="stSidebarNav"] a[aria-current="page"]{
-    background:rgba(0,140,149,0.12);
-    border-radius:10px;
-    color:#008c95 !important;
-    font-weight:600;
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background: rgba(0,140,149,0.12);
+    color: #008c95 !important;
+    font-weight: 600;
 }
 
-/* ============================= */
-/* HERO */
-/* ============================= */
+/* =======================================================
+   HERO
+======================================================= */
 
-   .hero-section{
-    text-align:center;
-    padding:80px 20px;
-    margin-bottom:30px;
-
+.hero-section {
+    text-align: center;
+    padding: 80px 20px;
+    margin-bottom: 30px;
 }
 
-.hero-eyebrow{
-    text-transform:uppercase;
-    letter-spacing:3px;
-    font-size:12px;
-    color:#008c95;
-    font-weight:600;
-    margin-bottom:12px;
+.hero-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    color: #008c95;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 
-.hero-title{
-    font-size:64px;
-    font-weight:800;
-    color:#1f2937;
-    line-height:1.05;
-    margin-bottom:16px;
+.hero-title {
+    font-size: 64px;
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.05;
+    margin-bottom: 16px;
 }
 
-
-.hero-subtitle{
-    font-size:20px;
-    color:#6b7280;
-    max-width:700px;
-    margin:auto;
-    line-height:1.6;
+.hero-subtitle {
+    font-size: 20px;
+    color: #6b7280;
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.6;
 }
 
-/* ============================= */
-/* CARDS */
-/* ============================= */
+/* =======================================================
+   CONTENT
+======================================================= */
 
-.card{
-    background:white;
-    padding:40px;
-    border-radius:24px;
-    border:none;
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
-    transition:all .25s ease;
+h1, h2, h3 {
+    color: #1f2937;
 }
 
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 14px 28px rgba(0,140,149,0.15);
+p {
+    color: #4b5563;
 }
 
-/* ============================= */
-/* HEADINGS */
-/* ============================= */
+/* =======================================================
+   BUTTONS
+======================================================= */
 
-.card h3{
-    color:#111827;
-    margin-bottom:12px;
+.stButton > button {
+    width: 100%;
+    min-height: 50px;
+
+    background: #008c95 !important;
+    color: white !important;
+
+    border: none !important;
+    border-radius: 12px !important;
+
+    font-weight: 600 !important;
+    transition: 0.2s ease;
 }
 
-/* ============================= */
-/* BUTTONS */
-/* ============================= */
-
-.stButton > button{
-    width:100%;
-    min-height:48px;
-    background:#008c95 !important;
-    color:white !important;
-    border:none !important;
-    border-radius:12px !important;
-    font-weight:600 !important;
-    transition:all .2s ease;
+.stButton > button:hover {
+    background: #006f77 !important;
+    color: white !important;
+    transform: translateY(-1px);
 }
 
-.stButton > button:hover{
-    background:#006f77 !important;
-    color:white !important;
+/* =======================================================
+   DATAFRAMES
+======================================================= */
+
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-/* ============================= */
-/* FOOTER */
-/* ============================= */
+/* =======================================================
+   FOOTER
+======================================================= */
 
-.footer{
-    text-align:center;
-    color:#6b7280;
-    font-size:13px;
-    padding:20px;
+.footer {
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+    padding: 20px;
 }
 
-/* ============================= */
-/* DIVIDER */
-/* ============================= */
+/* =======================================================
+   DIVIDERS
+======================================================= */
 
-hr{
-    border:none;
-    border-top:1px solid #e5e7eb;
+hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* =======================================================
+   ALERTS
+======================================================= */
+
+.stAlert {
+    border-radius: 12px;
 }
 
 </style>
