@@ -319,7 +319,10 @@ with col1:
         )
 
     st.write("")
-
+    st.markdown(
+    "<div style='height:40px;'></div>",
+    unsafe_allow_html=True
+)
     st.markdown("### 📘 Τεχνικά Σχέδια")
 
     st.write(
@@ -354,7 +357,10 @@ with col2:
         )
 
     st.write("")
-
+    st.markdown(
+    "<div style='height:40px;'></div>",
+    unsafe_allow_html=True
+)
     st.markdown("### 💬 Forum")
 
     st.write(
@@ -371,7 +377,10 @@ with col2:
         )
 
     st.write("")
-
+    st.markdown(
+    "<div style='height:40px;'></div>",
+    unsafe_allow_html=True
+)
     st.markdown("### 📞 Επικοινωνία")
 
     st.write(
