@@ -193,12 +193,7 @@ with analytics.track():
 # ---------------------------------------------------------
 # MAIN SUBTITLE
 # ---------------------------------------------------------
-st.markdown(
-    "<p style='text-align:center; color:gray; margin-top:-10px;'>"
-    "Πλατφόρμα τεχνικής υποστήριξης Smart Home - Υπεύθυνος: Νεκτάριος Κλαδούχος"
-    "</p>",
-    unsafe_allow_html=True
-)
+
 st.write("---")
 
 # ---------------------------------------------------------
@@ -284,8 +279,11 @@ with col2:
 # FOOTER
 # ---------------------------------------------------------
 st.write("---")
-st.caption("© 2026 Geyer Portal - Υπεύθυνος: Νεκτάριος Κλαδούχος")
-
+st.markdown("""
+<div class="footer">
+© 2026 GEYER Smart Hellas | Technical Portal
+</div>
+""", unsafe_allow_html=True)
 # ---------------------------------------------------------
 # ADMIN ANALYTICS (WITH GREECE TIME)
 # ---------------------------------------------------------
