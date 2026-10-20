@@ -172,12 +172,12 @@ p {
    BUTTONS
 ======================================================= */
 
-.stButton > button {
+.stButton button {
     width: 100%;
     min-height: 54px;
 
     background: #006f77 !important;
-    color: #ffffff !important;
+    color: white !important;
 
     border: none !important;
     border-radius: 12px !important;
@@ -185,15 +185,18 @@ p {
     font-size: 16px !important;
     font-weight: 800 !important;
 
-    -webkit-text-fill-color: white !important;
+    text-transform: uppercase !important;
 }
 
-.stButton > button * {
-    color: #ffffff !important;
+.stButton button,
+.stButton button *,
+.stButton button span,
+.stButton button p,
+.stButton button div {
+    color: white !important;
+    fill: white !important;
     -webkit-text-fill-color: white !important;
 }
-}
-
 .stButton > button:hover {
     background: #006f77 !important;
     color: white !important;
