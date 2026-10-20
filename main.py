@@ -138,13 +138,12 @@ CUSTOM_CSS = """
 }
 
 .card{
-    background:#ffffff;
-    padding:30px;
-    border-radius:18px;
-    border:1px solid #e5e7eb;
-    min-height:220px;
-    box-shadow:0 4px 12px rgba(0,0,0,.04);
-    transition:all .25s ease;
+    background:white;
+    padding:40px;
+    border-radius:24px;
+    border:none;
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.05);
 }
 
 .card:hover{
