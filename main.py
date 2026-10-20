@@ -321,9 +321,17 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 # ---------------------------------------------------------
+# GLOBAL ADMIN MODE
+# ---------------------------------------------------------
+
+if "is_admin" not in st.session_state:
+    st.session_state["is_admin"] = False
+# ---------------------------------------------------------
 # ADMIN ANALYTICS (WITH GREECE TIME)
 # ---------------------------------------------------------
-if st.session_state.is_admin:
+if "is_admin" not in st.session_state:
+    st.session_state["is_admin"] = False
+--if st.session_state.is_admin:
     st.write("---")
     st.subheader("📊 Analytics Αρχικής Σελίδας (Admin Only)")
 
