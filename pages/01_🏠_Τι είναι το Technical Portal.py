@@ -243,4 +243,15 @@ if is_admin:
 # ---------------------------------------------------------
 # FOOTER
 # ---------------------------------------------------------
-st.caption("© 2024 Geyer Technical Portal | Σχεδιασμός & Υλοποίηση: Νεκτάριος Κλαδούχος")
+st.markdown(
+    """
+    <div style="
+        text-align:center;
+        color:#6b7280;
+        font-size:13px;
+        padding:20px;">
+        © 2026 GEYER Smart Hellas | Technical Portal
+    </div>
+    """,
+    unsafe_allow_html=True
+)
