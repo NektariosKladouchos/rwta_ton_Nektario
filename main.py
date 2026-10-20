@@ -174,16 +174,24 @@ p {
 
 .stButton > button {
     width: 100%;
-    min-height: 50px;
+    min-height: 54px;
 
-    background: #008c95 !important;
-    color: white !important;
+    background: #006f77 !important;
+    color: #ffffff !important;
 
     border: none !important;
     border-radius: 12px !important;
 
-    font-weight: 600 !important;
-    transition: 0.2s ease;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+
+    -webkit-text-fill-color: white !important;
+}
+
+.stButton > button * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: white !important;
+}
 }
 
 .stButton > button:hover {
