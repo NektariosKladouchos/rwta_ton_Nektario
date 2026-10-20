@@ -122,11 +122,14 @@ CUSTOM_CSS = """
 }
 
 .hero-title{
-    font-size:54px;
+    font-size:72px;
     font-weight:700;
     color:#1f2937;
     line-height:1.1;
     margin-bottom:12px;
+}
+.hero-section{
+    padding:80px 20px;
 }
 
 .hero-subtitle{
@@ -230,7 +233,7 @@ with analytics.track():
 # MAIN SUBTITLE
 # ---------------------------------------------------------
 
-st.write("---")
+--st.write("---")
 
 # ---------------------------------------------------------
 # CONTENT SECTIONS (WHITE MINIMAL CARDS)
