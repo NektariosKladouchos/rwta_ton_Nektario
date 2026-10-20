@@ -50,254 +50,153 @@ st.set_page_config(
     layout="wide"
 )
 
-
+# ---------------------------------------------------------
+# CUSTOM CSS
+# ---------------------------------------------------------
 CUSTOM_CSS = """
 <style>
 
-/* GLOBAL */
-
-.main .block-container {
-    max-width: 1400px;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+.main .block-container{
+    max-width:1400px;
+    padding-top:2rem;
+    padding-bottom:3rem;
 }
 
-[data-testid="stAppViewContainer"] {
-    background: #f7f8fa;
+[data-testid="stAppViewContainer"]{
+    background:#f7f8fa;
 }
-
-/* SIDEBAR */
-
 [data-testid="stSidebar"] {
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    padding-top: 20px;
+
+    background:#ffffff;
+
+    border-right:1px solid #e5e7eb;
+
+    padding-top:20px;
+}
+--[data-testid="stSidebar"]{
+  -- background:#ffffff;
+  --  border-right:1px solid #e5e7eb;
 }
 
-[data-testid="stSidebar"] * {
-    color: #1f2937 !important;
+[data-testid="stSidebar"] *{
+    color:#1f2937 !important;
 }
 
-[data-testid="stSidebar"] input {
-    background: #ffffff !important;
-    color: #111827 !important;
-    border-radius: 10px !important;
+[data-testid="stSidebar"] input{
+    background:#ffffff !important;
+    color:#111827 !important;
+    border-radius:10px !important;
 }
-
-/* SIDEBAR NAV */
-
 [data-testid="stSidebarNav"] a {
-    border-radius: 10px;
-    margin-bottom: 4px;
+
+    border-radius:10px;
+
+    margin-bottom:4px;
+}
+--[data-testid="stSidebarNav"] li:first-child a{
+  --  font-size:0 !important;
 }
 
-[data-testid="stSidebarNav"]::before {
-    content: "GEYER SMART";
-    display: block;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    color: #008c95;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
+[data-testid="stSidebarNav"]::before{
+    content:"GEYER SMART";
+    display:block;
+    padding:15px 20px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:#008c95;
 }
 
-[data-testid="stSidebarNav"] a:hover {
-    background: rgba(0,140,149,0.08);
+.hero-section{
+    text-align:center;
+    padding:40px 20px 50px 20px;
 }
 
-[data-testid="stSidebarNav"] a[aria-current="page"] {
-    background: rgba(0,140,149,0.12);
-    color: #008c95 !important;
-    font-weight: 600;
+.hero-eyebrow{
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    color:#7b8794;
+    font-weight:600;
+    margin-bottom:12px;
 }
 
-/* HERO */
-
-.hero-section {
-    text-align: center;
-    padding: 80px 20px;
-    margin-bottom: 30px;
+.hero-title{
+    font-size:54px;
+    font-weight:700;
+    color:#1f2937;
+    line-height:1.1;
+    margin-bottom:12px;
 }
 
-.hero-title {
-    font-size: 64px;
-    font-weight: 800;
-    color: #1f2937;
+.hero-subtitle{
+    font-size:17px;
+    color:#6b7280;
 }
 
-/* BUTTONS */
+.card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:18px;
+    border:1px solid #e5e7eb;
+    min-height:220px;
+    box-shadow:0 4px 12px rgba(0,0,0,.04);
+    transition:all .25s ease;
+}
 
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 28px rgba(0,0,0,.08);
+    border-color:#008c95;
+}
+
+.card h3{
+    color:#111827;
+    margin-bottom:12px;
+}
 .stButton > button {
-    width: 100% !important;
-    min-height: 54px !important;
 
-    background: #006f77 !important;
-    color: #ffffff !important;
+    background:#008c95 !important;
 
-    border: none !important;
-    border-radius: 12px !important;
+    color:white !important;
 
-    font-size: 16px !important;
-    font-weight: 800 !important;
+    border:none !important;
 
-    text-transform: uppercase !important;
+    border-radius:12px !important;
+
+    height:48px !important;
+
+    font-weight:600 !important;
 }
 
 .stButton > button:hover {
-    background: #004f55 !important;
-    color: #ffffff !important;
+
+    background:#006f77 !important;
+}
+--.stButton button{
+ --   width:100%;
+ --   min-height:48px;
+ --   background:#008c95;
+ --   color:white;
+ --   border:none;
+  --  border-radius:12px;
+ --   font-weight:600;
 }
 
-.stButton > button,
-.stButton > button span,
-.stButton > button div,
-.stButton > button p {
-    color: #ffffff !important;
+.stButton button:hover{
+    background:#006f77;
+    color:white;
 }
 
-/* FOOTER */
-
-.footer {
-    text-align: center;
-    color: #6b7280;
-    font-size: 13px;
-    padding: 20px;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
+.footer{
+    text-align:center;
+    color:#6b7280;
+    font-size:13px;
+    padding:20px;
 }
 
 </style>
 """
-
-/* =======================================================
-   HERO
-======================================================= */
-
-.hero-section {
-    text-align: center;
-    padding: 80px 20px;
-    margin-bottom: 30px;
-}
-
-.hero-eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 12px;
-    color: #008c95;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.hero-title {
-    font-size: 64px;
-    font-weight: 800;
-    color: #1f2937;
-    line-height: 1.05;
-    margin-bottom: 16px;
-}
-
-.hero-subtitle {
-    font-size: 20px;
-    color: #6b7280;
-    max-width: 700px;
-    margin: auto;
-    line-height: 1.6;
-}
-
-/* =======================================================
-   CONTENT
-======================================================= */
-
-h1, h2, h3 {
-    color: #1f2937;
-}
-
-p {
-    color: #4b5563;
-}
-
-/* =======================================================
-   BUTTONS
-======================================================= */
-
-.stButton > button {
-    width: 100%;
-    min-height: 54px;
-
-    background: #008c95 !important;
-    color: #ffffff !important;
-
-    border: none !important;
-    border-radius: 12px !important;
-
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.4px;
-
-    box-shadow: 0 4px 12px rgba(0,140,149,0.20);
-
-    transition: all 0.2s ease;
-}
-
-.stButton > button:hover {
-    background: #006f77 !important;
-    color: #ffffff !important;
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 8px 20px rgba(0,111,119,0.30);
-}
-
-.stButton > button:hover {
-    background: #006f77 !important;
-    color: white !important;
-    transform: translateY(-1px);
-}
-
-/* =======================================================
-   DATAFRAMES
-======================================================= */
-
-[data-testid="stDataFrame"] {
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* =======================================================
-   FOOTER
-======================================================= */
-
-.footer {
-    text-align: center;
-    color: #6b7280;
-    font-size: 13px;
-    padding: 20px;
-}
-
-/* =======================================================
-   DIVIDERS
-======================================================= */
-
-hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-}
-
-/* =======================================================
-   ALERTS
-======================================================= */
-
-.stAlert {
-    border-radius: 12px;
-}
-
-</style>
-"""
-st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # ---------------------------------------------------------
 # ANALYTICS — PAGE VISIT
 # ---------------------------------------------------------
@@ -328,130 +227,105 @@ with analytics.track():
         unsafe_allow_html=True
     )
 # ---------------------------------------------------------
-# ---------------------------------------------------------
-# CONTENT SECTIONS
+# MAIN SUBTITLE
 # ---------------------------------------------------------
 
+st.write("---")
+
+# ---------------------------------------------------------
+# CONTENT SECTIONS (WHITE MINIMAL CARDS)
+# ---------------------------------------------------------
 col1, col2 = st.columns(2)
 
 # -------- LEFT COLUMN --------
 with col1:
 
-    st.markdown("### 🏠 Τι είναι το Technical Portal")
-
-    st.write(
-        "Μάθετε τι προσφέρει η πλατφόρμα και πώς μπορεί να σας βοηθήσει."
-    )
-
-    if st.button(
-        "ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ",
-        use_container_width=True
-    ):
-        log_event("home", "click_more_info")
-        st.switch_page(
-            "pages/01_🏠_Τι είναι το Technical Portal.py"
-        )
+    # 1) Τι είναι το Technical Portal
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 🏠 Τι είναι το Technical Portal")
+        st.write("Μάθετε τι προσφέρει η πλατφόρμα και πώς μπορεί να σας βοηθήσει.")
+        if st.button("ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ", use_container_width=True):
+            log_event("home", "click_more_info")
+            st.switch_page("pages/01_🏠_Τι είναι το Technical Portal.py")
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("")
 
-    st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
-
-    st.write(
-        "Διαδραστικός τιμοκατάλογος Υλικών."
-    )
-
-    if st.button(
-        "ΕΙΣΟΔΟΣ ΣΤΟ PRICING",
-        use_container_width=True
-    ):
-        log_event("home", "click_pricing")
-        st.switch_page(
-            "pages/03_📊_Φτιάξε ΕΣΥ το κόστος σου.py"
-        )
+    # 2) Φτιάξε ΕΣΥ το κόστος σου
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
+        st.write("Διαδραστικός τιμοκατάλογος Υλικών .")
+        if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING", use_container_width=True):
+            log_event("home", "click_pricing")
+            st.switch_page("pages/03_📊_Φτιάξε ΕΣΥ το κόστος σου.py")
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("")
 
-    st.markdown("### 📘 Τεχνικά Σχέδια")
-
-    st.write(
-        "Διαγράμματα σύνδεσης ανά κατηγορία αυτοματισμών."
-    )
-
-    if st.button(
-        "ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ",
-        use_container_width=True
-    ):
-        log_event("home", "click_sxedia")
-        st.switch_page(
-            "pages/06_📘_Σχέδια.py"
-        )
+    # 3) Τεχνικά Σχέδια
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 📘 Τεχνικά Σχέδια")
+        st.write("Διαγράμματα σύνδεσης ανά κατηγορία αυτοματισμών.")
+        if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ", use_container_width=True):
+            log_event("home", "click_sxedia")
+            st.switch_page("pages/06_📘_Σχέδια.py")
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # -------- RIGHT COLUMN --------
 with col2:
 
-    st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
-
-    st.write(
-        "Video tutorials και προτάσεις αυτοματισμού."
-    )
-
-    if st.button(
-        "ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ",
-        use_container_width=True
-    ):
-        log_event("home", "click_idees")
-        st.switch_page(
-            "pages/02_💡_ΙΔΕΕΣ & ΛΥΣΕΙΣ.py"
-        )
+    # 4) Ιδέες & Λύσεις
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
+        st.write("Video tutorials και προτάσεις αυτοματισμού.")
+        if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ", use_container_width=True):
+            log_event("home", "click_idees")
+            st.switch_page("pages/02_💡_ΙΔΕΕΣ & ΛΥΣΕΙΣ.py")
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("")
 
-    st.markdown("### 💬 Forum")
-
-    st.write(
-        "Συζητήσεις, απορίες και τεχνική κοινότητα."
-    )
-
-    if st.button(
-        "ΜΠΕΙΤΕ ΣΤΟ FORUM",
-        use_container_width=True
-    ):
-        log_event("home", "click_forum")
-        st.switch_page(
-            "pages/04_💬_Forum.py"
-        )
+    # 5) Forum
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 💬 Forum")
+        st.write("Συζητήσεις, απορίες και τεχνική κοινότητα.")
+        if st.button("ΜΠΕΙΤΕ ΣΤΟ FORUM", use_container_width=True):
+            log_event("home", "click_forum")
+            st.switch_page("pages/04_💬_Forum.py")
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("")
 
-    st.markdown("### 📞 Επικοινωνία")
+    # 6) Επικοινωνία
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 📞 Επικοινωνία")
+        st.write("Άμεση υποστήριξη και στοιχεία επικοινωνίας.")
+        if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ", use_container_width=True):
+            log_event("home", "click_contact")
+            st.switch_page("pages/05_📞_Επικοινωνία.py")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.write(
-        "Άμεση υποστήριξη και στοιχεία επικοινωνίας."
-    )
-
-    if st.button(
-        "ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ",
-        use_container_width=True
-    ):
-        log_event("home", "click_contact")
-        st.switch_page(
-            "pages/05_📞_Επικοινωνία.py"
-        )
 # ---------------------------------------------------------
 # FOOTER
 # ---------------------------------------------------------
-
 st.write("---")
+st.markdown("""
+<div class="footer">
+© 2026 GEYER Smart Hellas | Technical Portal
+</div>
+""", unsafe_allow_html=True)
+# ---------------------------------------------------------
+# GLOBAL ADMIN MODE
+# ---------------------------------------------------------
 
-st.markdown(
-    """
-    <div class="footer">
-        © 2026 GEYER Smart Hellas | Technical Portal
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
+if "is_admin" not in st.session_state:
+    st.session_state["is_admin"] = False
 # ---------------------------------------------------------
 # ADMIN ANALYTICS (WITH GREECE TIME)
 # ---------------------------------------------------------
