@@ -202,14 +202,15 @@ st.markdown("## 🎯 Ο Σκοπός μας")
 st.markdown(
     """
     <div style="
-        background:#d8eef0;
+        background:white;
         border-left:6px solid #008c95;
-        padding:30px;
+        padding:35px;
         border-radius:20px;
-        box-shadow:0 10px 30px rgba(0,0,0,.08);
+        box-shadow:0 12px 32px rgba(0,0,0,.08);
         color:#1f2937;
-        line-height:1.8;
-
+        line-height:1.9;
+        font-size:17px;
+    
         Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον
         πολυτέλεια, αλλά το εργαλείο για έναν εξυπνότερο τρόπο ζωής
 
