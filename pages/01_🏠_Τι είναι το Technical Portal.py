@@ -55,51 +55,82 @@ st.set_page_config(
 is_admin = st.session_state.get("is_admin", False)
 
 # ---------------------------------------------------------
-# CUSTOM CSS (GREEN SIDEBAR)
-st.markdown("""
-<style>
+# ---------------------------------------------------------
+# GEYER THEME
+# ---------------------------------------------------------
 
-/* SIDEBAR */
+st.markdown(
+    """
+    <style>
 
-[data-testid="stSidebar"]{
-    background:#ffffff;
-    border-right:1px solid #e5e7eb;
-}
+    [data-testid="stAppViewContainer"]{
+        background:#f7f8fa;
+    }
 
-[data-testid="stSidebar"] *{
-    color:#1f2937 !important;
-}
+    .main .block-container{
+        max-width:1400px;
+        padding-top:2rem;
+        padding-bottom:3rem;
+    }
 
-/* NAVIGATION */
+    /* SIDEBAR */
 
-[data-testid="stSidebarNav"] a{
-    border-radius:10px;
-    margin-bottom:4px;
-}
+    [data-testid="stSidebar"]{
+        background:#ffffff;
+        border-right:1px solid #e5e7eb;
+    }
 
-[data-testid="stSidebarNav"]::before{
-    content:"GEYER SMART";
-    display:block;
-    padding:15px 20px;
+    [data-testid="stSidebar"] *{
+        color:#1f2937 !important;
+    }
 
-    color:#008c95;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:3px;
-}
+    /* NAVIGATION */
 
-[data-testid="stSidebarNav"] a:hover{
-    background:rgba(0,140,149,0.08);
-}
+    [data-testid="stSidebarNav"] a{
+        border-radius:10px;
+        margin-bottom:4px;
+    }
 
-[data-testid="stSidebarNav"] a[aria-current="page"]{
-    background:rgba(0,140,149,0.12);
-    color:#008c95 !important;
-    font-weight:600;
-}
+    [data-testid="stSidebarNav"]::before{
+        content:"GEYER SMART";
+        display:block;
+        padding:15px 20px;
 
-</style>
-""", unsafe_allow_html=True)
+        color:#008c95;
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:3px;
+    }
+
+    [data-testid="stSidebarNav"] a:hover{
+        background:rgba(0,140,149,0.08);
+    }
+
+    [data-testid="stSidebarNav"] a[aria-current="page"]{
+        background:rgba(0,140,149,0.12);
+        color:#008c95 !important;
+        font-weight:600;
+    }
+
+    h1,h2,h3{
+        color:#1f2937;
+    }
+
+    div[data-baseweb="notification"]{
+        background:#e8f7f8 !important;
+        border-left:5px solid #008c95 !important;
+    }
+
+    div[data-baseweb="notification"] *{
+        color:#1f2937 !important;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# ---------------------------------------------------------
 # HERO SECTION
 # ---------------------------------------------------------
 
@@ -122,7 +153,7 @@ st.markdown(
     <h1 style="
         text-align:center;
         color:#1f2937;
-        font-size:60px;
+        font-size:52px;
         font-weight:800;">
         Τι είναι το Technical Portal
     </h1>
@@ -142,15 +173,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
-    "<div style='height:40px'></div>",
-    unsafe_allow_html=True
-)
-st.markdown(
-    "<div style='height:40px'></div>",
-    unsafe_allow_html=True
-)
+st.divider()
 
+# ---------------------------------------------------------
+# ANALYTICS
+# ---------------------------------------------------------
+
+log_event("intro", "visit")
 # ---------------------------------------------------------
 # ANALYTICS
 # ---------------------------------------------------------
