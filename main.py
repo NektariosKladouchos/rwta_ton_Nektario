@@ -173,23 +173,29 @@ CUSTOM_CSS = """
 log_event("home", "visit")
 
 with analytics.track():
-    st.markdown("""
-    <div class="hero-section">
 
-        <div class="hero-eyebrow">
-            GEYER SMART
-        </div>
+    st.markdown(
+        "<p style='text-align:center;color:#008c95;"
+        "font-size:12px;font-weight:600;"
+        "letter-spacing:3px;'>GEYER SMART</p>",
+        unsafe_allow_html=True
+    )
 
-        <div class="hero-title">
-            Technical Portal
-        </div>
+    st.markdown(
+        "<h1 style='text-align:center;"
+        "color:#1f2937;"
+        "font-size:56px;'>Technical Portal</h1>",
+        unsafe_allow_html=True
+    )
 
-        <div class="hero-subtitle">
-            Πλατφόρμα τεχνικής υποστήριξης Smart Home
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        "<p style='text-align:center;"
+        "color:#6b7280;"
+        "font-size:18px;'>"
+        "Πλατφόρμα τεχνικής υποστήριξης Smart Home"
+        "</p>",
+        unsafe_allow_html=True
+    )
 # ---------------------------------------------------------
 # MAIN SUBTITLE
 # ---------------------------------------------------------
