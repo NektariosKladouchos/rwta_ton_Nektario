@@ -252,90 +252,115 @@ with analytics.track():
         unsafe_allow_html=True
     )
 # ---------------------------------------------------------
-# MAIN SUBTITLE
+# ---------------------------------------------------------
+# CONTENT SECTIONS
 # ---------------------------------------------------------
 
-#st.write("---")
-
-# ---------------------------------------------------------
-# CONTENT SECTIONS (WHITE MINIMAL CARDS)
-# ---------------------------------------------------------
 col1, col2 = st.columns(2)
 
 # -------- LEFT COLUMN --------
 with col1:
 
-    # 1) Τι είναι το Technical Portal
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 🏠 Τι είναι το Technical Portal")
-        st.write("Μάθετε τι προσφέρει η πλατφόρμα και πώς μπορεί να σας βοηθήσει.")
-        if st.button("ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ", use_container_width=True):
-            log_event("home", "click_more_info")
-            st.switch_page("pages/01_🏠_Τι είναι το Technical Portal.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 🏠 Τι είναι το Technical Portal")
+
+    st.write(
+        "Μάθετε τι προσφέρει η πλατφόρμα και πώς μπορεί να σας βοηθήσει."
+    )
+
+    if st.button(
+        "ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ",
+        use_container_width=True
+    ):
+        log_event("home", "click_more_info")
+        st.switch_page(
+            "pages/01_🏠_Τι είναι το Technical Portal.py"
+        )
 
     st.write("")
 
-    # 2) Φτιάξε ΕΣΥ το κόστος σου
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
-        st.write("Διαδραστικός τιμοκατάλογος Υλικών .")
-        if st.button("ΕΙΣΟΔΟΣ ΣΤΟ PRICING", use_container_width=True):
-            log_event("home", "click_pricing")
-            st.switch_page("pages/03_📊_Φτιάξε ΕΣΥ το κόστος σου.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
+
+    st.write(
+        "Διαδραστικός τιμοκατάλογος Υλικών."
+    )
+
+    if st.button(
+        "ΕΙΣΟΔΟΣ ΣΤΟ PRICING",
+        use_container_width=True
+    ):
+        log_event("home", "click_pricing")
+        st.switch_page(
+            "pages/03_📊_Φτιάξε ΕΣΥ το κόστος σου.py"
+        )
 
     st.write("")
 
-    # 3) Τεχνικά Σχέδια
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📘 Τεχνικά Σχέδια")
-        st.write("Διαγράμματα σύνδεσης ανά κατηγορία αυτοματισμών.")
-        if st.button("ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ", use_container_width=True):
-            log_event("home", "click_sxedia")
-            st.switch_page("pages/06_📘_Σχέδια.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 📘 Τεχνικά Σχέδια")
+
+    st.write(
+        "Διαγράμματα σύνδεσης ανά κατηγορία αυτοματισμών."
+    )
+
+    if st.button(
+        "ΑΝΟΙΓΜΑ ΣΧΕΔΙΩΝ",
+        use_container_width=True
+    ):
+        log_event("home", "click_sxedia")
+        st.switch_page(
+            "pages/06_📘_Σχέδια.py"
+        )
 
 # -------- RIGHT COLUMN --------
 with col2:
 
-    # 4) Ιδέες & Λύσεις
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
-        st.write("Video tutorials και προτάσεις αυτοματισμού.")
-        if st.button("ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ", use_container_width=True):
-            log_event("home", "click_idees")
-            st.switch_page("pages/02_💡_ΙΔΕΕΣ & ΛΥΣΕΙΣ.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 💡 ΙΔΕΕΣ & ΛΥΣΕΙΣ")
+
+    st.write(
+        "Video tutorials και προτάσεις αυτοματισμού."
+    )
+
+    if st.button(
+        "ΔΕΙΤΕ ΤΙΣ ΙΔΕΕΣ",
+        use_container_width=True
+    ):
+        log_event("home", "click_idees")
+        st.switch_page(
+            "pages/02_💡_ΙΔΕΕΣ & ΛΥΣΕΙΣ.py"
+        )
 
     st.write("")
 
-    # 5) Forum
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 💬 Forum")
-        st.write("Συζητήσεις, απορίες και τεχνική κοινότητα.")
-        if st.button("ΜΠΕΙΤΕ ΣΤΟ FORUM", use_container_width=True):
-            log_event("home", "click_forum")
-            st.switch_page("pages/04_💬_Forum.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 💬 Forum")
+
+    st.write(
+        "Συζητήσεις, απορίες και τεχνική κοινότητα."
+    )
+
+    if st.button(
+        "ΜΠΕΙΤΕ ΣΤΟ FORUM",
+        use_container_width=True
+    ):
+        log_event("home", "click_forum")
+        st.switch_page(
+            "pages/04_💬_Forum.py"
+        )
 
     st.write("")
 
-    # 6) Επικοινωνία
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📞 Επικοινωνία")
-        st.write("Άμεση υποστήριξη και στοιχεία επικοινωνίας.")
-        if st.button("ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ", use_container_width=True):
-            log_event("home", "click_contact")
-            st.switch_page("pages/05_📞_Επικοινωνία.py")
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### 📞 Επικοινωνία")
 
+    st.write(
+        "Άμεση υποστήριξη και στοιχεία επικοινωνίας."
+    )
+
+    if st.button(
+        "ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ",
+        use_container_width=True
+    ):
+        log_event("home", "click_contact")
+        st.switch_page(
+            "pages/05_📞_Επικοινωνία.py"
+        )
 # ---------------------------------------------------------
 # FOOTER
 # ---------------------------------------------------------
