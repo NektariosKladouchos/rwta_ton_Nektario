@@ -173,8 +173,23 @@ CUSTOM_CSS = """
 log_event("home", "visit")
 
 with analytics.track():
-    st.markdown("<h1 class='main-title-ask'>TECHNICAL PORTAL</h1>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="hero-section">
 
+        <div class="hero-eyebrow">
+            GEYER SMART
+        </div>
+
+        <div class="hero-title">
+            Technical Portal
+        </div>
+
+        <div class="hero-subtitle">
+            Πλατφόρμα τεχνικής υποστήριξης Smart Home
+        </div>
+
+    </div>
+    """, unsafe_allow_html=True)
 # ---------------------------------------------------------
 # MAIN SUBTITLE
 # ---------------------------------------------------------
