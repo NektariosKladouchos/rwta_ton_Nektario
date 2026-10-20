@@ -272,6 +272,15 @@ with analytics.track():
         "</p>",
         unsafe_allow_html=True
     )
+    st.image(
+    "subpages/pictures/hero_banner.png",
+    use_container_width=True
+)
+
+st.markdown(
+    "<div style='height:30px;'></div>",
+    unsafe_allow_html=True
+)
 # ---------------------------------------------------------
 # ---------------------------------------------------------
 # CONTENT SECTIONS
