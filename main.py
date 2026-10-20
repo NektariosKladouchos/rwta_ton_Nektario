@@ -62,6 +62,10 @@ CUSTOM_CSS = """
 img {
     border-radius: 18px;
 }
+img {
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
 .main .block-container {
     max-width: 1400px;
     padding-top: 2rem;
