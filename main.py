@@ -55,114 +55,118 @@ st.set_page_config(
 # ---------------------------------------------------------
 CUSTOM_CSS = """
 <style>
-/* Green GEYER title */
-.main-title-ask {
-    color: #28a745 !important;
-    font-weight: 700;
-    text-align: center;
-    font-size: 38px;
-    margin-top: -20px;
+
+.main .block-container{
+    max-width:1400px;
+    padding-top:2rem;
+    padding-bottom:3rem;
 }
-/* Sidebar background */
-[data-testid="stSidebar"] {
-    background-color: #1a4a2e !important;
+
+[data-testid="stAppViewContainer"]{
+    background:#f7f8fa;
 }
-/* Sidebar text */
-[data-testid="stSidebar"] * {
-    color: white !important;
+
+[data-testid="stSidebar"]{
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
 }
-/* Make sidebar text inputs readable */
-[data-testid="stSidebar"] input {
-    color: black !important;
-    background-color: white !important;
+
+[data-testid="stSidebar"] *{
+    color:#1f2937 !important;
 }
-/* Hide default "main" label */
-[data-testid="stSidebarNav"] li:first-child a {
-    font-size: 0px !important;
+
+[data-testid="stSidebar"] input{
+    background:#ffffff !important;
+    color:#111827 !important;
+    border-radius:10px !important;
 }
-/* Insert custom label ⭐ Αρχική above the nav */
-[data-testid="stSidebarNav"]::before {
-    content: "⭐ Αρχική";
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-    display: block;
-    padding: 15px 20px;
+
+[data-testid="stSidebarNav"] li:first-child a{
+    font-size:0 !important;
 }
-/* CARD STYLE */
-.card {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 2px solid #1a4a2e20;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
-    transition: 0.2s ease-in-out;
+
+[data-testid="stSidebarNav"]::before{
+    content:"GEYER SMART";
+    display:block;
+    padding:15px 20px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:#008c95;
 }
-.card:hover {
-    border-color: #1a4a2e;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
-    transform: translateY(-3px);
+
+.hero-section{
+    text-align:center;
+    padding:40px 20px 50px 20px;
 }
-/* Card titles */
-.card h3 {
-    color: #1a4a2e;
-    margin-bottom: 8px;
+
+.hero-eyebrow{
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    color:#7b8794;
+    font-weight:600;
+    margin-bottom:12px;
 }
-/* Buttons */
-button[kind="secondary"] {
-    background-color: #1a4a2e !important;
-    color: white !important;
-    border-radius: 6px !important;
+
+.hero-title{
+    font-size:54px;
+    font-weight:700;
+    color:#1f2937;
+    line-height:1.1;
+    margin-bottom:12px;
 }
-button[kind="secondary"]:hover {
-    background-color: #145a32 !important;
+
+.hero-subtitle{
+    font-size:17px;
+    color:#6b7280;
 }
+
+.card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:18px;
+    border:1px solid #e5e7eb;
+    min-height:220px;
+    box-shadow:0 4px 12px rgba(0,0,0,.04);
+    transition:all .25s ease;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 28px rgba(0,0,0,.08);
+    border-color:#008c95;
+}
+
+.card h3{
+    color:#111827;
+    margin-bottom:12px;
+}
+
+.stButton button{
+    width:100%;
+    min-height:48px;
+    background:#008c95;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.stButton button:hover{
+    background:#006f77;
+    color:white;
+}
+
+.footer{
+    text-align:center;
+    color:#6b7280;
+    font-size:13px;
+    padding:20px;
+}
+
 </style>
 """
-st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
-
-# ---------------------------------------------------------
-# GLOBAL ADMIN MODE (SECRET KEY)
-# ---------------------------------------------------------
-if "is_admin" not in st.session_state:
-    st.session_state.is_admin = False
-
-with st.sidebar:
-    st.image("LOGO_GEYER.png", use_container_width=True)
-    st.markdown("<h2 style='text-align:center;'>HELLAS</h2>", unsafe_allow_html=True)
-    st.write("---")
-
-    # Admin Panel
-    st.markdown("""
-        <div style="
-            padding: 10px;
-            background-color: rgba(255,255,255,0.08);
-            border-radius: 8px;
-            margin-bottom: 10px;
-        ">
-            <span style="color:#b6ffce; font-weight:600; font-size:15px;">
-                🔐 Admin Access
-            </span>
-        </div>
-    """, unsafe_allow_html=True)
-
-    admin_input = st.text_input(
-        "Κωδικός Admin:",
-        type="password",
-        label_visibility="collapsed",
-        key="admin_password_input"
-    )
-
-    if st.button("Ενεργοποίηση Admin", use_container_width=True, key="admin_activate_btn"):
-        if admin_input == "geyer123":
-            st.session_state.is_admin = True
-            st.success("Admin Mode ενεργό!")
-        else:
-            st.error("Λάθος κωδικός.")
-
-    st.write("---")
-    st.info("Καλώς ήρθατε στο Technical Portal. Επιλέξτε ενότητα για να ξεκινήσετε.")
-
 # ---------------------------------------------------------
 # ANALYTICS — PAGE VISIT
 # ---------------------------------------------------------
