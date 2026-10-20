@@ -50,12 +50,11 @@ st.set_page_config(
     layout="wide"
 )
 
+
 CUSTOM_CSS = """
 <style>
 
-/* =======================================================
-   GLOBAL
-======================================================= */
+/* GLOBAL */
 
 .main .block-container {
     max-width: 1400px;
@@ -67,9 +66,7 @@ CUSTOM_CSS = """
     background: #f7f8fa;
 }
 
-/* =======================================================
-   SIDEBAR
-======================================================= */
+/* SIDEBAR */
 
 [data-testid="stSidebar"] {
     background: #ffffff;
@@ -87,9 +84,7 @@ CUSTOM_CSS = """
     border-radius: 10px !important;
 }
 
-/* =======================================================
-   SIDEBAR NAV
-======================================================= */
+/* SIDEBAR NAV */
 
 [data-testid="stSidebarNav"] a {
     border-radius: 10px;
@@ -117,9 +112,7 @@ CUSTOM_CSS = """
     font-weight: 600;
 }
 
-/* =======================================================
-   HERO
-======================================================= */
+/* HERO */
 
 .hero-section {
     text-align: center;
@@ -127,42 +120,13 @@ CUSTOM_CSS = """
     margin-bottom: 30px;
 }
 
-.hero-eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 12px;
-    color: #008c95;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
 .hero-title {
     font-size: 64px;
     font-weight: 800;
     color: #1f2937;
-    line-height: 1.05;
-    margin-bottom: 16px;
 }
 
-.hero-subtitle {
-    font-size: 20px;
-    color: #6b7280;
-    max-width: 700px;
-    margin: auto;
-    line-height: 1.6;
-}
-
-/* =======================================================
-   TITLES
-======================================================= */
-
-h1, h2, h3 {
-    color: #1f2937;
-}
-
-/* =======================================================
-   BUTTONS
-======================================================= */
+/* BUTTONS */
 
 .stButton > button {
     width: 100% !important;
@@ -176,22 +140,14 @@ h1, h2, h3 {
 
     font-size: 16px !important;
     font-weight: 800 !important;
-    letter-spacing: 0.5px !important;
 
     text-transform: uppercase !important;
-
-    transition: 0.2s ease !important;
-
-    box-shadow: 0 4px 12px rgba(0,111,119,.20);
 }
 
 .stButton > button:hover {
     background: #004f55 !important;
     color: #ffffff !important;
-    transform: translateY(-2px);
 }
-
-/* FORCE WHITE TEXT */
 
 .stButton > button,
 .stButton > button span,
@@ -200,26 +156,7 @@ h1, h2, h3 {
     color: #ffffff !important;
 }
 
-/* =======================================================
-   DATAFRAMES
-======================================================= */
-
-[data-testid="stDataFrame"] {
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* =======================================================
-   ALERTS
-======================================================= */
-
-.stAlert {
-    border-radius: 12px;
-}
-
-/* =======================================================
-   FOOTER
-======================================================= */
+/* FOOTER */
 
 .footer {
     text-align: center;
@@ -228,10 +165,6 @@ h1, h2, h3 {
     padding: 20px;
 }
 
-/* =======================================================
-   DIVIDER
-======================================================= */
-
 hr {
     border: none;
     border-top: 1px solid #e5e7eb;
@@ -239,7 +172,6 @@ hr {
 
 </style>
 """
-
 
 /* =======================================================
    HERO
