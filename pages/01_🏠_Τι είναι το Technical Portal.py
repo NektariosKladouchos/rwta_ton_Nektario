@@ -118,10 +118,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.image(
-    "subpages/pictures/Hero_Baner.png",
-    use_container_width=True
-)
+
 
 st.markdown(
     "<div style='height:40px'></div>",
