@@ -149,9 +149,8 @@ img {
 .hero-title {
     font-size: 60px;
     font-weight: 800;
-    color: #1f2937;
-    line-height: 1.05;
-    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
 }
 
 .hero-subtitle {
