@@ -142,15 +142,33 @@ CUSTOM_CSS = """
     color:#111827;
     margin-bottom:12px;
 }
+.stButton > button {
 
-.stButton button{
-    width:100%;
-    min-height:48px;
-    background:#008c95;
-    color:white;
-    border:none;
-    border-radius:12px;
-    font-weight:600;
+    background:#008c95 !important;
+
+    color:white !important;
+
+    border:none !important;
+
+    border-radius:12px !important;
+
+    height:48px !important;
+
+    font-weight:600 !important;
+}
+
+.stButton > button:hover {
+
+    background:#006f77 !important;
+}
+--.stButton button{
+ --   width:100%;
+ --   min-height:48px;
+ --   background:#008c95;
+ --   color:white;
+ --   border:none;
+  --  border-radius:12px;
+ --   font-weight:600;
 }
 
 .stButton button:hover{
