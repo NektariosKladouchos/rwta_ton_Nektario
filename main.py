@@ -239,36 +239,7 @@ hr {
 
 </style>
 """
-/* =======================================================
-   SIDEBAR NAVIGATION
-======================================================= */
 
-[data-testid="stSidebarNav"] a {
-    border-radius: 10px;
-    margin-bottom: 4px;
-}
-
-[data-testid="stSidebarNav"]::before {
-    content: "GEYER SMART";
-    display: block;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-
-    color: #008c95;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
-}
-
-[data-testid="stSidebarNav"] a:hover {
-    background: rgba(0,140,149,0.08);
-}
-
-[data-testid="stSidebarNav"] a[aria-current="page"] {
-    background: rgba(0,140,149,0.12);
-    color: #008c95 !important;
-    font-weight: 600;
-}
 
 /* =======================================================
    HERO
