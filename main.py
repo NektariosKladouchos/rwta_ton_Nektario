@@ -299,7 +299,10 @@ with col1:
         )
 
     st.write("")
-
+    st.markdown(
+    "<div style='height:40px;'></div>",
+    unsafe_allow_html=True
+)
     st.markdown("### 📊 Φτιάξε ΕΣΥ το κόστος σου")
 
     st.write(
