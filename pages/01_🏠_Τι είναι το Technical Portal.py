@@ -309,22 +309,8 @@ st.markdown("""
 """)
 
 st.write("")
-st.markdown(
-    """
-    <div style="
-        background:#e8f7f8;
-        border-left:6px solid #008c95;
-        color:#006f77;
-        padding:20px;
-        border-radius:18px;
-        text-align:center;
-        font-size:12px;
-        font-weight:700;
-    ">
-        Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό.
-    </div>
-        """,
-        unsafe_allow_html=True
+st.info(
+    "🤝 Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό."
 )
 
 
