@@ -107,16 +107,15 @@ st.markdown(
     }
 
   div[data-baseweb="notification"]{
-    background:white !important;
+    background:#ffffff !important;
     border-left:4px solid #008C95 !important;
     border-radius:20px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
 }
-  div[data-baseweb="notification"] *{
+
+div[data-baseweb="notification"] *{
     color:#1F2937 !important;
 }
-
-
 /* HERO */
 
 h1{
@@ -128,9 +127,8 @@ h1{
 
 h3{
     color:#64748B !important;
-    font-size:18px !important;
     font-weight:400 !important;
-    text-align:center;
+   
 }
 
 [data-testid="stCaptionContainer"]{
@@ -179,25 +177,24 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.success("""
-## ⚡ Τεχνική Υποστήριξη
+⚡ **Τεχνική Υποστήριξη**
 
 Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
 """)
 
 with col2:
     st.success("""
-### 📚 Τεχνογνωσία
+📚 **Τεχνογνωσία**
 
 Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης.
 """)
 
 with col3:
     st.success("""
-### 🤝 Συνεργασία
+🤝 **Συνεργασία**
 
 Ανταλλαγή ιδεών και υποστήριξη από την κοινότητα.
 """)
-
 
 st.write("")
 st.write("")
