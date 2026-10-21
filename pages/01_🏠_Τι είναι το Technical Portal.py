@@ -107,10 +107,11 @@ st.markdown(
     }
 
  div[data-baseweb="notification"]{
-    background:white !important;
+    background:#ffffff !important;
     border-left:4px solid #008C95 !important;
     border-radius:20px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
+    padding:1rem !important;
 }
 
 div[data-baseweb="notification"] *{
@@ -203,43 +204,17 @@ st.markdown(
 # ---------------------------------------------------------
 # Ο ΣΚΟΠΟΣ ΜΑΣ
 # ---------------------------------------------------------
-st.markdown(
-    """
-    <div style="
-        background:linear-gradient(
-            135deg,
-            #008c95 0%,
-            #006f77 100%
-        );
-        color:white;
-        font-size:18px;
-        font-weight:700;
-        margin-bottom:20px;
-        padding:40px;
-        border-radius:26px;
-        box-shadow:0 12px 32px rgba(0,0,0,.10);
-        line-height:1.9;
-    ">
 
-    <h3 style="color:white;margin-top:0;">
-    🎯 Ο Σκοπός μας
-    </h3>
+st.header("🎯 Ο Σκοπός μας")
 
-    Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον
-    πολυτέλεια αλλά εργαλείο για έναν εξυπνότερο τρόπο ζωής
-    Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και
-    πληροφοριακή υποστήριξη που χρειάζεστε για να δώσετε τεχνική ευφυΐα
-    στους χώρους σας.
+st.info("""
+Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον πολυτέλεια αλλά εργαλείο για έναν εξυπνότερο τρόπο ζωής.
 
-    </div>
-    """,
-    unsafe_allow_html=True
-   
-)
-st.markdown(
-    "<div style='height:40px'></div>",
-    unsafe_allow_html=True
-)
+Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και πληροφοριακή υποστήριξη που χρειάζεστε για να δώσετε τεχνική ευφυΐα στους χώρους σας.
+""")
+
+st.write("")
+st.write("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
