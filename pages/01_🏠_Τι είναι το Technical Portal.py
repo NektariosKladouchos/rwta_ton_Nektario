@@ -251,36 +251,39 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.success("""
-📁 **Παρουσίαση Έργων**
-
-Παρουσίαση πραγματικών εφαρμογών και εγκαταστάσεων.
-""")
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>📁 Παρουσίαση Έργων</h4>
+        <p>Πραγματικές εφαρμογές και εγκαταστάσεις.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.write("")
 
-    st.success("""
-🛠 **Επίλυση Προβλημάτων**
-
-Τεχνικές λύσεις και troubleshooting εγκαταστάσεων.
-""")
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>🛠 Επίλυση Προβλημάτων</h4>
+        <p>Λύσεις και troubleshooting εγκαταστάσεων.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col2:
 
-    st.success("""
-💰 **Live Pricing System**
-
-Υπολογισμός κόστους και πληροφορίες προϊόντων.
-""")
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>💰 Live Pricing System</h4>
+        <p>Κόστος και πληροφορίες προϊόντων.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.write("")
 
-    st.success("""
-💬 **Διαδραστική Επικοινωνία**
-
-Συνεργασία και ανταλλαγή τεχνογνωσίας.
-""")
-
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>💬 Διαδραστική Επικοινωνία</h4>
+        <p>Ανταλλαγή τεχνογνωσίας και συνεργασία.</p>
+    </div>
+    """, unsafe_allow_html=True)
 st.write("")
 st.write("")
 # ---------------------------------------------------------
