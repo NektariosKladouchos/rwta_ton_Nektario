@@ -139,114 +139,26 @@ st.write("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown("""
-    <div style="
-        background:white;
-        padding:28px;
-        border-radius:20px;
-        border-top:4px solid #008c95;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-        min-height:220px;
-    ">
-        <div style="
-            font-size:34px;
-            margin-bottom:12px;
-        ">
-            ⚡
-        </div>
+    st.info("""
+### ⚡ Τεχνική Υποστήριξη
 
-        <div style="
-            color:#1f2937;
-            font-size:24px;
-            font-weight:700;
-            margin-bottom:12px;
-        ">
-            Τεχνική Υποστήριξη
-        </div>
-
-        <div style="
-            color:#6b7280;
-            line-height:1.8;
-            font-size:16px;
-        ">
-            Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting για καθημερινές τεχνικές απαιτήσεις.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
+""")
 
 with col2:
-    st.markdown("""
-    <div style="
-        background:white;
-        padding:28px;
-        border-radius:20px;
-        border-top:4px solid #008c95;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-        min-height:220px;
-    ">
-        <div style="
-            font-size:34px;
-            margin-bottom:12px;
-        ">
-            📚
-        </div>
+    st.info("""
+### 📚 Τεχνογνωσία
 
-        <div style="
-            color:#1f2937;
-            font-size:24px;
-            font-weight:700;
-            margin-bottom:12px;
-        ">
-            Τεχνογνωσία
-        </div>
-
-        <div style="
-            color:#6b7280;
-            line-height:1.8;
-            font-size:16px;
-        ">
-            Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης για λύσεις Smart Home.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης.
+""")
 
 with col3:
-    st.markdown("""
-    <div style="
-        background:white;
-        padding:28px;
-        border-radius:20px;
-        border-top:4px solid #008c95;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-        min-height:220px;
-    ">
-        <div style="
-            font-size:34px;
-            margin-bottom:12px;
-        ">
-            🤝
-        </div>
+    st.info("""
+### 🤝 Συνεργασία
 
-        <div style="
-            color:#1f2937;
-            font-size:24px;
-            font-weight:700;
-            margin-bottom:12px;
-        ">
-            Συνεργασία
-        </div>
+Ανταλλαγή ιδεών και υποστήριξη από την κοινότητα.
+""")
 
-        <div style="
-            color:#6b7280;
-            line-height:1.8;
-            font-size:16px;
-        ">
-            Ανταλλαγή ιδεών, εμπειριών και τεχνικής γνώσης μέσα από την κοινότητα.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.write("")
 st.write("")
 st.write("")
 # ---------------------------------------------------------
