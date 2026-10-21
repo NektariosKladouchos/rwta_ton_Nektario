@@ -343,12 +343,12 @@ st.markdown(
         σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
         Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
 
-        </div>
-        """,
-        unsafe_allow_html=True
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
-st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
+
 
 st.markdown(
     """
