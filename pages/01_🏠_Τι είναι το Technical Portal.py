@@ -116,7 +116,7 @@ div[data-baseweb="notification"]{
 div[data-baseweb="notification"] *{
     color:white !important;
 }
-}
+
 
 [data-testid="column"] {
     background:#E6F4F2;
