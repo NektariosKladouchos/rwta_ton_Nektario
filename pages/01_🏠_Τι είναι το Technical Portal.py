@@ -207,7 +207,7 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:20px;
+        font-size:30px;
         font-weight:700;
         margin-bottom:20px;
         padding:50px;
