@@ -225,8 +225,12 @@ st.markdown(
 
     </div>
     """,
+    
+    st.markdown(
+    "<div style='height:50px'></div>",
     unsafe_allow_html=True
 )
+
 
 
 col1, col2, col3 = st.columns(3)
