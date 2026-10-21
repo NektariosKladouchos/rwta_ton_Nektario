@@ -290,18 +290,22 @@ st.divider()
 # ---------------------------------------------------------
 # Η ΦΙΛΟΣΟΦΙΑ ΜΑΣ
 # ---------------------------------------------------------
+st.markdown("## 💡 Η Φιλοσοφία μας")
+
 st.markdown(
     """
     <div style="
-        background:#008c95;
-        color:white;
+        background:linear-gradient(135deg,#008c95 0%,#006f77 100%);
         padding:35px;
-        border-radius:24px;
+        border-radius:22px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
+        color:white;
         line-height:1.9;
+        margin-top:10px;
+    ">
 
         <h3 style="color:white;margin-top:0;">
-        💡 Η Φιλοσοφία μας
+            💡 Η Φιλοσοφία μας
         </h3>
 
         Πιστεύω στη δύναμη της συνεργασίας.
@@ -315,7 +319,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 # ---------------------------------------------------------
 # Η ΚΟΙΝΟΤΗΤΑ ΜΑΣ
