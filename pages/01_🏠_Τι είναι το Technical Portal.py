@@ -330,7 +330,10 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
+st.markdown(
+    "<div style='height:50px'></div>",
+    unsafe_allow_html=True
+)
 # ---------------------------------------------------------
 # Η ΚΟΙΝΟΤΗΤΑ ΜΑΣ
 # ---------------------------------------------------------
@@ -361,7 +364,10 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
+st.markdown(
+    "<div style='height:50px'></div>",
+    unsafe_allow_html=True
+)
 
 
 st.markdown(
