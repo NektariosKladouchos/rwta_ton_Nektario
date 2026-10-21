@@ -122,13 +122,14 @@ h1{
     color:#1F2937 !important;
     font-size:42px !important;
     font-weight:800 !important;
-    text-align:center;
+    text-align:center !important;
 }
 
 h3{
     color:#64748B !important;
+    font-size:18px !important;
     font-weight:400 !important;
-   
+    text-align:center !important;
 }
 
 [data-testid="stCaptionContainer"]{
@@ -153,24 +154,16 @@ st.caption("GEYER SMART")
 
 st.write("")
 
+st.title("Τι είναι το Technical Portal")
 
-_, center, _ = st.columns([1, 5, 1])
+st.markdown(
+    """
+    ### Το σημείο αναφοράς για τεχνική υποστήριξη,
 
-with center:
+    ### γνώση και συνεργασία στον κόσμο του Smart Home
+    """
+)
 
-    st.title("Τι είναι το Technical Portal")
-
-    st.write("")
-
-    st.subheader(
-        "Το σημείο αναφοράς για τεχνική υποστήριξη,"
-    )
-
-    st.subheader(
-        "γνώση και συνεργασία στον κόσμο του Smart Home"
-    )
-
-st.write("")
 st.write("")
 st.write("")
 col1, col2, col3 = st.columns(3)
