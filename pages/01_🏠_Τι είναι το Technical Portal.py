@@ -106,8 +106,8 @@ st.markdown(
         color:#1f2937;
     }
 
-  div[data-baseweb="notification"]{
-    background:#ffffff !important;
+ div[data-baseweb="notification"]{
+    background:white !important;
     border-left:4px solid #008C95 !important;
     border-radius:20px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
@@ -169,26 +169,25 @@ st.write("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.success("""
+    st.info("""
 ⚡ **Τεχνική Υποστήριξη**
 
 Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
 """)
 
 with col2:
-    st.success("""
+    st.info("""
 📚 **Τεχνογνωσία**
 
 Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης.
 """)
 
 with col3:
-    st.success("""
+    st.info("""
 🤝 **Συνεργασία**
 
 Ανταλλαγή ιδεών και υποστήριξη από την κοινότητα.
 """)
-
 st.write("")
 st.write("")
 # ---------------------------------------------------------
