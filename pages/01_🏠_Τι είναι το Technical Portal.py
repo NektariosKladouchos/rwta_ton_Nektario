@@ -106,16 +106,17 @@ st.markdown(
         color:#1f2937;
     }
 
-   div[data-baseweb="notification"]{
-    background:#ffffff !important;
+  div[data-baseweb="notification"]{
+    background:white !important;
     border-left:4px solid #008C95 !important;
-    border-radius:18px !important;
+    border-radius:20px !important;
+    box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
+}
+  div[data-baseweb="notification"] *{
+    color:#1F2937 !important;
 }
 
-div[data-baseweb="notification"] *{
-    color:#1f2937 !important;
-}
- 
+
 /* HERO */
 
 h1{
@@ -178,7 +179,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.success("""
-### ⚡ Τεχνική Υποστήριξη
+## ⚡ Τεχνική Υποστήριξη
 
 Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
 """)
