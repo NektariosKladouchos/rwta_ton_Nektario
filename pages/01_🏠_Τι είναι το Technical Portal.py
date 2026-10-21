@@ -114,6 +114,30 @@ st.markdown(
     div[data-baseweb="notification"] *{
         color:#1f2937 !important;
     }
+/* HERO */
+
+h1{
+    color:#1F2937 !important;
+    font-size:72px !important;
+    font-weight:800 !important;
+    text-align:center;
+}
+
+h3{
+    color:#6B7280 !important;
+    font-weight:400 !important;
+    text-align:center;
+}
+
+[data-testid="stCaptionContainer"]{
+    text-align:center;
+}
+
+[data-testid="stCaptionContainer"] p{
+    color:#008C95 !important;
+    font-weight:700 !important;
+    letter-spacing:5px;
+}
 
     </style>
     """,
