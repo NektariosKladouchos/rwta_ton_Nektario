@@ -107,10 +107,11 @@ st.markdown(
     }
 
 div[data-baseweb="notification"]{
-    background:#E6F4F2 !important;
+    background:#DDF1EE !important;
     border-left:4px solid #008C95 !important;
-    border-radius:20px !important;
+    border-radius:18px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
+}
 }
 
 div[data-baseweb="notification"] *{
