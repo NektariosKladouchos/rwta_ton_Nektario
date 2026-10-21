@@ -364,10 +364,9 @@ st.markdown(
     ">
         Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό.
     </div>
-    """,
-    unsafe_allow_html=True
+        """,
+        unsafe_allow_html=True
 )
-
 
 
 # ADMIN ANALYTICS (ONLY IF ADMIN)
