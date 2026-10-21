@@ -464,23 +464,24 @@ st.markdown(
 st.markdown(
     """
     <div style="
-        background:linear-gradient(
-            135deg,
-            #008c95 0%,
-            #006f77 100%
-        );
-        color:white;
-        font-size:20px;
-        padding:50px;
-        border-radius:26px;
-        box-shadow:0 12px 32px rgba(0,0,0,.10);
-        line-height:2.2;
+        background:white;
+        border-left:6px solid #008c95;
+        padding:40px;
+        border-radius:24px;
+        box-shadow:0 12px 32px rgba(0,0,0,.08);
+        color:#1f2937;
+        font-size:18px;
+        line-height:2;
     ">
 
         💬 Η Κοινότητά μας
 
+        <br><br>
+
         Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά
         σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
+
+        <br><br>
 
         Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
 
