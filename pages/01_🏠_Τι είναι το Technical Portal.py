@@ -107,7 +107,7 @@ st.markdown(
     }
 
     div[data-baseweb="notification"]{
-        background:#e8f7f8 !important;
+        background:#ffffff !important;
         border-left:5px solid #008c95 !important;
     }
 
@@ -118,13 +118,14 @@ st.markdown(
 
 h1{
     color:#1F2937 !important;
-    font-size:48px !important;
+    font-size:42px !important;
     font-weight:800 !important;
     text-align:center;
 }
 
 h3{
-    color:#6B7280 !important;
+    color:#64748B !important;
+
     font-weight:400 !important;
     text-align:center;
 }
