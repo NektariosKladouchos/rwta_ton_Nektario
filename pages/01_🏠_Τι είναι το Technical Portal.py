@@ -297,23 +297,33 @@ st.markdown(
     <div style="
         background:linear-gradient(135deg,#008c95 0%,#006f77 100%);
         padding:35px;
-        border-radius:22px;
-        box-shadow:0 12px 32px rgba(0,0,0,.10);
+        border-radius:24px;
+        box-shadow:0 12px 32px rgba(0,0,0,.12);
         color:white;
         line-height:1.9;
         margin-top:10px;
     ">
 
-        <h3 style="color:white;margin-top:0;">
+        <div style="
+            font-size:24px;
+            font-weight:700;
+            margin-bottom:20px;
+        ">
             💡 Η Φιλοσοφία μας
-        </h3>
+        </div>
 
-        Πιστεύω στη δύναμη της συνεργασίας.
+        <div style="font-size:18px;margin-bottom:15px;">
+            Πιστεύω στη δύναμη της συνεργασίας.
+        </div>
 
-        Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών.
+        <div style="font-size:17px;margin-bottom:15px;">
+            Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών.
+        </div>
 
-        Είναι μια ζωντανή κοινότητα ανταλλαγής ιδεών,
-        τεχνογνωσίας και εμπειριών.
+        <div style="font-size:17px;">
+            Είναι μια ζωντανή κοινότητα ανταλλαγής ιδεών,
+            τεχνογνωσίας και εμπειριών.
+        </div>
 
     </div>
     """,
