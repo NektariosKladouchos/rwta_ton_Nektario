@@ -107,7 +107,7 @@ st.markdown(
     }
 
 div[data-baseweb="notification"]{
-    background:#DDF1EE !important;
+    background:#D6ECE7 !important;
     border-left:4px solid #008C95 !important;
     border-radius:18px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
@@ -178,7 +178,7 @@ with col1:
     st.success("""
 ⚡ **Πιο Ενεργειακά**
 
-Μείωση κατανάλωσης και βελτίωση απόδοσης.
+Εξοικονόμηση ενέργειας.
 """)
 
 with col2:
