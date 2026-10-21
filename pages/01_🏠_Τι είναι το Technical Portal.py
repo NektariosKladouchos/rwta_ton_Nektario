@@ -61,16 +61,16 @@ is_admin = st.session_state.get("is_admin", False)
 st.markdown("""
 <style>
 
-[data-testid="stAppViewContainer"]{
-    background:#f7f8fa;
+[data-testid="stAppViewContainer"] {
+    background: #f7f8fa;
 }
 
-.main .block-container{
-    max-width:1400px;
-    padding-top:1rem;
-    padding-bottom:3rem;
-    padding-left:3rem;
-    padding-right:3rem;
+.main .block-container {
+    max-width: 1400px;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 </style>
