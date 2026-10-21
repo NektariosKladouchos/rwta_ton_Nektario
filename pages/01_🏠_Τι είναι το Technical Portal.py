@@ -207,7 +207,9 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:20px;
+        font-size:28px;
+        font-weight:700;
+        margin-bottom:20px;
         padding:50px;
         border-radius:26px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
@@ -441,7 +443,9 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:20px;
+        font-size:28px;
+        font-weight:700;
+        margin-bottom:20px;
         padding:50px;
         border-radius:26px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
@@ -476,7 +480,9 @@ st.markdown(
         border-radius:24px;
         box-shadow:0 12px 32px rgba(0,0,0,.08);
         color:#1f2937;
-        font-size:18px;
+        font-size:28px;
+        font-weight:700;
+        margin-bottom:20px;
         line-height:2;
     ">
 
