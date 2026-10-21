@@ -327,7 +327,7 @@ st.markdown(
 
 st.markdown("## 🛠 Τι θα βρείτε εδώ")
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(
