@@ -207,7 +207,7 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:28px;
+        font-size:12px;
         font-weight:700;
         margin-bottom:20px;
         padding:50px;
@@ -443,7 +443,7 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:28px;
+        font-size:12px;
         font-weight:700;
         margin-bottom:20px;
         padding:50px;
@@ -480,7 +480,7 @@ st.markdown(
         border-radius:24px;
         box-shadow:0 12px 32px rgba(0,0,0,.08);
         color:#1f2937;
-        font-size:28px;
+        font-size:12px;
         font-weight:700;
         margin-bottom:20px;
         line-height:2;
@@ -509,7 +509,7 @@ st.markdown(
         padding:20px;
         border-radius:18px;
         text-align:center;
-        font-size:18px;
+        font-size:12px;
         font-weight:700;
     ">
         Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό.
