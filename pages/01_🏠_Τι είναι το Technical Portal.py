@@ -234,7 +234,6 @@ st.markdown(
     "<div style='height:50px'></div>",
     unsafe_allow_html=True
 )
-
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -246,23 +245,14 @@ with col1:
             border-radius:18px;
             border-top:5px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:160px;
+            min-height:170px;
         ">
-            <div style="
-                color:#008c95;
-                font-size:22px;
-                font-weight:700;
-                margin-bottom:12px;
-            ">
-                ⚡ Πιο Ενεργειακά
-            </div>
 
-            <div style="
-                color:#4b5563;
-                line-height:1.7;
-            ">
-                Μείωση κατανάλωσης και βελτίωση απόδοσης.
-            </div>
+        <h3 style="color:#008c95;">
+        ⚡ Πιο Ενεργειακά
+        </h3>
+
+        Μείωση κατανάλωσης και βελτίωση απόδοσης.
 
         </div>
         """,
@@ -278,23 +268,14 @@ with col2:
             border-radius:18px;
             border-top:5px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:160px;
+            min-height:170px;
         ">
-            <div style="
-                color:#008c95;
-                font-size:22px;
-                font-weight:700;
-                margin-bottom:12px;
-            ">
-                🌱 Πιο Βιώσιμα
-            </div>
 
-            <div style="
-                color:#4b5563;
-                line-height:1.7;
-            ">
-                Λύσεις νέας γενιάς για σύγχρονα κτίρια.
-            </div>
+        <h3 style="color:#008c95;">
+        🌱 Πιο Βιώσιμα
+        </h3>
+
+        Λύσεις νέας γενιάς για σύγχρονα κτίρια.
 
         </div>
         """,
@@ -310,23 +291,14 @@ with col3:
             border-radius:18px;
             border-top:5px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:160px;
+            min-height:170px;
         ">
-            <div style="
-                color:#008c95;
-                font-size:22px;
-                font-weight:700;
-                margin-bottom:12px;
-            ">
-                📊 Πιο Διαχειρίσιμα
-            </div>
 
-            <div style="
-                color:#4b5563;
-                line-height:1.7;
-            ">
-                Καλύτερος έλεγχος εγκαταστάσεων.
-            </div>
+        <h3 style="color:#008c95;">
+        📊 Πιο Διαχειρίσιμα
+        </h3>
+
+        Καλύτερος έλεγχος εγκαταστάσεων.
 
         </div>
         """,
