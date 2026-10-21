@@ -59,169 +59,67 @@ is_admin = st.session_state.get("is_admin", False)
 # ---------------------------------------------------------
 
 
-<style>
+st.markdown(
+    """
+    <style>
 
-/* =======================================================
-   APP
-======================================================= */
 
-[data-testid="stAppViewContainer"]{
-    background:#f7f8fa;
-}
+    [data-testid="stAppViewContainer"]{
+        background:#f7f8fa;
+    }
 
-.main .block-container{
-    max-width:1400px;
-    padding-top:1rem;
-    padding-bottom:3rem;
-    padding-left:3rem;
-    padding-right:3rem;
-}
 
-/* =======================================================
-   TYPOGRAPHY
-======================================================= */
+    .main .block-container{
+        max-width:1400px;
+        padding-top:2rem;
+        padding-bottom:3rem;
+    }
+    /* NAVIGATION */
 
-h1{
-    color:#1E293B !important;
-    font-weight:800 !important;
-    text-align:center;
-    letter-spacing:-1px;
-}
+    [data-testid="stSidebarNav"] a{
+        border-radius:10px;
+        margin-bottom:4px;
+    }
 
-h2{
-    color:#1E293B !important;
-    font-weight:700 !important;
-}
+    [data-testid="stSidebarNav"]::before{
+        content:"GEYER SMART";
+        display:block;
+        padding:15px 20px;
 
-h3{
-    color:#1E293B !important;
-    font-weight:600 !important;
-}
+        color:#008c95;
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:3px;
+    }
 
-p{
-    color:#64748B;
-    line-height:1.8;
-}
+    [data-testid="stSidebarNav"] a:hover{
+        background:rgba(0,140,149,0.08);
+    }
 
-/* =======================================================
-   HERO
-======================================================= */
+    [data-testid="stSidebarNav"] a[aria-current="page"]{
+        background:rgba(0,140,149,0.12);
+        color:#008c95 !important;
+        font-weight:600;
+    }
 
-[data-testid="stCaptionContainer"]{
-    text-align:center;
-}
+    h1,h2,h3{
+        color:#1f2937;
+    }
 
-[data-testid="stCaptionContainer"] p{
-    color:#008C95 !important;
-    font-weight:700 !important;
-    letter-spacing:4px !important;
-    text-transform:uppercase;
-}
+    div[data-baseweb="notification"]{
+        background:#e8f7f8 !important;
+        border-left:5px solid #008c95 !important;
+    }
 
-/* =======================================================
-   SIDEBAR
-======================================================= */
+    div[data-baseweb="notification"] *{
+        color:#1f2937 !important;
+    }
 
-[data-testid="stSidebarContent"]{
-    background:#ffffff;
-}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-[data-testid="stSidebarNav"]::before{
-    content:"GEYER SMART";
-    display:block;
-    padding:15px 20px;
-
-    color:#008C95;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:3px;
-}
-
-[data-testid="stSidebarNav"] a{
-    border-radius:12px;
-    margin-bottom:5px;
-    transition:all .25s ease;
-}
-
-[data-testid="stSidebarNav"] a:hover{
-    background:rgba(0,140,149,.08);
-}
-
-[data-testid="stSidebarNav"] a[aria-current="page"]{
-    background:rgba(0,140,149,.12);
-    color:#008C95 !important;
-    font-weight:600;
-}
-
-/* =======================================================
-   CARDS
-======================================================= */
-
-.card{
-    background:white;
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 8px 30px rgba(15,23,42,.06);
-    border:1px solid rgba(0,0,0,.04);
-}
-
-.card:hover{
-    transform:translateY(-2px);
-}
-
-/* =======================================================
-   SUCCESS / INFO BOXES
-======================================================= */
-
-div[data-baseweb="notification"]{
-    background:#E8F7F8 !important;
-    border-left:5px solid #008C95 !important;
-    border-radius:12px;
-}
-
-div[data-baseweb="notification"] *{
-    color:#1E293B !important;
-}
-
-/* =======================================================
-   BUTTONS
-======================================================= */
-
-.stButton button{
-    background:#008C95;
-    color:white;
-    border:none;
-    border-radius:12px;
-    font-weight:600;
-    padding:0.6rem 1.2rem;
-}
-
-.stButton button:hover{
-    background:#00757C;
-    color:white;
-}
-
-/* =======================================================
-   DATAFRAME
-======================================================= */
-
-[data-testid="stDataFrame"]{
-    border-radius:16px;
-    overflow:hidden;
-}
-
-/* =======================================================
-   FOOTER
-======================================================= */
-
-.footer{
-    text-align:center;
-    color:#94A3B8;
-    font-size:13px;
-    padding:20px;
-}
-
-</style>
 # ---------------------------------------------------------
 # HERO SECTION
 # ---------------------------------------------------------
