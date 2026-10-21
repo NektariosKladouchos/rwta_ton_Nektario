@@ -207,13 +207,13 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:30px;
+        font-size:18px;
         font-weight:700;
         margin-bottom:20px;
-        padding:50px;
+        padding:40px;
         border-radius:26px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
-        line-height:2.2;
+        line-height:1.9;
     ">
 
     <h3 style="color:white;margin-top:0;">
