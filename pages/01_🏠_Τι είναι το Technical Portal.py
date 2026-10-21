@@ -237,7 +237,7 @@ st.markdown(
 
 
 col1, col2, col3 = st.columns(3)
-with col1:
+
 st.markdown(
     """
     <div style="
@@ -264,33 +264,13 @@ st.markdown(
 )
 
 with col2:
+    st.success(
+        """
+🌱 Πιο Βιώσιμα
 
-st.markdown(
-    """
-    <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border-top:5px solid #008c95;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-        min-height:170px;
-    ">
-        <div style="
-            color:#008c95;
-            font-size:22px;
-            font-weight:700;
-            margin-bottom:15px;
-        ">
-            🌱 Πιο Βιώσιμα
-        </div>
-        Λύσεις νέας γενιάς για σύγχρονα κτίρια.
-    
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
- 
+Λύσεις νέας γενιάς για σύγχρονα κτίρια.
+"""
+    )
 
 with col3:
     st.success(
