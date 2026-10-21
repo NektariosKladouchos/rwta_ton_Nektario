@@ -336,12 +336,6 @@ st.markdown(
         box-shadow:0 12px 32px rgba(0,0,0,.10);
         line-height:1.9;
     ">
-
-        <div style="
-            font-size:24px;
-            font-weight:700;
-            margin-bottom:20px;
-        ">
          <h3 style="color:white;margin-top:0;">
         💬 Η Κοινότητά μας
          </h3>
