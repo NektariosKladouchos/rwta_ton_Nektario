@@ -112,11 +112,11 @@ div[data-baseweb="notification"]{
     border-radius:18px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
 }
-}
 
 div[data-baseweb="notification"] *{
     color:#1F2937 !important;
 }
+
 [data-testid="column"] {
     background:#E6F4F2;
     border-radius:18px;
