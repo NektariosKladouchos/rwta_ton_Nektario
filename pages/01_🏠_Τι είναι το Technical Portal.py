@@ -315,10 +315,12 @@ st.markdown("""
 Σας προσκαλώ να γίνετε μέρος της.
 """)
 
-st.write("")
-st.success(
-    "🤝 Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό."
-)
+st.markdown("""
+<div class="geyer-card" style="text-align:center;">
+    <h4>🤝 Βοήθα με να σε βοηθώ</h4>
+    <p>Μοιράσου ιδέες, εμπειρίες και τεχνογνωσία για να ανεβούμε μαζί το βουνό.</p>
+</div>
+""", unsafe_allow_html=True)
 
 
 # ADMIN ANALYTICS (ONLY IF ADMIN)
