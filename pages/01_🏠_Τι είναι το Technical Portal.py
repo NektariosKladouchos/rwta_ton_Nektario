@@ -173,7 +173,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.divider()
+st.markdown(
+    "<div style='height:50px'></div>",
+    unsafe_allow_html=True
+)
 
 # ---------------------------------------------------------
 # ANALYTICS
