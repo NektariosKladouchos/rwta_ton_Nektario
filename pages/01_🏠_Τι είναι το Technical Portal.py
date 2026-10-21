@@ -106,12 +106,11 @@ st.markdown(
         color:#1f2937;
     }
 
- div[data-baseweb="notification"]{
-    background:#ffffff !important;
+div[data-baseweb="notification"]{
+    background:#E6F4F2 !important;
     border-left:4px solid #008C95 !important;
     border-radius:20px !important;
     box-shadow:0 8px 24px rgba(0,0,0,.06) !important;
-    padding:1rem !important;
 }
 
 div[data-baseweb="notification"] *{
