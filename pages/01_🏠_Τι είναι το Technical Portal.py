@@ -315,27 +315,62 @@ st.markdown(
 
 st.markdown("## 🛠 Τι θα βρείτε εδώ")
 
-col1, col2 = st.columns(2)
+st.markdown(
+    "<div style='height:15px'></div>",
+    unsafe_allow_html=True
+)
+
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown(
         """
-✅ Παρουσίαση Έργων
+        <div style="
+            background:white;
+            padding:25px;
+            border-radius:18px;
+            border-top:5px solid #008c95;
+            box-shadow:0 8px 24px rgba(0,0,0,.06);
+            min-height:170px;
+            text-align:center;
+        ">
 
-✅ Επίλυση Προβλημάτων
-"""
+        <div style="font-size:32px;">📁</div>
+
+        <h3 style="color:#008c95;">
+        Παρουσίαση Έργων
+        </h3>
+
+        Πραγματικές εφαρμογές και εγκαταστάσεις Smart Home.
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 with col2:
     st.markdown(
         """
-✅ Live Pricing System
+        <div style="
+            background:white;
+            padding:25px;
+            border-radius:18px;
+            border-top:5px solid #008c95;
+            box-shadow:0 8px 24px rgba(0,0,0,.06);
+            min-height:170px;
+            text-align:center;
+        ">
 
-✅ Διαδραστική Επικοινωνία
-"""
-    )
+        <div style="font-size:32px;">🛠</div>
 
-st.divider()
+        <h3 style="color:#008c95;">
+        Επίλυση Προβλημάτων
+        </h3>
+
+        Τεχνικές λύσεις και troubleshooting εγκαταστάσεων.
+
+        </div>
+     
 
 # ---------------------------------------------------------
 # Η ΦΙΛΟΣΟΦΙΑ ΜΑΣ
