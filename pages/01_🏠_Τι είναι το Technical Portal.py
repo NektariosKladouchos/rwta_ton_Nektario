@@ -147,16 +147,18 @@ h3{
 # HERO SECTION
 # ---------------------------------------------------------
 
-st.markdown("")
 st.caption("GEYER SMART")
 
-_, center, _ = st.columns([1, 4, 1])
+st.write("")
+st.write("")
+
+_, center, _ = st.columns([1, 5, 1])
 
 with center:
 
     st.title("Τι είναι το Technical Portal")
 
-    st.markdown("")
+    st.write("")
 
     st.subheader(
         "Το σημείο αναφοράς για τεχνική υποστήριξη,"
@@ -167,6 +169,32 @@ with center:
     )
 
 st.write("")
+st.write("")
+st.write("")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.info("""
+### ⚡ Τεχνική Υποστήριξη
+
+Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
+""")
+
+with col2:
+    st.info("""
+### 📚 Τεχνογνωσία
+
+Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης.
+""")
+
+with col3:
+    st.info("""
+### 🤝 Συνεργασία
+
+Ανταλλαγή ιδεών και υποστήριξη από την κοινότητα.
+""")
+
 st.write("")
 st.write("")
 # ---------------------------------------------------------
