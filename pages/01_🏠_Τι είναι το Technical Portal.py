@@ -118,7 +118,7 @@ st.markdown(
 
 h1{
     color:#1F2937 !important;
-    font-size:72px !important;
+    font-size:48px !important;
     font-weight:800 !important;
     text-align:center;
 }
