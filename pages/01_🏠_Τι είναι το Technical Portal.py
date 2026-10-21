@@ -138,7 +138,7 @@ st.markdown(
     <p style="
         text-align:center;
         color:#008c95;
-        font-size:20px;
+        font-size:13px;
         font-weight:700;
         letter-spacing:3px;">
         GEYER SMART
@@ -152,7 +152,7 @@ st.markdown(
     <h1 style="
         text-align:center;
         color:#1f2937;
-        font-size:52px;
+        font-size:58px;
         font-weight:800;">
         Τι είναι το Technical Portal
     </h1>
@@ -165,7 +165,8 @@ st.markdown(
     <p style="
         text-align:center;
         color:#6b7280;
-        font-size:18px;">
+        font-weight:500;
+        font-size:20px;">
         Η πλατφόρμα τεχνικής υποστήριξης και επαγγελματικής εξέλιξης
     </p>
     """,
@@ -173,7 +174,7 @@ st.markdown(
 )
 
 st.markdown(
-    "<div style='height:40px'></div>",
+    "<div style='height:60px'></div>",
     unsafe_allow_html=True
 )
 
