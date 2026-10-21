@@ -256,6 +256,7 @@ st.markdown(
         ">
             ⚡ Πιο Ενεργειακά
         </div>
+
         Μείωση κατανάλωσης και βελτίωση απόδοσης.
     </div>
     """,
@@ -292,29 +293,13 @@ st.markdown(
  
 
 with col3:
-    st.markdown(
-    """
-    <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border-top:5px solid #008c95;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-        min-height:170px;
-    ">
-        <div style="
-            color:#008c95;
-            font-size:22px;
-            font-weight:700;
-            margin-bottom:15px;
-        ">
-          📊 Πιο Διαχειρίσιμα
-        </div>
-        Καλύτερος έλεγχος εγκαταστάσεων.
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    st.success(
+        """
+📊 Πιο Διαχειρίσιμα
+
+Καλύτερος έλεγχος εγκαταστάσεων.
+"""
+    )
 
 st.markdown(
     "<div style='height:50px'></div>",
