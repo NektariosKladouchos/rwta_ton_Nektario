@@ -196,25 +196,28 @@ st.write("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.success("""
-⚡ Πιο Ενεργειακά
-
-Εξοικονόμηση ενέργειας.
-""")
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>⚡ Πιο Ενεργειακά</h4>
+        <p>Εξοικονόμηση ενέργειας.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col2:
-    st.success("""
-🌱 Πιο Βιώσιμα
-
-Λύσεις νέας γενιάς για σύγχρονα κτίρια.
-""")
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>🌱 Πιο Βιώσιμα</h4>
+        <p>Λύσεις νέας γενιάς για σύγχρονα κτίρια.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col3:
-    st.success("""
-📊 Πιο Διαχειρίσιμα
-
-Καλύτερος έλεγχος εγκαταστάσεων.
-""")
+    st.markdown("""
+    <div class="geyer-card">
+        <h4>📊 Πιο Διαχειρίσιμα</h4>
+        <p>Καλύτερος έλεγχος εγκαταστάσεων.</p>
+    </div>
+    """, unsafe_allow_html=True)
 st.write("")
 
 # ---------------------------------------------------------
