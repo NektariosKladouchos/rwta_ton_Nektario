@@ -58,35 +58,22 @@ is_admin = st.session_state.get("is_admin", False)
 # GEYER THEME
 # ---------------------------------------------------------
 
-st.markdown("""
-<style>
 
-[data-testid="stAppViewContainer"] {
-    background: #f7f8fa;
-}
+st.markdown(
+    """
+    <style>
 
-.main .block-container {
-    max-width: 1400px;
-    padding-top: 1rem;
-    padding-bottom: 3rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-}
 
-</style>
-""", unsafe_allow_html=True)
-
-    /* SIDEBAR */
-
-    [data-testid="stSidebar"]{
-        background:#ffffff;
-        border-right:1px solid #e5e7eb;
+    [data-testid="stAppViewContainer"]{
+        background:#f7f8fa;
     }
 
-    [data-testid="stSidebar"] *{
-        color:#1f2937 !important;
-    }
 
+    .main .block-container{
+        max-width:1400px;
+        padding-top:2rem;
+        padding-bottom:3rem;
+    }
     /* NAVIGATION */
 
     [data-testid="stSidebarNav"] a{
