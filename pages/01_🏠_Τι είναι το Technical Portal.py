@@ -123,22 +123,26 @@ st.markdown(
 # HERO SECTION
 # ---------------------------------------------------------
 
+st.markdown("")
 st.caption("GEYER SMART")
 
-st.markdown(
-    """
-    <div align="center">
+_, center, _ = st.columns([1, 4, 1])
 
-    # Τι είναι το Technical Portal
+with center:
 
-    ### Το σημείο αναφοράς για τεχνική υποστήριξη,
-    ### γνώση και συνεργασία στον κόσμο του Smart Home
+    st.title("Τι είναι το Technical Portal")
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    st.markdown("")
 
+    st.subheader(
+        "Το σημείο αναφοράς για τεχνική υποστήριξη,"
+    )
+
+    st.subheader(
+        "γνώση και συνεργασία στον κόσμο του Smart Home"
+    )
+
+st.write("")
 st.write("")
 st.write("")
 # ---------------------------------------------------------
