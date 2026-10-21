@@ -154,6 +154,11 @@ h1{
     font-weight:800 !important;
     text-align:center !important;
 }
+h2{
+    color:#1F2937 !important;
+    font-size:32px !important;
+    font-weight:700 !important;
+}
 
 h3{
     color:#64748B !important;
