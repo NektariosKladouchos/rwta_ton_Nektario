@@ -146,7 +146,7 @@ with col1:
         border-radius:18px;
         border-top:4px solid #008c95;
         box-shadow:0 8px 24px rgba(0,0,0,.06);
-        min-height:170px;
+        min-height:140px;
     ">
         <h3 style="color:#008c95;">⚡ Τεχνική Υποστήριξη</h3>
 
