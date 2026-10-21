@@ -62,7 +62,25 @@ is_admin = st.session_state.get("is_admin", False)
 st.markdown(
     """
     <style>
+   .geyer-card{
+    background:#0B7F86;
+    color:white;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    min-height:140px;
+}
 
+.geyer-card h4{
+    color:white !important;
+    margin-bottom:12px;
+}
+
+.geyer-card p{
+    color:white !important;
+    margin:0;
+    line-height:1.7;
+}
 
     [data-testid="stAppViewContainer"]{
         background:#f7f8fa;
