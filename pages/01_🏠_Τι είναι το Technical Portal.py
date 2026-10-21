@@ -205,10 +205,11 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        padding:35px;
+        font-size:18px;
+        padding:50px;
         border-radius:24px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
-        line-height:1.9;
+        line-height:2.2;
     ">
 
     <h3 style="color:white;margin-top:0;">
@@ -299,10 +300,11 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        padding:35px;
+        font-size:18px;
+        padding:50px;
         border-radius:24px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
-        line-height:1.9;
+        line-height:2.2;
     ">
 
     <h3 style="color:white;margin-top:0;">
@@ -331,10 +333,11 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        padding:35px;
+        font-size:18px;
+        padding:50px;
         border-radius:24px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
-        line-height:1.9;
+        line-height:2.2;
     ">
          <h3 style="color:white;margin-top:0;">
         💬 Η Κοινότητά μας
