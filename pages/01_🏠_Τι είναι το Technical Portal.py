@@ -207,89 +207,35 @@ st.markdown(
 
 st.header("🎯 Ο Σκοπός μας")
 
-st.info("""
+st.markdown("""
 Σε έναν κόσμο που εξελίσσεται ραγδαία, ο αυτοματισμός δεν είναι πλέον πολυτέλεια αλλά εργαλείο για έναν εξυπνότερο τρόπο ζωής.
 
 Σκοπός αυτής της πλατφόρμας είναι να σας προσφέρει την τεχνική και πληροφοριακή υποστήριξη που χρειάζεστε για να δώσετε τεχνική ευφυΐα στους χώρους σας.
 """)
 
 st.write("")
-st.write("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown(
-        """
-        <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border-top:5px solid #008c95;
-            box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:170px;
-        ">
+    st.info("""
+⚡ **Πιο Ενεργειακά**
 
-        <h3 style="color:#008c95;">
-        ⚡ Πιο Ενεργειακά
-        </h3>
-
-        Μείωση κατανάλωσης και βελτίωση απόδοσης.
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+Μείωση κατανάλωσης και βελτίωση απόδοσης.
+""")
 
 with col2:
-    st.markdown(
-        """
-        <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border-top:5px solid #008c95;
-            box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:170px;
-        ">
+    st.info("""
+🌱 **Πιο Βιώσιμα**
 
-        <h3 style="color:#008c95;">
-        🌱 Πιο Βιώσιμα
-        </h3>
-
-        Λύσεις νέας γενιάς για σύγχρονα κτίρια.
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+Λύσεις νέας γενιάς για σύγχρονα κτίρια.
+""")
 
 with col3:
-    st.markdown(
-        """
-        <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border-top:5px solid #008c95;
-            box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:170px;
-        ">
+    st.info("""
+📊 **Πιο Διαχειρίσιμα**
 
-        <h3 style="color:#008c95;">
-        📊 Πιο Διαχειρίσιμα
-        </h3>
-
-        Καλύτερος έλεγχος εγκαταστάσεων.
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-st.markdown(
-    "<div style='height:40px'></div>",
-    unsafe_allow_html=True
-)
+Καλύτερος έλεγχος εγκαταστάσεων.
+""")
 # ---------------------------------------------------------
 # ΤΙ ΘΑ ΒΡΕΙΤΕ ΕΔΩ
 # ---------------------------------------------------------
