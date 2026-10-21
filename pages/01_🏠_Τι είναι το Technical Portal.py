@@ -175,21 +175,21 @@ st.write("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.info("""
+    st.success("""
 ⚡ **Πιο Ενεργειακά**
 
 Μείωση κατανάλωσης και βελτίωση απόδοσης.
 """)
 
 with col2:
-    st.info("""
+    st.success("""
 🌱 **Πιο Βιώσιμα**
 
 Λύσεις νέας γενιάς για σύγχρονα κτίρια.
 """)
 
 with col3:
-    st.info("""
+    st.success("""
 📊 **Πιο Διαχειρίσιμα**
 
 Καλύτερος έλεγχος εγκαταστάσεων.
@@ -227,7 +227,7 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.info("""
+    st.success("""
 📁 **Παρουσίαση Έργων**
 
 Παρουσίαση πραγματικών εφαρμογών και εγκαταστάσεων.
@@ -235,7 +235,7 @@ with col1:
 
     st.write("")
 
-    st.info("""
+    st.success("""
 🛠 **Επίλυση Προβλημάτων**
 
 Τεχνικές λύσεις και troubleshooting εγκαταστάσεων.
@@ -243,7 +243,7 @@ with col1:
 
 with col2:
 
-    st.info("""
+    st.success("""
 💰 **Live Pricing System**
 
 Υπολογισμός κόστους και πληροφορίες προϊόντων.
@@ -251,7 +251,7 @@ with col2:
 
     st.write("")
 
-    st.info("""
+    st.success("""
 💬 **Διαδραστική Επικοινωνία**
 
 Συνεργασία και ανταλλαγή τεχνογνωσίας.
@@ -289,7 +289,7 @@ st.markdown("""
 """)
 
 st.write("")
-st.info(
+st.success(
     "🤝 Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό."
 )
 
@@ -307,7 +307,7 @@ if is_admin:
             st.success(f"Βρέθηκαν {len(df)} events.")
             st.dataframe(df)
         else:
-            st.info("Δεν υπάρχουν ακόμα δεδομένα για τη σελίδα Εισαγωγή.")
+            st.success("Δεν υπάρχουν ακόμα δεδομένα για τη σελίδα Εισαγωγή.")
     except Exception as e:
         st.error(f"Σφάλμα φόρτωσης analytics: {e}")
 
