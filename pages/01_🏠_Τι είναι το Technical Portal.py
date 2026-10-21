@@ -285,23 +285,24 @@ with col2:
 """
     )
 
-#st.divider()
+st.divider()
 
 # ---------------------------------------------------------
 # Η ΦΙΛΟΣΟΦΙΑ ΜΑΣ
 # ---------------------------------------------------------
-st.markdown("## 💡 Η Φιλοσοφία μας")
-
 st.markdown(
     """
     <div style="
-        background:linear-gradient(135deg,#008c95 0%,#006f77 100%);
-        padding:35px;
+        background:linear-gradient(
+            135deg,
+            #008c95 0%,
+            #006f77 100%
+        );
+        padding:40px;
         border-radius:24px;
         box-shadow:0 12px 32px rgba(0,0,0,.12);
         color:white;
         line-height:1.9;
-        margin-top:10px;
     ">
 
         <div style="
@@ -312,18 +313,12 @@ st.markdown(
             💡 Η Φιλοσοφία μας
         </div>
 
-        <div style="font-size:18px;margin-bottom:15px;">
-            Πιστεύω στη δύναμη της συνεργασίας.
-        </div>
+        Πιστεύω στη δύναμη της συνεργασίας.
 
-        <div style="font-size:17px;margin-bottom:15px;">
-            Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών.
-        </div>
+        Το site αυτό δεν είναι απλά μια σελίδα πληροφοριών.
 
-        <div style="font-size:17px;">
-            Είναι μια ζωντανή κοινότητα ανταλλαγής ιδεών,
-            τεχνογνωσίας και εμπειριών.
-        </div>
+        Είναι μια ζωντανή κοινότητα ανταλλαγής ιδεών,
+        τεχνογνωσίας και εμπειριών.
 
     </div>
     """,
