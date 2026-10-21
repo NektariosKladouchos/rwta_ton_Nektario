@@ -409,6 +409,10 @@ if is_admin:
 # FOOTER
 # ---------------------------------------------------------
 st.markdown(
+    "<div style='height:30px'></div>",
+    unsafe_allow_html=True
+)
+st.markdown(
     """
     <div style="
         text-align:center;
