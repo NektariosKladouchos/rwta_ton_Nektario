@@ -153,7 +153,7 @@ h3{
 st.caption("GEYER SMART")
 
 st.write("")
-st.write("")
+
 
 _, center, _ = st.columns([1, 5, 1])
 
