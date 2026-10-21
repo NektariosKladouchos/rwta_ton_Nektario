@@ -210,7 +210,7 @@ st.markdown(
         color:white;
         font-size:18px;
         padding:50px;
-        border-radius:24px;
+        border-radius:26px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
         line-height:2.2;
     ">
@@ -312,7 +312,7 @@ st.markdown(
         color:white;
         font-size:18px;
         padding:50px;
-        border-radius:24px;
+        border-radius:26px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
         line-height:2.2;
     ">
@@ -348,7 +348,7 @@ st.markdown(
         color:white;
         font-size:18px;
         padding:50px;
-        border-radius:24px;
+        border-radius:26px;
         box-shadow:0 12px 32px rgba(0,0,0,.10);
         line-height:2.2;
     ">
