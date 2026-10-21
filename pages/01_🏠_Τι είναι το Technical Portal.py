@@ -320,28 +320,50 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(
         """
         <div style="
             background:white;
-            padding:25px;
-            border-radius:18px;
-            border-top:5px solid #008c95;
+            padding:30px;
+            border-radius:20px;
+            border-left:6px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:170px;
-            text-align:center;
         ">
 
-        <div style="font-size:32px;">📁</div>
+        📁 Παρουσίαση Έργων
 
-        <h3 style="color:#008c95;">
-        Παρουσίαση Έργων
-        </h3>
+        <br><br>
 
-        Πραγματικές εφαρμογές και εγκαταστάσεις Smart Home.
+        Παρουσίαση πραγματικών εφαρμογών και εγκαταστάσεων.
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div style='height:20px'></div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div style="
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            border-left:6px solid #008c95;
+            box-shadow:0 8px 24px rgba(0,0,0,.06);
+        ">
+
+        🛠 Επίλυση Προβλημάτων
+
+        <br><br>
+
+        Τεχνικές λύσεις και troubleshooting εγκαταστάσεων.
 
         </div>
         """,
@@ -353,24 +375,53 @@ with col2:
         """
         <div style="
             background:white;
-            padding:25px;
-            border-radius:18px;
-            border-top:5px solid #008c95;
+            padding:30px;
+            border-radius:20px;
+            border-left:6px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
-            min-height:170px;
-            text-align:center;
         ">
 
-        <div style="font-size:32px;">🛠</div>
+        💰 Live Pricing System
 
-        <h3 style="color:#008c95;">
-        Επίλυση Προβλημάτων
-        </h3>
+        <br><br>
 
-        Τεχνικές λύσεις και troubleshooting εγκαταστάσεων.
+        Υπολογισμός κόστους και πληροφορίες προϊόντων.
 
         </div>
-     )
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div style='height:20px'></div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div style="
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            border-left:6px solid #008c95;
+            box-shadow:0 8px 24px rgba(0,0,0,.06);
+        ">
+
+        💬 Διαδραστική Επικοινωνία
+
+        <br><br>
+
+        Συνεργασία και ανταλλαγή τεχνογνωσίας.
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+st.markdown(
+    "<div style='height:50px'></div>",
+    unsafe_allow_html=True
+)
 
 # ---------------------------------------------------------
 # Η ΦΙΛΟΣΟΦΙΑ ΜΑΣ
