@@ -127,7 +127,7 @@ h1{
 
 h3{
     color:#64748B !important;
-
+    font-size:18px !important;
     font-weight:400 !important;
     text-align:center;
 }
