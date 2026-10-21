@@ -343,15 +343,15 @@ st.markdown(
             margin-bottom:20px;
         ">
          <h3 style="color:white;margin-top:0;">
-            💬 Η Κοινότητά μας
+        💬 Η Κοινότητά μας
          </h3>
         Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά
         σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
         Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
 
-    </div>
-    """,
-    unsafe_allow_html=True
+        </div>
+        """,
+        unsafe_allow_html=True
 )
 
 st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
