@@ -138,7 +138,7 @@ st.markdown(
     <p style="
         text-align:center;
         color:#008c95;
-        font-size:12px;
+        font-size:20px;
         font-weight:700;
         letter-spacing:3px;">
         GEYER SMART
@@ -207,7 +207,7 @@ st.markdown(
             #006f77 100%
         );
         color:white;
-        font-size:12px;
+        font-size:20px;
         font-weight:700;
         margin-bottom:20px;
         padding:50px;
