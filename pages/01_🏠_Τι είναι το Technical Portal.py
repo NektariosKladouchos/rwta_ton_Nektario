@@ -188,13 +188,43 @@ log_event("intro", "visit")
 # GEYER SMART ECOSYSTEM
 # ---------------------------------------------------------
 
-st.markdown("### GEYER SMART ECOSYSTEM")
+st.markdown(
+    """
+    <div style="
+        background:white;
+        border-left:6px solid #008c95;
+        padding:30px;
+        border-radius:20px;
+        box-shadow:0 8px 24px rgba(0,0,0,.06);
+    ">
 
-st.caption(
-    "Το σημείο αναφοράς για τεχνική υποστήριξη, γνώση και συνεργασία."
+        <div style="
+            color:#008c95;
+            font-size:24px;
+            font-weight:700;
+            margin-bottom:10px;
+        ">
+            GEYER SMART ECOSYSTEM
+        </div>
+
+        <div style="
+            color:#6b7280;
+            font-size:18px;
+            line-height:1.8;
+        ">
+            Το σημείο αναφοράς για τεχνική υποστήριξη,
+            γνώση και συνεργασία.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
-st.divider()
+st.markdown(
+    "<div style='height:50px'></div>",
+    unsafe_allow_html=True
+)
 
 # ---------------------------------------------------------
 # Ο ΣΚΟΠΟΣ ΜΑΣ
