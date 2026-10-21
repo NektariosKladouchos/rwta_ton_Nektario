@@ -110,7 +110,7 @@ st.markdown(
     background:#ffffff !important;
     border-left:4px solid #008C95 !important;
     border-radius:18px !important;
-}
+
     }
 
     div[data-baseweb="notification"] *{
