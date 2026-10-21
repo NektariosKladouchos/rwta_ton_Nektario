@@ -124,51 +124,19 @@ st.markdown(
 # HERO SECTION
 # ---------------------------------------------------------
 
+st.caption("GEYER SMART")
+
+st.title("Τι είναι το Technical Portal")
+
 st.markdown(
     """
-    <div style="text-align:center;padding-top:20px;">
-
-        <div style="
-            color:#008c95;
-            font-size:12px;
-            font-weight:700;
-            letter-spacing:4px;
-            text-transform:uppercase;
-            margin-bottom:18px;
-        ">
-            GEYER SMART
-        </div>
-
-        <h1 style="
-            color:#1E293B;
-            font-size:64px;
-            font-weight:800;
-            line-height:1.1;
-            margin-bottom:16px;
-        ">
-            Τι είναι το Technical Portal
-        </h1>
-
-        <p style="
-            color:#64748B;
-            font-size:22px;
-            font-weight:400;
-            max-width:800px;
-            margin:auto;
-            line-height:1.7;
-        ">
-            Η πλατφόρμα τεχνικής υποστήριξης και επαγγελματικής εξέλιξης
-        </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+    ### Η πλατφόρμα τεχνικής υποστήριξης και επαγγελματικής εξέλιξης
+    """
 )
 
-st.markdown(
-    "<div style='height:70px'></div>",
-    unsafe_allow_html=True
-)
+st.write("")
+st.write("")
+st.write("")
 # ---------------------------------------------------------
 # ANALYTICS
 # ---------------------------------------------------------
