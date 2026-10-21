@@ -119,43 +119,21 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 # ---------------------------------------------------------
 # HERO SECTION
 # ---------------------------------------------------------
 
+st.caption("GEYER SMART")
+
 st.markdown(
     """
-    <div style="text-align:center;">
-        <p style="
-            color:#008c95;
-            font-weight:700;
-            letter-spacing:4px;
-            font-size:14px;
-            margin-bottom:10px;
-        ">
-            GEYER SMART
-        </p>
+    <div align="center">
 
-        <h1 style="
-            color:#2d3142;
-            font-size:64px;
-            font-weight:800;
-            margin-bottom:10px;
-        ">
-            Τι είναι το Technical Portal
-        </h1>
+    # Τι είναι το Technical Portal
 
-        <p style="
-            color:#4b5563;
-            font-size:26px;
-            line-height:1.6;
-            max-width:900px;
-            margin:auto;
-        ">
-            Το σημείο αναφοράς για τεχνική υποστήριξη,
-            γνώση και συνεργασία στον κόσμο του Smart Home
-        </p>
+    ### Το σημείο αναφοράς για τεχνική υποστήριξη,
+    ### γνώση και συνεργασία στον κόσμο του Smart Home
+
     </div>
     """,
     unsafe_allow_html=True
