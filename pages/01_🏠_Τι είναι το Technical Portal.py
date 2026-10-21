@@ -55,7 +55,6 @@ st.set_page_config(
 is_admin = st.session_state.get("is_admin", False)
 
 # ---------------------------------------------------------
-# ---------------------------------------------------------
 # GEYER THEME
 # ---------------------------------------------------------
 
@@ -174,7 +173,7 @@ st.markdown(
 )
 
 st.markdown(
-    "<div style='height:50px'></div>",
+    "<div style='height:40px'></div>",
     unsafe_allow_html=True
 )
 
@@ -231,7 +230,7 @@ st.markdown(
    
 )
 st.markdown(
-    "<div style='height:50px'></div>",
+    "<div style='height:40px'></div>",
     unsafe_allow_html=True
 )
 col1, col2, col3 = st.columns(3)
@@ -306,7 +305,7 @@ with col3:
     )
 
 st.markdown(
-    "<div style='height:50px'></div>",
+    "<div style='height:40px'></div>",
     unsafe_allow_html=True
 )
 # ---------------------------------------------------------
@@ -426,7 +425,7 @@ with col2:
     )
 
 st.markdown(
-    "<div style='height:50px'></div>",
+    "<div style='height:40px'></div>",
     unsafe_allow_html=True
 )
 
@@ -462,7 +461,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    "<div style='height:50px'></div>",
+    "<div style='height:40px'></div>",
     unsafe_allow_html=True
 )
 # ---------------------------------------------------------
@@ -482,9 +481,7 @@ st.markdown(
     ">
 
         💬 Η Κοινότητά μας
-
-        Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά
-        σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
+        Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικάσε κάθε απαίτηση αυτοματισμού που σας ζητείται.
         Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
 
     </div>
@@ -492,7 +489,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    "<div style='height:50px'></div>",
+    "<div style='height:40px'></div>",
     unsafe_allow_html=True
 )
 
