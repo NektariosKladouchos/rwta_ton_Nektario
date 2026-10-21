@@ -299,35 +299,16 @@ st.write("")
 # ---------------------------------------------------------
 # Η ΚΟΙΝΟΤΗΤΑ ΜΑΣ
 # ---------------------------------------------------------
-st.markdown(
-    """
-    <div style="
-        background:white;
-        border-left:6px solid #008c95;
-        padding:40px;
-        border-radius:24px;
-        box-shadow:0 12px 32px rgba(0,0,0,.08);
-        color:#1f2937;
-        font-size:12px;
-        font-weight:700;
-        margin-bottom:20px;
-        line-height:2;
-    ">
 
-        💬 Η Κοινότητά μας
-        Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικάσε κάθε απαίτηση αυτοματισμού που σας ζητείται.
-        Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
+st.header("💬 Η Κοινότητά μας")
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-st.markdown(
-    "<div style='height:40px'></div>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+Ανταλλάσσουμε ιδέες, τεχνογνωσία και λύσεις, δημιουργώντας μια ενεργή κοινότητα επαγγελματιών Smart Home.
 
+Σας προσκαλώ να γίνετε μέρος της.
+""")
 
+st.write("")
 st.markdown(
     """
     <div style="
