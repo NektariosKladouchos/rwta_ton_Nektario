@@ -322,20 +322,59 @@ st.markdown(
 # Η ΚΟΙΝΟΤΗΤΑ ΜΑΣ
 # ---------------------------------------------------------
 
-st.markdown("## 💬 Η Κοινότητά μας")
+# ---------------------------------------------------------
+# Η ΚΟΙΝΟΤΗΤΑ ΜΑΣ
+# ---------------------------------------------------------
 
-st.write(
+st.markdown(
     """
-Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά
-σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
+    <div style="
+        background:linear-gradient(
+            135deg,
+            #008c95 0%,
+            #006f77 100%
+        );
+        color:white;
+        padding:35px;
+        border-radius:24px;
+        box-shadow:0 12px 32px rgba(0,0,0,.10);
+        line-height:1.9;
+    ">
 
-Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
-"""
+        <h3 style="color:white;margin-top:0;">
+            💬 Η Κοινότητά μας
+        </h3>
+
+        Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά
+        σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
+
+        Σας προσκαλώ να γίνετε μέρος αυτής της προσπάθειας.
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
-st.success(
-    "Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό."
+st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <div style="
+        background:#e8f7f8;
+        border-left:6px solid #008c95;
+        color:#006f77;
+        padding:20px;
+        border-radius:18px;
+        text-align:center;
+        font-size:18px;
+        font-weight:700;
+    ">
+        Βοήθα με να σε βοηθώ, να ανεβούμε το βουνό.
+    </div>
+    """,
+    unsafe_allow_html=True
 )
+
 
 st.divider()
 # ADMIN ANALYTICS (ONLY IF ADMIN)
