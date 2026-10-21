@@ -339,11 +339,9 @@ with col1:
 
         📁 Παρουσίαση Έργων
 
-        <br><br>
 
         Παρουσίαση πραγματικών εφαρμογών και εγκαταστάσεων.
 
-        </div>
         """,
         unsafe_allow_html=True
     )
@@ -358,15 +356,17 @@ with col1:
         <div style="
             background:white;
             padding:20px;
-            font-size:16px;
             border-radius:16px;
+            color:#008c95;
+            font-size:20px;
+            font-weight:700;
+            margin-bottom:12px;
             border-left:6px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
         ">
 
         🛠 Επίλυση Προβλημάτων
 
-        <br><br>
 
         Τεχνικές λύσεις και troubleshooting εγκαταστάσεων.
 
@@ -382,7 +382,10 @@ with col2:
             background:white;
             padding:20px;
             font-size:16px;
-            border-radius:16px;
+            color:#008c95;
+            font-size:20px;
+            font-weight:700;
+            margin-bottom:12px;
             border-left:6px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
         ">
@@ -408,8 +411,11 @@ with col2:
         <div style="
             background:white;
             padding:20px;
-            font-size:16px;
             border-radius:16px;
+            color:#008c95;
+            font-size:20px;
+            font-weight:700;
+            margin-bottom:12px;
             border-left:6px solid #008c95;
             box-shadow:0 8px 24px rgba(0,0,0,.06);
         ">
