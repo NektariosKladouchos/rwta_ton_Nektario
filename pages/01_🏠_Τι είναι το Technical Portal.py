@@ -116,6 +116,11 @@ div[data-baseweb="notification"]{
 div[data-baseweb="notification"] *{
     color:#1F2937 !important;
 }
+[data-testid="column"] {
+    background:#E6F4F2;
+    border-radius:18px;
+    padding:20px;
+}
 /* HERO */
 
 h1{
