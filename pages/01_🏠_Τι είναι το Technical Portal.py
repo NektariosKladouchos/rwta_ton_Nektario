@@ -461,28 +461,25 @@ st.markdown(
 # ---------------------------------------------------------
 # Η ΚΟΙΝΟΤΗΤΑ ΜΑΣ
 # ---------------------------------------------------------
-
 st.markdown(
     """
     <div style="
-        background:white;
-        border-left:6px solid #008c95;
-        padding:40px;
-        border-radius:24px;
-        box-shadow:0 12px 32px rgba(0,0,0,.08);
-        color:#1f2937;
-        line-height:2;
-        font-size:18px;
+        background:linear-gradient(
+            135deg,
+            #008c95 0%,
+            #006f77 100%
+        );
+        color:white;
+        font-size:20px;
+        padding:50px;
+        border-radius:26px;
+        box-shadow:0 12px 32px rgba(0,0,0,.10);
+        line-height:2.2;
     ">
 
-        <div style="
-            color:#008c95;
-            font-size:28px;
-            font-weight:700;
-            margin-bottom:20px;
-        ">
+        <h3 style="color:white;margin-top:0;">
             💬 Η Κοινότητά μας
-        </div>
+        </h3>
 
         Δημιουργούμε ένα Forum ανταλλαγής ιδεών για να βοηθήσω προσωπικά
         σε κάθε απαίτηση αυτοματισμού που σας ζητείται.
