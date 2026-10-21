@@ -332,21 +332,18 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown(
         """
-📁 Παρουσίαση Έργων
+✅ Παρουσίαση Έργων
 
-
-
-
-🛠 Επίλυση Προβλημάτων
+✅ Επίλυση Προβλημάτων
 """
     )
 
 with col2:
     st.markdown(
         """
-💰 Live Pricing
+✅ Live Pricing System
 
-✅ 💬 Επικοινωνία
+✅ Διαδραστική Επικοινωνία
 """
     )
 
