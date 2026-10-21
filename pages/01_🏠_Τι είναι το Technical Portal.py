@@ -327,23 +327,26 @@ st.markdown(
 
 st.markdown("## 🛠 Τι θα βρείτε εδώ")
 
-col1, col2 = st.columns(2)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown(
         """
-✅ Παρουσίαση Έργων
+📁 Παρουσίαση Έργων
 
-✅ Επίλυση Προβλημάτων
+
+
+
+🛠 Επίλυση Προβλημάτων
 """
     )
 
 with col2:
     st.markdown(
         """
-✅ Live Pricing System
+💰 Live Pricing
 
-✅ Διαδραστική Επικοινωνία
+✅ 💬 Επικοινωνία
 """
     )
 
