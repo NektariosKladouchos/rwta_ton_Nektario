@@ -318,7 +318,7 @@ st.markdown("""
 st.markdown("""
 <div class="geyer-card" style="text-align:center;">
     <h4>🤝 Βοήθα με να σε βοηθώ</h4>
-    <p>Μοιράσου ιδέες, εμπειρίες και τεχνογνωσία για να ανεβούμε μαζί το βουνό.</p>
+    <p> να ανεβούμε  στο βουνό.</p>
 </div>
 """, unsafe_allow_html=True)
 
