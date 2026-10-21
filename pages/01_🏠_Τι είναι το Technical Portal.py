@@ -134,29 +134,57 @@ st.markdown("""
 """)
 
 st.write("")
+st.write("")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.success("""
-⚡ **Τεχνική Υποστήριξη**
+    st.markdown("""
+    <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border-top:4px solid #008c95;
+        box-shadow:0 8px 24px rgba(0,0,0,.06);
+        min-height:170px;
+    ">
+        <h3 style="color:#008c95;">⚡ Τεχνική Υποστήριξη</h3>
 
-Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
-""")
+        Άμεση πρόσβαση σε λύσεις, οδηγούς και troubleshooting.
+    </div>
+    """, unsafe_allow_html=True)
 
 with col2:
-    st.success("""
-📚 **Τεχνογνωσία**
+    st.markdown("""
+    <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border-top:4px solid #008c95;
+        box-shadow:0 8px 24px rgba(0,0,0,.06);
+        min-height:170px;
+    ">
+        <h3 style="color:#008c95;">📚 Τεχνογνωσία</h3>
 
-Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης.
-""")
+        Γνώση, εμπειρία και βέλτιστες πρακτικές εγκατάστασης.
+    </div>
+    """, unsafe_allow_html=True)
 
 with col3:
-    st.success("""
-🤝 **Συνεργασία**
+    st.markdown("""
+    <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border-top:4px solid #008c95;
+        box-shadow:0 8px 24px rgba(0,0,0,.06);
+        min-height:170px;
+    ">
+        <h3 style="color:#008c95;">🤝 Συνεργασία</h3>
 
-Ανταλλαγή ιδεών και υποστήριξη από την κοινότητα.
-""")
+        Ανταλλαγή ιδεών και υποστήριξη από την κοινότητα.
+    </div>
+    """, unsafe_allow_html=True)
 
 st.write("")
 st.write("")
