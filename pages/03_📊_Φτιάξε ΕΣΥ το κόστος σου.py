@@ -280,9 +280,9 @@ with tab_calc:
         ]
 
          h_type = st.selectbox(
-         "Επιλογή Θέρμανσης",
+           "Επιλογή Θέρμανσης",
          h_list,
-         key="ht"
+           key="ht"
          )
 
          label_h = "Ποσότητα"
@@ -309,6 +309,7 @@ with tab_calc:
          if h_type == "VRV/VRF"
          else ""
          )
+        
         st.markdown("### ❄️ 4. ΨΥΞΗ")
         c_list = [
             "Κανένα", "Ενδοδαπέδια Δροσισμός", "Fancoil οροφής",
