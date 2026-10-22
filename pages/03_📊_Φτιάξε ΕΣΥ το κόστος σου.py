@@ -332,7 +332,7 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
         
       # ---------------- RIGHT COLUMN ----------------
-with right:
+ with right:
     st.markdown(
         """
         <div class='info-text'>
