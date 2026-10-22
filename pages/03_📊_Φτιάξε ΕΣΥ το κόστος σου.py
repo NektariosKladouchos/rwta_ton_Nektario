@@ -90,23 +90,21 @@ st.markdown("""
 
     /* RESULT BOX */
 
-   .display-box{
+  .display-box{
     background:#ffffff;
     padding:35px;
     border-top:5px solid #008c95;
     border-radius:24px;
     box-shadow:0 12px 32px rgba(0,0,0,.08);
 }
-
     /* OFFER TEXT */
 
-    pre{
+   pre{
     font-family:'Consolas', monospace !important;
     font-size:15px !important;
     line-height:1.8 !important;
     color:#1f2937 !important;
 }
-
     /* HEADER */
 
     .main-header{
