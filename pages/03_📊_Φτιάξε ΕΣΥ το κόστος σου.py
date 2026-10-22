@@ -117,17 +117,14 @@ st.markdown("""
 
     /* INFO CARD */
 
-    
-
     .info-text{
-
     background:linear-gradient(
         135deg,
         #008c95 0%,
         #006f77 100%
     );
 
-    color:white;
+    color:white !important;
 
     font-size:17px;
 
@@ -140,9 +137,13 @@ st.markdown("""
     margin-bottom:20px;
 
     box-shadow:0 8px 24px rgba(0,0,0,.08);
-
 }
 
+.info-text *{
+    color:white !important;
+}
+
+    
 .info-text h4{
     color:white !important;
 }
