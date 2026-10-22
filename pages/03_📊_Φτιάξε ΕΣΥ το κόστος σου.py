@@ -116,7 +116,7 @@ st.markdown("""
     }
 
     /* INFO CARD */
-
+.info-text{
    background:linear-gradient(
     135deg,
     #008c95 0%,
