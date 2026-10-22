@@ -266,26 +266,31 @@ with tab_calc:
         min_value=0
         )
 
-        st.markdown("### 🔥 3. ΘΕΡΜΑΝΣΗ")
-        h_list = [
-            "Κανένα", "Καλοριφέρ", "Ενδοδαπέδια", "Fancoil οροφής",
-            "Fancoil δαπέδου", "Θερμαντικά σώματα", "VRV/VRF", "Split Κλιματιστικά"
-        ]
-        h_type = st.selectbox("Επιλογή Θ", h_list, key="ht")
+st.markdown("### 🔥 Θέρμανση")
 
-        label_h = "Ποσότητα"
-        if h_type in ["Καλοριφέρ", "Ενδοδαπέδια"]:
-            label_h = "Αριθμός Θερμοστατών"
-        elif "Fancoil" in h_type or h_type == "VRV/VRF":
-            label_h = "Αριθμός Εσωτερικών Μονάδων"
-        elif h_type == "Split Κλιματιστικά":
-            label_h = "Αριθμός Κλιματιστικών"
-        elif h_type == "Θερμαντικά σώματα":
-            label_h = "Αριθμός Σωμάτων"
+h_list = [
+    "Κανένα", "Καλοριφέρ", "Ενδοδαπέδια", "Fancoil οροφής",
+    "Fancoil δαπέδου", "Θερμαντικά σώματα", "VRV/VRF", "Split Κλιματιστικά"
+]
 
-        h_qty_input = st.number_input(label_h, min_value=0, key="hq_val")
-        h_qty = 0 if h_type == "Κανένα" else h_qty_input
-        hb = st.selectbox("Brand (Θ)", BRANDS, key="hb") if h_type == "VRV/VRF" else ""
+h_type = st.selectbox("Επιλογή Θέρμανσης", h_list, key="ht")
+
+label_h = "Ποσότητα"
+
+if h_type in ["Καλοριφέρ", "Ενδοδαπέδια"]:
+    label_h = "Αριθμός Θερμοστατών"
+elif "Fancoil" in h_type or h_type == "VRV/VRF":
+    label_h = "Αριθμός Εσωτερικών Μονάδων"
+elif h_type == "Split Κλιματιστικά":
+    label_h = "Αριθμός Κλιματιστικών"
+elif h_type == "Θερμαντικά σώματα":
+    label_h = "Αριθμός Σωμάτων"
+
+h_qty_input = st.number_input(label_h, min_value=0, key="hq_val")
+h_qty = 0 if h_type == "Κανένα" else h_qty_input
+
+hb = st.selectbox("Brand (Θ)", BRANDS, key="hb") if h_type == "VRV/VRF" else ""
+
 
         
         st.markdown("### ❄️ 4. ΨΥΞΗ")
