@@ -317,12 +317,20 @@ with tab_calc:
 
         cb = st.selectbox("Brand (Ψ)", BRANDS, key="cb") if c_type == "VRV/VRF" else ""
         
-        st.markdown("### 🪟 5. ΡΟΛΑ / ΤΕΝΤΕΣ / ΚΟΥΡΤΙΝΕΣ")
+        st.markdown("### 🪟 Ρολά / Τέντες / Κουρτίνες")
+
         shutt = st.number_input("Τεμάχια", min_value=0)
 
-        st.markdown("### 🔌 6. ΠΙΝΑΚΑΣ")
-        energy = st.radio("Μετρητής", ["Όχι", "Μονοφασικός", "Τριφασικός"], horizontal=True)
+        st.markdown("### 🔌 Πίνακας")
+
+        energy = st.radio(
+           "Μετρητής",
+        ["Όχι", "Μονοφασικός", "Τριφασικός"],
+        horizontal=True
+        )
+
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
+        
     # ---------------- RIGHT COLUMN ----------------
     with right:
         st.markdown(
