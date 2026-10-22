@@ -245,12 +245,26 @@ with tab_calc:
          min_value=0
         )
 
-        st.markdown("### 🌓 2α. ΕΙΔΟΣ ΓΡΑΜΜΩΝ ΦΩΤΙΣΜΟΥ")
+        st.markdown("### 🌓 Είδος Γραμμών Φωτισμού")
+
         dim220 = st.number_input("Dimming 220V", min_value=0)
+
         dim110 = st.number_input("Dimming 1-10V", min_value=0)
-        led = st.number_input("Ταινίες LED με dimming", min_value=0)
-        dali = st.number_input("DALI", min_value=0)
-        double = st.number_input("Κομιτατέρ (Διπλή γραμμή φωτισμού)", min_value=0)
+
+        led = st.number_input(
+        "Ταινίες LED με dimming",
+        min_value=0
+        )
+
+        dali = st.number_input(
+        "DALI",
+        min_value=0
+        )
+
+        double = st.number_input(
+        "Κομιτατέρ (Διπλή γραμμή φωτισμού)",
+        min_value=0
+        )
 
         st.markdown("### 🔥 3. ΘΕΡΜΑΝΣΗ")
         h_list = [
