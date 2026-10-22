@@ -146,18 +146,7 @@ st.markdown("""
     color:white !important;
 }
 
-/* SUCCESS BOX */
 
-div[data-testid="stAlert"]{
-    background:#008c95 !important;
-    color:white !important;
-    border:none !important;
-    border-radius:24px !important;
-}
-
-div[data-testid="stAlert"] *{
-    color:white !important;
-}
     /* BUTTONS */
 
     .stButton > button{
