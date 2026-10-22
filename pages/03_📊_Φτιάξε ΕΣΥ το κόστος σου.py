@@ -174,39 +174,15 @@ st.caption(
     "Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER"
 )
 
-st.markdown(
+st.success(
     """
-    <div style="
-        background:#008c95;
-        color:white;
-        padding:30px;
-        border-radius:24px;
-        box-shadow:0 8px 24px rgba(0,0,0,.08);
-        margin-bottom:20px;
-    ">
+🏠 LIVE PRICING SYSTEM
 
-        <div style="
-            font-size:24px;
-            font-weight:700;
-            margin-bottom:15px;
-        ">
-            🏠 LIVE PRICING SYSTEM
-        </div>
-
-        <div style="
-            font-size:18px;
-            line-height:1.8;
-        ">
-            Δημιουργήστε τη δική σας ζήτηση Smart Home,
-            υπολογίστε ενδεικτικό κόστος υλικών και
-            αποστείλετέ την απευθείας στην GEYER.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+Δημιουργήστε τη δική σας ζήτηση Smart Home,
+υπολογίστε ενδεικτικό κόστος υλικών και
+αποστείλετέ την απευθείας στην GEYER.
+"""
 )
-
 # -------------------------------------------------
 # TABS
 # -------------------------------------------------
