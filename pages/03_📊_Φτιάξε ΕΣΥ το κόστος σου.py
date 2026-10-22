@@ -193,7 +193,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
+st.write("")
 st.markdown(
     "<div class='hero-small'>GEYER SMART</div>",
     unsafe_allow_html=True
