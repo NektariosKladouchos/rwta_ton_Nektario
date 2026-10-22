@@ -341,25 +341,31 @@ with tab_calc:
         
       # ---------------- RIGHT COLUMN ----------------
     with right:
-        st.markdown(
+    st.markdown(
         """
         <div class='info-text'>
-            <h4 style='margin-top:0;'>🏠 LIVE PRICING SYSTEM</h4>
+            <h4 style='margin-top:0;font-size:24px;color:white;'>
+                🏠 LIVE PRICING SYSTEM
+            </h4>
 
             Υπολογίστε άμεσα το κόστος ενός έργου Smart Home GEYER
             με βάση τις πραγματικές ανάγκες της εγκατάστασής σας.
+
+            <br><br>
 
             Συμπληρώστε τα στοιχεία του έργου και δείτε
             αναλυτικά την απαιτούμενη διάταξη υλικών,
             το συνολικό κόστος και το κόστος προγραμματισμού.
 
+            <br><br>
+
             📧 Μην ξεχάσετε να συμπεριλάβετε τα στοιχεία
             επικοινωνίας σας στις παρατηρήσεις.
 
-         </div>
-         """,
-         unsafe_allow_html=True
-      )
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 
