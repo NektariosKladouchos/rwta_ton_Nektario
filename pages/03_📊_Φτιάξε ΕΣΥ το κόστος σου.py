@@ -101,11 +101,11 @@ st.markdown("""
     /* OFFER TEXT */
 
     pre{
-        font-family:'Consolas', monospace !important;
-        font-size:13px !important;
-        line-height:1.5 !important;
-        color:#1f2937 !important;
-    }
+    font-family:'Consolas', monospace !important;
+    font-size:15px !important;
+    line-height:1.8 !important;
+    color:#1f2937 !important;
+}
 
     /* HEADER */
 
