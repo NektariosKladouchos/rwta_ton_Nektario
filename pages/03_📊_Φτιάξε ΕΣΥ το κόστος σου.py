@@ -119,6 +119,8 @@ st.markdown("""
 
     .info-text{
 
+    .info-text{
+
     background:linear-gradient(
         135deg,
         #008c95 0%,
@@ -140,14 +142,14 @@ st.markdown("""
     box-shadow:0 8px 24px rgba(0,0,0,.08);
 
 }
-    .info-text h4{
-        color:white !important;
-    }
 
-    .info-text p{
-        color:white !important;
-    }
+.info-text h4{
+    color:white !important;
+}
 
+.info-text p{
+    color:white !important;
+}
     /* BUTTONS */
 
     .stButton > button{
