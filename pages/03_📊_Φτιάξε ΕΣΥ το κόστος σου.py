@@ -117,11 +117,11 @@ st.markdown("""
 
     /* INFO CARD */
 
-    .info-text{
-    background:linear-gradient(
-        135deg,
-        #008c95 0%,
-        #006f77 100%
+   background:linear-gradient(
+    135deg,
+    #008c95 0%,
+    #006f77 100%
+);
     );
 
     color:white !important;
