@@ -231,10 +231,19 @@ with tab_calc:
             "Διεύθυνση έργου",
             key="a"
         )
-        st.markdown("### 💡 2. ΦΩΤΙΣΜΟΣ")
-        c1, c2 = st.columns(2)
-        int_l = c1.number_input("Εσωτερικές", min_value=0)
-        ext_l = c2.number_input("Εξωτερικές", min_value=0)
+        st.markdown("### 💡 Φωτισμός")
+
+c1, c2 = st.columns(2)
+
+int_l = c1.number_input(
+    "Εσωτερικές",
+    min_value=0
+)
+
+ext_l = c2.number_input(
+    "Εξωτερικές",
+    min_value=0
+)
 
         st.markdown("### 🌓 2α. ΕΙΔΟΣ ΓΡΑΜΜΩΝ ΦΩΤΙΣΜΟΥ")
         dim220 = st.number_input("Dimming 220V", min_value=0)
