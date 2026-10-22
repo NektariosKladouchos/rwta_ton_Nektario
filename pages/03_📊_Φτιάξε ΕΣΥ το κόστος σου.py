@@ -387,11 +387,11 @@ with tab_calc:
 
         # ---------------- ERROR DISPLAY + ANALYTICS ----------------
         if error:
-    log_event("pricing", "error", extra=error)
+           log_event("pricing", "error", extra=error)
 
-    st.warning(error)
+           st.warning(error)
 
-    disp_text = error
+        disp_text = error
         else:
             # ---------------- HVAC CALCULATIONS ----------------
             h_c_hvac = 0
