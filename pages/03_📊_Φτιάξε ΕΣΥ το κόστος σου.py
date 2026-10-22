@@ -67,30 +67,100 @@ log_event("pricing", "visit")
 # -------------------------------------------------
 # GLOBAL CSS
 # -------------------------------------------------
+
 st.markdown("""
 <style>
-    [data-testid="stSidebar"] { background-color: #0b3c26 !important; }
-    [data-testid="stSidebar"] * { color: white !important; }
-    .stApp { background-color: #f8f9fa; }
-    .display-box {
-        background-color: #ffffff; padding: 15px;
-        border: 2px solid #27ae60; border-radius: 8px;
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+
+    /* APP */
+
+    .stApp {
+        background-color: #f7f8fa;
     }
-    pre {
-        font-family: 'Consolas', monospace !important;
-        font-size: 11px !important; line-height: 1.2 !important;
-        color: #000 !important;
+
+    /* SIDEBAR */
+
+    [data-testid="stSidebar"]{
+        background:#ffffff;
+        border-right:1px solid #e5e7eb;
     }
-    .main-header { text-align: center; color: #1E3A8A; margin-top: -30px; }
-    .info-text {
-        background-color: #e8f4fd; padding: 15px;
-        border-radius: 8px; border-left: 5px solid #1E3A8A;
-        margin-bottom: 20px;
+
+    [data-testid="stSidebar"] *{
+        color:#1f2937 !important;
     }
+
+    /* RESULT BOX */
+
+    .display-box{
+        background:#ffffff;
+        padding:25px;
+        border-left:6px solid #008c95;
+        border-radius:20px;
+        box-shadow:0 8px 24px rgba(0,0,0,.06);
+    }
+
+    /* OFFER TEXT */
+
+    pre{
+        font-family:'Consolas', monospace !important;
+        font-size:13px !important;
+        line-height:1.5 !important;
+        color:#1f2937 !important;
+    }
+
+    /* HEADER */
+
+    .main-header{
+        text-align:center;
+        color:#1f2937;
+        margin-top:-15px;
+    }
+
+    /* INFO CARD */
+
+    .info-text{
+        background:linear-gradient(
+            135deg,
+            #008c95 0%,
+            #006f77 100%
+        );
+
+        color:white;
+        padding:25px;
+        border-radius:20px;
+        margin-bottom:20px;
+
+        box-shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+
+    .info-text h4{
+        color:white !important;
+    }
+
+    .info-text p{
+        color:white !important;
+    }
+
+    /* BUTTONS */
+
+    .stButton > button{
+        width:100%;
+        height:55px;
+
+        background:#008c95 !important;
+        color:white !important;
+
+        border:none !important;
+        border-radius:12px !important;
+
+        font-weight:700 !important;
+    }
+
+    .stButton > button:hover{
+        background:#006f77 !important;
+    }
+
 </style>
 """, unsafe_allow_html=True)
-
 # -------------------------------------------------
 # HEADER
 # -------------------------------------------------
