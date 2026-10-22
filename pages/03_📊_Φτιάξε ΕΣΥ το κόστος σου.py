@@ -215,28 +215,13 @@ JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχαν�
 with tab_calc:
     left, right = st.columns([1.1, 1.45])
 
-   # ---------------- LEFT COLUMN ----------------
+    # ---------------- LEFT COLUMN ----------------
+    with left:
+        st.markdown("### 👤 1. ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ")
+        v_name = st.text_input("Ονοματεπώνυμο", key="n")
+        v_job = st.selectbox("Ιδιότητα", JOBS, key="j")
+        v_addr = st.text_input("Διεύθυνση έργου", key="a")
 
-with left:
-
-    st.markdown("### 👤 Στοιχεία Πελάτη")
-
-    st.caption(
-        "Συμπληρώστε τα βασικά στοιχεία του έργου."
-    )
-
-    v_name = st.text_input("Ονοματεπώνυμο", key="n")
-
-    v_job = st.selectbox(
-        "Ιδιότητα",
-        JOBS,
-        key="j"
-    )
-
-    v_addr = st.text_input(
-        "Διεύθυνση έργου",
-        key="a"
-    )
 
         st.markdown("### 💡 2. ΦΩΤΙΣΜΟΣ")
         c1, c2 = st.columns(2)
