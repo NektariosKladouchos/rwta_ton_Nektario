@@ -118,19 +118,23 @@ st.markdown("""
     /* INFO CARD */
 
     .info-text{
-        background:linear-gradient(
-            135deg,
-            #008c95 0%,
-            #006f77 100%
-        );
 
-        color:white;
-        padding:25px;
-        border-radius:20px;
-        margin-bottom:20px;
+    background:linear-gradient(
+        135deg,
+        #008c95 0%,
+        #006f77 100%
+    );
 
-        box-shadow:0 8px 24px rgba(0,0,0,.08);
-    }
+    color:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
 
     .info-text h4{
         color:white !important;
