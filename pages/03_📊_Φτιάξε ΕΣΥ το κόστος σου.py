@@ -180,7 +180,8 @@ st.caption(
     "Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER"
 )
 
-st.info(
+st.success(
+
     """
 🏠 LIVE PRICING SYSTEM
 
