@@ -204,7 +204,7 @@ st.markdown(
     <h1 style="
         text-align:center;
         color:#2f3446;
-        font-size:64px;
+        font-size:48px;
         font-weight:800;
         margin-bottom:10px;
     ">
