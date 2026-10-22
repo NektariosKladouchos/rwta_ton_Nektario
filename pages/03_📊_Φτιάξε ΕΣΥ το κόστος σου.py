@@ -288,18 +288,18 @@ with tab_calc:
          label_h = "Ποσότητα"
 
          if h_type in ["Καλοριφέρ", "Ενδοδαπέδια"]:
-         label_h = "Αριθμός Θερμοστατών"
+            label_h = "Αριθμός Θερμοστατών"
          elif "Fancoil" in h_type or h_type == "VRV/VRF":
-         label_h = "Αριθμός Εσωτερικών Μονάδων"
+             label_h = "Αριθμός Εσωτερικών Μονάδων"
          elif h_type == "Split Κλιματιστικά":
-         label_h = "Αριθμός Κλιματιστικών"
+             label_h = "Αριθμός Κλιματιστικών"
          elif h_type == "Θερμαντικά σώματα":
-         label_h = "Αριθμός Σωμάτων"
+             label_h = "Αριθμός Σωμάτων"
 
          h_qty_input = st.number_input(
-         label_h,
-         min_value=0,
-         key="hq_val"
+             label_h,
+             min_value=0,
+             key="hq_val"
          )
 
          h_qty = 0 if h_type == "Κανένα" else h_qty_input
