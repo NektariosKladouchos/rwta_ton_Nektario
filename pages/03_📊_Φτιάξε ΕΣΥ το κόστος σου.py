@@ -184,7 +184,7 @@ st.markdown(
     <style>
    .hero-small{
     color:#008c95;
-    font-size:12px;
+    font-size:11px;
     font-weight:700;
     letter-spacing:4px;
     text-align:center;
@@ -218,7 +218,7 @@ st.markdown(
     <p style="
         text-align:center;
         color:#8b8f9a;
-        font-size:22px;
+        font-size:18px;
     ">
         Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER
     </p>
