@@ -182,12 +182,13 @@ div[data-testid="stAlert"] *{
 st.markdown(
     """
     <style>
-    .hero-small{
-        color:#008c95;
-        font-size:14px;
-        font-weight:700;
-        letter-spacing:3px;
-    }
+   .hero-small{
+    color:#008c95;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:4px;
+    text-align:center;
+}
     </style>
     """,
     unsafe_allow_html=True
