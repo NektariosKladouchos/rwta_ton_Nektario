@@ -90,13 +90,13 @@ st.markdown("""
 
     /* RESULT BOX */
 
-    .display-box{
-        background:#ffffff;
-        padding:25px;
-        border-left:6px solid #008c95;
-        border-radius:20px;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-    }
+   .display-box{
+    background:#ffffff;
+    padding:35px;
+    border-top:5px solid #008c95;
+    border-radius:24px;
+    box-shadow:0 12px 32px rgba(0,0,0,.08);
+}
 
     /* OFFER TEXT */
 
