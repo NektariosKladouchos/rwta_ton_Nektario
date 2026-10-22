@@ -179,7 +179,24 @@ div[data-testid="stAlert"] *{
 
 </style>
 """, unsafe_allow_html=True)
-st.markdown("### GEYER SMART")
+st.markdown(
+    """
+    <style>
+    .hero-small{
+        color:#008c95;
+        font-size:14px;
+        font-weight:700;
+        letter-spacing:3px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<div class='hero-small'>GEYER SMART</div>",
+    unsafe_allow_html=True
+)
 
 st.title("Φτιάξε εσύ την προσφορά σου")
 
@@ -187,15 +204,7 @@ st.caption(
     "Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER"
 )
 
-st.success(
-    """
-🏠 LIVE PRICING SYSTEM
-
-Δημιουργήστε τη δική σας ζήτηση Smart Home,
-υπολογίστε ενδεικτικό κόστος υλικών και
-αποστείλετέ την απευθείας στην GEYER.
-"""
-)
+st.write("")
 # -------------------------------------------------
 # TABS
 # -------------------------------------------------
