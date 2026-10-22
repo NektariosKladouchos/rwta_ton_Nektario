@@ -331,26 +331,18 @@ with tab_calc:
 
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
         
-   # ---------------- RIGHT COLUMN ----------------
-   with right:
-       st.markdown(
-        """
-        <div class='info-text'>
-            <h4 style='margin-top:0;'>🏠 LIVE PRICING SYSTEM</h4>
+      with right:
+        st.markdown(
+            """
+            <div class='info-text'>
+                <h4 style='margin-top:0;'>🏠 Υπολογισμός Smart Home από την GEYER</h4>
+                Φτιάξτε τα υλικά της ζήτησης με βάση το κόστος και τις ανάγκες σας και στείλτε μου email. 
+                Βάλτε τα στοιχεία επικοινωνίας σας στις παρατηρήσεις.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-            Υπολογίστε άμεσα το κόστος ενός έργου Smart Home GEYER
-            με βάση τις πραγματικές ανάγκες της εγκατάστασής σας.
-
-            Συμπληρώστε τα στοιχεία του έργου, ελέγξτε την
-            αναλυτική προσφορά και αποστείλετέ την απευθείας
-            για αξιολόγηση.
-
-            📧 Μην ξεχάσετε να συμπεριλάβετε τα στοιχεία επικοινωνίας
-            σας στις παρατηρήσεις.
-        </div>
-        """,
-        unsafe_allow_html=True
-       )
 
         # ---------------- VALIDATION ----------------
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
