@@ -199,10 +199,31 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("Φτιάξε εσύ την προσφορά σου")
-
-st.caption(
-    "Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER"
+st.markdown(
+    """
+    <h1 style="
+        text-align:center;
+        color:#2f3446;
+        font-size:64px;
+        font-weight:800;
+        margin-bottom:10px;
+    ">
+        Φτιάξε εσύ την προσφορά σου
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
+st.markdown(
+    """
+    <p style="
+        text-align:center;
+        color:#8b8f9a;
+        font-size:22px;
+    ">
+        Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER
+    </p>
+    """,
+    unsafe_allow_html=True
 )
 
 st.write("")
