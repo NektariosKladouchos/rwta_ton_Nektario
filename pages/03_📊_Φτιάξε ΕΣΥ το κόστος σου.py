@@ -117,7 +117,7 @@ st.markdown("""
 
     /* INFO CARD */
 
-    .info-text{
+    
 
     .info-text{
 
