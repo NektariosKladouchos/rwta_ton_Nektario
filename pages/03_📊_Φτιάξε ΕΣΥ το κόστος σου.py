@@ -341,7 +341,7 @@ with tab_calc:
         
       # ---------------- RIGHT COLUMN ----------------
     with right:
-    st.markdown(
+        st.markdown(
         """
         <div class='info-text'>
             <h4 style='margin-top:0;font-size:24px;color:white;'>
