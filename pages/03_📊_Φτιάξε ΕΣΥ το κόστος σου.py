@@ -161,90 +161,25 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
-# -------------------------------------------------
-# HEADER
-# -------------------------------------------------
+st.markdown("### GEYER SMART")
 
-st.markdown(
-    """
-    <p style="
-        text-align:center;
-        color:#008c95;
-        font-size:13px;
-        font-weight:700;
-        letter-spacing:3px;
-        margin-bottom:5px;
-    ">
-        GEYER SMART
-    </p>
-    """,
-    unsafe_allow_html=True
+st.title("Φτιάξε εσύ την προσφορά σου")
+
+st.caption(
+    "Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER"
 )
 
-st.markdown(
+st.info(
     """
-    <h1 style="
-        text-align:center;
-        color:#1f2937;
-        font-size:58px;
-        font-weight:800;
-        margin-bottom:10px;
-    ">
-        Φτιάξε εσύ την προσφορά σου
-    </h1>
-    """,
-    unsafe_allow_html=True
+🏠 LIVE PRICING SYSTEM
+
+Δημιουργήστε τη δική σας ζήτηση Smart Home,
+υπολογίστε ενδεικτικό κόστος υλικών και
+αποστείλετέ την απευθείας στην GEYER.
+"""
 )
 
-st.markdown(
-    """
-    <p style="
-        text-align:center;
-        color:#6b7280;
-        font-size:20px;
-        font-weight:500;
-        margin-bottom:20px;
-    ">
-        Διαδραστικός υπολογισμός κόστους Smart Home με τεχνολογία GEYER
-    </p>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    """
-    <div style="
-        background:white;
-        border-left:6px solid #008c95;
-        padding:25px;
-        border-radius:20px;
-        box-shadow:0 8px 24px rgba(0,0,0,.06);
-        margin-bottom:30px;
-    ">
-
-        <div style="
-            color:#008c95;
-            font-size:22px;
-            font-weight:700;
-            margin-bottom:10px;
-        ">
-            LIVE PRICING SYSTEM
-        </div>
-
-        <div style="
-            color:#4b5563;
-            font-size:16px;
-            line-height:1.8;
-        ">
-            Δημιουργήστε τη δική σας ζήτηση Smart Home,
-            υπολογίστε ενδεικτικό κόστος υλικών και
-            αποστείλετέ την απευθείας στην GEYER.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.write("")
 
 # -------------------------------------------------
 # TABS
