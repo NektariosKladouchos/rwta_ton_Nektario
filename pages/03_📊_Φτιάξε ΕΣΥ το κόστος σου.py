@@ -184,7 +184,14 @@ st.write("")
 # -------------------------------------------------
 # TABS
 # -------------------------------------------------
-tab_calc, tab_help = st.tabs(["📊 LIVE PRICING", "📝 ΟΔΗΓΙΕΣ"])
+tab_calc, tab_help = st.tabs(
+    ["📊 LIVE PRICING", "📝 ΟΔΗΓΙΕΣ"]
+)
+
+st.markdown(
+    "<div style='height:20px'></div>",
+    unsafe_allow_html=True
+)
 # -------------------------------------------------
 # ΤΙΜΟΚΑΤΑΛΟΓΟΣ GEYER
 # -------------------------------------------------
@@ -200,14 +207,7 @@ PRICES = {
 BRANDS = ["Daikin", "LG", "Toshiba", "Fujitsu", "Mitsubishi", "Panasonic", "Midea", "Άλλη"]
 JOBS = ["", "Ηλεκτρολόγος", "Αρχιτέκτονας", "Μηχανικός", "Κατασκευαστής", "Ιδιώτης"]
 
-tab_calc, tab_help = st.tabs(
-    ["📊 LIVE PRICING", "📝 ΟΔΗΓΙΕΣ"]
-)
 
-st.markdown(
-    "<div style='height:20px'></div>",
-    unsafe_allow_html=True
-)
 
 # =================================================
 # 1. LIVE PRICING TAB
