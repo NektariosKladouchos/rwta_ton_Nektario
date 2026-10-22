@@ -217,12 +217,20 @@ with tab_calc:
 
     # ---------------- LEFT COLUMN ----------------
     with left:
-        st.markdown("### 👤 1. ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ")
+        st.markdown("### 👤 Στοιχεία Πελάτη")
+
         v_name = st.text_input("Ονοματεπώνυμο", key="n")
-        v_job = st.selectbox("Ιδιότητα", JOBS, key="j")
-        v_addr = st.text_input("Διεύθυνση έργου", key="a")
 
+        v_job = st.selectbox(
+            "Ιδιότητα",
+            JOBS,
+            key="j"
+        )
 
+        v_addr = st.text_input(
+            "Διεύθυνση έργου",
+            key="a"
+        )
         st.markdown("### 💡 2. ΦΩΤΙΣΜΟΣ")
         c1, c2 = st.columns(2)
         int_l = c1.number_input("Εσωτερικές", min_value=0)
