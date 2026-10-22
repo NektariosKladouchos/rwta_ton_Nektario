@@ -332,7 +332,7 @@ with tab_calc:
         heater = st.checkbox("Έλεγχος Θερμοσίφωνα")
         
    # ---------------- RIGHT COLUMN ----------------
-with right:
+ with right:
     st.markdown(
         """
         <div class='info-text'>
@@ -350,7 +350,7 @@ with right:
         </div>
         """,
         unsafe_allow_html=True
-    )
+     )
 
         # ---------------- VALIDATION ----------------
         on_off = (int_l + ext_l) - (dim220 + dim110 + led + dali + (double * 2))
