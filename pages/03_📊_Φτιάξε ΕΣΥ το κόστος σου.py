@@ -669,19 +669,14 @@ with tab_help:
 
     st.write("")
 
-   st.markdown(
+    st.info(
     """
-    <div class='info-text'>
-
 📘 ΟΔΗΓΙΕΣ ΧΡΗΣΗΣ
 
 Ακολουθήστε τα παρακάτω βήματα για να δημιουργήσετε
 σωστά τη ζήτησή σας και να υπολογίσετε το κόστος
 ενός έργου Smart Home GEYER.
-
-    </div>
-    """,
-    unsafe_allow_html=True
+"""
 )
 
     st.write("")
