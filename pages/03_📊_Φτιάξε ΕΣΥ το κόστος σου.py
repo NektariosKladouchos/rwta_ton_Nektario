@@ -671,7 +671,7 @@ with tab_help:
 
     st.markdown(
     """
-    
+    <div class='info-text'>
 
 📘 ΟΔΗΓΙΕΣ ΧΡΗΣΗΣ
 
