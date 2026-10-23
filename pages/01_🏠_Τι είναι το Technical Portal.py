@@ -95,34 +95,38 @@ st.markdown(
         padding-top:2rem;
         padding-bottom:3rem;
     }
-    /* NAVIGATION */
+   /* NAVIGATION */
 
-    [data-testid="stSidebarNav"] a{
-        border-radius:10px;
-        margin-bottom:4px;
-    }
+[data-testid="stSidebarNav"] a{
+    border-radius:12px;
+    margin-bottom:6px;
+    transition:0.2s;
+}
 
-    [data-testid="stSidebarNav"]::before{
-        content:"GEYER SMART";
-        display:block;
-        padding:15px 20px;
+[data-testid="stSidebarNav"]::before{
+    content:"GEYER SMART";
+    display:block;
+    padding:15px 20px;
 
-        color:#008c95;
-        font-size:13px;
-        font-weight:700;
-        letter-spacing:3px;
-    }
+    color:#008c95;
 
-    [data-testid="stSidebarNav"] a:hover{
-        background:rgba(0,140,149,0.08);
-    }
+    font-size:12px;
+    font-weight:700;
 
-    [data-testid="stSidebarNav"] a[aria-current="page"]{
-        background:rgba(0,140,149,0.12);
-        color:#008c95 !important;
-        font-weight:600;
-    }
+    letter-spacing:4px;
 
+    text-align:center;
+}
+
+[data-testid="stSidebarNav"] a:hover{
+    background:rgba(0,140,149,0.08);
+}
+
+[data-testid="stSidebarNav"] a[aria-current="page"]{
+    background:rgba(0,140,149,0.12);
+    color:#008c95 !important;
+    font-weight:700;
+}
     h1,h2,h3{
         color:#1f2937;
     }
