@@ -808,7 +808,7 @@ with tab_help:
 
     with st.expander("🎯 Τελική Συμβουλή"):
 
-    st.markdown(
+        st.markdown(
         """
         <div class='info-text'>
 
