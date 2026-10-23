@@ -146,7 +146,24 @@ st.markdown("""
     color:white !important;
 }
 
+/* GEYER ALERT BOXES */
 
+div[data-testid="stAlert"]{
+    background:linear-gradient(
+        135deg,
+        #008c95 0%,
+        #006f77 100%
+    ) !important;
+
+    color:white !important;
+    border:none !important;
+    border-radius:20px !important;
+    padding:15px !important;
+}
+
+div[data-testid="stAlert"] *{
+    color:white !important;
+}
     /* BUTTONS */
 
     .stButton > button{
