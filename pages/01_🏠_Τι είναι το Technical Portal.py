@@ -95,37 +95,24 @@ st.markdown(
         padding-top:2rem;
         padding-bottom:3rem;
     }
-   /* NAVIGATION */
+  /* =======================================================
+   SIDEBAR
+======================================================= */
 
-[data-testid="stSidebarNav"] a{
-    border-radius:12px;
-    margin-bottom:6px;
-    transition:0.2s;
+[data-testid="stSidebar"] {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding-top: 20px;
 }
 
-[data-testid="stSidebarNav"]::before{
-    content:"GEYER SMART";
-    display:block;
-    padding:15px 20px;
-
-    color:#008c95;
-
-    font-size:12px;
-    font-weight:700;
-
-    letter-spacing:4px;
-
-    text-align:center;
+[data-testid="stSidebar"] * {
+    color: #1f2937 !important;
 }
 
-[data-testid="stSidebarNav"] a:hover{
-    background:rgba(0,140,149,0.08);
-}
-
-[data-testid="stSidebarNav"] a[aria-current="page"]{
-    background:rgba(0,140,149,0.12);
-    color:#008c95 !important;
-    font-weight:700;
+[data-testid="stSidebar"] input {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-radius: 10px !important;
 }
     h1,h2,h3{
         color:#1f2937;
