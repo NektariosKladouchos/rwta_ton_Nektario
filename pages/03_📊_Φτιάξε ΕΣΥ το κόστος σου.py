@@ -669,7 +669,7 @@ with tab_help:
 
     st.write("")
 
-   st.markdown(
+    st.markdown(
     """
     <div class='info-text'>
 
