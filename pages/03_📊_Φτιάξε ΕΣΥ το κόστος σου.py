@@ -805,7 +805,7 @@ with tab_help:
 - Κενά στοιχεία πελάτη
 """)
 
-   with st.expander("🎯 Τελική Συμβουλή"):
+     with st.expander("🎯 Τελική Συμβουλή"):
 
         st.markdown(
         """
