@@ -770,10 +770,20 @@ with tab_help:
 # Δεν απαιτείται άλλη εντολή — το αρχείο ολοκληρώνεται εδώ.
 # -------------------------------------------------
 
-
 st.write("")
 st.write("")
 
-st.caption(
-    "© 2026 GEYER Smart Hellas | Technical Portal"
+st.markdown(
+    """
+    <div class="footer" style="
+        text-align:center;
+        color:#9ca3af;
+        font-size:13px;
+        font-weight:500;
+        padding:20px;
+    ">
+        © 2026 GEYER Smart Hellas | Technical Portal
+    </div>
+    """,
+    unsafe_allow_html=True
 )
