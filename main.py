@@ -413,11 +413,15 @@ with col2:
 # FOOTER
 # ---------------------------------------------------------
 
-st.write("---")
-
 st.markdown(
     """
-    <div class="footer">
+    <div class="footer" style="
+        text-align:center;
+        color:#9ca3af;
+        font-size:13px;
+        font-weight:500;
+        padding:20px;
+    ">
         © 2026 GEYER Smart Hellas | Technical Portal
     </div>
     """,
