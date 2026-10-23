@@ -679,7 +679,6 @@ with tab_help:
 σωστά τη ζήτησή σας και να υπολογίσετε το κόστος
 ενός έργου Smart Home GEYER.
 
-    </div>
     """,
     unsafe_allow_html=True
 )
