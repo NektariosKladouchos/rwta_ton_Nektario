@@ -146,24 +146,7 @@ st.markdown("""
     color:white !important;
 }
 
-/* GEYER ALERT BOXES */
 
-div[data-testid="stAlert"]{
-    background:linear-gradient(
-        135deg,
-        #008c95 0%,
-        #006f77 100%
-    ) !important;
-
-    color:white !important;
-    border:none !important;
-    border-radius:20px !important;
-    padding:15px !important;
-}
-
-div[data-testid="stAlert"] *{
-    color:white !important;
-}
     /* BUTTONS */
 
     .stButton > button{
@@ -686,14 +669,19 @@ with tab_help:
 
     st.write("")
 
-    st.info(
+   st.markdown(
     """
+    <div class='info-text'>
+
 📘 ΟΔΗΓΙΕΣ ΧΡΗΣΗΣ
 
 Ακολουθήστε τα παρακάτω βήματα για να δημιουργήσετε
 σωστά τη ζήτησή σας και να υπολογίσετε το κόστος
 ενός έργου Smart Home GEYER.
-"""
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
     st.write("")
