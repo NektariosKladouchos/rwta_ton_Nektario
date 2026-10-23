@@ -659,9 +659,9 @@ with tab_calc:
 
 with tab_help:
 
-    st.markdown("### GEYER SMART")
+    
 
-    st.title("📝 Οδηγίες Χρήσης του LIVE PRICING")
+    st.subheader("📝 Οδηγίες Χρήσης του LIVE PRICING")
 
     st.caption(
         "Οδηγός χρήσης του συστήματος κοστολόγησης GEYER Smart Home"
@@ -669,15 +669,15 @@ with tab_help:
 
     st.write("")
 
-    st.success(
-        """
+    st.info(
+    """
 📘 ΟΔΗΓΙΕΣ ΧΡΗΣΗΣ
 
 Ακολουθήστε τα παρακάτω βήματα για να δημιουργήσετε
 σωστά τη ζήτησή σας και να υπολογίσετε το κόστος
 ενός έργου Smart Home GEYER.
 """
-    )
+)
 
     st.write("")
 
