@@ -669,7 +669,7 @@ with tab_help:
 
     st.write("")
 
-    st.markdown(
+   st.markdown(
     """
     <div class='info-text'>
 
@@ -679,6 +679,7 @@ with tab_help:
 σωστά τη ζήτησή σας και να υπολογίσετε το κόστος
 ενός έργου Smart Home GEYER.
 
+    </div>
     """,
     unsafe_allow_html=True
 )
@@ -805,25 +806,22 @@ with tab_help:
 - Κενά στοιχεία πελάτη
 """)
 
-   with st.expander("🎯 Τελική Συμβουλή"):
+    with st.expander("🎯 Τελική Συμβουλή"):
 
-    st.markdown(
-        """
-        <div class='info-text'>
-
+        st.info(
+            """
 Αν έχεις αμφιβολία για κάτι, βάλε μια σημείωση στις παρατηρήσεις.
 
 Θα το δω προσωπικά και θα σε καθοδηγήσω.
+"""
+        )
 
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.write("")
+    st.write("---")
+
+    st.caption(
+        "© 2026 GEYER Smart Hellas | Live Pricing System"
     )
-
-    st.write("")
-    st.write("")
-
- 
 # -------------------------------------------------
 # Δεν απαιτείται άλλη εντολή — το αρχείο ολοκληρώνεται εδώ.
 # -------------------------------------------------
