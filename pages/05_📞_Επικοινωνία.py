@@ -262,7 +262,26 @@ if st.button("🏠 ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΑΡΧΙΚΗ"):
     log_event("contact", "home_click")
 
     st.switch_page("main.py")
+# ---------------------------------------------------------
+# FOOTER
+# ---------------------------------------------------------
 
+st.write("")
+st.write("---")
+
+st.markdown(
+    """
+    <div style="
+        text-align:center;
+        color:#9ca3af;
+        font-size:13px;
+        padding:15px 0;
+    ">
+        © 2026 GEYER Smart Hellas | Επικοινωνία & Υποστήριξη
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
