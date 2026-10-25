@@ -201,9 +201,7 @@ st.write("")
 # ---------------------------------------------------------
 col1, col2 = st.columns(2)
 with col1:
-    if st.button("👤 View Support Card", key="support_card"):
-        log_event("contact", "open_card", extra="support")
-
+   
     st.markdown(f"""
     <div class='contact-card'>
         <h3 style='color: #1E3A8A;'>👤 Τεχνική Υποστήριξη</h3>
@@ -214,9 +212,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
-    if st.button("🏢 View Company Card", key="company_card"):
-        log_event("contact", "open_card", extra="company")
-
+    
     st.markdown("""
     <div class='contact-card'>
         <h3>🏢 GEYER HELLAS Α.Ε.</h3>
