@@ -201,36 +201,34 @@ st.write("")
 # ---------------------------------------------------------
 # CONTACT CARDS
 # ---------------------------------------------------------
+
 col1, col2 = st.columns(2)
+
 with col1:
 
-    st.markdown("""
-    <div class='contact-card'>
-        <h3 style='color:#008c95;'>👤 Τεχνική Υποστήριξη</h3>
+    st.info("""
+👤 Τεχνική Υποστήριξη
 
-        <p><span class='info-label'>Υπεύθυνος:</span> Νεκτάριος Κλαδούχος</p>
+Υπεύθυνος: Νεκτάριος Κλαδούχος
 
-        <p><span class='info-label'>Τηλέφωνο:</span> 6936803610</p>
+Τηλέφωνο: 6936803610
 
-        <p><span class='info-label'>Email:</span> kladouxos@geyer.gr</p>
-
-    </div>
-    """, unsafe_allow_html=True)
+Email: kladouxos@geyer.gr
+""")
 
 with col2:
 
-    st.markdown("""
-    <div class='contact-card'>
-        <h3 style='color:#008c95;'>🏢 GEYER HELLAS Α.Ε.</h3>
+    st.info("""
+🏢 GEYER HELLAS Α.Ε.
 
-        <p><span class='info-label'>📍 Διεύθυνση:</span>
-        2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας</p>
+📍 Διεύθυνση:
+2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
 
-        <p><span class='info-label'>☎️ Τηλ. Κέντρο:</span>
-        22620 31257</p>
+☎️ Τηλ. Κέντρο:
+22620 31257
+""")
 
-    </div>
-    """, unsafe_allow_html=True)
+st.write("---")
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
