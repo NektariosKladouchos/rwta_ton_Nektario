@@ -127,6 +127,9 @@ st.markdown(
         textarea::placeholder {
             color: #444 !important;
         }
+        div[data-testid="stAlert"]{
+    border-radius:24px !important;
+}
     </style>
     """,
     unsafe_allow_html=True
