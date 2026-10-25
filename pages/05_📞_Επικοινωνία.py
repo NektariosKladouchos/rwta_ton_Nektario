@@ -193,12 +193,6 @@ st.markdown(
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
 
-c1, c2, c3 = st.columns([1,1,1])
-
-with c2:
-    if st.button("▶️ Play Video", key="video_contact"):
-        log_event("contact", "video_play")
-
 st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
 st.write("")
