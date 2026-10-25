@@ -131,7 +131,19 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+h3{
+    text-align:center;
+    color:#008c95 !important;
+    letter-spacing:4px;
+}
 
+h1{
+    text-align:center;
+}
+
+p{
+    text-align:center;
+}
 # GEYER GREEN CSS
 st.markdown("""
     <style>
