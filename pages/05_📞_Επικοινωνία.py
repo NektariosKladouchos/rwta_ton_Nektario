@@ -185,20 +185,23 @@ st.write("")
 # ---------------------------------------------------------
 # VIDEO SECTION
 # ---------------------------------------------------------
-st.markdown("<h3 style='color: #27ae60;'>##🎥 Ρώτα τον Νεκτάριο</h3>", unsafe_allow_html=True)
+
+st.markdown(
+    "<h3 style='color:#008c95;'>🎥 Ρώτα τον Νεκτάριο</h3>",
+    unsafe_allow_html=True
+)
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
+
 c1, c2, c3 = st.columns([1,1,1])
 
 with c2:
-    if st.button("▶️ Play Video"):
+    if st.button("▶️ Play Video", key="video_contact"):
         log_event("contact", "video_play")
-   
-        st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
+st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
-st.write("---")
-
+st.write("")
 # ---------------------------------------------------------
 # CONTACT CARDS
 # ---------------------------------------------------------
