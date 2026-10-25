@@ -135,7 +135,7 @@ st.markdown(
 # GEYER GREEN CSS
 st.markdown("""
     <style>
-    .main-title { color: #27ae60; font-weight: bold; text-align: center; margin-bottom: 20px; }
+    .main-title { color: #008c95; font-weight: bold; text-align: center; margin-bottom: 20px; }
     .video-card {
     background: #ffffff;
     padding: 30px;
@@ -184,7 +184,7 @@ st.write("")
 # ---------------------------------------------------------
 # VIDEO SECTION
 # ---------------------------------------------------------
-st.markdown("<div class='video-card'>", unsafe_allow_html=True)
+st.subheader("🎥 Ρώτα τον Νεκτάριο")
 st.markdown("<h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</h3>", unsafe_allow_html=True)
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
@@ -194,7 +194,7 @@ if st.button("▶️ Play Video"):
 
 st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
-st.markdown("</div>", unsafe_allow_html=True)
+
 st.write("---")
 
 # ---------------------------------------------------------
