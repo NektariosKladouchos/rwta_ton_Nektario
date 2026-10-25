@@ -209,32 +209,30 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.markdown("""
-    <div class='info-text'>
+    st.success("""
+👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ
 
-    👤 Τεχνική Υποστήριξη
+Υπεύθυνος:
+Νεκτάριος Κλαδούχος
 
-    Υπεύθυνος: Νεκτάριος Κλαδούχος
+Τηλέφωνο:
+6936803610
 
-    Τηλέφωνο: 6936803610
-
-    Email: kladouxos@geyer.gr
-
-    </div>
-    """, unsafe_allow_html=True)
+Email:
+kladouxos@geyer.gr
+""")
 
 with col2:
 
-    st.markdown("""
-    <div class='info-text'>
+    st.success("""
+🏢 GEYER HELLAS Α.Ε.
 
-    🏢 GEYER HELLAS Α.Ε.
+📍 Διεύθυνση:
+2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
 
-    📍 Διεύθυνση:
-    2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
-
-    ☎️ Τηλ. Κέντρο:
-    22620 31257
+☎️ Τηλ. Κέντρο:
+22620 31257
+""")
 
     </div>
     """, unsafe_allow_html=True)
