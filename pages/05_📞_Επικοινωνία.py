@@ -102,15 +102,21 @@ log_event("contact", "visit")
 st.markdown(
     """
     <style>
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        [data-testid="stSidebar"] * {
-            color: white !important;
-        }
-        [data-testid="stSidebar"] svg {
-            fill: white !important;
-        }
+       [data-testid="stSidebar"] {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding-top: 20px;
+}
+
+[data-testid="stSidebar"] * {
+    color: #1f2937 !important;
+}
+
+[data-testid="stSidebar"] input {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-radius: 10px !important;
+}
         input, textarea, .stTextInput input, .stTextArea textarea {
             color: black !important;
         }
