@@ -158,43 +158,16 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <div style="text-align:center; margin-top:10px;">
+st.markdown("### GEYER SMART")
 
-        <div style="
-            color:#008c95;
-            font-size:12px;
-            font-weight:700;
-            letter-spacing:5px;
-            margin-bottom:20px;
-        ">
-            GEYER SMART
-        </div>
+st.title("📞 Επικοινωνία & Υποστήριξη")
 
-        <div style="
-            color:#1e293b;
-            font-size:64px;
-            font-weight:800;
-            line-height:1.1;
-        ">
-            Επικοινωνία & Υποστήριξη
-        </div>
-
-        <div style="
-            color:#6b7280;
-            font-size:20px;
-            margin-top:20px;
-            margin-bottom:40px;
-        ">
-            Επικοινωνία με την ομάδα υποστήριξης GEYER Smart Home
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.caption(
+    "Επικοινωνία με την ομάδα υποστήριξης GEYER Smart Home"
 )
 
+st.write("")
+st.write("")
 # ---------------------------------------------------------
 # VIDEO SECTION
 # ---------------------------------------------------------
