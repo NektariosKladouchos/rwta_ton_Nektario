@@ -158,7 +158,8 @@ st.markdown("""
 h3{
     text-align:center;
     color:#008c95 !important;
-    letter-spacing:4px;
+    letter-spacing:5px;
+    font-size:12px !important;
 }
 
 h1{
