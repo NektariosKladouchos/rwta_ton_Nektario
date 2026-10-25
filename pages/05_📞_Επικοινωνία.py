@@ -193,9 +193,7 @@ c1, c2, c3 = st.columns([1,1,1])
 with c2:
     if st.button("▶️ Play Video"):
         log_event("contact", "video_play")
-    if st.button("▶️ Play Video"):
-        log_event("contact", "video_play")
-
+   
         st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
 
