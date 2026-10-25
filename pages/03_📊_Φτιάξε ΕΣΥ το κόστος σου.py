@@ -120,11 +120,11 @@ st.markdown("""
 
     color:white !important;
 
-    font-size:17px;
+    font-size:16px;
 
     line-height:1.8;
 
-    padding:40px;
+    padding:30px;
 
     border-radius:24px;
 
