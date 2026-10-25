@@ -117,6 +117,9 @@ st.markdown(
     color: #111827 !important;
     border-radius: 10px !important;
 }
+.stApp {
+    background-color: #f8fafc;
+}
         input, textarea, .stTextInput input, .stTextArea textarea {
             color: black !important;
         }
