@@ -130,8 +130,8 @@ st.markdown(
       div[data-testid="stAlert"]{
     background:linear-gradient(
         135deg,
-        #00757c 0%,
-        #00666d 100%
+        #008c95 0%,
+        #006f77 100%
     ) !important;
 
     color:white !important;
@@ -139,8 +139,6 @@ st.markdown(
     border:none !important;
 
     border-radius:24px !important;
-
-    min-height:220px !important;
 
     box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
 }
