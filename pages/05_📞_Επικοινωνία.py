@@ -188,7 +188,11 @@ st.write("")
 st.markdown("<h3 style='color: #27ae60;'>🎥 Ρώτα τον Νεκτάριο</h3>", unsafe_allow_html=True)
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
+c1, c2, c3 = st.columns([1,1,1])
 
+with c2:
+    if st.button("▶️ Play Video"):
+        log_event("contact", "video_play")
 if st.button("▶️ Play Video"):
     log_event("contact", "video_play")
 
