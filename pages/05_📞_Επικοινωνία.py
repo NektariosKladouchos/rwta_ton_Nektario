@@ -150,7 +150,13 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='main-title'>📞 Επικοινωνία & Υποστήριξη</h1>", unsafe_allow_html=True)
+st.title("📞 Επικοινωνία & Υποστήριξη")
+
+st.caption(
+    "Επικοινωνία με την ομάδα υποστήριξης GEYER Smart Home"
+)
+
+st.write("")
 
 # ---------------------------------------------------------
 # VIDEO SECTION
