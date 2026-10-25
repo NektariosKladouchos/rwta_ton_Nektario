@@ -137,10 +137,12 @@ st.markdown("""
     <style>
     .main-title { color: #27ae60; font-weight: bold; text-align: center; margin-bottom: 20px; }
     .video-card {
-        background-color: #ffffff; padding: 25px; border-radius: 15px; 
-        box-shadow: 0px 4px 20px rgba(0,0,0,0.1); border-top: 5px solid #27ae60;
-        text-align: center; margin-bottom: 30px;
-    }
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    border-top: 5px solid #008c95;
+}
     .contact-card {
         background-color: #ffffff; padding: 25px; border-radius: 15px; 
         box-shadow: 0px 4px 10px rgba(0,0,0,0.05); border-left: 8px solid #27ae60;
