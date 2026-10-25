@@ -127,12 +127,24 @@ st.markdown(
         textarea::placeholder {
             color: #444 !important;
         }
-       div[data-testid="stAlert"]{
-    background:#ffffff !important;
-    border-top:5px solid #008c95 !important;
+      div[data-testid="stAlert"]{
+    background:linear-gradient(
+        135deg,
+        #008c95 0%,
+        #006f77 100%
+    ) !important;
+
+    color:white !important;
+
+    border:none !important;
+
     border-radius:24px !important;
-    color:#1f2937 !important;
+
     box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+}
+
+div[data-testid="stAlert"] *{
+    color:white !important;
 }
     </style>
     """,
