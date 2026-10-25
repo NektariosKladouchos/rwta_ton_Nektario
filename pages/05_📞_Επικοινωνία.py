@@ -155,6 +155,19 @@ st.markdown("""
     color: #008c95;
     font-weight: 700;
 }
+h3{
+    text-align:center;
+    color:#008c95 !important;
+    letter-spacing:4px;
+}
+
+h1{
+    text-align:center !important;
+}
+
+p{
+    text-align:center;
+}
     </style>
     """, unsafe_allow_html=True)
 
