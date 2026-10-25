@@ -143,11 +143,14 @@ st.markdown("""
     box-shadow: 0 8px 24px rgba(0,0,0,.08);
     border-top: 5px solid #008c95;
 }
-    .contact-card {
-        background-color: #ffffff; padding: 25px; border-radius: 15px; 
-        box-shadow: 0px 4px 10px rgba(0,0,0,0.05); border-left: 8px solid #27ae60;
-        min-height: 200px;
-    }
+   .contact-card {
+    background:#ffffff;
+    padding:30px;
+    border-radius:24px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    border-left:6px solid #008c95;
+    min-height:200px;
+}
     .info-label { color: #27ae60; font-weight: bold; }
     </style>
     """, unsafe_allow_html=True)
