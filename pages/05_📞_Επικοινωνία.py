@@ -151,7 +151,10 @@ st.markdown("""
     border-left:6px solid #008c95;
     min-height:200px;
 }
-    .info-label { color: #27ae60; font-weight: bold; }
+   .info-label {
+    color: #008c95;
+    font-weight: 700;
+}
     </style>
     """, unsafe_allow_html=True)
 
