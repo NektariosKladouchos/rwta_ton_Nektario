@@ -148,9 +148,7 @@ button[data-baseweb="tab"][aria-selected="true"]{
 .stButton > button:hover{
     background:#006f77 !important;
 }
-div[data-baseweb="tab-list"]{
-    justify-content:center;
-}
+
 </style>
 """, unsafe_allow_html=True)
 # PAGE TITLE
