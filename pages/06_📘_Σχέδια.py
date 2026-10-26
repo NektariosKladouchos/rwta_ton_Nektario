@@ -312,13 +312,15 @@ with tab1:
         "Επιλέξτε σχέδιο:",
         files
     )
+    st.markdown(f"### 📘 {clean_title}")
+    
 
     log_event(
         "sxedia",
         "open_design",
         extra=choice
     )
-
+    st.write("")
     img_path = os.path.join(folder, choice)
 
     st.image(
