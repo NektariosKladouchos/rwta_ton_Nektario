@@ -313,7 +313,11 @@ with tab1:
         files
     )
 
-    log_event("sxedia", "open_design", extra=choice)
+    log_event(
+        "sxedia",
+        "open_design",
+        extra=choice
+    )
 
     img_path = os.path.join(folder, choice)
 
@@ -343,7 +347,32 @@ with tab1:
             else clean_title
         )
 
-    with st.expander("📝 Γρήγορη Επεξή
+    with st.expander(
+        "📝 Γρήγορη Επεξήγηση"
+    ):
+        st.write(
+            info["description"]
+            if info["description"]
+            else "Δεν υπάρχει περιγραφή."
+        )
+
+    with st.expander(
+        "⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος"
+    ):
+        st.write(
+            info["electrician"]
+            if info["electrician"]
+            else "Δεν υπάρχουν παρατηρήσεις."
+        )
+
+    with st.expander(
+        "⭐ Τι κερδίζει ο πελάτης"
+    ):
+        st.write(
+            info["customer"]
+            if info["customer"]
+            else "Δεν υπάρχουν οφέλη."
+        )
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
