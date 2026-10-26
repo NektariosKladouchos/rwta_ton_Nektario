@@ -427,7 +427,6 @@ with tab2:
                 render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
             if pc_items:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
-
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
@@ -447,7 +446,8 @@ with tab3:
     else:
 
         entries = [
-            d for d in os.listdir(LESSONS_DIR)
+            d
+            for d in os.listdir(LESSONS_DIR)
             if os.path.isdir(
                 os.path.join(LESSONS_DIR, d)
             )
@@ -523,7 +523,27 @@ with tab3:
                 "pc"
             )
 
-            mobile_items = load_
+            mobile_items = load_screenshots(
+                mobile_folder
+            )
+
+            pc_items = load_screenshots(
+                pc_folder
+            )
+
+            if mobile_items:
+                render_carousel(
+                    "📱 Screens από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_lesson}_mobile"
+                )
+
+            if pc_items:
+                render_carousel(
+                    "💻 Screens από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_lesson}_pc"
+                )
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
