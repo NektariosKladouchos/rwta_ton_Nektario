@@ -207,13 +207,7 @@ p {
     color: white !important;
     transform: translateY(-1px);
 }
-button[data-baseweb="tab"]{
-    font-weight:700 !important;
-}
 
-button[data-baseweb="tab"][aria-selected="true"]{
-    color:#008c95 !important;
-}
 /* =======================================================
    DATAFRAMES
 ======================================================= */
