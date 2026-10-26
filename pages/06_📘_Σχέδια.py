@@ -310,18 +310,29 @@ with tab1:
 
     clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
 
-    st.markdown("### 📘 Τίτλος Σχεδίου")
-    st.write(info["title"] if info["title"] else clean_title)
+   st.success(f"""
+📘 ΤΙΤΛΟΣ ΣΧΕΔΙΟΥ
 
-    st.markdown("### 📝 Γρήγορη Επεξήγηση")
-    st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
+{info["title"] if info["title"] else clean_title}
+""")
 
-    st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-    st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
+st.info(f"""
+📝 ΓΡΗΓΟΡΗ ΕΠΕΞΗΓΗΣΗ
 
-    st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
-    st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
+{info["description"] if info["description"] else "Δεν υπάρχει περιγραφή."}
+""")
 
+st.warning(f"""
+⚠️ ΤΙ ΠΡΕΠΕΙ ΝΑ ΠΡΟΣΕΞΕΙ Ο ΗΛΕΚΤΡΟΛΟΓΟΣ
+
+{info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις."}
+""")
+
+st.success(f"""
+⭐ ΤΙ ΚΕΡΔΙΖΕΙ Ο ΠΕΛΑΤΗΣ
+
+{info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη."}
+""")
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
