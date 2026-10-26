@@ -315,26 +315,10 @@ with tab1:
        
     
 
-    log_event(
+        log_event(
         "sxedia",
         "open_design",
         extra=choice
-    )
-    
-    img_path = os.path.join(folder, choice)
-    st.write("---")
-
-st.subheader(f"📘 {clean_title}")
-
-st.image(
-    img_path,
-    use_container_width=True
-)
-
-st.write("")
-    st.image(
-        img_path,
-        use_container_width=True
     )
 
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
@@ -347,13 +331,19 @@ st.write("")
         .replace("_", " ")
         .title()
     )
-   
-        st.write(
-            info["title"]
-            if info["title"]
-            else clean_title
-        )
 
+    img_path = os.path.join(folder, choice)
+
+    st.write("---")
+
+    st.subheader(f"📘 {clean_title}")
+
+    st.write("")
+
+    st.image(
+        img_path,
+        use_container_width=True
+    )
     with st.expander(
         "📝 Γρήγορη Επεξήγηση"
     ):
