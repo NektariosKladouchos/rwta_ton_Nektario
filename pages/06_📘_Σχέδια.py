@@ -121,7 +121,13 @@ st.title("📘 Τεχνικά Σχέδια")
 st.caption(
     "Οδηγοί σύνδεσης, προγραμματισμού και εκπαιδευτικό υλικό GEYER Smart Home"
 )
+button[data-baseweb="tab"]{
+    font-weight:700 !important;
+}
 
+button[data-baseweb="tab"][aria-selected="true"]{
+    color:#008c95 !important;
+}
 st.write("")
 st.write("")
 
