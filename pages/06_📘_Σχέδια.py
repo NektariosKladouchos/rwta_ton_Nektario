@@ -98,7 +98,19 @@ st.markdown("""
     color:#111827 !important;
     border-radius:10px !important;
 }
+h3{
+    text-align:center;
+    color:#008c95 !important;
+    letter-spacing:4px;
+}
 
+h1{
+    text-align:center !important;
+}
+
+p{
+    text-align:center;
+}
 </style>
 """, unsafe_allow_html=True)
 # PAGE TITLE
