@@ -284,11 +284,7 @@ with tab1:
         list(categories.keys())
     )
 
-    log_event(
-        "sxedia",
-        "open_category",
-        extra=cat_choice
-    )
+    log_event("sxedia", "open_category", extra=cat_choice)
 
     folder = os.path.join(
         SXEDIA_DIR,
@@ -302,8 +298,7 @@ with tab1:
         st.stop()
 
     files = [
-        f
-        for f in os.listdir(folder)
+        f for f in os.listdir(folder)
         if f.lower().endswith(
             (".png", ".jpg", ".jpeg")
         )
@@ -317,11 +312,20 @@ with tab1:
         "Επιλέξτε σχέδιο:",
         files
     )
+    st.markdown(f"### 📘 {clean_title}")
+    
 
     log_event(
         "sxedia",
         "open_design",
         extra=choice
+    )
+    st.write("")
+    img_path = os.path.join(folder, choice)
+
+    st.image(
+        img_path,
+        use_container_width=True
     )
 
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
@@ -335,22 +339,42 @@ with tab1:
         .title()
     )
 
-    img_path = os.path.join(folder, choice)
-
-    st.write("---")
-
-    st.subheader(f"📘 {clean_title}")
-
-    st.image(
-        img_path,
-        use_container_width=True
-    )
-
     with st.expander(
         "📘 Τίτλος Σχεδίου",
         expanded=True
     ):
+        st.write(
+            info["title"]
+            if info["title"]
+            else clean_title
+        )
 
+    with st.expander(
+        "📝 Γρήγορη Επεξήγηση"
+    ):
+        st.write(
+            info["description"]
+            if info["description"]
+            else "Δεν υπάρχει περιγραφή."
+        )
+
+    with st.expander(
+        "⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος"
+    ):
+        st.write(
+            info["electrician"]
+            if info["electrician"]
+            else "Δεν υπάρχουν παρατηρήσεις."
+        )
+
+    with st.expander(
+        "⭐ Τι κερδίζει ο πελάτης"
+    ):
+        st.write(
+            info["customer"]
+            if info["customer"]
+            else "Δεν υπάρχουν οφέλη."
+        )
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
