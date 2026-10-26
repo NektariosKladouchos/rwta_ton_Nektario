@@ -442,7 +442,7 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
-        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'.")
+        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
 
     else:
 
@@ -456,7 +456,7 @@ with tab3:
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
+            st.info("ℹ️ Δεν υπάρχουν μαθήματα")
 
         else:
 
@@ -469,7 +469,61 @@ with tab3:
             log_event(
                 "sxedia",
                 "open_lesson",
-                extra
+                extra=choice_lesson
+            )
+
+            lesson_folder = os.path.join(
+                LESSONS_DIR,
+                choice_lesson
+            )
+
+            main_txt = os.path.join(
+                lesson_folder,
+                f"{choice_lesson}.txt"
+            )
+
+            data = load_lesson_or_program_txt(main_txt)
+
+            with st.expander(
+                "📘 Τίτλος Μαθήματος",
+                expanded=True
+            ):
+                st.write(
+                    data["title"]
+                    if data["title"]
+                    else choice_lesson.replace("_", " ").title()
+                )
+
+            with st.expander(
+                "📝 Περιγραφή"
+            ):
+                st.write(
+                    data["description"]
+                    if data["description"]
+                    else "Δεν υπάρχει περιγραφή."
+                )
+
+            video_url = data["video"].strip()
+
+            if video_url:
+
+                st.subheader("🎬 Βίντεο YouTube")
+
+                st.video(video_url)
+
+            st.write("---")
+
+            mobile_folder = os.path.join(
+                lesson_folder,
+                "mobile"
+            )
+
+            pc_folder = os.path.join(
+                lesson_folder,
+                "pc"
+            )
+
+            mobile_items = load_
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
