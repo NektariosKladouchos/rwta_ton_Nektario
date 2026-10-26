@@ -319,13 +319,6 @@ with tab1:
         extra=choice
     )
 
-    img_path = os.path.join(folder, choice)
-
-    st.image(
-        img_path,
-        use_container_width=True
-    )
-
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
     txt_path = os.path.join(folder, txt_name)
 
@@ -337,18 +330,20 @@ with tab1:
         .title()
     )
 
-    with st.expander(
-        "📘 Τίτλος Σχεδίου",
-        expanded=True
-    ):
-        st.write(
-            info["title"]
-            if info["title"]
-            else clean_title
-        )
+    img_path = os.path.join(folder, choice)
+
+    st.write("---")
+
+    st.subheader(f"📘 {clean_title}")
+
+    st.image(
+        img_path,
+        use_container_width=True
+    )
 
     with st.expander(
-        "📝 Γρήγορη Επεξήγηση"
+        "📝 Γρήγορη Επεξήγηση",
+        expanded=True
     ):
         st.write(
             info["description"]
