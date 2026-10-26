@@ -284,7 +284,11 @@ with tab1:
         list(categories.keys())
     )
 
-    log_event("sxedia", "open_category", extra=cat_choice)
+    log_event(
+        "sxedia",
+        "open_category",
+        extra=cat_choice
+    )
 
     folder = os.path.join(
         SXEDIA_DIR,
@@ -298,7 +302,8 @@ with tab1:
         st.stop()
 
     files = [
-        f for f in os.listdir(folder)
+        f
+        for f in os.listdir(folder)
         if f.lower().endswith(
             (".png", ".jpg", ".jpeg")
         )
@@ -312,10 +317,8 @@ with tab1:
         "Επιλέξτε σχέδιο:",
         files
     )
-       
-    
 
-        log_event(
+    log_event(
         "sxedia",
         "open_design",
         extra=choice
@@ -338,38 +341,16 @@ with tab1:
 
     st.subheader(f"📘 {clean_title}")
 
-    st.write("")
-
     st.image(
         img_path,
         use_container_width=True
     )
-    with st.expander(
-        "📝 Γρήγορη Επεξήγηση"
-    ):
-        st.write(
-            info["description"]
-            if info["description"]
-            else "Δεν υπάρχει περιγραφή."
-        )
 
     with st.expander(
-        "⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος"
+        "📘 Τίτλος Σχεδίου",
+        expanded=True
     ):
-        st.write(
-            info["electrician"]
-            if info["electrician"]
-            else "Δεν υπάρχουν παρατηρήσεις."
-        )
 
-    with st.expander(
-        "⭐ Τι κερδίζει ο πελάτης"
-    ):
-        st.write(
-            info["customer"]
-            if info["customer"]
-            else "Δεν υπάρχουν οφέλη."
-        )
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
