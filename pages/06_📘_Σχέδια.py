@@ -310,29 +310,17 @@ with tab1:
 
     clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
 
-   st.success(f"""
-📘 ΤΙΤΛΟΣ ΣΧΕΔΙΟΥ
+  with st.expander("📘 Τίτλος Σχεδίου", expanded=True):
+    st.write(...)
 
-{info["title"] if info["title"] else clean_title}
-""")
+with st.expander("📝 Γρήγορη Επεξήγηση"):
+    st.write(...)
 
-st.info(f"""
-📝 ΓΡΗΓΟΡΗ ΕΠΕΞΗΓΗΣΗ
+with st.expander("⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος"):
+    st.write(...)
 
-{info["description"] if info["description"] else "Δεν υπάρχει περιγραφή."}
-""")
-
-st.warning(f"""
-⚠️ ΤΙ ΠΡΕΠΕΙ ΝΑ ΠΡΟΣΕΞΕΙ Ο ΗΛΕΚΤΡΟΛΟΓΟΣ
-
-{info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις."}
-""")
-
-st.success(f"""
-⭐ ΤΙ ΚΕΡΔΙΖΕΙ Ο ΠΕΛΑΤΗΣ
-
-{info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη."}
-""")
+with st.expander("⭐ Τι κερδίζει ο πελάτης"):
+    st.write(...)
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
