@@ -312,7 +312,7 @@ with tab1:
         "Επιλέξτε σχέδιο:",
         files
     )
-        st.markdown(f"### 📘 {clean_title}")
+       
     
 
     log_event(
@@ -338,7 +338,7 @@ with tab1:
         .replace("_", " ")
         .title()
     )
-
+    st.subheader(f"📘 {clean_title}")
     with st.expander(
         "📘 Τίτλος Σχεδίου",
         expanded=True
