@@ -152,11 +152,10 @@ button[data-baseweb="tab"][aria-selected="true"]{
 </style>
 """, unsafe_allow_html=True)
 # PAGE TITLE
-st.markdown("### GEYER SMART")
-
+st.caption("GEYER SMART")
 st.title("📘 Τεχνικά Σχέδια")
 
-st.caption(
+st.markdown(
     "Οδηγοί σύνδεσης, προγραμματισμού και εκπαιδευτικό υλικό GEYER Smart Home"
 )
 
