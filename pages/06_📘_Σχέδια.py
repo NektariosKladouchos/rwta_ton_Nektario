@@ -322,7 +322,16 @@ with tab1:
     )
     
     img_path = os.path.join(folder, choice)
+    st.write("---")
 
+st.subheader(f"📘 {clean_title}")
+
+st.image(
+    img_path,
+    use_container_width=True
+)
+
+st.write("")
     st.image(
         img_path,
         use_container_width=True
@@ -338,11 +347,7 @@ with tab1:
         .replace("_", " ")
         .title()
     )
-    st.subheader(f"📘 {clean_title}")
-    with st.expander(
-        "📘 Τίτλος Σχεδίου",
-        expanded=True
-    ):
+   
         st.write(
             info["title"]
             if info["title"]
