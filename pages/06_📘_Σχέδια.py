@@ -258,6 +258,7 @@ tab1, tab2, tab3 = st.tabs([
 # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
 # ---------------------------------------------------------
 with tab1:
+
     log_event("sxedia", "open_tab", extra="sxedia_syndesis")
 
     _c = load_counters()
@@ -278,10 +279,17 @@ with tab1:
         "Άλλα": "alla"
     }
 
-    cat_choice = st.selectbox("Επιλέξτε κατηγορία σχεδίων:", list(categories.keys()))
+    cat_choice = st.selectbox(
+        "Επιλέξτε κατηγορία σχεδίων:",
+        list(categories.keys())
+    )
+
     log_event("sxedia", "open_category", extra=cat_choice)
 
-    folder = os.path.join(SXEDIA_DIR, categories[cat_choice])
+    folder = os.path.join(
+        SXEDIA_DIR,
+        categories[cat_choice]
+    )
 
     st.write("---")
 
@@ -291,52 +299,51 @@ with tab1:
 
     files = [
         f for f in os.listdir(folder)
-        if f.lower().endswith((".png", ".jpg", ".jpeg"))
+        if f.lower().endswith(
+            (".png", ".jpg", ".jpeg")
+        )
     ]
 
     if not files:
         st.info("ℹ️ Δεν υπάρχουν σχέδια.")
         st.stop()
 
-       choice = st.selectbox("Επιλέξτε σχέδιο:", files)
+    choice = st.selectbox(
+        "Επιλέξτε σχέδιο:",
+        files
+    )
+
     log_event("sxedia", "open_design", extra=choice)
 
     img_path = os.path.join(folder, choice)
-    st.image(img_path, use_container_width=True)
+
+    st.image(
+        img_path,
+        use_container_width=True
+    )
 
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
     txt_path = os.path.join(folder, txt_name)
+
     info = load_sxedio_txt(txt_path)
 
-    clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
+    clean_title = (
+        choice.rsplit(".", 1)[0]
+        .replace("_", " ")
+        .title()
+    )
 
-    with st.expander("📘 Τίτλος Σχεδίου", expanded=True):
+    with st.expander(
+        "📘 Τίτλος Σχεδίου",
+        expanded=True
+    ):
         st.write(
             info["title"]
             if info["title"]
             else clean_title
         )
 
-    with st.expander("📝 Γρήγορη Επεξήγηση"):
-        st.write(
-            info["description"]
-            if info["description"]
-            else "Δεν υπάρχει περιγραφή."
-        )
-
-    with st.expander("⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος"):
-        st.write(
-            info["electrician"]
-            if info["electrician"]
-            else "Δεν υπάρχουν παρατηρήσεις."
-        )
-
-    with st.expander("⭐ Τι κερδίζει ο πελάτης"):
-        st.write(
-            info["customer"]
-            if info["customer"]
-            else "Δεν υπάρχουν οφέλη."
-        )
+    with st.expander("📝 Γρήγορη Επεξή
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
