@@ -299,7 +299,9 @@ with tab1:
 
     files = [
         f for f in os.listdir(folder)
-        if f.lower().endswith((".png", ".jpg", ".jpeg"))
+        if f.lower().endswith(
+            (".png", ".jpg", ".jpeg")
+        )
     ]
 
     if not files:
@@ -310,11 +312,20 @@ with tab1:
         "Επιλέξτε σχέδιο:",
         files
     )
+    st.markdown(f"### 📘 {clean_title}")
+    
 
     log_event(
         "sxedia",
         "open_design",
         extra=choice
+    )
+    st.write("")
+    img_path = os.path.join(folder, choice)
+
+    st.image(
+        img_path,
+        use_container_width=True
     )
 
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
@@ -328,20 +339,18 @@ with tab1:
         .title()
     )
 
-    img_path = os.path.join(folder, choice)
-
-    st.write("---")
-
-    st.markdown(f"## 📘 {clean_title}")
-
-    st.image(
-        img_path,
-        use_container_width=True
-    )
+    with st.expander(
+        "📘 Τίτλος Σχεδίου",
+        expanded=True
+    ):
+        st.write(
+            info["title"]
+            if info["title"]
+            else clean_title
+        )
 
     with st.expander(
-        "📝 Γρήγορη Επεξήγηση",
-        expanded=True
+        "📝 Γρήγορη Επεξήγηση"
     ):
         st.write(
             info["description"]
@@ -362,7 +371,10 @@ with tab1:
         "⭐ Τι κερδίζει ο πελάτης"
     ):
         st.write(
-            info["
+            info["customer"]
+            if info["customer"]
+            else "Δεν υπάρχουν οφέλη."
+        )
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
