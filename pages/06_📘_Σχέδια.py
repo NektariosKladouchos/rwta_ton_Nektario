@@ -83,6 +83,17 @@ st.markdown("""
     background-color:#f8fafc;
 }
 
+# ---------------------------------------------------------
+# GLOBAL CSS
+# ---------------------------------------------------------
+
+st.markdown("""
+<style>
+
+.stApp{
+    background-color:#f8fafc;
+}
+
 [data-testid="stSidebar"] {
     background:#ffffff;
     border-right:1px solid #e5e7eb;
@@ -98,6 +109,7 @@ st.markdown("""
     color:#111827 !important;
     border-radius:10px !important;
 }
+
 h3{
     text-align:center;
     color:#008c95 !important;
@@ -111,6 +123,32 @@ h1{
 p{
     text-align:center;
 }
+
+button[data-baseweb="tab"]{
+    font-weight:700 !important;
+}
+
+button[data-baseweb="tab"][aria-selected="true"]{
+    color:#008c95 !important;
+}
+
+.stButton > button{
+    width:100%;
+    height:55px;
+
+    background:#008c95 !important;
+    color:white !important;
+
+    border:none !important;
+    border-radius:12px !important;
+
+    font-weight:700 !important;
+}
+
+.stButton > button:hover{
+    background:#006f77 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 # PAGE TITLE
