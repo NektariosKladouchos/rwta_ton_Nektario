@@ -46,7 +46,31 @@ st.markdown("""
 .stApp{
     background-color:#f8fafc;
 }
+.info-text{
 
+    background:linear-gradient(
+        135deg,
+        #00757c 0%,
+        #00666d 100%
+    );
+
+    color:white !important;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+
+}
+
+.info-text *{
+    color:white !important;
+}
 [data-testid="stSidebar"] {
     background:#ffffff;
     border-right:1px solid #e5e7eb;
