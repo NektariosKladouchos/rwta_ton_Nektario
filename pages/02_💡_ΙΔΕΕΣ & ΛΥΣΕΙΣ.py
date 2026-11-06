@@ -40,46 +40,31 @@ is_admin = st.session_state.get("is_admin", False)
 # ==================================================
 # CUSTOM CSS
 # ==================================================
-st.markdown(
-    """
-    <style>
-        /* Sidebar styling */
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        [data-testid="stSidebar"] * {
-            color: white !important;
-        }
+st.markdown("""
+<style>
 
-        /* Make sidebar text inputs readable */
-        [data-testid="stSidebar"] input {
-            color: black !important;
-            background-color: white !important;
-        }
+.stApp{
+    background-color:#f8fafc;
+}
 
-        /* Title styling */
-        .main-title {
-            text-align: center;
-            color: #28a745;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+[data-testid="stSidebar"] {
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
+    padding-top:20px;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
+[data-testid="stSidebar"] *{
+    color:#1f2937 !important;
+}
 
-        /* Selectbox spacing */
-        .stSelectbox {
-            margin-top: 20px;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+[data-testid="stSidebar"] input{
+    background:#ffffff !important;
+    color:#111827 !important;
+    border-radius:10px !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # ==================================================
 # PAGE TITLE
