@@ -40,6 +40,7 @@ is_admin = st.session_state.get("is_admin", False)
 # ==================================================
 # CUSTOM CSS
 # ==================================================
+
 st.markdown("""
 <style>
 
@@ -48,32 +49,24 @@ st.markdown("""
 }
 
 .info-text{
-
     background:linear-gradient(
         135deg,
         #00757c 0%,
         #00666d 100%
     );
-
     color:white !important;
-
     font-size:16px;
-
     line-height:1.8;
-
-    padding:30px;
-
+    padding:20px;
     border-radius:24px;
-
     box-shadow:0 8px 24px rgba(0,0,0,.08);
-
 }
 
 .info-text *{
     color:white !important;
 }
 
-[data-testid="stSidebar"] {
+[data-testid="stSidebar"]{
     background:#ffffff;
     border-right:1px solid #e5e7eb;
     padding-top:20px;
@@ -103,30 +96,6 @@ p{
     text-align:center;
 }
 
-/* GEYER SUCCESS BOXES */
-
-div[data-testid="stAlert"]{
-    background:linear-gradient(
-        135deg,
-        #00757c 0%,
-        #00666d 100%
-    ) !important;
-
-    color:white !important;
-
-    border:none !important;
-
-    border-radius:24px !important;
-
-    box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
-}
-
-div[data-testid="stAlert"] *{
-    color:white !important;
-}
-
-/* TABS */
-
 button[data-baseweb="tab"]{
     font-weight:700 !important;
 }
@@ -154,7 +123,6 @@ st.caption(
 )
 
 st.write("")
-
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
