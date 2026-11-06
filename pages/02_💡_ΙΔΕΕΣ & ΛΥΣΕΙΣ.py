@@ -40,12 +40,15 @@ is_admin = st.session_state.get("is_admin", False)
 # ==================================================
 # CUSTOM CSS
 # ==================================================
+
 st.markdown("""
 <style>
 
 .stApp{
     background-color:#f8fafc;
 }
+
+/* PETROL INFO BOX */
 
 .info-text{
 
@@ -73,7 +76,9 @@ st.markdown("""
     color:white !important;
 }
 
-[data-testid="stSidebar"] {
+/* SIDEBAR */
+
+[data-testid="stSidebar"]{
     background:#ffffff;
     border-right:1px solid #e5e7eb;
     padding-top:20px;
@@ -89,6 +94,8 @@ st.markdown("""
     border-radius:10px !important;
 }
 
+/* TITLES */
+
 h3{
     text-align:center;
     color:#008c95 !important;
@@ -103,16 +110,15 @@ p{
     text-align:center;
 }
 
-/* GEYER SUCCESS BOXES */
+/* SUCCESS BOXES */
 
 div[data-testid="stAlert"]{
+
     background:linear-gradient(
         135deg,
         #00757c 0%,
         #00666d 100%
     ) !important;
-
-    color:white !important;
 
     border:none !important;
 
@@ -121,7 +127,10 @@ div[data-testid="stAlert"]{
     box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
 }
 
-div[data-testid="stAlert"] *{
+div[data-testid="stAlert"] p,
+div[data-testid="stAlert"] span,
+div[data-testid="stAlert"] div,
+div[data-testid="stAlert"] strong{
     color:white !important;
 }
 
@@ -141,19 +150,6 @@ div[data-baseweb="tab-list"]{
 
 </style>
 """, unsafe_allow_html=True)
-# ==================================================
-# PAGE TITLE
-# ==================================================
-st.markdown("### GEYER SMART")
-
-st.title("💡 Ιδέες & Έξυπνες Λύσεις")
-
-st.caption(
-    "Προτάσεις, εφαρμογές και πρακτικά παραδείγματα Smart Home"
-)
-
-st.write("")
-st.write("")
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
