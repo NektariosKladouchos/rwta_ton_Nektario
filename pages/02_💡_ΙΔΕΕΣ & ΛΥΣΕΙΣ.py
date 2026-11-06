@@ -131,7 +131,12 @@ except ModuleNotFoundError:
     st.warning(f"⚠️ Το αρχείο `subpages/{file_name}.py` δεν έχει δημιουργηθεί ακόμα.")
 except Exception as e:
     st.error(f"❌ Σφάλμα κατά τη φόρτωση της υποσελίδας: {e}")
+st.write("")
+st.write("---")
 
+st.caption(
+    "© 2026 GEYER Smart Hellas | Ιδέες & Έξυπνες Λύσεις"
+)
 # ==================================================
 # ADMIN ANALYTICS (ONLY IF ADMIN)
 # ==================================================
