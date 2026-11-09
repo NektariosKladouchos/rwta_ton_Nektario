@@ -160,14 +160,22 @@ def show():
             key="app_carousel_select"
         )
         
-        # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
+       # ---------------------------------------------------------
+# Εμφάνιση επιλεγμένης οθόνης κινητού
+# ---------------------------------------------------------
+
 for img in app_images:
+
     if img["title"] == selected_app_page:
 
-        st.image(
-            img["url"],
-            width=350
-        )
+        col_img_left, col_img_center, col_img_right = st.columns([1, 2, 1])
+
+        with col_img_center:
+
+            st.image(
+                img["url"],
+                width=420
+            )
 
         st.markdown(
             f"""
