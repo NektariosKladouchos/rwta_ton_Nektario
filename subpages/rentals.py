@@ -161,28 +161,14 @@ def show():
         )
         
         # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
-for img in app_images:
-    if img["title"] == selected_app_page:
+        for img in app_images:
+            if img["title"] == selected_app_page:
+                #st.image(img["url"], caption=img["title"], use_container_width=True)
+                st.image(img["url"], width=200)
 
-        st.image(
-            img["url"],
-            width=300
-        )
+                st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
-        st.markdown(
-            f"""
-            <div class="info-text">
 
-            <strong>ℹ️ Επεξήγηση</strong>
-
-            <br><br>
-
-            {img['desc']}
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
     # ------------------ ΣΤΗΛΗ 2: ΚΑΡΟΥΣΕΛ ΥΠΟΛΟΓΙΣΤΗ ------------------
     with col_carousel2:
         st.markdown("### 💻 Διαχειριστικό Πρόγραμμα PC")
