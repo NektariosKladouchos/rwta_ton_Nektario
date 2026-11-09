@@ -66,6 +66,8 @@ st.markdown("""
     color:white !important;
 }
 
+/* SIDEBAR */
+
 [data-testid="stSidebar"]{
     background:#ffffff;
     border-right:1px solid #e5e7eb;
@@ -82,22 +84,40 @@ st.markdown("""
     border-radius:10px !important;
 }
 
+/* HERO */
+
 h1{
+    color:#1F2937 !important;
+    font-size:42px !important;
+    font-weight:800 !important;
     text-align:center !important;
 }
 
-h3{
-    text-align:center;
-    color:#6b7280 !important;
-    font-weight:400 !important;
-    line-height:1.15 !important;
-    margin-top:0px !important;
-    margin-bottom:0px !important;
+h2{
+    color:#1F2937 !important;
+    font-size:32px !important;
+    font-weight:700 !important;
 }
 
-p{
+h3{
+    color:#64748B !important;
+    font-size:18px !important;
+    font-weight:400 !important;
+    text-align:center !important;
+    line-height:1.4 !important;
+}
+
+[data-testid="stCaptionContainer"]{
     text-align:center;
 }
+
+[data-testid="stCaptionContainer"] p{
+    color:#008C95 !important;
+    font-weight:700 !important;
+    letter-spacing:5px;
+}
+
+/* TABS */
 
 button[data-baseweb="tab"]{
     font-weight:700 !important;
@@ -114,20 +134,26 @@ div[data-baseweb="tab-list"]{
 </style>
 """, unsafe_allow_html=True)
 
-# ==================================================
+# ---------------------------------------------------------
 # HERO SECTION
-# ==================================================
+# ---------------------------------------------------------
+
+st.caption("GEYER SMART")
+
+st.write("")
 
 st.title("Ιδέες & Έξυπνες Λύσεις")
 
 st.markdown(
     """
-    #### Προτάσεις, εφαρμογές και πρακτικά παραδείγματα
+    ### Προτάσεις, εφαρμογές και πρακτικά παραδείγματα
 
-    #### Smart Home & Building Automation
+    ### Smart Home & Building Automation
     """
 )
 
+st.write("")
+st.write("")
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
