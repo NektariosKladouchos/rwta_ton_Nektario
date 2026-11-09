@@ -84,8 +84,9 @@ st.markdown("""
 
 h3{
     text-align:center;
-    color:#008c95 !important;
-    letter-spacing:4px;
+    color:#6b7280 !important;
+    letter-spacing:0px;
+    font-weight:400 !important;
 }
 
 h1{
@@ -140,10 +141,6 @@ st.markdown(
 # HERO SECTION
 # ---------------------------------------------------------
 
-st.caption("GEYER SMART")
-
-st.write("")
-
 st.title("💡 Ιδέες & Έξυπνες Λύσεις")
 
 st.markdown(
@@ -156,6 +153,7 @@ st.markdown(
 
 st.write("")
 st.write("")
+
 
 # ==================================================
 # ANALYTICS — PAGE VISIT
