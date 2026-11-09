@@ -160,30 +160,24 @@ def show():
             key="app_carousel_select"
         )
         
-      # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
+        # 3. Εμφάνιση της επιλεγμένης εικόνας και της επεξήγησής της
 for img in app_images:
     if img["title"] == selected_app_page:
-
 
         st.image(
             img["url"],
             width=350
         )
 
-
         st.markdown(
             f"""
             <div class="info-text">
 
-
             <strong>ℹ️ Επεξήγηση</strong>
-
 
             <br><br>
 
-
             {img['desc']}
-
 
             </div>
             """,
