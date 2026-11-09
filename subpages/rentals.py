@@ -204,10 +204,10 @@ def show():
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
 
     # 5. Κόστος Project
-    with st.expander(
+   with st.expander(
     "💰 Κόστος Project & Υλικών",
     expanded=False
-    ):
+):
 
     st.write(
         "Η επένδυση στον αυτοματισμό αποσβένεται γρήγορα μέσω της εξοικονόμησης ενέργειας και της μείωσης των ζημιών."
