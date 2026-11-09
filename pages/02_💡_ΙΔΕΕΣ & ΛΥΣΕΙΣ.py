@@ -90,7 +90,9 @@ h3{
     text-align:center;
     color:#6b7280 !important;
     font-weight:400 !important;
-    line-height:1.4;
+    line-height:1.15 !important;
+    margin-top:0px !important;
+    margin-bottom:0px !important;
 }
 
 p{
@@ -120,14 +122,12 @@ st.title("Ιδέες & Έξυπνες Λύσεις")
 
 st.markdown(
     """
-    ### Προτάσεις, εφαρμογές και πρακτικά παραδείγματα
+    #### Προτάσεις, εφαρμογές και πρακτικά παραδείγματα
 
-    ### Smart Home & Building Automation
+    #### Smart Home & Building Automation
     """
 )
 
-st.write("")
-st.write("")
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
