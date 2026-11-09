@@ -202,7 +202,7 @@ def show():
             if img["title"] == selected_pc_page:
                 st.image(img["url"], caption=img["title"], use_container_width=True)
                 st.info(f"**ℹ️ Επεξήγηση:** {img['desc']}")
-
+        )
         # ---------------------------------------------------------
         # 5. Κόστος Project
         # ---------------------------------------------------------
