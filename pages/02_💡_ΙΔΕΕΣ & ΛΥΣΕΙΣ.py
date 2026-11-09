@@ -136,36 +136,26 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
-    """
-    <h1 style="
-        text-align:center;
-        color:#008c95;
-        font-size:64px;
-        font-weight:800;
-        margin-top:0px;
-        margin-bottom:5px;
-    ">
-        💡 Ιδέες & Έξυπνες Λύσεις
-    </h1>
-    """,
-    unsafe_allow_html=True
-)
+# ---------------------------------------------------------
+# HERO SECTION
+# ---------------------------------------------------------
+
+st.caption("GEYER SMART")
+
+st.write("")
+
+st.title("💡 Ιδέες & Έξυπνες Λύσεις")
 
 st.markdown(
     """
-    <div style="
-        text-align:center;
-        color:#6b7280;
-        font-size:18px;
-        margin-top:0px;
-        margin-bottom:20px;
-    ">
-        Προτάσεις, εφαρμογές και πρακτικά παραδείγματα Smart Home
-    </div>
-    """,
-    unsafe_allow_html=True
+    ### Προτάσεις, εφαρμογές και πρακτικά παραδείγματα
+
+    ### Smart Home & Building Automation
+    """
 )
+
+st.write("")
+st.write("")
 
 # ==================================================
 # ANALYTICS — PAGE VISIT
