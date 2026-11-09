@@ -113,7 +113,6 @@ div[data-baseweb="tab-list"]{
 # ==================================================
 # PAGE TITLE
 # ==================================================
-
 st.markdown(
     """
     <div style="
@@ -129,7 +128,7 @@ st.markdown(
         position:relative;
         left:50%;
         transform:translateX(-50%);
-        margin-bottom:20px;
+        margin-bottom:10px;
     ">
         GEYER SMART
     </div>
@@ -144,7 +143,8 @@ st.markdown(
         color:#008c95;
         font-size:64px;
         font-weight:800;
-        margin-bottom:10px;
+        margin-top:0px;
+        margin-bottom:5px;
     ">
         💡 Ιδέες & Έξυπνες Λύσεις
     </h1>
@@ -158,13 +158,15 @@ st.markdown(
         text-align:center;
         color:#6b7280;
         font-size:18px;
-        margin-bottom:35px;
+        margin-top:0px;
+        margin-bottom:20px;
     ">
         Προτάσεις, εφαρμογές και πρακτικά παραδείγματα Smart Home
     </div>
     """,
     unsafe_allow_html=True
 )
+
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
