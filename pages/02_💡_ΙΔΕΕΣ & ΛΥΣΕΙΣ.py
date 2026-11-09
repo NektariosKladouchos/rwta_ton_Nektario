@@ -42,6 +42,27 @@ is_admin = st.session_state.get("is_admin", False)
 # ==================================================
 
 st.markdown("""
+<styleΑφεντικό 💪, ορίστε το κομμάτι **διορθωμένο και καθαρό**, χωρίς `<br>`, ώστε το Hero να μοιάζει περισσότερο με το Technical Portal:
+
+```python
+# ==================================================
+# PAGE CONFIG
+# ==================================================
+st.set_page_config(
+    page_title="Ιδέες & Λύσεις",
+    page_icon="💡",
+    layout="wide"
+)
+
+# ==================================================
+# GLOBAL ADMIN MODE (READ ONLY)
+# ==================================================
+is_admin = st.session_state.get("is_admin", False)
+
+# ==================================================
+# CUSTOM CSS
+# ==================================================
+st.markdown("""
 <style>
 
 .stApp{
@@ -64,97 +85,66 @@ st.markdown("""
 
 .info-text *{
     color:white !important;
-}
+*
 
 [data-testid="stSidebar"]{
-    background:#ffffff;
-    border-right:1px solid #e5e7eb;
-    padding-top:20px;
+    b*ckground*#ffffff;
+    border-right:1px soli* #e5e7eb;
+    padding-top*20px;
 }
 
-[data-testid="stSidebar"] *{
+[data-testid="stSidebar"]**{
     color:#1f2937 !important;
-}
-
+}*
 [data-testid="stSidebar"] input{
-    background:#ffffff !important;
-    color:#111827 !important;
-    border-radius:10px !important;
+*   background:#ffffff !important;
+*   color:#111827 !important;
+    b*rder-radius:10px !important;
 }
 
-h3{
-    text-align:center;
-    color:#6b7280 !important;
-    letter-spacing:0px;
-    font-weight:400 !important;
-}
+h1*
+    text-align:center !important;*}
 
-h1{
-    text-align:center !important;
+h3*
+    text-align:center !important;*    color:#6b7280 *important;
+    font-weight:400 !im*ortant;
+*   line-height:1.4*!important;
 }
 
 p{
-    text-align:center;
+*   text-align:center;
 }
 
 button[data-baseweb="tab"]{
-    font-weight:700 !important;
+    font-weight:*00 !important;
 }
 
 button[data-baseweb="tab"][aria-selected="true"]{
-    color:#008c95 !important;
+ *  color:#008c95 !important;
 }
 
-div[data-baseweb="tab-list"]{
-    justify-content:center;
+div*data-baseweb="tab-list"]{
+    just*fy-content:center;
 }
 
 </style>
-""", unsafe_allow_html=True)
-# ==================================================
-# PAGE TITLE
-# ==================================================
-st.markdown(
-    """
-    <div style="
-        text-align:center;
-        color:white;
-        background:#2f63d3;
-        display:inline-block;
-        padding:4px 12px;
-        font-size:14px;
-        font-weight:700;
-        letter-spacing:3px;
-        margin:auto;
-        position:relative;
-        left:50%;
-        transform:translateX(-50%);
-        margin-bottom:10px;
-    ">
-        GEYER SMART
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+"""* unsafe_allow_html=True)
 
-# ---------------------------------------------------------
+# ======*==================================*========
 # HERO SECTION
-# ---------------------------------------------------------
+# ========*==================================*======
 
-st.title("💡 Ιδέες & Έξυπνες Λύσεις")
+st.title("Ιδέες & Έξυπνες *ύσεις")
 
 st.markdown(
     """
-    ### Προτάσεις, εφαρμογές και πρακτικά παραδείγματα
+    *## Προτάσεις, εφαρμογές και πρακτι*ά παραδείγματα
 
-    ### Smart Home & Building Automation
+    ### Smart Home*&*Building Automation
     """
 )
 
-st.write("")
-st.write("")
-
-
+st.*rite("")
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
