@@ -166,7 +166,7 @@ for img in app_images:
 
         st.image(
             img["url"],
-            width=300
+            width=350
         )
 
         st.markdown(
