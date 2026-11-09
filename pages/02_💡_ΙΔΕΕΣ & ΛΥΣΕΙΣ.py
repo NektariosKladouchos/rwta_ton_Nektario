@@ -116,12 +116,35 @@ div[data-baseweb="tab-list"]{
 
 st.markdown("### GEYER SMART")
 
-st.title("💡 Ιδέες & Έξυπνες Λύσεις")
-
-st.caption(
-    "Προτάσεις, εφαρμογές και πρακτικά παραδείγματα Smart Home"
+st.markdown(
+    """
+    <div style="
+        text-align:center;
+        font-size:64px;
+        font-weight:800;
+        color:#008c95;
+        margin-top:10px;
+        margin-bottom:10px;
+    ">
+        💡 Ιδέες & Έξυπνες Λύσεις
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <div style="
+        text-align:center;
+        color:#6b7280;
+        font-size:20px;
+        margin-bottom:40px;
+    ">
+        Προτάσεις, εφαρμογές και πρακτικά παραδείγματα Smart Home
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 st.write("")
 # ==================================================
 # ANALYTICS — PAGE VISIT
