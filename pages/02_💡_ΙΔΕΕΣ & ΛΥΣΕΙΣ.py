@@ -82,15 +82,15 @@ st.markdown("""
     border-radius:10px !important;
 }
 
+h1{
+    text-align:center !important;
+}
+
 h3{
     text-align:center;
     color:#6b7280 !important;
-    letter-spacing:0px;
     font-weight:400 !important;
-}
-
-h1{
-    text-align:center !important;
+    line-height:1.4;
 }
 
 p{
@@ -111,37 +111,12 @@ div[data-baseweb="tab-list"]{
 
 </style>
 """, unsafe_allow_html=True)
-# ==================================================
-# PAGE TITLE
-# ==================================================
-st.markdown(
-    """
-    <div style="
-        text-align:center;
-        color:white;
-        background:#2f63d3;
-        display:inline-block;
-        padding:4px 12px;
-        font-size:14px;
-        font-weight:700;
-        letter-spacing:3px;
-        margin:auto;
-        position:relative;
-        left:50%;
-        transform:translateX(-50%);
-        margin-bottom:10px;
-    ">
-        GEYER SMART
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 
-# ---------------------------------------------------------
+# ==================================================
 # HERO SECTION
-# ---------------------------------------------------------
+# ==================================================
 
-st.title("💡 Ιδέες & Έξυπνες Λύσεις")
+st.title("Ιδέες & Έξυπνες Λύσεις")
 
 st.markdown(
     """
@@ -153,8 +128,6 @@ st.markdown(
 
 st.write("")
 st.write("")
-
-
 # ==================================================
 # ANALYTICS — PAGE VISIT
 # ==================================================
