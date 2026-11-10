@@ -49,6 +49,20 @@ st.markdown(
 [data-testid="stSidebarNav"] svg {
     fill: white !important;
 }
+h1{
+    color:#1F2937 !important;
+    font-size:42px !important;
+    font-weight:800 !important;
+    text-align:center !important;
+}
+
+h3{
+    color:#64748B !important;
+    font-size:18px !important;
+    font-weight:400 !important;
+    text-align:center !important;
+    line-height:1.4 !important;
+}
     </style>
     """,
     unsafe_allow_html=True
