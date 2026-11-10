@@ -127,8 +127,24 @@ st.markdown(
         textarea::placeholder {
             color: #444 !important;
         }
-        div[data-testid="stAlert"]{
+      div[data-testid="stAlert"]{
+    background:linear-gradient(
+        135deg,
+        #008c95 0%,
+        #006f77 100%
+    ) !important;
+
+    color:white !important;
+
+    border:none !important;
+
     border-radius:24px !important;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+}
+
+div[data-testid="stAlert"] *{
+    color:white !important;
 }
     </style>
     """,
@@ -233,9 +249,6 @@ with col2:
 ☎️ Τηλ. Κέντρο:
 22620 31257
 """)
-
-    </div>
-    """, unsafe_allow_html=True)
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
