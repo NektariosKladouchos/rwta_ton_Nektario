@@ -111,11 +111,7 @@ h3{
     text-align:center;
 }
 
-[data-testid="stCaptionContainer"] p{
-    color:#008C95 !important;
-    font-weight:700 !important;
-    letter-spacing:5px;
-}
+
 
 /* TABS */
 
