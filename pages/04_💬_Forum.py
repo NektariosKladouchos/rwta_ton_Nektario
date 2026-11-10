@@ -223,50 +223,58 @@ with st.expander("✍️ Νέα Ερώτηση προς την Τεχνική Υ
 # ==================================================
 # QUESTIONS LIST
 # ==================================================
+
 st.divider()
+
 search_term = st.text_input(
     "🔍 Αναζήτηση ερώτησης"
 )
+
 df = load_data()
 
 if len(df) == 0:
+
     st.info("Δεν υπάρχουν ακόμη ερωτήσεις.")
+
 else:
+
     df_sorted = df.sort_values(by="id", ascending=False)
-for _, row in df_sorted.iterrows():
-    st.markdown(
-f"""
-<div class="question-card">
 
-    <div class="question-title">
-        ❓ {row['question']}
-    </div>
+    for _, row in df_sorted.iterrows():
 
-    <div class="question-meta">
-        👤 {row['name']} | 🕒 {row['date']}
-    </div>
+        st.markdown(
+            f"""
+            <div class="question-card">
 
-</div>
-""",
-unsafe_allow_html=True
-)
+                <div class="question-title">
+                    ❓ {row['question']}
+                </div>
 
-if str(row["answer"]).strip() != "":
+                <div class="question-meta">
+                    👤 {row['name']} | 🕒 {row['date']}
+                </div>
 
-    st.markdown(
-        f"""
-        <div class="info-text">
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-        <strong>✅ Απάντηση</strong>
+        if str(row["answer"]).strip() != "":
 
-        <br><br>
+            st.markdown(
+                f"""
+                <div class="info-text">
 
-        {row['answer']}
+                    <strong>✅ Απάντηση</strong>
 
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+                    <br><br>
+
+                    {row['answer']}
+
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 # ==================================================
 # ADMIN PANEL
