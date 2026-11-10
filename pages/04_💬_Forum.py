@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from supabase import create_client, Client
-import pytz
 
 # ==================================================
 # SETTINGS & INITIALIZATION
@@ -16,32 +15,53 @@ st.set_page_config(
 
 ADMIN_PASSWORD = "geyer123"
 
-# CSS για λευκά γράμματα στο sidebar
-st.markdown(
-    """
-    <style>
-        [data-testid="stSidebar"] {
-            background-color: #0b3c26 !important;
-        }
-        [data-testid="stSidebarNav"] span,
-        [data-testid="stSidebar"] p,
-        [data-testid="stSidebar"] label,
-        [data-testid="stSidebar"] h1,
-        [data-testid="stSidebar"] h2,
-        [data-testid="stSidebar"] h3 {
-            color: white !important;
-        }
-        [data-testid="stSidebarNav"] svg {
-            fill: white !important;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# CSS για να είναι όλα τα γράμματα λευκά και ευανάγνωστα στο μενού
+st.markdown("""
+<style>
 
-# ==================================================
-# SUPABASE CONNECTION
-# ==================================================
+    /* Sidebar background */
+    [data-testid="stSidebar"] {
+        background-color: #0b3c26 !important;
+        padding-top: 30px;
+    }
+
+    /* Sidebar text — WHITE */
+    [data-testid="stSidebar"] * {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* Sidebar icons — WHITE */
+    [data-testid="stSidebar"] svg {
+        fill: white !important;
+    }
+
+    /* Collapse button "<" — WHITE */
+    button[kind="header"] svg {
+        fill: white !important;
+    }
+
+    /* Input fields text color (FIX) */
+    input, textarea, .stTextInput input, .stTextArea textarea {
+        color: black !important;
+    }
+
+    /* Placeholder text */
+    input::placeholder,
+    textarea::placeholder {
+        color: #444 !important;
+    }
+
+    /* Main background */
+    .stApp {
+        background-color: #f8f9fa !important;
+    }
+
+</style>
+""", unsafe_allow_html=True)
+
+
+# Σύνδεση με Supabase μέσω Secrets
 @st.cache_resource
 def init_supabase() -> Client:
     url = st.secrets["supabase"]["url"]
@@ -51,68 +71,42 @@ def init_supabase() -> Client:
 supabase = init_supabase()
 
 # ==================================================
-# LOG EVENT
+# FUNCTIONS
 # ==================================================
-def log_event(page, event, user=None, extra=None):
-    try:
-        supabase.table("analytics").insert({
-            "page": page,
-            "event": event,
-            "user_email": user,
-            "extra": extra
-        }).execute()
-    except:
-        pass
 
-# ==================================================
-# TIMEZONE CONVERSION (UTC → GREECE)
-# ==================================================
-def convert_to_greece_time(ts_str):
-    try:
-        utc_time = pd.to_datetime(ts_str).tz_localize("UTC")
-        gr_tz = pytz.timezone("Europe/Athens")
-        return utc_time.tz_convert(gr_tz).strftime("%d/%m/%Y %H:%M")
-    except:
-        return ts_str
-
-# ==================================================
-# LOAD DATA
-# ==================================================
 def load_data():
     try:
         response = supabase.table("forum_data").select("*").execute()
         df = pd.DataFrame(response.data)
     except Exception as e:
         st.error(f"Σφάλμα φόρτωσης: {e}")
-        return pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
-
+        df = pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
+    
     if df.empty:
-        return pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
-
-    df = df.fillna("")
-    df["id"] = df["id"].astype(int)
-
-    # Μετατροπή ώρας Ελλάδας
-    df["date"] = df["date"].apply(convert_to_greece_time)
-
+        df = pd.DataFrame(columns=["id", "date", "name", "question", "answer"])
+    else:
+        df = df.fillna("")
+        df["id"] = df["id"].astype(int)
+        
     return df
+
+# ==================================================
+# LOAD DATA
+# ==================================================
 
 df = load_data()
 
 # ==================================================
 # TITLE
 # ==================================================
+
 st.title("💬 Public Forum")
 st.write("Γράψε την ερώτησή σου και δες απαντήσεις από τον διαχειριστή.")
-
-# --------------------------------------------------
-# LOG PAGE VISIT
-# --------------------------------------------------
-log_event("forum", "visit")
 
 # ==================================================
 # QUESTION FORM
 # ==================================================
+
 with st.expander("➕ Νέα Ερώτηση", expanded=False):
     with st.form("question_form", clear_on_submit=True):
         name = st.text_input("Όνομα")
@@ -126,22 +120,19 @@ with st.expander("➕ Νέα Ερώτηση", expanded=False):
                 st.warning("Συμπλήρωσε ερώτηση.")
             else:
                 new_row = {
-                    "date": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+                    "date": datetime.now().strftime("%d/%m/%Y %H:%M"),
                     "name": str(name),
                     "question": str(question),
                     "answer": ""
                 }
                 supabase.table("forum_data").insert(new_row).execute()
-
-                # LOG EVENT
-                log_event("forum", "new_question", name)
-
                 st.success("Η ερώτηση καταχωρήθηκε!")
                 st.rerun()
 
 # ==================================================
 # QUESTIONS LIST
 # ==================================================
+
 st.divider()
 st.subheader("📋 Ερωτήσεις")
 
@@ -155,24 +146,23 @@ else:
         with st.container(border=True):
             st.markdown(f"### ❓ {row['question']}")
             st.caption(f"👤 {row['name']} | 🕒 {row['date']}")
-
             if str(row["answer"]).strip() != "":
                 st.success(f"✅ Απάντηση:\n\n{row['answer']}")
 
 # ==================================================
 # ADMIN PANEL
 # ==================================================
+
 st.sidebar.title("🔒 Admin Panel")
 admin_password = st.sidebar.text_input("Password", type="password")
 
 if admin_password == ADMIN_PASSWORD:
-    st.session_state.is_admin = True
     st.sidebar.success("Επιτυχής σύνδεση")
-
     df = load_data()
 
     if len(df) > 0:
         selected_id = st.sidebar.selectbox("Επιλογή Question ID", df["id"].tolist())
+        
         selected_row = df[df["id"] == int(selected_id)].iloc[0]
 
         st.sidebar.markdown("---")
@@ -188,10 +178,6 @@ if admin_password == ADMIN_PASSWORD:
         # SAVE ANSWER
         if st.sidebar.button("💾 Αποθήκευση Απάντησης"):
             supabase.table("forum_data").update({"answer": str(answer_text)}).eq("id", int(selected_id)).execute()
-
-            # LOG EVENT
-            log_event("forum", "new_answer", "admin")
-
             st.sidebar.success("Η απάντηση αποθηκεύτηκε!")
             st.rerun()
 
@@ -208,20 +194,35 @@ else:
     st.sidebar.caption("Πρόσβαση μόνο διαχειριστή")
 
 # ==================================================
-# ADMIN ANALYTICS
+# ADMIN ANALYTICS (ONLY IF ADMIN)
 # ==================================================
-if st.session_state.get("is_admin", False):
+
+if admin_password == ADMIN_PASSWORD:
+
     st.write("---")
-    st.subheader("📊 Analytics Forum (Admin Only)")
+    st.subheader("📊 Analytics Forum (Μόνο για Admin)")
 
-    try:
-        result = supabase.table("analytics").select("*").eq("page", "forum").order("id", desc=True).execute()
+    total_questions = len(df)
+    answered = df[df["answer"].str.strip() != ""]
+    unanswered = df[df["answer"].str.strip() == ""]
 
-        if result.data:
-            df_analytics = pd.DataFrame(result.data)
-            df_analytics["timestamp"] = df_analytics["timestamp"].apply(convert_to_greece_time)
-            st.dataframe(df_analytics)
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("📌 Συνολικές Ερωτήσεις", total_questions)
+    col2.metric("✅ Απαντημένες", len(answered))
+    col3.metric("❓ Αναπάντητες", len(unanswered))
+
+    st.write("---")
+
+    if total_questions > 0:
+        st.write("### 🕒 Τελευταίες Κινήσεις")
+
+        last_question = df.sort_values("id", ascending=False).iloc[0]
+        st.info(f"**Τελευταία Ερώτηση:** {last_question['question']} — από {last_question['name']}")
+
+        last_answered = answered.sort_values("id", ascending=False).iloc[0] if len(answered) > 0 else None
+
+        if last_answered is not None:
+            st.success(f"**Τελευταία Απάντηση:** {last_answered['answer']}")
         else:
-            st.info("Δεν υπάρχουν ακόμα δεδομένα.")
-    except Exception as e:
-        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
+            st.warning("Δεν υπάρχουν ακόμη απαντήσεις.")
