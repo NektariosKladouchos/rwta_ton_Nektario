@@ -30,22 +30,22 @@ st.markdown(
     color:#1f2937 !important;
 }
 
-[data-testid="stSidebar"] input{
-    background:#ffffff !important;
-    color:#111827 !important;
-    border-radius:10px !important;
+[data-testid="stSidebar"] {
+    background-color: #0b3c26 !important;
 }
-        [data-testid="stSidebarNav"] span,
-        [data-testid="stSidebar"] p,
-        [data-testid="stSidebar"] label,
-        [data-testid="stSidebar"] h1,
-        [data-testid="stSidebar"] h2,
-        [data-testid="stSidebar"] h3 {
-            color: white !important;
-        }
-        [data-testid="stSidebarNav"] svg {
-            fill: white !important;
-        }
+
+[data-testid="stSidebarNav"] span,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: white !important;
+}
+
+[data-testid="stSidebarNav"] svg {
+    fill: white !important;
+}
     </style>
     """,
     unsafe_allow_html=True
