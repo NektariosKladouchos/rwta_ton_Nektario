@@ -127,6 +127,9 @@ st.markdown(
         textarea::placeholder {
             color: #444 !important;
         }
+        div[data-testid="stAlert"]{
+    border-radius:24px !important;
+}
     </style>
     """,
     unsafe_allow_html=True
@@ -206,19 +209,22 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.info("""
-👤 Τεχνική Υποστήριξη
+    st.success("""
+👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ
 
-Υπεύθυνος: Νεκτάριος Κλαδούχος
+Υπεύθυνος:
+Νεκτάριος Κλαδούχος
 
-Τηλέφωνο: 6936803610
+Τηλέφωνο:
+6936803610
 
-Email: kladouxos@geyer.gr
+Email:
+kladouxos@geyer.gr
 """)
 
 with col2:
 
-    st.info("""
+    st.success("""
 🏢 GEYER HELLAS Α.Ε.
 
 📍 Διεύθυνση:
@@ -228,7 +234,8 @@ with col2:
 22620 31257
 """)
 
-st.write("---")
+    </div>
+    """, unsafe_allow_html=True)
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
