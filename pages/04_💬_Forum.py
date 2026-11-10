@@ -236,7 +236,7 @@ else:
 # ==================================================
 # ADMIN PANEL
 # ==================================================
-st.sidebar.title("🔒 Admin Panel")
+st.sidebar.markdown("### 🔒 Admin")
 admin_password = st.sidebar.text_input("Password", type="password")
 
 if admin_password == ADMIN_PASSWORD:
