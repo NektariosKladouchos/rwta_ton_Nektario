@@ -71,21 +71,20 @@ h3{
     padding:25px;
     border-radius:24px;
     box-shadow:0 8px 24px rgba(0,0,0,.08);
-    margin-bottom:20px;
     border-left:5px solid #008c95;
+    margin-bottom:10px;
 }
 
 .question-title{
     font-size:22px;
     font-weight:700;
     color:#1f2937;
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .question-meta{
     color:#6b7280;
     font-size:14px;
-    margin-bottom:15px;
 }
     </style>
     """,
@@ -240,12 +239,20 @@ else:
 
     df_sorted = df.sort_values(by="id", ascending=False)
 
+    if search_term.strip():
+        df_sorted = df_sorted[
+            df_sorted["question"].str.contains(
+                search_term,
+                case=False,
+                na=False
+            )
+        ]
+
     for _, row in df_sorted.iterrows():
 
         st.markdown(
             f"""
             <div class="question-card">
-
                 <div class="question-title">
                     ❓ {row['question']}
                 </div>
@@ -253,29 +260,29 @@ else:
                 <div class="question-meta">
                     👤 {row['name']} | 🕒 {row['date']}
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True
         )
 
-        if str(row["answer"]).strip() != "":
+        if str(row["answer"]).strip():
 
             st.markdown(
                 f"""
                 <div class="info-text">
 
-                    <strong>✅ Απάντηση</strong>
+                <strong>✅ Απάντηση</strong>
 
-                    <br><br>
+                <br><br>
 
-                    {row['answer']}
+                {row['answer']}
 
                 </div>
                 """,
                 unsafe_allow_html=True
             )
 
+        st.write("")
 # ==================================================
 # ADMIN PANEL
 # ==================================================
