@@ -127,25 +127,6 @@ st.markdown(
         textarea::placeholder {
             color: #444 !important;
         }
-      div[data-testid="stAlert"]{
-    background:linear-gradient(
-        135deg,
-        #008c95 0%,
-        #006f77 100%
-    ) !important;
-
-    color:white !important;
-
-    border:none !important;
-
-    border-radius:24px !important;
-
-    box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
-}
-
-div[data-testid="stAlert"] *{
-    color:white !important;
-}
     </style>
     """,
     unsafe_allow_html=True
@@ -225,23 +206,19 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.success("""
-👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ
+    st.info("""
+👤 Τεχνική Υποστήριξη
 
-Υπεύθυνος:
-Νεκτάριος Κλαδούχος
+Υπεύθυνος: Νεκτάριος Κλαδούχος
 
-Τηλέφωνο:
-6936803610
+Τηλέφωνο: 6936803610
 
-
-Email:
-kladouxos@geyer.gr
+Email: kladouxos@geyer.gr
 """)
 
 with col2:
 
-    st.success("""
+    st.info("""
 🏢 GEYER HELLAS Α.Ε.
 
 📍 Διεύθυνση:
@@ -249,8 +226,9 @@ with col2:
 
 ☎️ Τηλ. Κέντρο:
 22620 31257
-🌐 www.geyer.gr
 """)
+
+st.write("---")
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
@@ -262,26 +240,7 @@ if st.button("🏠 ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΑΡΧΙΚΗ"):
     log_event("contact", "home_click")
 
     st.switch_page("main.py")
-# ---------------------------------------------------------
-# FOOTER
-# ---------------------------------------------------------
 
-st.write("")
-st.write("---")
-
-st.markdown(
-    """
-    <div style="
-        text-align:center;
-        color:#9ca3af;
-        font-size:13px;
-        padding:15px 0;
-    ">
-        © 2026 GEYER Smart Hellas | Επικοινωνία & Υποστήριξη
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
