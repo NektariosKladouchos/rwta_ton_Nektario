@@ -146,6 +146,24 @@ st.markdown(
 div[data-testid="stAlert"] *{
     color:white !important;
 }
+.contact-card{
+    background:linear-gradient(
+        135deg,
+        #008c95 0%,
+        #006f77 100%
+    );
+
+    color:white;
+    padding:30px;
+    border-radius:24px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    min-height:220px;
+    text-align:center;
+}
+
+.contact-card *{
+    color:white !important;
+}
     </style>
     """,
     unsafe_allow_html=True
@@ -225,33 +243,58 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.success("""
-👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ
+    st.markdown(
+    """
+    <div class="contact-card">
 
-Υπεύθυνος:
-Νεκτάριος Κλαδούχος
+    <h3>👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ</h3>
 
-Τηλέφωνο:
-6936803610
+    <br>
 
+    Υπεύθυνος:<br>
+    Νεκτάριος Κλαδούχος
 
-Email:
-kladouxos@geyer.gr
-""")
+    <br><br>
+
+    Τηλέφωνο:<br>
+    6936803610
+
+    <br><br>
+
+    Email:<br>
+    kladouxos@geyer.gr
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 with col2:
 
-    st.success("""
-🏢 GEYER HELLAS Α.Ε.
+    st.markdown(
+    """
+    <div class="contact-card">
 
-📍 Διεύθυνση:
-2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
+    <h3>🏢 GEYER HELLAS Α.Ε.</h3>
 
-☎️ Τηλ. Κέντρο:
-22620 31257
+    <br>
 
-🌐 www.geyer.gr
-""")
+    📍 Διεύθυνση:<br>
+    2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
+
+    <br><br>
+
+    ☎️ Τηλ. Κέντρο:<br>
+    22620 31257
+
+    <br><br>
+
+    🌐 www.geyer.gr
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
