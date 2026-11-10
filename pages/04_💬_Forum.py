@@ -64,6 +64,9 @@ h3{
     line-height:1.4 !important;
 }
     </style>
+    .stApp{
+    background-color:#f8fafc;
+}
     """,
     unsafe_allow_html=True
 )
