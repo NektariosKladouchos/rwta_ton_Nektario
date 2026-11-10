@@ -30,17 +30,20 @@ st.markdown(
     color:#1f2937 !important;
 }
 
-[data-testid="stSidebar"] {
-    background-color: #0b3c26 !important;
+[data-testid="stSidebar"]{
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
+    padding-top:20px;
 }
 
-[data-testid="stSidebarNav"] span,
-[data-testid="stSidebar"] p,
-[data-testid="stSidebar"] label,
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
-    color: white !important;
+[data-testid="stSidebar"] *{
+    color:#1f2937 !important;
+}
+
+[data-testid="stSidebar"] input{
+    background:#ffffff !important;
+    color:#111827 !important;
+    border-radius:10px !important;
 }
 
 [data-testid="stSidebarNav"] svg {
