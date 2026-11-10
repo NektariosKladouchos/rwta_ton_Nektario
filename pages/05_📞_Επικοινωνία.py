@@ -164,6 +164,36 @@ div[data-testid="stAlert"] *{
 .contact-card *{
     color:white !important;
 }
+.contact-card h3{
+    color:white !important;
+    font-size:26px !important;
+    letter-spacing:0px !important;
+    margin-bottom:20px !important;
+}
+.contact-card{
+    background:linear-gradient(
+        135deg,
+        #008c95 0%,
+        #006f77 100%
+    );
+
+    color:white !important;
+
+    padding:35px;
+
+    border-radius:28px;
+
+    box-shadow:0 12px 32px rgba(0,0,0,.08);
+
+    min-height:220px;
+
+    text-align:center;
+}
+
+.contact-card *{
+    color:white !important;
+}
+
     </style>
     """,
     unsafe_allow_html=True
