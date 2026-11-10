@@ -234,6 +234,7 @@ with col1:
 Τηλέφωνο:
 6936803610
 
+
 Email:
 kladouxos@geyer.gr
 """)
