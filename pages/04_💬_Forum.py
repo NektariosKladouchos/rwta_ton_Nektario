@@ -138,7 +138,7 @@ log_event("forum", "visit")
 # ==================================================
 # QUESTION FORM
 # ==================================================
-with st.expander("➕ Νέα Ερώτηση", expanded=False):
+with st.expander("✍️ Νέα Ερώτηση προς την Τεχνική Υποστήριξη", expanded=True):
     with st.form("question_form", clear_on_submit=True):
         name = st.text_input("Όνομα")
         question = st.text_area("Ερώτηση", height=120)
@@ -168,8 +168,9 @@ with st.expander("➕ Νέα Ερώτηση", expanded=False):
 # QUESTIONS LIST
 # ==================================================
 st.divider()
-st.subheader("📋 Ερωτήσεις")
-
+search_term = st.text_input(
+    "🔍 Αναζήτηση ερώτησης"
+)
 df = load_data()
 
 if len(df) == 0:
@@ -182,7 +183,20 @@ else:
             st.caption(f"👤 {row['name']} | 🕒 {row['date']}")
 
             if str(row["answer"]).strip() != "":
-                st.success(f"✅ Απάντηση:\n\n{row['answer']}")
+                st.markdown(
+    f"""
+    <div class="info-text">
+
+    <strong>✅ Απάντηση</strong>
+
+    <br><br>
+
+    {row['answer']}
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # ==================================================
 # ADMIN PANEL
