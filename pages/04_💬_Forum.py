@@ -280,7 +280,26 @@ if admin_password == ADMIN_PASSWORD:
         st.sidebar.info("Δεν υπάρχουν ερωτήσεις.")
 else:
     st.sidebar.caption("Πρόσβαση μόνο διαχειριστή")
+# ---------------------------------------------------------
+# FOOTER
+# ---------------------------------------------------------
 
+st.write("")
+st.write("---")
+
+st.markdown(
+    """
+    <div style="
+        text-align:center;
+        color:#9ca3af;
+        font-size:13px;
+        padding:15px 0;
+    ">
+        © 2026 GEYER Smart Hellas | Forum Υποστήριξης
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 # ==================================================
 # ADMIN ANALYTICS
 # ==================================================
