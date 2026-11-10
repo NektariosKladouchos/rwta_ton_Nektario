@@ -233,22 +233,22 @@ if len(df) == 0:
     st.info("Δεν υπάρχουν ακόμη ερωτήσεις.")
 else:
     df_sorted = df.sort_values(by="id", ascending=False)
-    for _, row in df_sorted.iterrows():
-        st.markdown(
-    f"""
-    <div class="question-card">
+for _, row in df_sorted.iterrows():
+    st.markdown(
+f"""
+<div class="question-card">
 
-        <div class="question-title">
-            ❓ {row['question']}
-        </div>
-
-        <div class="question-meta">
-            👤 {row['name']} | 🕒 {row['date']}
-        </div>
-
+    <div class="question-title">
+        ❓ {row['question']}
     </div>
-    """,
-    unsafe_allow_html=True
+
+    <div class="question-meta">
+        👤 {row['name']} | 🕒 {row['date']}
+    </div>
+
+</div>
+""",
+unsafe_allow_html=True
 )
 
 if str(row["answer"]).strip() != "":
