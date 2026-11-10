@@ -66,6 +66,27 @@ h3{
     text-align:center !important;
     line-height:1.4 !important;
 }
+.question-card{
+    background:#ffffff;
+    padding:25px;
+    border-radius:24px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    margin-bottom:20px;
+    border-left:5px solid #008c95;
+}
+
+.question-title{
+    font-size:22px;
+    font-weight:700;
+    color:#1f2937;
+    margin-bottom:12px;
+}
+
+.question-meta{
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:15px;
+}
     </style>
     """,
     unsafe_allow_html=True
