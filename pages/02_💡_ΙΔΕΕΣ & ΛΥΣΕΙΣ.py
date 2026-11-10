@@ -134,7 +134,21 @@ div[data-baseweb="tab-list"]{
 # HERO SECTION
 # ---------------------------------------------------------
 
-st.caption("GEYER SMART")
+st.markdown(
+    """
+    <p style="
+        text-align:center;
+        color:#008C95;
+        font-size:14px;
+        font-weight:700;
+        letter-spacing:5px;
+        margin-bottom:10px;
+    ">
+        GEYER SMART
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 
 st.write("")
 
