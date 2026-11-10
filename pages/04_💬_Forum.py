@@ -20,6 +20,9 @@ ADMIN_PASSWORD = "geyer123"
 st.markdown(
     """
     <style>
+.stApp{
+    background-color:#f8fafc;
+}    
         [data-testid="stSidebar"]{
     background:#ffffff;
     border-right:1px solid #e5e7eb;
