@@ -250,39 +250,34 @@ else:
 
     for _, row in df_sorted.iterrows():
 
+    st.markdown(
+        f"""
+        <div class="question-card">
+        <h4>❓ {row['question']}</h4>
+        <p>👤 {row['name']} | 🕒 {row['date']}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    if str(row["answer"]).strip():
+
         st.markdown(
             f"""
-            <div class="question-card">
-                <div class="question-title">
-                    ❓ {row['question']}
-                </div>
+            <div class="info-text">
 
-                <div class="question-meta">
-                    👤 {row['name']} | 🕒 {row['date']}
-                </div>
+            <strong>✅ Απάντηση</strong>
+
+            <br><br>
+
+            {row['answer']}
+
             </div>
             """,
             unsafe_allow_html=True
         )
 
-        if str(row["answer"]).strip():
-
-            st.markdown(
-                f"""
-                <div class="info-text">
-
-                <strong>✅ Απάντηση</strong>
-
-                <br><br>
-
-                {row['answer']}
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        st.write("")
+    st.write("")
 # ==================================================
 # ADMIN PANEL
 # ==================================================
