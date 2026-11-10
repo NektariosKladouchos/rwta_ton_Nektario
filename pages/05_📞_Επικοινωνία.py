@@ -214,7 +214,7 @@ st.markdown(
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
 
-st.video("https://www.youtube.com/embed/Q2dzj4YCIy4)
+st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
 
 st.write("")
 # ---------------------------------------------------------
@@ -249,7 +249,6 @@ with col2:
 
 ☎️ Τηλ. Κέντρο:
 22620 31257
-
 🌐 www.geyer.gr
 """)
 # ---------------------------------------------------------
@@ -300,4 +299,4 @@ if is_admin:
         else:
             st.info("Δεν υπάρχουν ακόμα δεδομένα.")
     except Exception as e:
-        st.error(f"Σφάλμα φόρτωσης analytics: {e}")ορίστε ολόκληρος ο κώδικας 
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
