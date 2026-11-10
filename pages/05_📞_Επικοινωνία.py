@@ -279,7 +279,7 @@ with col2:
     ☎️ Τηλ. Κέντρο:<br>
     22620 31257
 
-
+     Site:<br>
     🌐 www.geyer.gr
 
     </div>
