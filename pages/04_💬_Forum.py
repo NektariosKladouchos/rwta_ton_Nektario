@@ -65,9 +65,6 @@ h3{
 }
     </style>
     """,
-.stApp{
- background-color:#f8fafc;
-}
     unsafe_allow_html=True
 )
 
