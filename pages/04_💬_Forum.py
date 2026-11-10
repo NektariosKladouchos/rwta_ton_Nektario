@@ -11,7 +11,7 @@ import pytz
 st.set_page_config(
     page_title="Public Forum",
     page_icon="💬",
-    layout="centered"
+    layout="wide"
 )
 
 ADMIN_PASSWORD = "geyer123"
