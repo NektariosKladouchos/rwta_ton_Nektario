@@ -75,17 +75,7 @@ h3{
     margin-bottom:10px;
 }
 
-.question-title{
-    font-size:22px;
-    font-weight:700;
-    color:#1f2937;
-    margin-bottom:10px;
-}
 
-.question-meta{
-    color:#6b7280;
-    font-size:14px;
-}
     </style>
     """,
     unsafe_allow_html=True
