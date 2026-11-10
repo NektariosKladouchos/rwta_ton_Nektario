@@ -234,25 +234,39 @@ if len(df) == 0:
 else:
     df_sorted = df.sort_values(by="id", ascending=False)
     for _, row in df_sorted.iterrows():
-        with st.container(border=True):
-            st.markdown(f"### ❓ {row['question']}")
-            st.caption(f"👤 {row['name']} | 🕒 {row['date']}")
-
-            if str(row["answer"]).strip() != "":
-                st.markdown(
+        st.markdown(
     f"""
-    <div class="info-text">
+    <div class="question-card">
 
-    <strong>✅ Απάντηση</strong>
+        <div class="question-title">
+            ❓ {row['question']}
+        </div>
 
-    <br><br>
-
-    {row['answer']}
+        <div class="question-meta">
+            👤 {row['name']} | 🕒 {row['date']}
+        </div>
 
     </div>
     """,
     unsafe_allow_html=True
 )
+
+if str(row["answer"]).strip() != "":
+
+    st.markdown(
+        f"""
+        <div class="info-text">
+
+        <strong>✅ Απάντηση</strong>
+
+        <br><br>
+
+        {row['answer']}
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # ==================================================
 # ADMIN PANEL
