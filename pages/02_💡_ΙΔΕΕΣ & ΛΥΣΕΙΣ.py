@@ -138,7 +138,7 @@ div[data-baseweb="tab-list"]{
 # HERO SECTION
 # ---------------------------------------------------------
 
-st.write("GEYER SMART")
+st.caption("GEYER SMART")
 
 st.write("")
 
