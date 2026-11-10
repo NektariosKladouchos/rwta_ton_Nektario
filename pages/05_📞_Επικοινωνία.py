@@ -287,6 +287,7 @@ with col2:
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
+st.write("")
 if st.button("🏠 ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΑΡΧΙΚΗ"):
     _c = load_counters()
     _c["contact_home_clicks"] = _c.get("contact_home_clicks", 0) + 1
