@@ -146,54 +146,6 @@ st.markdown(
 div[data-testid="stAlert"] *{
     color:white !important;
 }
-.contact-card{
-    background:linear-gradient(
-        135deg,
-        #008c95 0%,
-        #006f77 100%
-    );
-
-    color:white;
-    padding:30px;
-    border-radius:24px;
-    box-shadow:0 8px 24px rgba(0,0,0,.08);
-    min-height:220px;
-    text-align:center;
-}
-
-.contact-card *{
-    color:white !important;
-}
-.contact-card h3{
-    color:white !important;
-    font-size:26px !important;
-    letter-spacing:0px !important;
-    margin-bottom:20px !important;
-}
-.contact-card{
-    background:linear-gradient(
-        135deg,
-        #008c95 0%,
-        #006f77 100%
-    );
-
-    color:white !important;
-
-    padding:35px;
-
-    border-radius:28px;
-
-    box-shadow:0 12px 32px rgba(0,0,0,.08);
-
-    min-height:220px;
-
-    text-align:center;
-}
-
-.contact-card *{
-    color:white !important;
-}
-
     </style>
     """,
     unsafe_allow_html=True
@@ -262,7 +214,7 @@ st.markdown(
 
 st.write("Δείτε το βίντεο απευθείας εδώ:")
 
-st.video("https://www.youtube.com/embed/Q2dzj4YCIy4")
+st.video("https://www.youtube.com/embed/Q2dzj4YCIy4)
 
 st.write("")
 # ---------------------------------------------------------
@@ -273,58 +225,33 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.markdown(
-    """
-    <div class="contact-card">
+    st.success("""
+👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ
 
-    <h3>👤 ΤΕΧΝΙΚΗ ΥΠΟΣΤΗΡΙΞΗ</h3>
+Υπεύθυνος:
+Νεκτάριος Κλαδούχος
 
-    <br>
+Τηλέφωνο:
+6936803610
 
-    Υπεύθυνος:<br>
-    Νεκτάριος Κλαδούχος
 
-    <br><br>
-
-    Τηλέφωνο:<br>
-    6936803610
-
-    <br><br>
-
-    Email:<br>
-    kladouxos@geyer.gr
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+Email:
+kladouxos@geyer.gr
+""")
 
 with col2:
 
-    st.markdown(
-    """
-    <div class="contact-card">
+    st.success("""
+🏢 GEYER HELLAS Α.Ε.
 
-    <h3>🏢 GEYER HELLAS Α.Ε.</h3>
+📍 Διεύθυνση:
+2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
 
-    <br>
+☎️ Τηλ. Κέντρο:
+22620 31257
 
-    📍 Διεύθυνση:<br>
-    2ο χλμ. Οδού Σχηματαρίου-Χαλκίδας
-
-    <br><br>
-
-    ☎️ Τηλ. Κέντρο:<br>
-    22620 31257
-
-    <br><br>
-
-    🌐 www.geyer.gr
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+🌐 www.geyer.gr
+""")
 # ---------------------------------------------------------
 # HOME BUTTON
 # ---------------------------------------------------------
@@ -373,4 +300,4 @@ if is_admin:
         else:
             st.info("Δεν υπάρχουν ακόμα δεδομένα.")
     except Exception as e:
-        st.error(f"Σφάλμα φόρτωσης analytics: {e}")
+        st.error(f"Σφάλμα φόρτωσης analytics: {e}")ορίστε ολόκληρος ο κώδικας 
