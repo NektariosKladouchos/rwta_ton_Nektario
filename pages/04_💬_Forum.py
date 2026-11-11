@@ -375,6 +375,7 @@ if st.session_state.get("is_admin", False):
         if result.data:
             df_analytics = pd.DataFrame(result.data)
             df_analytics["timestamp"] = df_analytics["timestamp"].apply(convert_to_greece_time)
+            st.write(df_analytics.columns.tolist())
             st.dataframe(df_analytics)
         else:
             st.info("Δεν υπάρχουν ακόμα δεδομένα.")
