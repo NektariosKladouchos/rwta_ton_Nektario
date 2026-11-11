@@ -230,6 +230,7 @@ else:
     df_sorted = df.sort_values(by="id", ascending=False)
 
     if search_term.strip():
+
         df_sorted = df_sorted[
             df_sorted["question"].str.contains(
                 search_term,
@@ -240,33 +241,39 @@ else:
 
     for _, row in df_sorted.iterrows():
 
-    st.markdown(
-        f"""
-        <div class="question-card">
-        <h4>❓ {row['question']}</h4>
-        <p>👤 {row['name']} | 🕒 {row['date']}</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    if str(row["answer"]).strip():
-
         st.markdown(
             f"""
-            <div class="info-text">
+            <div class="question-card">
 
-            <strong>✅ Απάντηση</strong>
+                <h4>❓ {row['question']}</h4>
 
-            <br><br>
-
-            {row['answer']}
+                <p>
+                    👤 {row['name']} | 🕒 {row['date']}
+                </p>
 
             </div>
             """,
             unsafe_allow_html=True
         )
 
+        if str(row["answer"]).strip() != "":
+
+            st.markdown(
+                f"""
+                <div class="info-text">
+
+                    <strong>✅ Απάντηση</strong>
+
+                    <br><br>
+
+                    {row['answer']}
+
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+        st.write("")
     st.write("")
 # ==================================================
 # ADMIN PANEL
