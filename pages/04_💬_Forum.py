@@ -287,7 +287,6 @@ else:
 
     <strong>✅ Απάντηση</strong>
 
-    <br>
 
     {row['answer']}
 
