@@ -75,12 +75,8 @@ h3{
     margin-bottom:10px;
 }
 div[data-testid="stAlert"]{
-    background:linear-gradient(
-        135deg,
-        #008c95 0%,
-        #006f77 100%
-    ) !important;
-
+    background:#00757c !important;
+}
     color:white !important;
 
     border:none !important;
