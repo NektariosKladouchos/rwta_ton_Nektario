@@ -269,32 +269,34 @@ else:
 
             if str(row["answer"]).strip() != "":
 
-    st.markdown(
-        f"""
-        <div style="
-            background:linear-gradient(
-                135deg,
-                #00757c 0%,
-                #00666d 100%
-            );
-            color:white;
-            padding:20px;
-            border-radius:24px;
-            box-shadow:0 8px 24px rgba(0,0,0,.08);
-            margin-top:10px;
-            margin-bottom:10px;
-        ">
+                st.markdown(
+                    f"""
+                    <div style="
+                        background:linear-gradient(
+                            135deg,
+                            #00757c 0%,
+                            #00666d 100%
+                        );
+                        color:white;
+                        padding:20px;
+                        border-radius:24px;
+                        box-shadow:0 8px 24px rgba(0,0,0,.08);
+                        margin-top:10px;
+                        margin-bottom:10px;
+                    ">
 
-        <strong>✅ Απάντηση</strong>
+                    <strong>✅ Απάντηση</strong>
 
-        <br><br>
+                    <br><br>
 
-        {row['answer']}
+                    {row['answer']}
 
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+        st.write("")
 # ==================================================
 # ADMIN PANEL
 # ==================================================
