@@ -20,75 +20,79 @@ ADMIN_PASSWORD = "geyer123"
 st.markdown(
     """
     <style>
-.stApp{
-    background-color:#f8fafc;
-}    
-        [data-testid="stSidebar"]{
-    background:#ffffff;
-    border-right:1px solid #e5e7eb;
-    padding-top:20px;
-}
 
-[data-testid="stSidebar"] *{
-    color:#1f2937 !important;
-}
+    .stApp{
+        background-color:#f8fafc;
+    }
 
-[data-testid="stSidebar"]{
-    background:#ffffff;
-    border-right:1px solid #e5e7eb;
-    padding-top:20px;
-}
+    /* SIDEBAR */
 
-[data-testid="stSidebar"] *{
-    color:#1f2937 !important;
-}
+    [data-testid="stSidebar"]{
+        background:#ffffff;
+        border-right:1px solid #e5e7eb;
+        padding-top:20px;
+    }
 
-[data-testid="stSidebar"] input{
-    background:#ffffff !important;
-    color:#111827 !important;
-    border-radius:10px !important;
-}
+    [data-testid="stSidebar"] *{
+        color:#1f2937 !important;
+    }
 
-[data-testid="stSidebarNav"] svg {
-    fill: white !important;
-}
-h1{
-    color:#1F2937 !important;
-    font-size:42px !important;
-    font-weight:800 !important;
-    text-align:center !important;
-}
+    [data-testid="stSidebar"] input{
+        background:#ffffff !important;
+        color:#111827 !important;
+        border-radius:10px !important;
+    }
 
-h3{
-    color:#64748B !important;
-    font-size:18px !important;
-    font-weight:400 !important;
-    text-align:center !important;
-    line-height:1.4 !important;
-}
-.question-card{
-    background:#ffffff;
-    padding:25px;
-    border-radius:24px;
-    box-shadow:0 8px 24px rgba(0,0,0,.08);
-    border-left:5px solid #008c95;
-    margin-bottom:10px;
-}
-div[data-testid="stAlert"]{
-    background:#00757c !important;
-}
-    color:white !important;
+    [data-testid="stSidebarNav"] svg{
+        fill:#1f2937 !important;
+    }
 
-    border:none !important;
+    /* HERO */
 
-    border-radius:24px !important;
+    h1{
+        color:#1F2937 !important;
+        font-size:42px !important;
+        font-weight:800 !important;
+        text-align:center !important;
+    }
 
-    box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
-}
+    h3{
+        color:#64748B !important;
+        font-size:18px !important;
+        font-weight:400 !important;
+        text-align:center !important;
+        line-height:1.4 !important;
+    }
 
-div[data-testid="stAlert"] *{
-    color:white !important;
-}
+    /* QUESTION CARDS */
+
+    .question-card{
+        background:#ffffff;
+        padding:25px;
+        border-radius:24px;
+        box-shadow:0 8px 24px rgba(0,0,0,.08);
+        border-left:5px solid #008c95;
+        margin-bottom:10px;
+    }
+
+    /* ANSWER BOXES */
+
+    div[data-testid="stAlert"]{
+        background:linear-gradient(
+            135deg,
+            #00757c 0%,
+            #00666d 100%
+        ) !important;
+
+        color:white !important;
+        border:none !important;
+        border-radius:24px !important;
+        box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+    }
+
+    div[data-testid="stAlert"] *{
+        color:white !important;
+    }
 
     </style>
     """,
