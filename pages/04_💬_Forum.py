@@ -113,7 +113,16 @@ supabase = init_supabase()
 # ==================================================
 # LOG EVENT
 # ==================================================
-from subpages.analytics_utils import log_event
+def log_event(page, event, user=None, extra=None):
+    try:
+        supabase.table("analytics").insert({
+            "page": page,
+            "event": event,
+            "user_email": user,
+            "extra": extra
+        }).execute()
+    except:
+        pass
 
 # ==================================================
 # TIMEZONE CONVERSION (UTC → GREECE)
