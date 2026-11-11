@@ -203,3 +203,19 @@ if st.button("⚠️ Διαγραφή analytics για αυτή την ημερ�
             st.error(f"❌ Σφάλμα διαγραφής: {e}")
     else:
         st.warning("⚠️ Δεν έχεις επιλέξει ημερομηνία.")
+st.write("---")
+
+if st.button("🗑️ ΔΙΑΓΡΑΦΗ ΟΛΩΝ ΤΩΝ ANALYTICS"):
+
+    try:
+
+        supabase.table("analytics") \
+            .delete() \
+            .neq("id", 0) \
+            .execute()
+
+        st.success("✅ Όλα τα analytics διαγράφηκαν.")
+
+    except Exception as e:
+
+        st.error(f"Σφάλμα: {e}")
