@@ -241,40 +241,21 @@ else:
 
     for _, row in df_sorted.iterrows():
 
-        st.markdown(
-            f"""
-            <div class="question-card">
+        with st.container(border=True):
 
-                <h4>❓ {row['question']}</h4>
+            st.subheader(f"❓ {row['question']}")
 
-                <p>
-                    👤 {row['name']} | 🕒 {row['date']}
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        if str(row["answer"]).strip() != "":
-
-            st.markdown(
-                f"""
-                <div class="info-text">
-
-                    <strong>✅ Απάντηση</strong>
-
-                    <br><br>
-
-                    {row['answer']}
-
-                </div>
-                """,
-                unsafe_allow_html=True
+            st.caption(
+                f"👤 {row['name']} | 🕒 {row['date']}"
             )
 
+            if str(row["answer"]).strip() != "":
+
+                st.info(
+                    f"✅ Απάντηση\n\n{row['answer']}"
+                )
+
         st.write("")
-    st.write("")
 # ==================================================
 # ADMIN PANEL
 # ==================================================
