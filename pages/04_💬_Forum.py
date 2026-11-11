@@ -269,7 +269,7 @@ else:
 
             if str(row["answer"]).strip() != "":
 
-               st.success(
+               st.markdown(
                     f"✅ Απάντηση\n\n{row['answer']}"
                 )
 
