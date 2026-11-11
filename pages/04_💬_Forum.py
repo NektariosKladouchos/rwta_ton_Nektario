@@ -304,8 +304,21 @@ if admin_password == ADMIN_PASSWORD:
 
         st.sidebar.markdown("---")
         st.sidebar.write("### Ερώτηση")
-        st.sidebar.info(selected_row["question"])
-
+        st.sidebar.markdown(
+    """
+    <div style="
+        background:#00757c;
+        color:white;
+        padding:12px;
+        border-radius:12px;
+        text-align:center;
+        font-weight:600;
+    ">
+        ✅ Επιτυχής σύνδεση
+    </div>
+    """,
+    unsafe_allow_html=True
+)
         answer_text = st.sidebar.text_area(
             "Απάντηση",
             value=str(selected_row["answer"]),
