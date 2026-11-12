@@ -298,14 +298,16 @@ if admin_password == ADMIN_PASSWORD:
     """
     <div style="
         background:#00757c;
-        color:white;
         padding:12px;
         border-radius:12px;
         text-align:center;
-        font-weight:600;
-        margin-bottom:10px;
     ">
-        ✅ Επιτυχής σύνδεση
+        <span style="
+            color:white !important;
+            font-weight:600;
+        ">
+            ✅ Επιτυχής σύνδεση
+        </span>
     </div>
     """,
     unsafe_allow_html=True
