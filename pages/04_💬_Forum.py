@@ -294,8 +294,22 @@ admin_password = st.sidebar.text_input("Password", type="password")
 
 if admin_password == ADMIN_PASSWORD:
     st.session_state.is_admin = True
-    st.sidebar.success("Επιτυχής σύνδεση")
-
+    st.sidebar.markdown(
+    """
+    <div style="
+        background:#00757c;
+        color:white;
+        padding:12px;
+        border-radius:12px;
+        text-align:center;
+        font-weight:600;
+        margin-bottom:10px;
+    ">
+        ✅ Επιτυχής σύνδεση
+    </div>
+    """,
+    unsafe_allow_html=True
+)
     df = load_data()
 
     if len(df) > 0:
