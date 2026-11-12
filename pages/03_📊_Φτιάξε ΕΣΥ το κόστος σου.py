@@ -6,23 +6,14 @@ import pandas as pd
 import pytz
 from supabase import create_client, Client
 
+from subpages.analytics_utils import log_event
+
 # -------------------------------------------------
 # SUPABASE CONNECTION + ANALYTICS
 # -------------------------------------------------
 SUPABASE_URL = st.secrets["supabase"]["url"]
 SUPABASE_KEY = st.secrets["supabase"]["key"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-def log_event(page, event, user=None, extra=None):
-    try:
-        supabase.table("analytics").insert({
-            "page": page,
-            "event": event,
-            "user_email": user,
-            "extra": extra
-        }).execute()
-    except:
-        pass
 
 def convert_utc_to_greece(ts):
     try:
