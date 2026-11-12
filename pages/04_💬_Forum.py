@@ -322,17 +322,19 @@ if admin_password == ADMIN_PASSWORD:
         st.sidebar.write("### Ερώτηση")
 
         st.sidebar.markdown(
-        f"""
-        <div style="
+    f"""
+    <div style="
         background:#00757c;
-        color:white;
         padding:12px;
         border-radius:12px;
-        text-align:left;
-        font-weight:500;
-        line-height:1.5;
+    ">
+        <p style="
+            color:white !important;
+            margin:0;
+            font-weight:500;
         ">
-        {selected_row["question"]}
+            {selected_row["question"]}
+        </p>
     </div>
     """,
     unsafe_allow_html=True
