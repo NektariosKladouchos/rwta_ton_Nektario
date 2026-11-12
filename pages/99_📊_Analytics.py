@@ -3,7 +3,7 @@ import pandas as pd
 import pytz
 from supabase import create_client, Client
 import plotly.express as px
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 
 # -------------------------------------------------
 # SUPABASE CONNECTION
@@ -100,7 +100,16 @@ col1, col2, col3, col4 = st.columns(4)
 col1.metric("Σύνολο Events", len(filtered))
 col2.metric("Μοναδικές Σελίδες", filtered["page"].nunique())
 col3.metric("Μοναδικά Events", filtered["event"].nunique())
-col4.metric("Τελευταίο Event", filtered.iloc[0]["event"])
+last_event = (
+    filtered.iloc[0]["event"]
+    if len(filtered) > 0
+    else "-"
+)
+
+col4.metric(
+    "Τελευταίο Event",
+    last_event
+)
 
 # -------------------------------------------------
 # TOP STATS
