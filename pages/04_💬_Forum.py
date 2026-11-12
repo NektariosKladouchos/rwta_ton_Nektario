@@ -304,17 +304,19 @@ if admin_password == ADMIN_PASSWORD:
 
         st.sidebar.markdown("---")
         st.sidebar.write("### Ερώτηση")
+
         st.sidebar.markdown(
-    """
-    <div style="
+        f"""
+        <div style="
         background:#00757c;
         color:white;
         padding:12px;
         border-radius:12px;
-        text-align:center;
-        font-weight:600;
-    ">
-        ✅ Επιτυχής σύνδεση
+        text-align:left;
+        font-weight:500;
+        line-height:1.5;
+        ">
+        {selected_row["question"]}
     </div>
     """,
     unsafe_allow_html=True
