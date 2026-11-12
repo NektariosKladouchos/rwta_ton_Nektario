@@ -424,8 +424,7 @@ if "is_admin" not in st.session_state:
 # ---------------------------------------------------------
 # ADMIN ANALYTICS (WITH GREECE TIME)
 # ---------------------------------------------------------
-if "is_admin" not in st.session_state:
-    st.session_state["is_admin"] = False
+
 if st.session_state.is_admin:
     st.write("---")
     st.subheader("📊 Analytics Αρχικής Σελίδας (Admin Only)")
