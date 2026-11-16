@@ -5,23 +5,13 @@ import pandas as pd
 import pytz
 from supabase import create_client, Client
 
+from subpages.analytics_utils import log_event
 # ---------------------------------------------------------
 # SUPABASE CONNECTION
 # ---------------------------------------------------------
 SUPABASE_URL = st.secrets["supabase"]["url"]
 SUPABASE_KEY = st.secrets["supabase"]["key"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-def log_event(page, event, user=None, extra=None):
-    try:
-        supabase.table("analytics").insert({
-            "page": page,
-            "event": event,
-            "user_email": user,
-            "extra": extra
-        }).execute()
-    except:
-        pass
 
 def convert_utc_to_greece(ts):
     try:
@@ -312,20 +302,11 @@ with tab1:
         "Επιλέξτε σχέδιο:",
         files
     )
-    st.markdown(f"### 📘 {clean_title}")
-    
 
     log_event(
         "sxedia",
         "open_design",
         extra=choice
-    )
-    st.write("")
-    img_path = os.path.join(folder, choice)
-
-    st.image(
-        img_path,
-        use_container_width=True
     )
 
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
@@ -339,18 +320,20 @@ with tab1:
         .title()
     )
 
-    with st.expander(
-        "📘 Τίτλος Σχεδίου",
-        expanded=True
-    ):
-        st.write(
-            info["title"]
-            if info["title"]
-            else clean_title
-        )
+    img_path = os.path.join(folder, choice)
+
+    st.write("---")
+
+    st.subheader(f"📘 {clean_title}")
+
+    st.image(
+        img_path,
+        use_container_width=True
+    )
 
     with st.expander(
-        "📝 Γρήγορη Επεξήγηση"
+        "📝 Γρήγορη Επεξήγηση",
+        expanded=True
     ):
         st.write(
             info["description"]
@@ -385,7 +368,7 @@ with tab2:
     _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
     save_counters(_c)
 
-    st.subheader("⚙️ Τρόποι Προγραμματισμού")
+    st.subheader("⚙️ Μαθήματα  Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
@@ -434,11 +417,11 @@ with tab2:
                 render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
             if pc_items:
                 render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
-
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
 with tab3:
+
     log_event("sxedia", "open_tab", extra="lessons")
 
     _c = load_counters()
@@ -448,53 +431,109 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
-        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'.")
+        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
+
     else:
+
         entries = [
-            d for d in os.listdir(LESSONS_DIR)
-            if os.path.isdir(os.path.join(LESSONS_DIR, d))
+            d
+            for d in os.listdir(LESSONS_DIR)
+            if os.path.isdir(
+                os.path.join(LESSONS_DIR, d)
+            )
         ]
+
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
+            st.info("ℹ️ Δεν υπάρχουν μαθήματα")
+
         else:
+
             choice_lesson = st.selectbox(
                 "Επιλέξτε μάθημα:",
                 entries,
                 format_func=lambda x: x.replace("_", " ").title()
             )
 
-            log_event("sxedia", "open_lesson", extra=choice_lesson)
+            log_event(
+                "sxedia",
+                "open_lesson",
+                extra=choice_lesson
+            )
 
-            lesson_folder = os.path.join(LESSONS_DIR, choice_lesson)
-            main_txt = os.path.join(lesson_folder, f"{choice_lesson}.txt")
+            lesson_folder = os.path.join(
+                LESSONS_DIR,
+                choice_lesson
+            )
+
+            main_txt = os.path.join(
+                lesson_folder,
+                f"{choice_lesson}.txt"
+            )
+
             data = load_lesson_or_program_txt(main_txt)
 
-            st.markdown("### 📘 Τίτλος Μαθήματος")
-            st.write(data["title"] if data["title"] else choice_lesson.replace("_", " ").title())
+            with st.expander(
+                "📘 Τίτλος Μαθήματος",
+                expanded=True
+            ):
+                st.write(
+                    data["title"]
+                    if data["title"]
+                    else choice_lesson.replace("_", " ").title()
+                )
 
-            st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+            with st.expander(
+                "📝 Περιγραφή"
+            ):
+                st.write(
+                    data["description"]
+                    if data["description"]
+                    else "Δεν υπάρχει περιγραφή."
+                )
 
             video_url = data["video"].strip()
+
             if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
+
+                st.subheader("🎬 Βίντεο YouTube")
+
                 st.video(video_url)
 
             st.write("---")
 
-            mobile_folder = os.path.join(lesson_folder, "mobile")
-            pc_folder = os.path.join(lesson_folder, "pc")
+            mobile_folder = os.path.join(
+                lesson_folder,
+                "mobile"
+            )
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+            pc_folder = os.path.join(
+                lesson_folder,
+                "pc"
+            )
+
+            mobile_items = load_screenshots(
+                mobile_folder
+            )
+
+            pc_items = load_screenshots(
+                pc_folder
+            )
 
             if mobile_items:
-                render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
-            if pc_items:
-                render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
+                render_carousel(
+                    "📱 Screens από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_lesson}_mobile"
+                )
 
+            if pc_items:
+                render_carousel(
+                    "💻 Screens από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_lesson}_pc"
+                )
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
