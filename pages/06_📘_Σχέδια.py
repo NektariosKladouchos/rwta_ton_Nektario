@@ -208,18 +208,18 @@ def load_screenshots(folder):
 # ---------------------------------------------------------
 # CAROUSEL
 # ---------------------------------------------------------
-def render_carousel(title, items, key_prefix):
-    if not items:
-        return
+#def render_carousel(title, items, key_prefix):
+    #if not items:
+    #return
 
-    st.markdown(f"#### {title}")
+    #st.markdown(f"#### {title}")
 
-    if len(items) == 1:
-        st.image(items[0]["img"], use_container_width=True)
-        if items[0]["caption"]:
-            st.caption(items[0]["caption"])
-        st.write("---")
-        return
+    #if len(items) == 1:
+        #st.image(items[0]["img"], use_container_width=True)
+        #if items[0]["caption"]:
+           # st.caption(items[0]["caption"])
+       # st.write("---")
+       # return
 
     idx = st.slider(
         "Επιλέξτε screenshot",
