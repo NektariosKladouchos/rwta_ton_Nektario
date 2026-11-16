@@ -421,8 +421,8 @@ with tab2:
             # st.write(mobile_items)
             # if mobile_items:
             #     render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
-            # if pc_items:
-            #     render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+            if pc_items:
+            render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
