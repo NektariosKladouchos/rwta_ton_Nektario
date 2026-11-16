@@ -412,11 +412,11 @@ with tab2:
 
             st.write("---")
 
-            # mobile_folder = os.path.join(prog_folder, "mobile")
-            # pc_folder = os.path.join(prog_folder, "pc")
+            mobile_folder = os.path.join(prog_folder, "mobile")
+            pc_folder = os.path.join(prog_folder, "pc")
 
-            # mobile_items = load_screenshots(mobile_folder)
-            # pc_items = load_screenshots(pc_folder)
+            mobile_items = load_screenshots(mobile_folder)
+            pc_items = load_screenshots(pc_folder)
             st.write(pc_items)
             st.write(mobile_items)
             # if mobile_items:
