@@ -415,14 +415,36 @@ with tab2:
             mobile_folder = os.path.join(prog_folder, "mobile")
             pc_folder = os.path.join(prog_folder, "pc")
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+            # mobile_items = load_screenshots(mobile_folder)
+            # pc_items = load_screenshots(pc_folder)
             # st.write(pc_items)
             # st.write(mobile_items)
             # if mobile_items:
             #     render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
             # if pc_items:
             # render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+            
+            mobile_items = load_screenshots(mobile_folder)
+            pc_items = load_screenshots(pc_folder)
+
+            if pc_items:
+                render_carousel(
+                    "💻 Οδηγίες από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_prog}_pc"
+                )
+            else:
+                st.info("Δεν υπάρχουν screenshots για υπολογιστή.")
+
+            if mobile_items:
+                render_carousel(
+                    "📱 Οδηγίες από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_prog}_mobile"
+                )
+            else:
+                st.info("Δεν υπάρχουν screenshots για κινητό.")
+
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
