@@ -368,7 +368,7 @@ with tab2:
     _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
     save_counters(_c)
 
-    st.subheader("⚙️ Τρόποι Προγραμματισμού")
+    st.subheader("⚙️ Μαθήματα  Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
