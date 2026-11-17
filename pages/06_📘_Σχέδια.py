@@ -174,6 +174,7 @@ def load_lesson_or_program_txt(txt_path):
 
 
 def load_screenshots(folder):
+
     if not os.path.isdir(folder):
         return []
 
@@ -181,6 +182,7 @@ def load_screenshots(folder):
     items = []
 
     for img in os.listdir(folder):
+
         if not img.lower().endswith(valid_ext):
             continue
 
@@ -190,14 +192,15 @@ def load_screenshots(folder):
         img_path = os.path.join(folder, img)
         base = os.path.splitext(img)[0]
 
-        # Εντοπισμός TXT χωρίς διάκριση πεζών-κεφαλαίων
         txt_path = None
+
         for filename in os.listdir(folder):
             if filename.lower() == (base + ".txt").lower():
                 txt_path = os.path.join(folder, filename)
                 break
 
         caption = ""
+
         if txt_path:
             try:
                 with open(txt_path, "r", encoding="utf-8-sig") as f:
@@ -210,24 +213,22 @@ def load_screenshots(folder):
             "caption": caption
         })
 
-    # Σωστή αριθμητική ταξινόμηση: 1, 2, 3 ... 10
     import re
 
-def extract_number(path):
-    filename = os.path.basename(path)
+    def extract_number(item):
 
-    match = re.match(r"(\d+)", filename)
+        filename = os.path.basename(item["img"])
 
-    if match:
-        return int(match.group(1))
+        match = re.match(r"(\d+)", filename)
 
-    return 999
+        if match:
+            return int(match.group(1))
 
-items.sort(
-    key=lambda x: extract_number(x["img"])
-)
+        return 999
+
+    items.sort(key=extract_number)
+
     return items
-
 
 # ---------------------------------------------------------
 # CAROUSEL
