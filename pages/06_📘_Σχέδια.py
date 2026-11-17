@@ -171,37 +171,53 @@ def load_lesson_or_program_txt(txt_path):
 # ---------------------------------------------------------
 # SCREENSHOT LOADER
 # ---------------------------------------------------------
+
 def load_screenshots(folder):
     if not os.path.exists(folder):
         return []
 
     valid_ext = (".png", ".jpg", ".jpeg")
+
     images = [
         f for f in os.listdir(folder)
-        if f.lower().endswith(valid_ext) and not f.startswith(".")
+        if f.lower().endswith(valid_ext)
+        and not f.startswith(".")
     ]
 
-    if not images:
-        return []
-
     images = sorted(images)
+
     items = []
 
+    # Δημιουργία λίστας TXT χωρίς διάκριση πεζών-κεφαλαίων
+    txt_files = {
+        os.path.splitext(f)[0].strip().casefold(): f
+        for f in os.listdir(folder)
+        if f.lower().endswith(".txt")
+    }
+
     for img in images:
-        base, _ = os.path.splitext(img)
+
+        base = os.path.splitext(img)[0]
+
+        txt_name = txt_files.get(base.strip().casefold())
+
+        caption = ""
+
+        if txt_name:
+            txt_path = os.path.join(folder, txt_name)
+
+            try:
+                with open(txt_path, "r", encoding="utf-8") as f:
+                    caption = f.read().strip()
+            except Exception:
+                caption = ""
+
         img_path = os.path.join(folder, img)
-        txt_path = os.path.join(folder, base + ".txt")
 
-        if not os.path.exists(txt_path):
-            continue
-
-        try:
-            with open(txt_path, "r", encoding="utf-8") as f:
-                caption = f.read().strip()
-        except:
-            caption = ""
-
-        items.append({"img": img_path, "caption": caption})
+        items.append({
+            "img": img_path,
+            "caption": caption
+        })
 
     return items
 
