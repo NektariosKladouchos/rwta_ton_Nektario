@@ -380,6 +380,7 @@ tab1, tab2, tab3 = st.tabs([
             else "Δεν υπάρχουν οφέλη."
         )
 
+
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
@@ -392,20 +393,18 @@ with tab2:
     )
 
     _c = load_counters()
-    _c["sxedia_programming"] = _c.get(
-        "sxedia_programming",
-        0
-    ) + 1
+
+    _c["sxedia_programming"] = (
+        _c.get("sxedia_programming", 0) + 1
+    )
 
     save_counters(_c)
 
     st.subheader(
         "⚙️ Μαθήματα Προγραμματισμού"
     )
-    st.error("VERSION 17-11")
-    if not os.path.exists(
-        PROGRAMMING_DIR
-    ):
+
+    if not os.path.exists(PROGRAMMING_DIR):
 
         st.info(
             "ℹ️ Δεν υπάρχει φάκελος 'programming'."
@@ -415,9 +414,7 @@ with tab2:
 
         entries = [
             d
-            for d in os.listdir(
-                PROGRAMMING_DIR
-            )
+            for d in os.listdir(PROGRAMMING_DIR)
             if os.path.isdir(
                 os.path.join(
                     PROGRAMMING_DIR,
@@ -440,7 +437,7 @@ with tab2:
                 "Επιλέξτε διαδικασία:",
                 entries,
                 format_func=lambda x:
-                x.replace("_", " ").title()
+                    x.replace("_", " ").title()
             )
 
             prog_folder = os.path.join(
@@ -480,9 +477,7 @@ with tab2:
                 else "Δεν υπάρχει περιγραφή."
             )
 
-            video_url = (
-                data["video"].strip()
-            )
+            video_url = data["video"].strip()
 
             if video_url:
 
@@ -490,9 +485,7 @@ with tab2:
                     "### 🎬 Βίντεο YouTube"
                 )
 
-                st.video(
-                    video_url
-                )
+                st.video(video_url)
 
             st.write("---")
 
@@ -515,9 +508,11 @@ with tab2:
 
                 step = st.selectbox(
                     "Επιλογή Βήματος",
-                    range(
-                        1,
-                        len(screenshots) + 1
+                    list(
+                        range(
+                            1,
+                            len(screenshots) + 1
+                        )
                     )
                 )
 
@@ -542,7 +537,7 @@ with tab2:
 
                     st.info(
                         item["caption"]
-                    )
+                    )                    
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
