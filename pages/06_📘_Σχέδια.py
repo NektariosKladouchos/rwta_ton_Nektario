@@ -469,15 +469,45 @@ with tab2:
 
             
             
+           
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
 
+            # ΕΛΕΓΧΟΣ ΑΡΧΕΙΩΝ
             st.write("DEBUG PC FOLDER:", pc_folder)
-            st.write("DEBUG ΑΡΧΕΙΑ:", os.listdir(pc_folder))
+
+            if os.path.exists(pc_folder):
+                st.write("DEBUG ΑΡΧΕΙΑ:", os.listdir(pc_folder))
+            else:
+                st.error("Δεν βρέθηκε ο φάκελος PC.")
+
             st.write("DEBUG PC ITEMS:", len(pc_items))
 
             for item in pc_items:
-            st.write(item["img"], item["caption"])
+                st.write("Εικόνα:", item["img"])
+                st.write("Περιγραφή:", item["caption"])
+
+            # ΟΔΗΓΙΕΣ ΥΠΟΛΟΓΙΣΤΗ
+            if pc_items:
+                render_carousel(
+                    "💻 Οδηγίες από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_prog}_pc"
+                )
+            else:
+                st.info("Δεν υπάρχουν screenshots για υπολογιστή.")
+
+            # ΟΔΗΓΙΕΣ ΚΙΝΗΤΟΥ
+            if mobile_items:
+                render_carousel(
+                    "📱 Οδηγίες από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_prog}_mobile"
+                )
+            else:
+                st.info("Δεν υπάρχουν screenshots για κινητό.")
+
+            
             
             
             
