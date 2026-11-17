@@ -418,6 +418,7 @@ with tab1:
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
+    st.error("TEST 123 - ΝΕΑ ΕΚΔΟΣΗ TAB 2")
     log_event("sxedia", "open_tab", extra="programming")
 
     _c = load_counters()
@@ -472,21 +473,7 @@ with tab2:
             pc_items = load_screenshots(pc_folder)
             
             
-            st.markdown("### 🔍 ΕΛΕΓΧΟΣ ΑΡΧΕΙΩΝ")
-
-            st.write("Φάκελος PC:", pc_folder)
-
-            if os.path.exists(pc_folder):
-                files = os.listdir(pc_folder)
-
-                st.write("Αρχεία φακέλου:", files)
-                st.write("Σύνολο εικόνων:", len(pc_items))
-
-                for item in pc_items:
-                    st.write(os.path.basename(item["img"]))
-            else:
-                st.error("Ο φάκελος PC δεν βρέθηκε!")
-
+            
             
             if pc_items:
                 render_carousel(
