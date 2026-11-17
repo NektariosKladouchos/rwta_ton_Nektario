@@ -180,13 +180,12 @@ def load_screenshots(folder):
 
     items = []
 
-    for img in sorted(os.listdir(folder)):
+    image_files = sorted([
+        f for f in os.listdir(folder)
+        if f.lower().endswith(valid_ext)
+    ])
 
-        if img.startswith("."):
-            continue
-
-        if not img.lower().endswith(valid_ext):
-            continue
+    for img in image_files:
 
         img_path = os.path.join(folder, img)
 
@@ -194,7 +193,7 @@ def load_screenshots(folder):
 
         txt_path = os.path.join(
             folder,
-            base + ".txt"
+            f"{base}.txt"
         )
 
         caption = ""
@@ -205,13 +204,13 @@ def load_screenshots(folder):
                 with open(
                     txt_path,
                     "r",
-                    encoding="utf-8-sig"
+                    encoding="utf-8"
                 ) as f:
 
                     caption = f.read().strip()
 
             except Exception:
-                caption = ""
+                pass
 
         items.append({
             "img": img_path,
@@ -219,61 +218,34 @@ def load_screenshots(folder):
         })
 
     return items
-
 # ---------------------------------------------------------
 # CAROUSEL
+# ---------------------------------------------------------
+# ---------------------------------------------------------
+# SCREEN VIEWER
 # ---------------------------------------------------------
 def render_carousel(title, items, key_prefix):
 
     if not items:
         return
 
-    st.markdown(f"#### {title}")
+    st.markdown(f"### {title}")
 
-    state_key = f"{key_prefix}_step"
-
-    if state_key not in st.session_state:
-        st.session_state[state_key] = 0
-
-    idx = st.session_state[state_key]
-
-    if idx < 0:
-        idx = 0
-
-    if idx > len(items) - 1:
-        idx = len(items) - 1
-
-    st.session_state[state_key] = idx
-
-    col1, col2, col3 = st.columns([1, 2, 1])
-
-    with col1:
-        if st.button(
-            "⬅️ Προηγούμενο",
-            key=f"{key_prefix}_prev",
-            disabled=(idx == 0),
-            use_container_width=True
-        ):
-            st.session_state[state_key] = idx - 1
-            st.rerun()
-
-    with col3:
-        if st.button(
-            "Επόμενο ➡️",
-            key=f"{key_prefix}_next",
-            disabled=(idx >= len(items) - 1),
-            use_container_width=True
-        ):
-            st.session_state[state_key] = idx + 1
-            st.rerun()
-
-    item = items[idx]
-
-    st.markdown(
-        f"### Βήμα {idx + 1} από {len(items)}"
+    step = st.selectbox(
+        "Επιλέξτε Βήμα",
+        range(1, len(items) + 1),
+        key=f"{key_prefix}_step"
     )
 
-    st.progress((idx + 1) / len(items))
+    item = items[step - 1]
+
+    st.markdown(
+        f"### Βήμα {step} από {len(items)}"
+    )
+
+    st.progress(
+        step / len(items)
+    )
 
     st.image(
         item["img"],
@@ -413,18 +385,27 @@ with tab1:
 # ---------------------------------------------------------
 with tab2:
 
-    log_event("sxedia", "open_tab", extra="programming")
+    log_event(
+        "sxedia",
+        "open_tab",
+        extra="programming"
+    )
 
     _c = load_counters()
     _c["sxedia_programming"] = _c.get(
         "sxedia_programming",
         0
     ) + 1
+
     save_counters(_c)
 
-    st.subheader("⚙️ Μαθήματα Προγραμματισμού")
+    st.subheader(
+        "⚙️ Μαθήματα Προγραμματισμού"
+    )
 
-    if not os.path.exists(PROGRAMMING_DIR):
+    if not os.path.exists(
+        PROGRAMMING_DIR
+    ):
 
         st.info(
             "ℹ️ Δεν υπάρχει φάκελος 'programming'."
@@ -434,7 +415,9 @@ with tab2:
 
         entries = [
             d
-            for d in os.listdir(PROGRAMMING_DIR)
+            for d in os.listdir(
+                PROGRAMMING_DIR
+            )
             if os.path.isdir(
                 os.path.join(
                     PROGRAMMING_DIR,
@@ -458,12 +441,6 @@ with tab2:
                 entries,
                 format_func=lambda x:
                 x.replace("_", " ").title()
-            )
-
-            log_event(
-                "sxedia",
-                "open_programming",
-                extra=choice_prog
             )
 
             prog_folder = os.path.join(
@@ -503,7 +480,9 @@ with tab2:
                 else "Δεν υπάρχει περιγραφή."
             )
 
-            video_url = data["video"].strip()
+            video_url = (
+                data["video"].strip()
+            )
 
             if video_url:
 
@@ -511,7 +490,9 @@ with tab2:
                     "### 🎬 Βίντεο YouTube"
                 )
 
-                st.video(video_url)
+                st.video(
+                    video_url
+                )
 
             st.write("---")
 
@@ -520,39 +501,36 @@ with tab2:
                 "pc"
             )
 
-            pc_items = load_screenshots(
+            screenshots = load_screenshots(
                 pc_folder
             )
 
-            if not pc_items:
+            if not screenshots:
 
-                st.info(
-                    "Δεν υπάρχουν screenshots."
+                st.warning(
+                    "Δεν βρέθηκαν screenshots."
                 )
 
             else:
 
-                total_steps = len(pc_items)
-
                 step = st.selectbox(
-                    "Επιλέξτε Βήμα",
-                    options=range(
+                    "Επιλογή Βήματος",
+                    range(
                         1,
-                        total_steps + 1
-                    ),
-                    key=f"{choice_prog}_step"
+                        len(screenshots) + 1
+                    )
                 )
 
-                item = pc_items[
+                item = screenshots[
                     step - 1
                 ]
 
                 st.markdown(
-                    f"## Βήμα {step} από {total_steps}"
+                    f"### Βήμα {step} από {len(screenshots)}"
                 )
 
                 st.progress(
-                    step / total_steps
+                    step / len(screenshots)
                 )
 
                 st.image(
