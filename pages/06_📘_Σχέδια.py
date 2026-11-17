@@ -233,7 +233,6 @@ def load_screenshots(folder):
 # ---------------------------------------------------------
 # CAROUSEL
 # ---------------------------------------------------------
-
 def render_carousel(title, items, key_prefix):
 
     if not items:
@@ -241,18 +240,21 @@ def render_carousel(title, items, key_prefix):
 
     st.markdown(f"#### {title}")
 
-    # Μοναδικό state για κάθε διαδικασία
     state_key = f"{key_prefix}_step"
 
     if state_key not in st.session_state:
         st.session_state[state_key] = 0
 
-    # Έλεγχος ορίων
     idx = st.session_state[state_key]
-    idx = max(0, min(idx, len(items) - 1))
+
+    if idx < 0:
+        idx = 0
+
+    if idx > len(items) - 1:
+        idx = len(items) - 1
+
     st.session_state[state_key] = idx
 
-    # Προηγούμενο / Επόμενο
     col1, col2, col3 = st.columns([1, 2, 1])
 
     with col1:
@@ -262,49 +264,36 @@ def render_carousel(title, items, key_prefix):
             disabled=(idx == 0),
             use_container_width=True
         ):
-            st.session_state[state_key] -= 1
+            st.session_state[state_key] = idx - 1
             st.rerun()
 
     with col3:
         if st.button(
             "Επόμενο ➡️",
             key=f"{key_prefix}_next",
-            disabled=(idx == len(items) - 1),
+            disabled=(idx >= len(items) - 1),
             use_container_width=True
         ):
-            st.session_state[state_key] += 1
+            st.session_state[state_key] = idx + 1
             st.rerun()
 
-    # Τρέχον βήμα
     item = items[idx]
 
     st.markdown(
-        f"<h3 style='text-align:center; letter-spacing:0;'>"
-        f"Βήμα {idx + 1} από {len(items)}"
-        f"</h3>",
-        unsafe_allow_html=True
+        f"### Βήμα {idx + 1} από {len(items)}"
     )
 
-    # Progress bar
     st.progress((idx + 1) / len(items))
 
-    # Εικόνα
-    from PIL import Image
-
-img = Image.open(item["img"])
-
-st.image(
-    img,
-    use_container_width=True
-)
+    st.image(
+        item["img"],
+        use_container_width=True
     )
 
-    # Περιγραφή
     if item["caption"]:
         st.info(item["caption"])
 
     st.write("---")
-
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
