@@ -498,7 +498,7 @@ with tab2:
 
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
-
+            st.write("Συνολικά βήματα:", len(pc_items))
             if mobile_items:
                 render_carousel(
                     "📱 Screens από κινητό",
