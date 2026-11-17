@@ -472,26 +472,28 @@ with tab2:
 
             st.write("---")
 
-            mobile_folder = os.path.join(prog_folder, "mobile")
-            pc_folder = os.path.join(prog_folder, "pc")
+           mobile_folder = os.path.join(prog_folder, "mobile")
+pc_folder = os.path.join(prog_folder, "pc")
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
-            st.write("Συνολικά βήματα:", len(pc_items))
-            if mobile_items:
-                render_carousel(
-                    "📱 Screens από κινητό",
-                    mobile_items,
-                    key_prefix=f"{choice_prog}_mobile"
-                )
+mobile_items = load_screenshots(mobile_folder)
+pc_items = load_screenshots(pc_folder)
 
-            if pc_items:
-                render_carousel(
-                    "💻 Screens από υπολογιστή",
-                    pc_items,
-                    key_prefix=f"{choice_prog}_pc"
-                )
+st.error(f"PC ITEMS = {len(pc_items)}")
+st.error(f"MOBILE ITEMS = {len(mobile_items)}")
 
+if mobile_items:
+    render_carousel(
+        "📱 Screens από κινητό",
+        mobile_items,
+        key_prefix=f"{choice_prog}_mobile"
+    )
+
+if pc_items:
+    render_carousel(
+        "💻 Screens από υπολογιστή",
+        pc_items,
+        key_prefix=f"{choice_prog}_pc"
+    )
             if not mobile_items and not pc_items:
                 st.info("Δεν έχουν προστεθεί ακόμα screenshots.")
 
