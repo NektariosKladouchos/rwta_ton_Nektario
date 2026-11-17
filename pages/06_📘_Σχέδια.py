@@ -310,6 +310,7 @@ with tab2:
     save_counters(_c)
 
     st.subheader("⚙️ Τρόποι Προγραμματισμού")
+    st.warning("TEST DEPLOY")
 
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
