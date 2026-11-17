@@ -418,7 +418,7 @@ with tab1:
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
-st.error("TEST 123 - ΝΕΑ ΕΚΔΟΣΗ TAB 2")
+
     log_event("sxedia", "open_tab", extra="programming")
 
     _c = load_counters()
@@ -471,7 +471,13 @@ st.error("TEST 123 - ΝΕΑ ΕΚΔΟΣΗ TAB 2")
             
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
-            
+
+            st.write("DEBUG PC FOLDER:", pc_folder)
+            st.write("DEBUG ΑΡΧΕΙΑ:", os.listdir(pc_folder))
+            st.write("DEBUG PC ITEMS:", len(pc_items))
+
+            for item in pc_items:
+            st.write(item["img"], item["caption"])
             
             
             
