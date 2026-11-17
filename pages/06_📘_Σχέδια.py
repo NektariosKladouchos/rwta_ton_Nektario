@@ -471,13 +471,21 @@ with tab2:
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
             
-            st.write("📁 Φάκελος:", pc_folder)
-            st.write("📂 Περιεχόμενα:", os.listdir(pc_folder))
-            st.write("🖼️ Σύνολο εικόνων:", len(pc_items))
-            st.write("📋 Αναγνωρισμένες εικόνες:")
+            
+            st.markdown("### 🔍 ΕΛΕΓΧΟΣ ΑΡΧΕΙΩΝ")
 
-            for item in pc_items:
-            st.write(os.path.basename(item["img"]))
+            st.write("Φάκελος PC:", pc_folder)
+
+            if os.path.exists(pc_folder):
+                files = os.listdir(pc_folder)
+
+                st.write("Αρχεία φακέλου:", files)
+                st.write("Σύνολο εικόνων:", len(pc_items))
+
+                for item in pc_items:
+                    st.write(os.path.basename(item["img"]))
+            else:
+                st.error("Ο φάκελος PC δεν βρέθηκε!")
 
             
             if pc_items:
