@@ -402,7 +402,7 @@ with tab2:
     st.subheader(
         "⚙️ Μαθήματα Προγραμματισμού"
     )
-
+    st.error("VERSION 17-11")
     if not os.path.exists(
         PROGRAMMING_DIR
     ):
