@@ -211,8 +211,21 @@ def load_screenshots(folder):
         })
 
     # Σωστή αριθμητική ταξινόμηση: 1, 2, 3 ... 10
-    items.sort(key=lambda x: os.path.basename(x["img"]).lower())
+    import re
 
+def extract_number(path):
+    filename = os.path.basename(path)
+
+    match = re.match(r"(\d+)", filename)
+
+    if match:
+        return int(match.group(1))
+
+    return 999
+
+items.sort(
+    key=lambda x: extract_number(x["img"])
+)
     return items
 
 
@@ -275,9 +288,14 @@ def render_carousel(title, items, key_prefix):
     st.progress((idx + 1) / len(items))
 
     # Εικόνα
-    st.image(
-        item["img"],
-        use_container_width=True
+    from PIL import Image
+
+img = Image.open(item["img"])
+
+st.image(
+    img,
+    use_container_width=True
+)
     )
 
     # Περιγραφή
