@@ -172,54 +172,49 @@ def load_lesson_or_program_txt(txt_path):
 # SCREENSHOT LOADER
 # ---------------------------------------------------------
 
+
 def load_screenshots(folder):
-    if not os.path.exists(folder):
+    if not os.path.isdir(folder):
         return []
 
     valid_ext = (".png", ".jpg", ".jpeg")
-
-    images = [
-        f for f in os.listdir(folder)
-        if f.lower().endswith(valid_ext)
-        and not f.startswith(".")
-    ]
-
-    images = sorted(images)
-
     items = []
 
-    # Δημιουργία λίστας TXT χωρίς διάκριση πεζών-κεφαλαίων
-    txt_files = {
-        os.path.splitext(f)[0].strip().casefold(): f
-        for f in os.listdir(folder)
-        if f.lower().endswith(".txt")
-    }
+    for img in os.listdir(folder):
+        if not img.lower().endswith(valid_ext):
+            continue
 
-    for img in images:
+        if img.startswith("."):
+            continue
 
+        img_path = os.path.join(folder, img)
         base = os.path.splitext(img)[0]
 
-        txt_name = txt_files.get(base.strip().casefold())
+        # Εντοπισμός TXT χωρίς διάκριση πεζών-κεφαλαίων
+        txt_path = None
+        for filename in os.listdir(folder):
+            if filename.lower() == (base + ".txt").lower():
+                txt_path = os.path.join(folder, filename)
+                break
 
         caption = ""
-
-        if txt_name:
-            txt_path = os.path.join(folder, txt_name)
-
+        if txt_path:
             try:
-                with open(txt_path, "r", encoding="utf-8") as f:
+                with open(txt_path, "r", encoding="utf-8-sig") as f:
                     caption = f.read().strip()
             except Exception:
                 caption = ""
-
-        img_path = os.path.join(folder, img)
 
         items.append({
             "img": img_path,
             "caption": caption
         })
 
+    # Σωστή αριθμητική ταξινόμηση: 1, 2, 3 ... 10
+    items.sort(key=lambda x: os.path.basename(x["img"]).lower())
+
     return items
+
 
 # ---------------------------------------------------------
 # CAROUSEL
@@ -414,6 +409,7 @@ with tab1:
             if info["customer"]
             else "Δεν υπάρχουν οφέλη."
         )
+
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
@@ -425,7 +421,7 @@ with tab2:
     _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
     save_counters(_c)
 
-    st.subheader("⚙️ Μαθήματα  Προγραμματισμού")
+    st.subheader("⚙️ Μαθήματα Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
@@ -434,6 +430,7 @@ with tab2:
             d for d in os.listdir(PROGRAMMING_DIR)
             if os.path.isdir(os.path.join(PROGRAMMING_DIR, d))
         ]
+
         entries = sorted(entries)
 
         if not entries:
@@ -442,22 +439,35 @@ with tab2:
             choice_prog = st.selectbox(
                 "Επιλέξτε διαδικασία:",
                 entries,
-                format_func=lambda x: x.replace("_", " ").title()
+                format_func=lambda x: x.replace("_", " ").title(),
+                key="programming_choice"
             )
 
             log_event("sxedia", "open_programming", extra=choice_prog)
 
             prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
-            main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
+
+            main_txt = os.path.join(
+                prog_folder,
+                f"{choice_prog}.txt"
+            )
+
             data = load_lesson_or_program_txt(main_txt)
 
             st.markdown("### 📘 Τίτλος Διαδικασίας")
-            st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
+            st.write(
+                data["title"] if data["title"]
+                else choice_prog.replace("_", " ").title()
+            )
 
             st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+            st.write(
+                data["description"] if data["description"]
+                else "Δεν υπάρχει περιγραφή."
+            )
 
             video_url = data["video"].strip()
+
             if video_url:
                 st.markdown("### 🎬 Βίντεο YouTube")
                 st.video(video_url)
@@ -467,67 +477,25 @@ with tab2:
             mobile_folder = os.path.join(prog_folder, "mobile")
             pc_folder = os.path.join(prog_folder, "pc")
 
-            
-            
-           
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
 
-            # ΕΛΕΓΧΟΣ ΑΡΧΕΙΩΝ
-            st.write("DEBUG PC FOLDER:", pc_folder)
-
-            if os.path.exists(pc_folder):
-                st.write("DEBUG ΑΡΧΕΙΑ:", os.listdir(pc_folder))
-            else:
-                st.error("Δεν βρέθηκε ο φάκελος PC.")
-
-            st.write("DEBUG PC ITEMS:", len(pc_items))
-
-            for item in pc_items:
-                st.write("Εικόνα:", item["img"])
-                st.write("Περιγραφή:", item["caption"])
-
-            # ΟΔΗΓΙΕΣ ΥΠΟΛΟΓΙΣΤΗ
-            if pc_items:
-                render_carousel(
-                    "💻 Οδηγίες από υπολογιστή",
-                    pc_items,
-                    key_prefix=f"{choice_prog}_pc"
-                )
-            else:
-                st.info("Δεν υπάρχουν screenshots για υπολογιστή.")
-
-            # ΟΔΗΓΙΕΣ ΚΙΝΗΤΟΥ
             if mobile_items:
                 render_carousel(
-                    "📱 Οδηγίες από κινητό",
+                    "📱 Screens από κινητό",
                     mobile_items,
                     key_prefix=f"{choice_prog}_mobile"
                 )
-            else:
-                st.info("Δεν υπάρχουν screenshots για κινητό.")
 
-            
-            
-            
-            
             if pc_items:
                 render_carousel(
-                    "💻 Οδηγίες από υπολογιστή",
+                    "💻 Screens από υπολογιστή",
                     pc_items,
                     key_prefix=f"{choice_prog}_pc"
                 )
-            else:
-                st.info("Δεν υπάρχουν screenshots για υπολογιστή.")
 
-            if mobile_items:
-                render_carousel(
-                    "📱 Οδηγίες από κινητό",
-                    mobile_items,
-                    key_prefix=f"{choice_prog}_mobile"
-                )
-            else:
-                st.info("Δεν υπάρχουν screenshots για κινητό.")
+            if not mobile_items and not pc_items:
+                st.info("Δεν έχουν προστεθεί ακόμα screenshots.")
 
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
