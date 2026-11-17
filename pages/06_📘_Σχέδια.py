@@ -171,40 +171,45 @@ def load_lesson_or_program_txt(txt_path):
 # ---------------------------------------------------------
 # SCREENSHOT LOADER
 # ---------------------------------------------------------
-
-
 def load_screenshots(folder):
 
     if not os.path.isdir(folder):
         return []
 
     valid_ext = (".png", ".jpg", ".jpeg")
+
     items = []
 
-    for img in os.listdir(folder):
-
-        if not img.lower().endswith(valid_ext):
-            continue
+    for img in sorted(os.listdir(folder)):
 
         if img.startswith("."):
             continue
 
+        if not img.lower().endswith(valid_ext):
+            continue
+
         img_path = os.path.join(folder, img)
+
         base = os.path.splitext(img)[0]
 
-        txt_path = None
-
-        for filename in os.listdir(folder):
-            if filename.lower() == (base + ".txt").lower():
-                txt_path = os.path.join(folder, filename)
-                break
+        txt_path = os.path.join(
+            folder,
+            base + ".txt"
+        )
 
         caption = ""
 
-        if txt_path:
+        if os.path.exists(txt_path):
+
             try:
-                with open(txt_path, "r", encoding="utf-8-sig") as f:
+                with open(
+                    txt_path,
+                    "r",
+                    encoding="utf-8-sig"
+                ) as f:
+
                     caption = f.read().strip()
+
             except Exception:
                 caption = ""
 
@@ -212,21 +217,6 @@ def load_screenshots(folder):
             "img": img_path,
             "caption": caption
         })
-
-    import re
-
-    def extract_number(item):
-
-        filename = os.path.basename(item["img"])
-
-        match = re.match(r"(\d+)", filename)
-
-        if match:
-            return int(match.group(1))
-
-        return 999
-
-    items.sort(key=extract_number)
 
     return items
 
