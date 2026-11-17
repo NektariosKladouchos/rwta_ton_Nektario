@@ -34,7 +34,7 @@ def convert_utc_to_greece(ts):
 # PAGE CONFIG
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="📘 εχνικά Σχέδια",
+    page_title="📘 Tεχνικά Σχέδια",
     page_icon="📘",
     layout="wide"
 )
