@@ -225,7 +225,7 @@ def load_screenshots(folder):
 # SCREEN VIEWER
 # ---------------------------------------------------------
 def render_carousel(title, items, key_prefix):
-
+    st.error("ΝΕΑ ΕΚΔΟΣΗ CAROUSEL")
     if not items:
         return
 
