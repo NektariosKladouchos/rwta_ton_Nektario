@@ -418,7 +418,7 @@ with tab1:
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
-    st.error("TEST 123 - ΝΕΑ ΕΚΔΟΣΗ TAB 2")
+st.error("TEST 123 - ΝΕΑ ΕΚΔΟΣΗ TAB 2")
     log_event("sxedia", "open_tab", extra="programming")
 
     _c = load_counters()
