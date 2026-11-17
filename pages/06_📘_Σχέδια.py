@@ -471,6 +471,14 @@ with tab2:
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
             
+            st.write("📁 Φάκελος:", pc_folder)
+            st.write("📂 Περιεχόμενα:", os.listdir(pc_folder))
+            st.write("🖼️ Σύνολο εικόνων:", len(pc_items))
+            st.write("📋 Αναγνωρισμένες εικόνες:")
+
+            for item in pc_items:
+            st.write(os.path.basename(item["img"]))
+
             
             if pc_items:
                 render_carousel(
