@@ -416,87 +416,155 @@ with tab2:
     log_event("sxedia", "open_tab", extra="programming")
 
     _c = load_counters()
-    _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
+    _c["sxedia_programming"] = _c.get(
+        "sxedia_programming",
+        0
+    ) + 1
     save_counters(_c)
 
     st.subheader("⚙️ Μαθήματα Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
-        st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
+
+        st.info(
+            "ℹ️ Δεν υπάρχει φάκελος 'programming'."
+        )
+
     else:
+
         entries = [
-            d for d in os.listdir(PROGRAMMING_DIR)
-            if os.path.isdir(os.path.join(PROGRAMMING_DIR, d))
+            d
+            for d in os.listdir(PROGRAMMING_DIR)
+            if os.path.isdir(
+                os.path.join(
+                    PROGRAMMING_DIR,
+                    d
+                )
+            )
         ]
 
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν διαδικασίες.")
+
+            st.info(
+                "ℹ️ Δεν υπάρχουν διαδικασίες."
+            )
+
         else:
+
             choice_prog = st.selectbox(
                 "Επιλέξτε διαδικασία:",
                 entries,
-                format_func=lambda x: x.replace("_", " ").title(),
-                key="programming_choice"
+                format_func=lambda x:
+                x.replace("_", " ").title()
             )
 
-            log_event("sxedia", "open_programming", extra=choice_prog)
+            log_event(
+                "sxedia",
+                "open_programming",
+                extra=choice_prog
+            )
 
-            prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
+            prog_folder = os.path.join(
+                PROGRAMMING_DIR,
+                choice_prog
+            )
 
             main_txt = os.path.join(
                 prog_folder,
                 f"{choice_prog}.txt"
             )
 
-            data = load_lesson_or_program_txt(main_txt)
-
-            st.markdown("### 📘 Τίτλος Διαδικασίας")
-            st.write(
-                data["title"] if data["title"]
-                else choice_prog.replace("_", " ").title()
+            data = load_lesson_or_program_txt(
+                main_txt
             )
 
-            st.markdown("### 📝 Περιγραφή")
+            st.markdown(
+                "### 📘 Τίτλος Διαδικασίας"
+            )
+
             st.write(
-                data["description"] if data["description"]
+                data["title"]
+                if data["title"]
+                else choice_prog.replace(
+                    "_",
+                    " "
+                ).title()
+            )
+
+            st.markdown(
+                "### 📝 Περιγραφή"
+            )
+
+            st.write(
+                data["description"]
+                if data["description"]
                 else "Δεν υπάρχει περιγραφή."
             )
 
             video_url = data["video"].strip()
 
             if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
+
+                st.markdown(
+                    "### 🎬 Βίντεο YouTube"
+                )
+
                 st.video(video_url)
 
             st.write("---")
 
-           mobile_folder = os.path.join(prog_folder, "mobile")
-pc_folder = os.path.join(prog_folder, "pc")
+            pc_folder = os.path.join(
+                prog_folder,
+                "pc"
+            )
 
-mobile_items = load_screenshots(mobile_folder)
-pc_items = load_screenshots(pc_folder)
+            pc_items = load_screenshots(
+                pc_folder
+            )
 
-st.error(f"PC ITEMS = {len(pc_items)}")
-st.error(f"MOBILE ITEMS = {len(mobile_items)}")
+            if not pc_items:
 
-if mobile_items:
-    render_carousel(
-        "📱 Screens από κινητό",
-        mobile_items,
-        key_prefix=f"{choice_prog}_mobile"
-    )
+                st.info(
+                    "Δεν υπάρχουν screenshots."
+                )
 
-if pc_items:
-    render_carousel(
-        "💻 Screens από υπολογιστή",
-        pc_items,
-        key_prefix=f"{choice_prog}_pc"
-    )
-            if not mobile_items and not pc_items:
-                st.info("Δεν έχουν προστεθεί ακόμα screenshots.")
+            else:
 
+                total_steps = len(pc_items)
+
+                step = st.selectbox(
+                    "Επιλέξτε Βήμα",
+                    options=range(
+                        1,
+                        total_steps + 1
+                    ),
+                    key=f"{choice_prog}_step"
+                )
+
+                item = pc_items[
+                    step - 1
+                ]
+
+                st.markdown(
+                    f"## Βήμα {step} από {total_steps}"
+                )
+
+                st.progress(
+                    step / total_steps
+                )
+
+                st.image(
+                    item["img"],
+                    use_container_width=True
+                )
+
+                if item["caption"]:
+
+                    st.info(
+                        item["caption"]
+                    )
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
