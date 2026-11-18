@@ -581,19 +581,19 @@ with tab3:
                 pc_folder
             )
 
-            if mobile_items:
-                render_carousel(
-                    "📱 Screens από κινητό",
-                    mobile_items,
-                    key_prefix=f"{choice_lesson}_mobile"
-                )
+            # if mobile_items:
+            #     render_carousel(
+            #         "📱 Screens από κινητό",
+            #         mobile_items,
+            #         key_prefix=f"{choice_lesson}_mobile"
+            #     )
 
-            if pc_items:
-                render_carousel(
-                    "💻 Screens από υπολογιστή",
-                    pc_items,
-                    key_prefix=f"{choice_lesson}_pc"
-                )
+            # if pc_items:
+            #     render_carousel(
+            #         "💻 Screens από υπολογιστή",
+            #         pc_items,
+            #         key_prefix=f"{choice_lesson}_pc"
+            #     )
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
