@@ -111,8 +111,8 @@ st.title("📘 Τεχνικά Σχέδια")
 st.caption(
     "Οδηγοί σύνδεσης, προγραμματισμού και εκπαιδευτικό υλικό GEYER Smart Home"
 )
-
 st.write("")
+
 st.write("")
 
 # ---------------------------------------------------------
@@ -275,7 +275,7 @@ def render_carousel(title, items, key_prefix):
 
         st.image(
             item["img"],
-            width=500
+            width=400
         )
 
     if item["caption"]:
