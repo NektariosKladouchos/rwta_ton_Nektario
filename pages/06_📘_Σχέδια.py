@@ -213,27 +213,52 @@ def render_carousel(title, items, key_prefix):
     if not items:
         return
 
-    st.markdown(f"#### {title}")
-
     state_key = f"{key_prefix}_step"
 
     if state_key not in st.session_state:
         st.session_state[state_key] = 1
 
-    col_left, col_center, col_right = st.columns([2, 1, 2])
+    idx = st.session_state[state_key]
 
-    with col_left:
+    # --------------------------------------
+    # Title
+    # --------------------------------------
+    st.markdown(f"### {title}")
+
+    st.markdown(
+        f"""
+        <h3 style="
+            text-align:center;
+            color:#008c95;
+            margin-bottom:10px;
+        ">
+            Βήμα {idx} από {len(items)}
+        </h3>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.progress(idx / len(items))
+
+    # --------------------------------------
+    # Buttons
+    # --------------------------------------
+    left_space, col1, col2, col3, right_space = st.columns(
+        [1, 1.5, 1, 1.5, 1]
+    )
+
+    with col1:
 
         if st.button(
             "⬅ Προηγούμενο",
             key=f"{key_prefix}_prev",
-            disabled=(st.session_state[state_key] == 1),
+            disabled=(idx == 1),
             use_container_width=True
         ):
             st.session_state[state_key] -= 1
             st.rerun()
 
-    with col_center:
+    with col2:
 
         if st.button(
             "🏠 Αρχή",
@@ -243,48 +268,54 @@ def render_carousel(title, items, key_prefix):
             st.session_state[state_key] = 1
             st.rerun()
 
-    with col_right:
+    with col3:
 
         if st.button(
             "Επόμενο ➡",
             key=f"{key_prefix}_next",
-            disabled=(
-                st.session_state[state_key] == len(items)
-            ),
+            disabled=(idx == len(items)),
             use_container_width=True
         ):
             st.session_state[state_key] += 1
             st.rerun()
 
-    idx = st.session_state[state_key]
-
-    st.markdown(
-        f"<h2 style='text-align:center;'>"
-        f"Βήμα {idx} από {len(items)}"
-        f"</h2>",
-        unsafe_allow_html=True
-    )
-
-    st.progress(idx / len(items))
-
+    # --------------------------------------
+    # Current Item
+    # --------------------------------------
     item = items[idx - 1]
 
-    left, center, right = st.columns([1, 3, 1])
+    st.write("")
 
-    with center:
+    img_left, img_center, img_right = st.columns(
+        [1, 4, 1]
+    )
+
+    with img_center:
 
         st.image(
             item["img"],
-            width=400
+            width=700
         )
 
     if item["caption"]:
 
-        st.info(
-            item["caption"]
+        st.markdown(
+            f"""
+            <div style="
+                background:#f5f7fa;
+                border-left:5px solid #008c95;
+                border-radius:10px;
+                padding:15px;
+                margin-top:15px;
+                margin-bottom:25px;
+                font-size:16px;
+            ">
+                {item["caption"]}
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
-    #st.write("---")
 
 # ---------------------------------------------------------
 # TABS
