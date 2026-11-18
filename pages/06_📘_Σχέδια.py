@@ -299,22 +299,27 @@ def render_carousel(title, items, key_prefix):
 
     if item["caption"]:
 
-        st.markdown(
-            f"""
-            <div style="
-                background:#f5f7fa;
-                border-left:5px solid #008c95;
-                border-radius:10px;
-                padding:15px;
-                margin-top:15px;
-                margin-bottom:25px;
-                font-size:16px;
-            ">
-                {item["caption"]}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    st.markdown(
+        f"""
+        <div style="
+            background:#008c95;
+            color:white;
+            border-radius:12px;
+            padding:20px;
+            margin-top:20px;
+            margin-bottom:20px;
+            text-align:center;
+            box-shadow:0px 2px 8px rgba(0,0,0,0.15);
+            font-size:18px;
+            line-height:1.6;
+            font-weight:500;
+        ">
+            <b>Βήμα {idx}</b><br><br>
+            {item["caption"]}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 # ---------------------------------------------------------
