@@ -252,7 +252,7 @@ def render_carousel(title, items, key_prefix):
     st.progress(idx / len(items))
 
     # --------------------------------------
-    # Navigation
+    # Buttons
     # --------------------------------------
     left_space, col1, col2, col3, right_space = st.columns(
         [1, 1.5, 1, 1.5, 1]
@@ -308,36 +308,38 @@ def render_carousel(title, items, key_prefix):
             width=700
         )
 
+    # --------------------------------------
+    # Caption
+    # --------------------------------------
     if item["caption"]:
 
         st.markdown(
             f"""
             <div style="
                 background:{step_color};
-                color:white;
-                border-radius:18px;
                 padding:25px;
+                border-radius:15px;
                 margin-top:20px;
-                margin-bottom:25px;
+                margin-bottom:20px;
                 text-align:center;
-                box-shadow:0px 4px 12px rgba(0,0,0,0.18);
             ">
-
-                <div style="
-                    font-size:30px;
-                    font-weight:700;
-                    margin-bottom:15px;
+                <span style="
+                    color:white;
+                    font-size:24px;
+                    font-weight:bold;
                 ">
                     Βήμα {idx}
-                </div>
+                </span>
 
-                <div style="
-                    font-size:22px;
+                <br><br>
+
+                <span style="
+                    color:white;
+                    font-size:20px;
                     line-height:1.8;
                 ">
                     {item["caption"]}
-                </div>
-
+                </span>
             </div>
             """,
             unsafe_allow_html=True
