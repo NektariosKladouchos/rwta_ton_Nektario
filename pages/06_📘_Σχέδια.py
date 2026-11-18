@@ -240,15 +240,15 @@ def render_carousel(title, items, key_prefix):
 
     item = items[idx - 1]
 
-st.image(
+    st.image(
     item["img"],
     use_container_width=True
-)
+    )
 
-if item["caption"]:
+    if item["caption"]:
     st.info(item["caption"])
 
-st.write("---")
+    st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
