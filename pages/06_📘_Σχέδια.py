@@ -269,13 +269,13 @@ def render_carousel(title, items, key_prefix):
 
     item = items[idx - 1]
 
-    left, center, right = st.columns([1, 2, 1])
+    left, center, right = st.columns([1, 3, 1])
 
     with center:
 
         st.image(
             item["img"],
-            width=650
+            width=500
         )
 
     if item["caption"]:
