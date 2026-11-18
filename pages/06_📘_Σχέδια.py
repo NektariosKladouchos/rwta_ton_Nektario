@@ -297,9 +297,9 @@ def render_carousel(title, items, key_prefix):
             width=700
         )
 
-    if item["caption"]:
+        if item["caption"]:
 
-    st.markdown(
+        st.markdown(
         f"""
         <div style="
             background:#008c95;
@@ -319,7 +319,7 @@ def render_carousel(title, items, key_prefix):
         </div>
         """,
         unsafe_allow_html=True
-    )
+        )
 
 
 # ---------------------------------------------------------
