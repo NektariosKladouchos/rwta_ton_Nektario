@@ -220,16 +220,13 @@ def render_carousel(title, items, key_prefix):
 
     idx = st.session_state[state_key]
 
-    # --------------------------------------
-    # Χρώμα ανά βήμα
-    # --------------------------------------
     colors = [
         "#008c95",  # GEYER
-        "#2563eb",  # Μπλε
-        "#16a34a",  # Πράσινο
-        "#ea580c",  # Πορτοκαλί
-        "#9333ea",  # Μωβ
-        "#dc2626"   # Κόκκινο
+        "#2563eb",  # Blue
+        "#16a34a",  # Green
+        "#ea580c",  # Orange
+        "#9333ea",  # Purple
+        "#dc2626"   # Red
     ]
 
     step_color = colors[(idx - 1) % len(colors)]
@@ -254,6 +251,99 @@ def render_carousel(title, items, key_prefix):
 
     st.progress(idx / len(items))
 
+    # --------------------------------------
+    # Navigation
+    # --------------------------------------
+    left_space, col1, col2, col3, right_space = st.columns(
+        [1, 1.5, 1, 1.5, 1]
+    )
+
+    with col1:
+
+        if st.button(
+            "⬅ Προηγούμενο",
+            key=f"{key_prefix}_prev",
+            disabled=(idx == 1),
+            use_container_width=True
+        ):
+            st.session_state[state_key] -= 1
+            st.rerun()
+
+    with col2:
+
+        if st.button(
+            "🏠 Αρχή",
+            key=f"{key_prefix}_home",
+            use_container_width=True
+        ):
+            st.session_state[state_key] = 1
+            st.rerun()
+
+    with col3:
+
+        if st.button(
+            "Επόμενο ➡",
+            key=f"{key_prefix}_next",
+            disabled=(idx == len(items)),
+            use_container_width=True
+        ):
+            st.session_state[state_key] += 1
+            st.rerun()
+
+    # --------------------------------------
+    # Current Item
+    # --------------------------------------
+    item = items[idx - 1]
+
+    st.write("")
+
+    img_left, img_center, img_right = st.columns(
+        [1, 4, 1]
+    )
+
+    with img_center:
+
+        st.image(
+            item["img"],
+            width=700
+        )
+
+    if item["caption"]:
+
+        st.markdown(
+            f"""
+            <div style="
+                background:{step_color};
+                color:white;
+                border-radius:18px;
+                padding:25px;
+                margin-top:20px;
+                margin-bottom:25px;
+                text-align:center;
+                box-shadow:0px 4px 12px rgba(0,0,0,0.18);
+            ">
+
+                <div style="
+                    font-size:30px;
+                    font-weight:700;
+                    margin-bottom:15px;
+                ">
+                    Βήμα {idx}
+                </div>
+
+                <div style="
+                    font-size:22px;
+                    line-height:1.8;
+                ">
+                    {item["caption"]}
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    st.write("---")
     # --------------------------------------
     # Buttons
     # --------------------------------------
