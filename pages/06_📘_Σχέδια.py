@@ -280,26 +280,26 @@ def render_carousel(title, items, key_prefix):
             st.rerun()
 
     # --------------------------------------
-    # Current Item
-    # --------------------------------------
-    item = items[idx - 1]
+# Current Item
+# --------------------------------------
+item = items[idx - 1]
 
-    st.write("")
+st.write("")
 
-    img_left, img_center, img_right = st.columns(
-        [1, 4, 1]
+img_left, img_center, img_right = st.columns(
+    [1, 4, 1]
+)
+
+with img_center:
+
+    st.image(
+        item["img"],
+        width=700
     )
 
-    with img_center:
+if item["caption"]:
 
-        st.image(
-            item["img"],
-            width=700
-        )
-
-        if item["caption"]:
-
-        st.markdown(
+    st.markdown(
         f"""
         <div style="
             background:#008c95;
@@ -319,17 +319,7 @@ def render_carousel(title, items, key_prefix):
         </div>
         """,
         unsafe_allow_html=True
-        )
-
-
-# ---------------------------------------------------------
-# TABS
-# ---------------------------------------------------------
-tab1, tab2, tab3 = st.tabs([
-    "🔌 Σχέδια Σύνδεσης",
-    "⚙️ Τρόποι Προγραμματισμού",
-    "🎓 Μαθήματα"
-])
+    )
 
 # ---------------------------------------------------------
 # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
