@@ -5,23 +5,13 @@ import pandas as pd
 import pytz
 from supabase import create_client, Client
 
+from subpages.analytics_utils import log_event
 # ---------------------------------------------------------
 # SUPABASE CONNECTION
 # ---------------------------------------------------------
 SUPABASE_URL = st.secrets["supabase"]["url"]
 SUPABASE_KEY = st.secrets["supabase"]["key"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-def log_event(page, event, user=None, extra=None):
-    try:
-        supabase.table("analytics").insert({
-            "page": page,
-            "event": event,
-            "user_email": user,
-            "extra": extra
-        }).execute()
-    except:
-        pass
 
 def convert_utc_to_greece(ts):
     try:
@@ -76,31 +66,54 @@ if is_admin:
     """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# PREMIUM SIDEBAR CSS
-# ---------------------------------------------------------
 st.markdown("""
 <style>
-    [data-testid="stSidebar"] {
-        background-color: #0b3c26 !important;
-    }
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] a {
-        color: white !important;
-    }
-    [data-testid="stSidebar"] svg {
-        fill: white !important;
-    }
+
+.stApp{
+    background-color:#f8fafc;
+}
+
+[data-testid="stSidebar"] {
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
+    padding-top:20px;
+}
+
+[data-testid="stSidebar"] *{
+    color:#1f2937 !important;
+}
+
+[data-testid="stSidebar"] input{
+    background:#ffffff !important;
+    color:#111827 !important;
+    border-radius:10px !important;
+}
+h3{
+    text-align:center;
+    color:#008c95 !important;
+    letter-spacing:4px;
+}
+
+h1{
+    text-align:center !important;
+}
+
+p{
+    text-align:center;
+}
 </style>
 """, unsafe_allow_html=True)
 # PAGE TITLE
-# ---------------------------------------------------------
-st.title("📘 Τεχνικά Σχέδια")
-st.write("""
-Καλώς ήρθατε στην ενότητα Τεχνικών Σχεδίων.
-""")
+st.markdown("### GEYER SMART")
 
-st.write("---")
+st.title("📘 Τεχνικά Σχέδια")
+
+st.caption(
+    "Οδηγοί σύνδεσης, προγραμματισμού και εκπαιδευτικό υλικό GEYER Smart Home"
+)
+
+st.write("")
+st.write("")
 
 # ---------------------------------------------------------
 # PATHS
@@ -159,69 +172,90 @@ def load_lesson_or_program_txt(txt_path):
 # SCREENSHOT LOADER
 # ---------------------------------------------------------
 def load_screenshots(folder):
-    if not os.path.exists(folder):
+
+    if not os.path.isdir(folder):
         return []
 
     valid_ext = (".png", ".jpg", ".jpeg")
-    images = [
-        f for f in os.listdir(folder)
-        if f.lower().endswith(valid_ext) and not f.startswith(".")
-    ]
 
-    if not images:
-        return []
-
-    images = sorted(images)
     items = []
 
-    for img in images:
-        base, _ = os.path.splitext(img)
+    image_files = sorted([
+        f for f in os.listdir(folder)
+        if f.lower().endswith(valid_ext)
+    ])
+
+    for img in image_files:
+
         img_path = os.path.join(folder, img)
-        txt_path = os.path.join(folder, base + ".txt")
 
-        if not os.path.exists(txt_path):
-            continue
+        base = os.path.splitext(img)[0]
 
-        try:
-            with open(txt_path, "r", encoding="utf-8") as f:
-                caption = f.read().strip()
-        except:
-            caption = ""
+        txt_path = os.path.join(
+            folder,
+            f"{base}.txt"
+        )
 
-        items.append({"img": img_path, "caption": caption})
+        caption = ""
+
+        if os.path.exists(txt_path):
+
+            try:
+                with open(
+                    txt_path,
+                    "r",
+                    encoding="utf-8"
+                ) as f:
+
+                    caption = f.read().strip()
+
+            except Exception:
+                pass
+
+        items.append({
+            "img": img_path,
+            "caption": caption
+        })
 
     return items
-
 # ---------------------------------------------------------
 # CAROUSEL
 # ---------------------------------------------------------
+# ---------------------------------------------------------
+# SCREEN VIEWER
+# ---------------------------------------------------------
 def render_carousel(title, items, key_prefix):
+    st.error("ΝΕΑ ΕΚΔΟΣΗ CAROUSEL")
     if not items:
         return
 
-    st.markdown(f"#### {title}")
+    st.markdown(f"### {title}")
 
-    if len(items) == 1:
-        st.image(items[0]["img"], use_container_width=True)
-        if items[0]["caption"]:
-            st.caption(items[0]["caption"])
-        st.write("---")
-        return
-
-    idx = st.slider(
-        "Επιλέξτε screenshot",
-        min_value=1,
-        max_value=len(items),
-        value=1,
-        key=f"{key_prefix}_slider"
+    step = st.selectbox(
+        "Επιλέξτε Βήμα",
+        range(1, len(items) + 1),
+        key=f"{key_prefix}_step"
     )
 
-    item = items[idx - 1]
-    st.image(item["img"], use_container_width=True)
-    if item["caption"]:
-        st.caption(item["caption"])
-    st.write("---")
+    item = items[step - 1]
 
+    st.markdown(
+        f"### Βήμα {step} από {len(items)}"
+    )
+
+    st.progress(
+        step / len(items)
+    )
+
+    st.image(
+        item["img"],
+        use_container_width=True
+    )
+
+    if item["caption"]:
+        st.info(item["caption"])
+
+    st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
@@ -231,10 +265,11 @@ tab1, tab2, tab3 = st.tabs([
     "🎓 Μαθήματα"
 ])
 
-# ---------------------------------------------------------
-# TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
-# ---------------------------------------------------------
-with tab1:
+ # ---------------------------------------------------------
+ # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
+ # ---------------------------------------------------------
+ with tab1:
+
     log_event("sxedia", "open_tab", extra="sxedia_syndesis")
 
     _c = load_counters()
@@ -255,10 +290,17 @@ with tab1:
         "Άλλα": "alla"
     }
 
-    cat_choice = st.selectbox("Επιλέξτε κατηγορία σχεδίων:", list(categories.keys()))
+    cat_choice = st.selectbox(
+        "Επιλέξτε κατηγορία σχεδίων:",
+        list(categories.keys())
+    )
+
     log_event("sxedia", "open_category", extra=cat_choice)
 
-    folder = os.path.join(SXEDIA_DIR, categories[cat_choice])
+    folder = os.path.join(
+        SXEDIA_DIR,
+        categories[cat_choice]
+    )
 
     st.write("---")
 
@@ -268,102 +310,239 @@ with tab1:
 
     files = [
         f for f in os.listdir(folder)
-        if f.lower().endswith((".png", ".jpg", ".jpeg"))
+        if f.lower().endswith(
+            (".png", ".jpg", ".jpeg")
+        )
     ]
 
     if not files:
         st.info("ℹ️ Δεν υπάρχουν σχέδια.")
         st.stop()
 
-    choice = st.selectbox("Επιλέξτε σχέδιο:", files)
-    log_event("sxedia", "open_design", extra=choice)
+    choice = st.selectbox(
+        "Επιλέξτε σχέδιο:",
+        files
+    )
 
-    img_path = os.path.join(folder, choice)
-    st.image(img_path, use_container_width=True)
+    log_event(
+        "sxedia",
+        "open_design",
+        extra=choice
+    )
 
     txt_name = choice.rsplit(".", 1)[0] + ".txt"
     txt_path = os.path.join(folder, txt_name)
+
     info = load_sxedio_txt(txt_path)
 
-    clean_title = choice.rsplit(".", 1)[0].replace("_", " ").title()
+    clean_title = (
+        choice.rsplit(".", 1)[0]
+        .replace("_", " ")
+        .title()
+    )
 
-    st.markdown("### 📘 Τίτλος Σχεδίου")
-    st.write(info["title"] if info["title"] else clean_title)
+    img_path = os.path.join(folder, choice)
 
-    st.markdown("### 📝 Γρήγορη Επεξήγηση")
-    st.write(info["description"] if info["description"] else "Δεν υπάρχει περιγραφή.")
+    st.write("---")
 
-    st.markdown("### ⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος")
-    st.write(info["electrician"] if info["electrician"] else "Δεν υπάρχουν παρατηρήσεις.")
+    st.subheader(f"📘 {clean_title}")
 
-    st.markdown("### ⭐ Τι κερδίζει ο πελάτης")
-    st.write(info["customer"] if info["customer"] else "Δεν υπάρχουν οφέλη.")
+    st.image(
+        img_path,
+        use_container_width=True
+    )
+
+    with st.expander(
+        "📝 Γρήγορη Επεξήγηση",
+        expanded=True
+    ):
+        st.write(
+            info["description"]
+            if info["description"]
+            else "Δεν υπάρχει περιγραφή."
+        )
+
+    with st.expander(
+        "⚠️ Τι πρέπει να προσέξει ο ηλεκτρολόγος"
+    ):
+        st.write(
+            info["electrician"]
+            if info["electrician"]
+            else "Δεν υπάρχουν παρατηρήσεις."
+        )
+
+    with st.expander(
+        "⭐ Τι κερδίζει ο πελάτης"
+    ):
+        st.write(
+            info["customer"]
+            if info["customer"]
+            else "Δεν υπάρχουν οφέλη."
+        )
+
 
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
-    log_event("sxedia", "open_tab", extra="programming")
+
+    log_event(
+        "sxedia",
+        "open_tab",
+        extra="programming"
+    )
 
     _c = load_counters()
-    _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
+
+    _c["sxedia_programming"] = (
+        _c.get("sxedia_programming", 0) + 1
+    )
+
     save_counters(_c)
 
-    st.subheader("⚙️ Τρόποι Προγραμματισμού")
-    st.warning("TEST DEPLOY")
+    st.subheader(
+        "⚙️ Μαθήματα Προγραμματισμού"
+    )
 
     if not os.path.exists(PROGRAMMING_DIR):
-        st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
+
+        st.info(
+            "ℹ️ Δεν υπάρχει φάκελος 'programming'."
+        )
+
     else:
+
         entries = [
-            d for d in os.listdir(PROGRAMMING_DIR)
-            if os.path.isdir(os.path.join(PROGRAMMING_DIR, d))
+            d
+            for d in os.listdir(PROGRAMMING_DIR)
+            if os.path.isdir(
+                os.path.join(
+                    PROGRAMMING_DIR,
+                    d
+                )
+            )
         ]
+
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν διαδικασίες.")
+
+            st.info(
+                "ℹ️ Δεν υπάρχουν διαδικασίες."
+            )
+
         else:
+
             choice_prog = st.selectbox(
                 "Επιλέξτε διαδικασία:",
                 entries,
-                format_func=lambda x: x.replace("_", " ").title()
+                format_func=lambda x:
+                    x.replace("_", " ").title()
             )
 
-            log_event("sxedia", "open_programming", extra=choice_prog)
+            prog_folder = os.path.join(
+                PROGRAMMING_DIR,
+                choice_prog
+            )
 
-            prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
-            main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
-            data = load_lesson_or_program_txt(main_txt)
+            main_txt = os.path.join(
+                prog_folder,
+                f"{choice_prog}.txt"
+            )
 
-            st.markdown("### 📘 Τίτλος Διαδικασίας")
-            st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
+            data = load_lesson_or_program_txt(
+                main_txt
+            )
 
-            st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+            st.markdown(
+                "### 📘 Τίτλος Διαδικασίας"
+            )
+
+            st.write(
+                data["title"]
+                if data["title"]
+                else choice_prog.replace(
+                    "_",
+                    " "
+                ).title()
+            )
+
+            st.markdown(
+                "### 📝 Περιγραφή"
+            )
+
+            st.write(
+                data["description"]
+                if data["description"]
+                else "Δεν υπάρχει περιγραφή."
+            )
 
             video_url = data["video"].strip()
+
             if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
+
+                st.markdown(
+                    "### 🎬 Βίντεο YouTube"
+                )
+
                 st.video(video_url)
 
             st.write("---")
 
-            mobile_folder = os.path.join(prog_folder, "mobile")
-            pc_folder = os.path.join(prog_folder, "pc")
+            pc_folder = os.path.join(
+                prog_folder,
+                "pc"
+            )
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+            screenshots = load_screenshots(
+                pc_folder
+            )
 
-         if mobile_items:
-            render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
-         if pc_items:
-            render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+            if not screenshots:
 
+                st.warning(
+                    "Δεν βρέθηκαν screenshots."
+                )
+
+            else:
+
+                step = st.selectbox(
+                    "Επιλογή Βήματος",
+                    list(
+                        range(
+                            1,
+                            len(screenshots) + 1
+                        )
+                    )
+                )
+
+                item = screenshots[
+                    step - 1
+                ]
+
+                st.markdown(
+                    f"### Βήμα {step} από {len(screenshots)}"
+                )
+
+                st.progress(
+                    step / len(screenshots)
+                )
+
+                st.image(
+                    item["img"],
+                    use_container_width=True
+                )
+
+                if item["caption"]:
+
+                    st.info(
+                        item["caption"]
+                    )                    
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
 with tab3:
+
     log_event("sxedia", "open_tab", extra="lessons")
 
     _c = load_counters()
@@ -373,53 +552,109 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
-        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'.")
+        st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
+
     else:
+
         entries = [
-            d for d in os.listdir(LESSONS_DIR)
-            if os.path.isdir(os.path.join(LESSONS_DIR, d))
+            d
+            for d in os.listdir(LESSONS_DIR)
+            if os.path.isdir(
+                os.path.join(LESSONS_DIR, d)
+            )
         ]
+
         entries = sorted(entries)
 
         if not entries:
-            st.info("ℹ️ Δεν υπάρχουν μαθήματα.")
+            st.info("ℹ️ Δεν υπάρχουν μαθήματα")
+
         else:
+
             choice_lesson = st.selectbox(
                 "Επιλέξτε μάθημα:",
                 entries,
                 format_func=lambda x: x.replace("_", " ").title()
             )
 
-            log_event("sxedia", "open_lesson", extra=choice_lesson)
+            log_event(
+                "sxedia",
+                "open_lesson",
+                extra=choice_lesson
+            )
 
-            lesson_folder = os.path.join(LESSONS_DIR, choice_lesson)
-            main_txt = os.path.join(lesson_folder, f"{choice_lesson}.txt")
+            lesson_folder = os.path.join(
+                LESSONS_DIR,
+                choice_lesson
+            )
+
+            main_txt = os.path.join(
+                lesson_folder,
+                f"{choice_lesson}.txt"
+            )
+
             data = load_lesson_or_program_txt(main_txt)
 
-            st.markdown("### 📘 Τίτλος Μαθήματος")
-            st.write(data["title"] if data["title"] else choice_lesson.replace("_", " ").title())
+            with st.expander(
+                "📘 Τίτλος Μαθήματος",
+                expanded=True
+            ):
+                st.write(
+                    data["title"]
+                    if data["title"]
+                    else choice_lesson.replace("_", " ").title()
+                )
 
-            st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+            with st.expander(
+                "📝 Περιγραφή"
+            ):
+                st.write(
+                    data["description"]
+                    if data["description"]
+                    else "Δεν υπάρχει περιγραφή."
+                )
 
             video_url = data["video"].strip()
+
             if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
+
+                st.subheader("🎬 Βίντεο YouTube")
+
                 st.video(video_url)
 
             st.write("---")
 
-            mobile_folder = os.path.join(lesson_folder, "mobile")
-            pc_folder = os.path.join(lesson_folder, "pc")
+            mobile_folder = os.path.join(
+                lesson_folder,
+                "mobile"
+            )
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+            pc_folder = os.path.join(
+                lesson_folder,
+                "pc"
+            )
+
+            mobile_items = load_screenshots(
+                mobile_folder
+            )
+
+            pc_items = load_screenshots(
+                pc_folder
+            )
 
             if mobile_items:
-                render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_lesson}_mobile")
-            if pc_items:
-                render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_lesson}_pc")
+                render_carousel(
+                    "📱 Screens από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_lesson}_mobile"
+                )
 
+            if pc_items:
+                render_carousel(
+                    "💻 Screens από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_lesson}_pc"
+                )
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
