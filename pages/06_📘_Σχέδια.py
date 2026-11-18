@@ -233,13 +233,15 @@ def render_carousel(title, items, key_prefix):
 
     item = items[idx - 1]
 
-    st.image(
-        item["img"],
-        use_container_width=True
-    )
-    
+st.image(
+    item["img"],
+    use_container_width=True
+)
 
-    st.write("---")
+if item["caption"]:
+    st.caption(item["caption"])
+
+st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
@@ -417,12 +419,11 @@ with tab2:
 
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
-            st.write(pc_items)
-            st.write(mobile_items)
-            # if mobile_items:
-            #     render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
-            # if pc_items:
-            #     render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+            
+            if mobile_items:
+            render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
+            if pc_items:
+            render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
