@@ -241,12 +241,12 @@ def render_carousel(title, items, key_prefix):
     item = items[idx - 1]
 
     st.image(
-    item["img"],
-    use_container_width=True
+        item["img"],
+        use_container_width=True
     )
 
     if item["caption"]:
-    st.info(item["caption"])
+        st.caption(item["caption"])
 
     st.write("---")
 # ---------------------------------------------------------
