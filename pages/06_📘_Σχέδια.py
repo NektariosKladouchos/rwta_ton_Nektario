@@ -675,6 +675,90 @@ with tab3:
                 st.info(
                     "Δεν υπάρχουν screenshots για αυτό το μάθημα."
                 )
+
+            # ---------------------------------------------
+            # MOBILE
+            # ---------------------------------------------
+            if len(mobile_items) > 0:
+
+                st.markdown(
+                    "#### 📱 Screens από κινητό"
+                )
+
+                if len(mobile_items) == 1:
+
+                    item = mobile_items[0]
+
+                else:
+
+                    idx_mobile = st.slider(
+                        "Επιλέξτε screenshot κινητού",
+                        min_value=1,
+                        max_value=len(mobile_items),
+                        value=1,
+                        key=f"{choice_lesson}_mobile_slider"
+                    )
+
+                    item = mobile_items[
+                        idx_mobile - 1
+                    ]
+
+                st.image(
+                    item["img"],
+                    use_container_width=True
+                )
+
+                if item["caption"]:
+                    st.caption(
+                        item["caption"]
+                    )
+
+                st.write("---")
+
+            # ---------------------------------------------
+            # PC
+            # ---------------------------------------------
+            if len(pc_items) > 0:
+
+                st.markdown(
+                    "#### 💻 Screens από υπολογιστή"
+                )
+
+                if len(pc_items) == 1:
+
+                    item = pc_items[0]
+
+                else:
+
+                    idx_pc = st.slider(
+                        "Επιλέξτε screenshot υπολογιστή",
+                        min_value=1,
+                        max_value=len(pc_items),
+                        value=1,
+                        key=f"{choice_lesson}_pc_slider"
+                    )
+
+                    item = pc_items[
+                        idx_pc - 1
+                    ]
+
+                st.image(
+                    item["img"],
+                    use_container_width=True
+                )
+
+                if item["caption"]:
+                    st.caption(
+                        item["caption"]
+                    )
+
+                st.write("---")
+
+            if len(mobile_items) == 0 and len(pc_items) == 0:
+
+                st.info(
+                    "Δεν υπάρχουν screenshots για αυτό το μάθημα."
+                )
             # -------------------------------------------------
             # MOBILE SCREENSHOTS
             # -------------------------------------------------
