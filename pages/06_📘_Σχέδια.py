@@ -269,7 +269,7 @@ def render_carousel(title, items, key_prefix):
 
     item = items[idx - 1]
 
-    left, center, right = st.columns([1, 3, 1])
+    left, center, right = st.columns([1, 2, 1])
 
     with center:
 
