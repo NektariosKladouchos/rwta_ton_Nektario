@@ -275,7 +275,7 @@ def render_carousel(title, items, key_prefix):
 
         st.image(
             item["img"],
-            width=400
+            width=500
         )
 
     if item["caption"]:
@@ -284,7 +284,7 @@ def render_carousel(title, items, key_prefix):
             item["caption"]
         )
 
-    st.write("---")
+    #st.write("---")
 
 # ---------------------------------------------------------
 # TABS
