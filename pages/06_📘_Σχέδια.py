@@ -419,11 +419,20 @@ with tab2:
 
             mobile_items = load_screenshots(mobile_folder)
             pc_items = load_screenshots(pc_folder)
-            
+
             if mobile_items:
-            render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
+                render_carousel(
+                    "📱 Screens από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_prog}_mobile"
+                )
+
             if pc_items:
-            render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
+                render_carousel(
+                    "💻 Screens από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_prog}_pc"
+                )
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
