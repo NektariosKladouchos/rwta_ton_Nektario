@@ -280,43 +280,66 @@ def render_carousel(title, items, key_prefix):
             st.rerun()
 
     # --------------------------------------
-    # Current Item
-    # --------------------------------------
-    item = items[idx - 1]
+# Current Item
+# --------------------------------------
+item = items[idx - 1]
 
-    st.write("")
+colors = [
+    "#008c95",  # GEYER
+    "#2563eb",  # Blue
+    "#16a34a",  # Green
+    "#ea580c",  # Orange
+    "#9333ea",  # Purple
+    "#dc2626"   # Red
+]
 
-    img_left, img_center, img_right = st.columns(
-        [1, 4, 1]
+step_color = colors[(idx - 1) % len(colors)]
+
+st.write("")
+
+img_left, img_center, img_right = st.columns(
+    [1, 4, 1]
+)
+
+with img_center:
+
+    st.image(
+        item["img"],
+        width=700
     )
 
-    with img_center:
+if item["caption"]:
 
-        st.image(
-            item["img"],
-            width=700
-        )
-
-    if item["caption"]:
-
-        st.markdown(
-            f"""
+    st.markdown(
+        f"""
+        <div style="
+            background:{step_color};
+            color:white;
+            border-radius:15px;
+            padding:20px;
+            margin-top:20px;
+            margin-bottom:25px;
+            text-align:center;
+            box-shadow:0px 3px 10px rgba(0,0,0,0.15);
+            font-size:18px;
+            line-height:1.7;
+            font-weight:500;
+        ">
             <div style="
-                background:#f5f7fa;
-                border-left:5px solid #008c95;
-                border-radius:10px;
-                padding:15px;
-                margin-top:15px;
-                margin-bottom:25px;
-                font-size:16px;
+                font-size:22px;
+                font-weight:700;
+                margin-bottom:10px;
             ">
-                {item["caption"]}
+                Βήμα {idx}
             </div>
-            """,
-            unsafe_allow_html=True
-        )
 
+            {item["caption"]}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
+st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
