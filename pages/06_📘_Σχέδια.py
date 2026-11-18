@@ -601,74 +601,67 @@ with tab3:
                     "#### 📱 Screens από κινητό"
                 )
 
+                if mobile_items:
+
+                st.markdown(
+                    "#### 📱 Screens από κινητό"
+                )
+                
                 if len(mobile_items) == 1:
-
+                
                     item = mobile_items[0]
-
+                
                 else:
-
+                
                     idx_mobile = st.slider(
                         "Επιλέξτε screenshot κινητού",
-                        min_value=1,
-                        max_value=len(mobile_items),
-                        value=1,
+                        1,
+                        len(mobile_items),
+                        1,
                         key=f"{choice_lesson}_mobile_slider"
                     )
-
-                    item = mobile_items[
-                        idx_mobile - 1
-                    ]
-
+                
+                    item = mobile_items[idx_mobile - 1]
+                
                 st.image(
                     item["img"],
                     use_container_width=True
                 )
-
+                
                 if item["caption"]:
-                    st.caption(
-                        item["caption"]
-                    )
-
-                st.write("---")
-
+                    st.caption(item["caption"])
             # ---------------------------------------------
             # PC
             # ---------------------------------------------
-            if len(pc_items) > 0:
+            if pc_items:
 
-                st.markdown(
-                    "#### 💻 Screens από υπολογιστή"
-                )
+    st.markdown(
+        "#### 💻 Screens από υπολογιστή"
+    )
 
-                if len(pc_items) == 1:
+    if len(pc_items) == 1:
 
-                    item = pc_items[0]
+        item = pc_items[0]
 
-                else:
+    else:
 
-                    idx_pc = st.slider(
-                        "Επιλέξτε screenshot υπολογιστή",
-                        min_value=1,
-                        max_value=len(pc_items),
-                        value=1,
-                        key=f"{choice_lesson}_pc_slider"
-                    )
+        idx_pc = st.slider(
+            "Επιλέξτε screenshot υπολογιστή",
+            1,
+            len(pc_items),
+            1,
+            key=f"{choice_lesson}_pc_slider"
+        )
 
-                    item = pc_items[
-                        idx_pc - 1
-                    ]
+        item = pc_items[idx_pc - 1]
 
-                st.image(
-                    item["img"],
-                    use_container_width=True
-                )
+    st.image(
+        item["img"],
+        use_container_width=True
+    )
 
-                if item["caption"]:
-                    st.caption(
-                        item["caption"]
-                    )
-
-                st.write("---")
+    if item["caption"]:
+        st.caption(item["caption"])
 
             if len(mobile_items) == 0 and len(pc_items) == 0:
 
