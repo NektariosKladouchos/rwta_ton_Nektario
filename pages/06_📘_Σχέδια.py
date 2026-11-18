@@ -523,7 +523,152 @@ with tab3:
         else:
 
             choice_lesson = st.selectbox(
-                "Επιλέξτ
+                "Επιλέξτε μάθημα:",
+                entries,
+                format_func=lambda x: x.replace("_", " ").title()
+            )
+
+            log_event(
+                "sxedia",
+                "open_lesson",
+                extra=choice_lesson
+            )
+
+            lesson_folder = os.path.join(
+                LESSONS_DIR,
+                choice_lesson
+            )
+
+            main_txt = os.path.join(
+                lesson_folder,
+                f"{choice_lesson}.txt"
+            )
+
+            data = load_lesson_or_program_txt(
+                main_txt
+            )
+
+            with st.expander(
+                "📘 Τίτλος Μαθήματος",
+                expanded=True
+            ):
+                st.write(
+                    data["title"]
+                    if data["title"]
+                    else choice_lesson.replace(
+                        "_",
+                        " "
+                    ).title()
+                )
+
+            with st.expander(
+                "📝 Περιγραφή"
+            ):
+                st.write(
+                    data["description"]
+                    if data["description"]
+                    else "Δεν υπάρχει περιγραφή."
+                )
+
+            video_url = data["video"].strip()
+
+            if video_url:
+
+                st.subheader(
+                    "🎬 Βίντεο YouTube"
+                )
+
+                st.video(
+                    video_url
+                )
+
+            st.write("---")
+
+            mobile_folder = os.path.join(
+                lesson_folder,
+                "mobile"
+            )
+
+            pc_folder = os.path.join(
+                lesson_folder,
+                "pc"
+            )
+
+            mobile_items = load_screenshots(
+                mobile_folder
+            )
+
+            pc_items = load_screenshots(
+                pc_folder
+            )
+
+            # -------------------------------------------------
+            # MOBILE SCREENSHOTS
+            # -------------------------------------------------
+            if mobile_items:
+
+                st.markdown(
+                    "#### 📱 Screens από κινητό"
+                )
+
+                idx_mobile = st.slider(
+                    "Επιλέξτε screenshot κινητού",
+                    min_value=1,
+                    max_value=len(mobile_items),
+                    value=1,
+                    key=f"{choice_lesson}_mobile_slider"
+                )
+
+                item_mobile = mobile_items[
+                    idx_mobile - 1
+                ]
+
+                st.image(
+                    item_mobile["img"],
+                    use_container_width=True
+                )
+
+                if item_mobile["caption"]:
+                    st.caption(
+                        item_mobile["caption"]
+                    )
+
+            # -------------------------------------------------
+            # PC SCREENSHOTS
+            # -------------------------------------------------
+            if pc_items:
+
+                st.markdown(
+                    "#### 💻 Screens από υπολογιστή"
+                )
+
+                idx_pc = st.slider(
+                    "Επιλέξτε screenshot υπολογιστή",
+                    min_value=1,
+                    max_value=len(pc_items),
+                    value=1,
+                    key=f"{choice_lesson}_pc_slider"
+                )
+
+                item_pc = pc_items[
+                    idx_pc - 1
+                ]
+
+                st.image(
+                    item_pc["img"],
+                    use_container_width=True
+                )
+
+                if item_pc["caption"]:
+                    st.caption(
+                        item_pc["caption"]
+                    )
+
+            if not mobile_items and not pc_items:
+
+                st.info(
+                    "Δεν υπάρχουν screenshots για αυτό το μάθημα."
+                )
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
