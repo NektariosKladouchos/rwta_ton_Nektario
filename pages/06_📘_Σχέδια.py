@@ -172,88 +172,72 @@ def load_lesson_or_program_txt(txt_path):
 # SCREENSHOT LOADER
 # ---------------------------------------------------------
 def load_screenshots(folder):
-
-    if not os.path.isdir(folder):
+    if not os.path.exists(folder):
         return []
 
     valid_ext = (".png", ".jpg", ".jpeg")
+    images = [
+        f for f in os.listdir(folder)
+        if f.lower().endswith(valid_ext) and not f.startswith(".")
+    ]
 
+    if not images:
+        return []
+
+    images = sorted(images)
     items = []
 
-    image_files = sorted([
-        f for f in os.listdir(folder)
-        if f.lower().endswith(valid_ext)
-    ])
-
-    for img in image_files:
-
+    for img in images:
+        base, _ = os.path.splitext(img)
         img_path = os.path.join(folder, img)
+        txt_path = os.path.join(folder, base + ".txt")
 
-        base = os.path.splitext(img)[0]
+        if not os.path.exists(txt_path):
+            continue
 
-        txt_path = os.path.join(
-            folder,
-            f"{base}.txt"
-        )
+        try:
+            with open(txt_path, "r", encoding="utf-8") as f:
+                caption = f.read().strip()
+        except:
+            caption = ""
 
-        caption = ""
-
-        if os.path.exists(txt_path):
-
-            try:
-                with open(
-                    txt_path,
-                    "r",
-                    encoding="utf-8"
-                ) as f:
-
-                    caption = f.read().strip()
-
-            except Exception:
-                pass
-
-        items.append({
-            "img": img_path,
-            "caption": caption
-        })
+        items.append({"img": img_path, "caption": caption})
 
     return items
+
 # ---------------------------------------------------------
 # CAROUSEL
 # ---------------------------------------------------------
-# ---------------------------------------------------------
-# SCREEN VIEWER
-# ---------------------------------------------------------
 def render_carousel(title, items, key_prefix):
-    st.error("ΝΕΑ ΕΚΔΟΣΗ CAROUSEL")
     if not items:
         return
 
-    st.markdown(f"### {title}")
+    st.markdown(f"#### {title}")
 
-    step = st.selectbox(
-        "Επιλέξτε Βήμα",
-        range(1, len(items) + 1),
-        key=f"{key_prefix}_step"
+    if len(items) == 1:
+        st.image(items[0]["img"], use_container_width=True)
+
+        if items[0]["caption"]:
+            st.caption(items[0]["caption"])
+
+        st.write("---")
+        return
+
+    idx = st.slider(
+        "Επιλέξτε screenshot",
+        min_value=1,
+        max_value=len(items),
+        value=1,
+        key=f"{key_prefix}_slider"
     )
 
-    item = items[step - 1]
-
-    st.markdown(
-        f"### Βήμα {step} από {len(items)}"
-    )
-
-    st.progress(
-        step / len(items)
-    )
+    item = items[idx - 1]
 
     st.image(
         item["img"],
         use_container_width=True
     )
-
-    if item["caption"]:
-        st.info(item["caption"])
+    
 
     st.write("---")
 # ---------------------------------------------------------
@@ -265,10 +249,10 @@ tab1, tab2, tab3 = st.tabs([
     "🎓 Μαθήματα"
 ])
 
- # ---------------------------------------------------------
- # TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
- # ---------------------------------------------------------
- with tab1:
+# ---------------------------------------------------------
+# TAB 1 — ΣΧΕΔΙΑ ΣΥΝΔΕΣΗΣ
+# ---------------------------------------------------------
+with tab1:
 
     log_event("sxedia", "open_tab", extra="sxedia_syndesis")
 
@@ -379,165 +363,66 @@ tab1, tab2, tab3 = st.tabs([
             if info["customer"]
             else "Δεν υπάρχουν οφέλη."
         )
-
-
 # ---------------------------------------------------------
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
-
-    log_event(
-        "sxedia",
-        "open_tab",
-        extra="programming"
-    )
+    log_event("sxedia", "open_tab", extra="programming")
 
     _c = load_counters()
-
-    _c["sxedia_programming"] = (
-        _c.get("sxedia_programming", 0) + 1
-    )
-
+    _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
     save_counters(_c)
 
-    st.subheader(
-        "⚙️ Μαθήματα Προγραμματισμού"
-    )
+    st.subheader("⚙️ Μαθήματα  Προγραμματισμού")
 
     if not os.path.exists(PROGRAMMING_DIR):
-
-        st.info(
-            "ℹ️ Δεν υπάρχει φάκελος 'programming'."
-        )
-
+        st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
     else:
-
         entries = [
-            d
-            for d in os.listdir(PROGRAMMING_DIR)
-            if os.path.isdir(
-                os.path.join(
-                    PROGRAMMING_DIR,
-                    d
-                )
-            )
+            d for d in os.listdir(PROGRAMMING_DIR)
+            if os.path.isdir(os.path.join(PROGRAMMING_DIR, d))
         ]
-
         entries = sorted(entries)
 
         if not entries:
-
-            st.info(
-                "ℹ️ Δεν υπάρχουν διαδικασίες."
-            )
-
+            st.info("ℹ️ Δεν υπάρχουν διαδικασίες.")
         else:
-
             choice_prog = st.selectbox(
                 "Επιλέξτε διαδικασία:",
                 entries,
-                format_func=lambda x:
-                    x.replace("_", " ").title()
+                format_func=lambda x: x.replace("_", " ").title()
             )
 
-            prog_folder = os.path.join(
-                PROGRAMMING_DIR,
-                choice_prog
-            )
+            log_event("sxedia", "open_programming", extra=choice_prog)
 
-            main_txt = os.path.join(
-                prog_folder,
-                f"{choice_prog}.txt"
-            )
+            prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
+            main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
+            data = load_lesson_or_program_txt(main_txt)
 
-            data = load_lesson_or_program_txt(
-                main_txt
-            )
+            st.markdown("### 📘 Τίτλος Διαδικασίας")
+            st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
 
-            st.markdown(
-                "### 📘 Τίτλος Διαδικασίας"
-            )
-
-            st.write(
-                data["title"]
-                if data["title"]
-                else choice_prog.replace(
-                    "_",
-                    " "
-                ).title()
-            )
-
-            st.markdown(
-                "### 📝 Περιγραφή"
-            )
-
-            st.write(
-                data["description"]
-                if data["description"]
-                else "Δεν υπάρχει περιγραφή."
-            )
+            st.markdown("### 📝 Περιγραφή")
+            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
 
             video_url = data["video"].strip()
-
             if video_url:
-
-                st.markdown(
-                    "### 🎬 Βίντεο YouTube"
-                )
-
+                st.markdown("### 🎬 Βίντεο YouTube")
                 st.video(video_url)
 
             st.write("---")
 
-            pc_folder = os.path.join(
-                prog_folder,
-                "pc"
-            )
+            mobile_folder = os.path.join(prog_folder, "mobile")
+            pc_folder = os.path.join(prog_folder, "pc")
 
-            screenshots = load_screenshots(
-                pc_folder
-            )
-
-            if not screenshots:
-
-                st.warning(
-                    "Δεν βρέθηκαν screenshots."
-                )
-
-            else:
-
-                step = st.selectbox(
-                    "Επιλογή Βήματος",
-                    list(
-                        range(
-                            1,
-                            len(screenshots) + 1
-                        )
-                    )
-                )
-
-                item = screenshots[
-                    step - 1
-                ]
-
-                st.markdown(
-                    f"### Βήμα {step} από {len(screenshots)}"
-                )
-
-                st.progress(
-                    step / len(screenshots)
-                )
-
-                st.image(
-                    item["img"],
-                    use_container_width=True
-                )
-
-                if item["caption"]:
-
-                    st.info(
-                        item["caption"]
-                    )                    
+            mobile_items = load_screenshots(mobile_folder)
+            pc_items = load_screenshots(pc_folder)
+            st.write(pc_items)
+            st.write(mobile_items)
+            # if mobile_items:
+            #     render_carousel("📱 Screens από κινητό", mobile_items, key_prefix=f"{choice_prog}_mobile")
+            # if pc_items:
+            #     render_carousel("💻 Screens από υπολογιστή", pc_items, key_prefix=f"{choice_prog}_pc")
 # ---------------------------------------------------------
 # TAB 3 — ΜΑΘΗΜΑΤΑ
 # ---------------------------------------------------------
