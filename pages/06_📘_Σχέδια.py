@@ -501,6 +501,7 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
+
         st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
 
     else:
@@ -543,7 +544,9 @@ with tab3:
                 f"{choice_lesson}.txt"
             )
 
-            data = load_lesson_or_program_txt(main_txt)
+            data = load_lesson_or_program_txt(
+                main_txt
+            )
 
             with st.expander(
                 "📘 Τίτλος Μαθήματος",
@@ -552,10 +555,15 @@ with tab3:
                 st.write(
                     data["title"]
                     if data["title"]
-                    else choice_lesson.replace("_", " ").title()
+                    else choice_lesson.replace(
+                        "_",
+                        " "
+                    ).title()
                 )
 
-            with st.expander("📝 Περιγραφή"):
+            with st.expander(
+                "📝 Περιγραφή"
+            ):
                 st.write(
                     data["description"]
                     if data["description"]
@@ -565,8 +573,14 @@ with tab3:
             video_url = data["video"].strip()
 
             if video_url:
-                st.subheader("🎬 Βίντεο YouTube")
-                st.video(video_url)
+
+                st.subheader(
+                    "🎬 Βίντεο YouTube"
+                )
+
+                st.video(
+                    video_url
+                )
 
             st.write("---")
 
@@ -588,179 +602,6 @@ with tab3:
                 pc_folder
             )
 
-            if mobile_items:
-                render_carousel(
-                    "📱 Screens από κινητό",
-                    mobile_items,
-                    key_prefix=f"{choice_lesson}_mobile"
-                )
-
-            if pc_items:
-                render_carousel(
-                    "💻 Screens από υπολογιστή",
-                    pc_items,
-                    key_prefix=f"{choice_lesson}_pc"
-                )
-            # ---------------------------------------------
-            # MOBILE
-            # ---------------------------------------------
-            if len(mobile_items) > 0:
-
-                st.markdown(
-                    "#### 📱 Screens από κινητό"
-                )
-
-                if mobile_items:
-
-                st.markdown(
-                    "#### 📱 Screens από κινητό"
-                )
-                
-                if len(mobile_items) == 1:
-                
-                    item = mobile_items[0]
-                
-                else:
-                
-                    idx_mobile = st.slider(
-                        "Επιλέξτε screenshot κινητού",
-                        1,
-                        len(mobile_items),
-                        1,
-                        key=f"{choice_lesson}_mobile_slider"
-                    )
-                
-                    item = mobile_items[idx_mobile - 1]
-                
-                st.image(
-                    item["img"],
-                    use_container_width=True
-                )
-                
-                if item["caption"]:
-                    st.caption(item["caption"])
-            # ---------------------------------------------
-            # PC
-            # ---------------------------------------------
-            if pc_items:
-
-    st.markdown(
-        "#### 💻 Screens από υπολογιστή"
-    )
-
-    if len(pc_items) == 1:
-
-        item = pc_items[0]
-
-    else:
-
-        idx_pc = st.slider(
-            "Επιλέξτε screenshot υπολογιστή",
-            1,
-            len(pc_items),
-            1,
-            key=f"{choice_lesson}_pc_slider"
-        )
-
-        item = pc_items[idx_pc - 1]
-
-    st.image(
-        item["img"],
-        use_container_width=True
-    )
-
-    if item["caption"]:
-        st.caption(item["caption"])
-
-            if len(mobile_items) == 0 and len(pc_items) == 0:
-
-                st.info(
-                    "Δεν υπάρχουν screenshots για αυτό το μάθημα."
-                )
-
-            # ---------------------------------------------
-            # MOBILE
-            # ---------------------------------------------
-            if len(mobile_items) > 0:
-
-                st.markdown(
-                    "#### 📱 Screens από κινητό"
-                )
-
-                if len(mobile_items) == 1:
-
-                    item = mobile_items[0]
-
-                else:
-
-                    idx_mobile = st.slider(
-                        "Επιλέξτε screenshot κινητού",
-                        min_value=1,
-                        max_value=len(mobile_items),
-                        value=1,
-                        key=f"{choice_lesson}_mobile_slider"
-                    )
-
-                    item = mobile_items[
-                        idx_mobile - 1
-                    ]
-
-                st.image(
-                    item["img"],
-                    use_container_width=True
-                )
-
-                if item["caption"]:
-                    st.caption(
-                        item["caption"]
-                    )
-
-                st.write("---")
-
-            # ---------------------------------------------
-            # PC
-            # ---------------------------------------------
-            if len(pc_items) > 0:
-
-                st.markdown(
-                    "#### 💻 Screens από υπολογιστή"
-                )
-
-                if len(pc_items) == 1:
-
-                    item = pc_items[0]
-
-                else:
-
-                    idx_pc = st.slider(
-                        "Επιλέξτε screenshot υπολογιστή",
-                        min_value=1,
-                        max_value=len(pc_items),
-                        value=1,
-                        key=f"{choice_lesson}_pc_slider"
-                    )
-
-                    item = pc_items[
-                        idx_pc - 1
-                    ]
-
-                st.image(
-                    item["img"],
-                    use_container_width=True
-                )
-
-                if item["caption"]:
-                    st.caption(
-                        item["caption"]
-                    )
-
-                st.write("---")
-
-            if len(mobile_items) == 0 and len(pc_items) == 0:
-
-                st.info(
-                    "Δεν υπάρχουν screenshots για αυτό το μάθημα."
-                )
             # -------------------------------------------------
             # MOBILE SCREENSHOTS
             # -------------------------------------------------
