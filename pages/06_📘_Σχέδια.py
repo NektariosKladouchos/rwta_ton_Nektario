@@ -239,63 +239,8 @@ def render_carousel(title, items, key_prefix):
 
         if st.button(
             "🏠 Αρχή",
-            key=f"{key_prefix}_home",
-            use_container_width=True
-        ):
-            st.session_state[state_key] = 1
-            st.rerun()
+   
 
-    with col_right:
-
-        if st.button(
-            "Επόμενο ➡",
-            key=f"{key_prefix}_next",
-            disabled=(
-                st.session_state[state_key] == len(items)
-            ),
-            use_container_width=True
-        ):
-            st.session_state[state_key] += 1
-            st.rerun()
-
-    idx = st.session_state[state_key]
-
-    st.markdown(
-        f"""
-        <h3 style="
-            text-align:center;
-            margin-top:10px;
-        ">
-            Βήμα {idx} από {len(items)}
-        </h3>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.progress(
-        idx / len(items)
-    )
-
-    item = items[idx - 1]
-
-    left, center, right = st.columns(
-        [1, 3, 1]
-    )
-
-    with center:
-
-        st.image(
-            item["img"],
-            width=450
-        )
-
-    if item["caption"]:
-
-        st.info(
-            item["caption"]
-        )
-
-    st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
@@ -501,7 +446,6 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
-
         st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
 
     else:
@@ -517,7 +461,6 @@ with tab3:
         entries = sorted(entries)
 
         if not entries:
-
             st.info("ℹ️ Δεν υπάρχουν μαθήματα")
 
         else:
@@ -544,9 +487,7 @@ with tab3:
                 f"{choice_lesson}.txt"
             )
 
-            data = load_lesson_or_program_txt(
-                main_txt
-            )
+            data = load_lesson_or_program_txt(main_txt)
 
             with st.expander(
                 "📘 Τίτλος Μαθήματος",
@@ -555,10 +496,7 @@ with tab3:
                 st.write(
                     data["title"]
                     if data["title"]
-                    else choice_lesson.replace(
-                        "_",
-                        " "
-                    ).title()
+                    else choice_lesson.replace("_", " ").title()
                 )
 
             with st.expander(
@@ -574,13 +512,9 @@ with tab3:
 
             if video_url:
 
-                st.subheader(
-                    "🎬 Βίντεο YouTube"
-                )
+                st.subheader("🎬 Βίντεο YouTube")
 
-                st.video(
-                    video_url
-                )
+                st.video(video_url)
 
             st.write("---")
 
@@ -602,72 +536,18 @@ with tab3:
                 pc_folder
             )
 
-            # -------------------------------------------------
-            # MOBILE SCREENSHOTS
-            # -------------------------------------------------
             if mobile_items:
-
-                st.markdown(
-                    "#### 📱 Screens από κινητό"
+                render_carousel(
+                    "📱 Screens από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_lesson}_mobile"
                 )
 
-                idx_mobile = st.slider(
-                    "Επιλέξτε screenshot κινητού",
-                    min_value=1,
-                    max_value=len(mobile_items),
-                    value=1,
-                    key=f"{choice_lesson}_mobile_slider"
-                )
-
-                item_mobile = mobile_items[
-                    idx_mobile - 1
-                ]
-
-                st.image(
-                    item_mobile["img"],
-                    use_container_width=True
-                )
-
-                if item_mobile["caption"]:
-                    st.caption(
-                        item_mobile["caption"]
-                    )
-
-            # -------------------------------------------------
-            # PC SCREENSHOTS
-            # -------------------------------------------------
             if pc_items:
-
-                st.markdown(
-                    "#### 💻 Screens από υπολογιστή"
-                )
-
-                idx_pc = st.slider(
-                    "Επιλέξτε screenshot υπολογιστή",
-                    min_value=1,
-                    max_value=len(pc_items),
-                    value=1,
-                    key=f"{choice_lesson}_pc_slider"
-                )
-
-                item_pc = pc_items[
-                    idx_pc - 1
-                ]
-
-                st.image(
-                    item_pc["img"],
-                    use_container_width=True
-                )
-
-                if item_pc["caption"]:
-                    st.caption(
-                        item_pc["caption"]
-                    )
-
-            if not mobile_items and not pc_items:
-
-                st.info(
-                    "Δεν υπάρχουν screenshots για αυτό το μάθημα."
+                render_carousel(
+                    "💻 Screens από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_lesson}_pc"
                 )
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
