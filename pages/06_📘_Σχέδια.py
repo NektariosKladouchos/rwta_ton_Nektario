@@ -252,9 +252,12 @@ def render_carousel(title, items, key_prefix):
 
     item = items[idx - 1]
 
+    col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
     st.image(
         item["img"],
-        use_container_width=True
+        width=500
     )
 
     if item["caption"]:
