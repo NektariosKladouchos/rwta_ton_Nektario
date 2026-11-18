@@ -501,7 +501,6 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
-
         st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
 
     else:
@@ -544,9 +543,7 @@ with tab3:
                 f"{choice_lesson}.txt"
             )
 
-            data = load_lesson_or_program_txt(
-                main_txt
-            )
+            data = load_lesson_or_program_txt(main_txt)
 
             with st.expander(
                 "📘 Τίτλος Μαθήματος",
@@ -568,7 +565,6 @@ with tab3:
             video_url = data["video"].strip()
 
             if video_url:
-
                 st.subheader("🎬 Βίντεο YouTube")
                 st.video(video_url)
 
@@ -592,6 +588,19 @@ with tab3:
                 pc_folder
             )
 
+            if mobile_items:
+                render_carousel(
+                    "📱 Screens από κινητό",
+                    mobile_items,
+                    key_prefix=f"{choice_lesson}_mobile"
+                )
+
+            if pc_items:
+                render_carousel(
+                    "💻 Screens από υπολογιστή",
+                    pc_items,
+                    key_prefix=f"{choice_lesson}_pc"
+                )
             # ---------------------------------------------
             # MOBILE
             # ---------------------------------------------
