@@ -215,27 +215,39 @@ def render_carousel(title, items, key_prefix):
 
     st.markdown(f"#### {title}")
 
-    if len(items) == 1:
+    state_key = f"{key_prefix}_step"
 
-        item = items[0]
+    if state_key not in st.session_state:
+        st.session_state[state_key] = 1
 
-        st.image(
-            item["img"],
-            use_container_width=True
-        )
+    col1, col2, col3 = st.columns([1, 2, 1])
 
-        if item["caption"]:
-            st.caption(item["caption"])
+    with col1:
+        if st.button(
+            "⬅ Προηγούμενο",
+            key=f"{key_prefix}_prev",
+            disabled=(st.session_state[state_key] == 1)
+        ):
+            st.session_state[state_key] -= 1
 
-        st.write("---")
-        return
+    with col3:
+        if st.button(
+            "Επόμενο ➡",
+            key=f"{key_prefix}_next",
+            disabled=(
+                st.session_state[state_key] == len(items)
+            )
+        ):
+            st.session_state[state_key] += 1
 
-    idx = st.slider(
-        "Επιλέξτε screenshot",
-        min_value=1,
-        max_value=len(items),
-        value=1,
-        key=f"{key_prefix}_slider"
+    idx = st.session_state[state_key]
+
+    st.markdown(
+        f"## Βήμα {idx} από {len(items)}"
+    )
+
+    st.progress(
+        idx / len(items)
     )
 
     item = items[idx - 1]
@@ -246,7 +258,9 @@ def render_carousel(title, items, key_prefix):
     )
 
     if item["caption"]:
-        st.caption(item["caption"])
+        st.info(
+            item["caption"]
+        )
 
     st.write("---")
 # ---------------------------------------------------------
