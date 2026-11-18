@@ -220,27 +220,49 @@ def render_carousel(title, items, key_prefix):
     if state_key not in st.session_state:
         st.session_state[state_key] = 1
 
-    space_left, col_left, col_center, col_right, space_right = st.columns(
-        [1, 2, 1, 2, 1]
-    )
+    col1, col2, col3 = st.columns([1, 2, 1])
 
-    with col_left:
-
+    with col1:
         if st.button(
             "⬅ Προηγούμενο",
             key=f"{key_prefix}_prev",
-            disabled=(st.session_state[state_key] == 1),
-            use_container_width=True
+            disabled=(st.session_state[state_key] == 1)
         ):
             st.session_state[state_key] -= 1
-            st.rerun()
 
-    with col_center:
-
+    with col3:
         if st.button(
-            "🏠 Αρχή",
-   
+            "Επόμενο ➡",
+            key=f"{key_prefix}_next",
+            disabled=(
+                st.session_state[state_key] == len(items)
+            )
+        ):
+            st.session_state[state_key] += 1
 
+    idx = st.session_state[state_key]
+
+    st.markdown(
+        f"## Βήμα {idx} από {len(items)}"
+    )
+
+    st.progress(
+        idx / len(items)
+    )
+
+    item = items[idx - 1]
+
+    st.image(
+        item["img"],
+        use_container_width=True
+    )
+
+    if item["caption"]:
+        st.info(
+            item["caption"]
+        )
+
+    st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
