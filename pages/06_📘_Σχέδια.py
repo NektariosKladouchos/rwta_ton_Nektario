@@ -222,11 +222,11 @@ def render_carousel(title, items, key_prefix):
 
     colors = [
         "#008c95",  # GEYER
-        "#2563eb",  # Blue
-        "#16a34a",  # Green
-        "#ea580c",  # Orange
-        "#9333ea",  # Purple
-        "#dc2626"   # Red
+        "#2563eb",  # Μπλε
+        "#16a34a",  # Πράσινο
+        "#ea580c",  # Πορτοκαλί
+        "#9333ea",  # Μωβ
+        "#dc2626"   # Κόκκινο
     ]
 
     step_color = colors[(idx - 1) % len(colors)]
@@ -234,14 +234,13 @@ def render_carousel(title, items, key_prefix):
     # --------------------------------------
     # Title
     # --------------------------------------
-    st.markdown(f"### {title}")
+    st.subheader(title)
 
     st.markdown(
         f"""
         <h3 style="
             text-align:center;
             color:{step_color};
-            margin-bottom:10px;
         ">
             Βήμα {idx} από {len(items)}
         </h3>
@@ -297,17 +296,18 @@ def render_carousel(title, items, key_prefix):
 
     st.write("")
 
-    img_left, img_center, img_right = st.columns(
-        [1, 4, 1]
+    st.image(
+        item["img"],
+        use_container_width=True
     )
 
-    with img_center:
+    if item["caption"]:
 
-        st.image(
-            item["img"],
-            width=700
+        st.info(
+            item["caption"]
         )
 
+    st.write("---")
     # --------------------------------------
     # Caption
     # --------------------------------------
