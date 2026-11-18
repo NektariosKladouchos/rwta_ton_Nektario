@@ -501,6 +501,7 @@ with tab3:
     st.subheader("🎓 Μαθήματα")
 
     if not os.path.exists(LESSONS_DIR):
+
         st.info("ℹ️ Δεν υπάρχει φάκελος 'lessons'")
 
     else:
@@ -516,94 +517,13 @@ with tab3:
         entries = sorted(entries)
 
         if not entries:
+
             st.info("ℹ️ Δεν υπάρχουν μαθήματα")
 
         else:
 
             choice_lesson = st.selectbox(
-                "Επιλέξτε μάθημα:",
-                entries,
-                format_func=lambda x: x.replace("_", " ").title()
-            )
-
-            log_event(
-                "sxedia",
-                "open_lesson",
-                extra=choice_lesson
-            )
-
-            lesson_folder = os.path.join(
-                LESSONS_DIR,
-                choice_lesson
-            )
-
-            main_txt = os.path.join(
-                lesson_folder,
-                f"{choice_lesson}.txt"
-            )
-
-            data = load_lesson_or_program_txt(main_txt)
-
-            with st.expander(
-                "📘 Τίτλος Μαθήματος",
-                expanded=True
-            ):
-                st.write(
-                    data["title"]
-                    if data["title"]
-                    else choice_lesson.replace("_", " ").title()
-                )
-
-            with st.expander(
-                "📝 Περιγραφή"
-            ):
-                st.write(
-                    data["description"]
-                    if data["description"]
-                    else "Δεν υπάρχει περιγραφή."
-                )
-
-            video_url = data["video"].strip()
-
-            if video_url:
-
-                st.subheader("🎬 Βίντεο YouTube")
-
-                st.video(video_url)
-
-            st.write("---")
-
-            mobile_folder = os.path.join(
-                lesson_folder,
-                "mobile"
-            )
-
-            pc_folder = os.path.join(
-                lesson_folder,
-                "pc"
-            )
-
-            mobile_items = load_screenshots(
-                mobile_folder
-            )
-
-            pc_items = load_screenshots(
-                pc_folder
-            )
-
-            if mobile_items:
-                render_carousel(
-                    "📱 Screens από κινητό",
-                    mobile_items,
-                    key_prefix=f"{choice_lesson}_mobile"
-                )
-
-            if pc_items:
-                render_carousel(
-                    "💻 Screens από υπολογιστή",
-                    pc_items,
-                    key_prefix=f"{choice_lesson}_pc"
-                )
+                "Επιλέξτ
 # ---------------------------------------------------------
 # ADMIN ANALYTICS
 # ---------------------------------------------------------
