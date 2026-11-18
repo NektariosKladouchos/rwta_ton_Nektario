@@ -222,11 +222,11 @@ def render_carousel(title, items, key_prefix):
 
     colors = [
         "#008c95",  # GEYER
-        "#2563eb",  # Μπλε
-        "#16a34a",  # Πράσινο
-        "#ea580c",  # Πορτοκαλί
-        "#9333ea",  # Μωβ
-        "#dc2626"   # Κόκκινο
+        "#2563eb",  # Blue
+        "#16a34a",  # Green
+        "#ea580c",  # Orange
+        "#9333ea",  # Purple
+        "#dc2626"   # Red
     ]
 
     step_color = colors[(idx - 1) % len(colors)]
@@ -234,13 +234,14 @@ def render_carousel(title, items, key_prefix):
     # --------------------------------------
     # Title
     # --------------------------------------
-    st.subheader(title)
+    st.markdown(f"### {title}")
 
     st.markdown(
         f"""
         <h3 style="
             text-align:center;
             color:{step_color};
+            margin-bottom:10px;
         ">
             Βήμα {idx} από {len(items)}
         </h3>
@@ -251,7 +252,7 @@ def render_carousel(title, items, key_prefix):
     st.progress(idx / len(items))
 
     # --------------------------------------
-    # Buttons
+    # Navigation
     # --------------------------------------
     left_space, col1, col2, col3, right_space = st.columns(
         [1, 1.5, 1, 1.5, 1]
@@ -296,50 +297,47 @@ def render_carousel(title, items, key_prefix):
 
     st.write("")
 
-    st.image(
-        item["img"],
-        use_container_width=True
+    img_left, img_center, img_right = st.columns(
+        [1, 4, 1]
     )
 
-    if item["caption"]:
+    with img_center:
 
-        st.info(
-            item["caption"]
+        st.image(
+            item["img"],
+            width=700
         )
 
-    st.write("---")
-    # --------------------------------------
-    # Caption
-    # --------------------------------------
     if item["caption"]:
 
         st.markdown(
             f"""
             <div style="
                 background:{step_color};
+                color:white;
+                border-radius:18px;
                 padding:25px;
-                border-radius:15px;
                 margin-top:20px;
-                margin-bottom:20px;
+                margin-bottom:25px;
                 text-align:center;
+                box-shadow:0px 4px 12px rgba(0,0,0,0.18);
             ">
-                <span style="
-                    color:white;
-                    font-size:24px;
-                    font-weight:bold;
+
+                <div style="
+                    font-size:30px;
+                    font-weight:700;
+                    margin-bottom:15px;
                 ">
                     Βήμα {idx}
-                </span>
+                </div>
 
-                <br><br>
-
-                <span style="
-                    color:white;
-                    font-size:20px;
+                <div style="
+                    font-size:22px;
                     line-height:1.8;
                 ">
                     {item["caption"]}
-                </span>
+                </div>
+
             </div>
             """,
             unsafe_allow_html=True
