@@ -239,8 +239,63 @@ def render_carousel(title, items, key_prefix):
 
         if st.button(
             "🏠 Αρχή",
-   
+            key=f"{key_prefix}_home",
+            use_container_width=True
+        ):
+            st.session_state[state_key] = 1
+            st.rerun()
 
+    with col_right:
+
+        if st.button(
+            "Επόμενο ➡",
+            key=f"{key_prefix}_next",
+            disabled=(
+                st.session_state[state_key] == len(items)
+            ),
+            use_container_width=True
+        ):
+            st.session_state[state_key] += 1
+            st.rerun()
+
+    idx = st.session_state[state_key]
+
+    st.markdown(
+        f"""
+        <h3 style="
+            text-align:center;
+            margin-top:10px;
+        ">
+            Βήμα {idx} από {len(items)}
+        </h3>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.progress(
+        idx / len(items)
+    )
+
+    item = items[idx - 1]
+
+    left, center, right = st.columns(
+        [1, 3, 1]
+    )
+
+    with center:
+
+        st.image(
+            item["img"],
+            width=450
+        )
+
+    if item["caption"]:
+
+        st.info(
+            item["caption"]
+        )
+
+    st.write("---")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
