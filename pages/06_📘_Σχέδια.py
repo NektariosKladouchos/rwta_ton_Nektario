@@ -275,7 +275,7 @@ def render_carousel(title, items, key_prefix):
 
         st.image(
             item["img"],
-            width=650
+            width=400
         )
 
     if item["caption"]:
