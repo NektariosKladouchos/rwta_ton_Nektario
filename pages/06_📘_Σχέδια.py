@@ -453,58 +453,182 @@ with tab1:
 # TAB 2 — ΤΡΟΠΟΙ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
 # ---------------------------------------------------------
 with tab2:
+
     log_event("sxedia", "open_tab", extra="programming")
 
     _c = load_counters()
     _c["sxedia_programming"] = _c.get("sxedia_programming", 0) + 1
     save_counters(_c)
 
-    st.subheader("⚙️ Μαθήματα  Προγραμματισμού")
+    st.markdown("""
+    <div style="
+        text-align:center;
+        padding:10px 0px 25px 0px;
+    ">
+        <h1 style="
+            color:#008c95;
+            margin-bottom:10px;
+        ">
+        ⚙️ Μαθήματα Προγραμματισμού
+        </h1>
+
+        <p style="
+            color:#6b7280;
+            font-size:18px;
+            max-width:850px;
+            margin:auto;
+            line-height:1.6;
+        ">
+        Βήμα προς βήμα εκπαίδευση για την παραμετροποίηση,
+        σύνδεση και προγραμματισμό συστημάτων
+        GEYER Smart Home.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     if not os.path.exists(PROGRAMMING_DIR):
         st.info("ℹ️ Δεν υπάρχει φάκελος 'programming'.")
+
     else:
+
         entries = [
             d for d in os.listdir(PROGRAMMING_DIR)
-            if os.path.isdir(os.path.join(PROGRAMMING_DIR, d))
+            if os.path.isdir(
+                os.path.join(PROGRAMMING_DIR, d)
+            )
         ]
+
         entries = sorted(entries)
 
         if not entries:
+
             st.info("ℹ️ Δεν υπάρχουν διαδικασίες.")
+
         else:
+
             choice_prog = st.selectbox(
                 "Επιλέξτε διαδικασία:",
                 entries,
-                format_func=lambda x: x.replace("_", " ").title()
+                format_func=lambda x: x.replace(
+                    "_",
+                    " "
+                ).title()
             )
 
-            log_event("sxedia", "open_programming", extra=choice_prog)
+            log_event(
+                "sxedia",
+                "open_programming",
+                extra=choice_prog
+            )
 
-            prog_folder = os.path.join(PROGRAMMING_DIR, choice_prog)
-            main_txt = os.path.join(prog_folder, f"{choice_prog}.txt")
-            data = load_lesson_or_program_txt(main_txt)
+            prog_folder = os.path.join(
+                PROGRAMMING_DIR,
+                choice_prog
+            )
 
-            st.markdown("### 📘 Τίτλος Διαδικασίας")
-            st.write(data["title"] if data["title"] else choice_prog.replace("_", " ").title())
+            main_txt = os.path.join(
+                prog_folder,
+                f"{choice_prog}.txt"
+            )
 
-            st.markdown("### 📝 Περιγραφή")
-            st.write(data["description"] if data["description"] else "Δεν υπάρχει περιγραφή.")
+            data = load_lesson_or_program_txt(
+                main_txt
+            )
+
+            title_text = (
+                data["title"]
+                if data["title"]
+                else choice_prog.replace(
+                    "_",
+                    " "
+                ).title()
+            )
+
+            description_text = (
+                data["description"]
+                if data["description"]
+                else "Δεν υπάρχει περιγραφή."
+            )
+
+            st.markdown(
+                f"""
+                <div style="
+                    background:white;
+                    border-radius:18px;
+                    padding:28px;
+                    margin-top:20px;
+                    margin-bottom:20px;
+                    text-align:center;
+                    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        color:#008c95;
+                        font-size:32px;
+                        font-weight:700;
+                        margin-bottom:5px;
+                    ">
+                        📘 {title_text}
+                    </div>
+
+                    <div style="
+                        color:#6b7280;
+                        font-size:16px;
+                    ">
+                        Εκπαιδευτική διαδικασία GEYER Smart
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            with st.expander(
+                "📝 Περιγραφή Διαδικασίας",
+                expanded=True
+            ):
+                st.write(description_text)
 
             video_url = data["video"].strip()
+
             if video_url:
-                st.markdown("### 🎬 Βίντεο YouTube")
+
+                st.markdown("""
+                <div style="
+                    text-align:center;
+                    margin-top:30px;
+                    margin-bottom:15px;
+                ">
+                    <h3 style="
+                        color:#008c95;
+                    ">
+                        🎬 Εκπαιδευτικό Βίντεο
+                    </h3>
+                </div>
+                """, unsafe_allow_html=True)
+
                 st.video(video_url)
 
             st.write("---")
 
-            mobile_folder = os.path.join(prog_folder, "mobile")
-            pc_folder = os.path.join(prog_folder, "pc")
+            mobile_folder = os.path.join(
+                prog_folder,
+                "mobile"
+            )
 
-            mobile_items = load_screenshots(mobile_folder)
-            pc_items = load_screenshots(pc_folder)
+            pc_folder = os.path.join(
+                prog_folder,
+                "pc"
+            )
+
+            mobile_items = load_screenshots(
+                mobile_folder
+            )
+
+            pc_items = load_screenshots(
+                pc_folder
+            )
 
             if mobile_items:
+
                 render_carousel(
                     "📱 Screens από κινητό",
                     mobile_items,
@@ -512,6 +636,7 @@ with tab2:
                 )
 
             if pc_items:
+
                 render_carousel(
                     "💻 Screens από υπολογιστή",
                     pc_items,
