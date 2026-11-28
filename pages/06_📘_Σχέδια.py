@@ -565,23 +565,50 @@ with tab2:
                 else "Δεν υπάρχει περιγραφή."
             )
 
+            learning_text = (
+                data["learning"].strip()
+                if data["learning"]
+                else ""
+            )
+
             st.write("")
 
             st.markdown(
                 f"## 📘 {title_text}"
             )
 
-            st.caption(
-                "Εκπαιδευτική διαδικασία GEYER Smart Home"
-            )
-
             st.write("")
+
+            # -------------------------------------------------
+            # ΤΙ ΘΑ ΜΑΘΕΤΕ
+            # -------------------------------------------------
+
+            if learning_text:
+
+                st.success("✅ Τι θα μάθετε")
+
+                for line in learning_text.splitlines():
+
+                    line = line.strip()
+
+                    if line:
+                        st.markdown(f"• {line}")
+
+                st.write("")
+
+            # -------------------------------------------------
+            # ΠΕΡΙΓΡΑΦΗ
+            # -------------------------------------------------
 
             with st.expander(
                 "📝 Περιγραφή Διαδικασίας",
                 expanded=True
             ):
                 st.write(description_text)
+
+            # -------------------------------------------------
+            # VIDEO
+            # -------------------------------------------------
 
             video_url = data["video"].strip()
 
@@ -596,6 +623,10 @@ with tab2:
                 st.video(video_url)
 
             st.write("---")
+
+            # -------------------------------------------------
+            # SCREENSHOTS
+            # -------------------------------------------------
 
             mobile_folder = os.path.join(
                 prog_folder,
