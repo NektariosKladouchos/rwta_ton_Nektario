@@ -145,28 +145,58 @@ save_counters(_c)
 # ---------------------------------------------------------
 # TXT HELPERS
 # ---------------------------------------------------------
+
 def load_txt_sections(txt_path, sections):
+
     data = {key: "" for key in sections}
+
     if not os.path.exists(txt_path):
         return data
 
     section = None
+
     with open(txt_path, "r", encoding="utf-8") as f:
+
         for line in f:
+
             line = line.rstrip("\n")
             low = line.strip().lower()
+
             if low in [f"[{s}]" for s in sections]:
+
                 section = low.strip("[]")
                 continue
+
             if section:
                 data[section] += line + "\n"
+
     return data
 
+
 def load_sxedio_txt(txt_path):
-    return load_txt_sections(txt_path, ["title", "description", "electrician", "customer"])
+
+    return load_txt_sections(
+        txt_path,
+        [
+            "title",
+            "description",
+            "electrician",
+            "customer"
+        ]
+    )
+
 
 def load_lesson_or_program_txt(txt_path):
-    return load_txt_sections(txt_path, ["title", "description", "video"])
+
+    return load_txt_sections(
+        txt_path,
+        [
+            "title",
+            "learning",
+            "description",
+            "video"
+        ]
+    )
 
 # ---------------------------------------------------------
 # SCREENSHOT LOADER
