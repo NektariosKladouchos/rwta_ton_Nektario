@@ -213,12 +213,40 @@ def render_carousel(title, items, key_prefix):
     if not items:
         return
 
-    st.markdown(f"#### {title}")
+    st.markdown(f"### {title}")
 
     state_key = f"{key_prefix}_step"
 
     if state_key not in st.session_state:
         st.session_state[state_key] = 1
+
+    idx = st.session_state[state_key]
+
+    # ==========================================
+    # STEP TITLE
+    # ==========================================
+
+    st.markdown(
+        f"""
+        <h2 style="
+            text-align:center;
+            color:#1f2937;
+            margin-bottom:5px;
+        ">
+        Βήμα {idx} από {len(items)}
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
+
+    progress = idx / len(items)
+    st.progress(progress)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ==========================================
+    # NAVIGATION
+    # ==========================================
 
     col_left, col_center, col_right = st.columns([2, 1, 2])
 
@@ -227,7 +255,7 @@ def render_carousel(title, items, key_prefix):
         if st.button(
             "⬅ Προηγούμενο",
             key=f"{key_prefix}_prev",
-            disabled=(st.session_state[state_key] == 1),
+            disabled=(idx == 1),
             use_container_width=True
         ):
             st.session_state[state_key] -= 1
@@ -248,44 +276,56 @@ def render_carousel(title, items, key_prefix):
         if st.button(
             "Επόμενο ➡",
             key=f"{key_prefix}_next",
-            disabled=(
-                st.session_state[state_key] == len(items)
-            ),
+            disabled=(idx == len(items)),
             use_container_width=True
         ):
             st.session_state[state_key] += 1
             st.rerun()
 
-    idx = st.session_state[state_key]
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    st.markdown(
-        f"<h2 style='text-align:center;'>"
-        f"Βήμα {idx} από {len(items)}"
-        f"</h2>",
-        unsafe_allow_html=True
-    )
-
-    st.progress(idx / len(items))
+    # ==========================================
+    # CURRENT ITEM
+    # ==========================================
 
     item = items[idx - 1]
 
-    left, center, right = st.columns([1, 3, 1])
+    left, center, right = st.columns([1, 8, 1])
 
     with center:
 
         st.image(
             item["img"],
-            width=400
+            width=950
         )
+
+    # ==========================================
+    # GEYER LEARNING BOX
+    # ==========================================
 
     if item["caption"]:
 
-        st.info(
-            item["caption"]
+        st.markdown(
+            f"""
+            <div style="
+                background:#006f77;
+                color:white;
+                padding:22px;
+                border-radius:12px;
+                text-align:center;
+                font-size:20px;
+                font-weight:500;
+                margin-top:15px;
+                margin-bottom:25px;
+                line-height:1.7;
+            ">
+                {item["caption"]}
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
-    #st.write("---")
-
+    st.write("")
 # ---------------------------------------------------------
 # TABS
 # ---------------------------------------------------------
