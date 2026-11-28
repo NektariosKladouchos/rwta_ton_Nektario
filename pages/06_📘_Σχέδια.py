@@ -296,7 +296,7 @@ def render_carousel(title, items, key_prefix):
 
         st.image(
             item["img"],
-            width=950
+            width=900
         )
 
     # ==========================================
@@ -310,7 +310,7 @@ def render_carousel(title, items, key_prefix):
             <div style="
                 background:#006f77;
                 color:white;
-                padding:22px;
+                padding:30px;
                 border-radius:12px;
                 text-align:center;
                 font-size:20px;
